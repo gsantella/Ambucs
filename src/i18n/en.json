@@ -81,17 +81,7 @@
       "launchToast": "Launch toast"
     }
   },
-  "extra": {
-    "tabs": {
-      "title": "Tabs",
-      "maps": "Maps",
-      "pages": "Pages",
-      "overview": "Overview",
-      "setupProfile": "Setup Profile"
-    },
-    "chat": "Chat",
-    "profileCard": "Profile Card"
-  },
+  
   "forms": {
     "controls": {
       "female": "Female",
@@ -183,8 +173,7 @@
     "filters": "Filters",
     "collapse": "Collapse",
     "timelines": "Timelines",
-    "dashboard": "Dashboard",
-    "extra": "Extra",
+    "dashboard": "Users",
     "formElements": "Form Elements",
     "forms": "Forms",
     "formWizards": "Form Wizards",
@@ -194,13 +183,10 @@
     "cards": "Cards",
     "spinners": "Spinners",
     "login": "Login",
-    "maps": "Maps",
-    "pages": "Pages",
     "modals": "Modals",
     "notifications": "Notifications",
     "progressBars": "Progress Bars",
     "signUp": "Sign up",
-    "statistics": "Statistics",
     "tables": "Tables",
     "tags": "Tags",
     "typography": "Typography",

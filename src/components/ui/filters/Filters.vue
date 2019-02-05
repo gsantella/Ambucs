@@ -61,19 +61,13 @@
             <td class="filters-page__table-heading">First Name</td>
             <td class="filters-page__table-heading">Last Name</td>
             <td class="filters-page__table-heading">City</td>
-            <td class="filters-page__table-heading">Id</td>
-            <td class="filters-page__table-heading">Link</td>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in filteredItems" v-bind:key="item.id">
+          <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
             <td>{{ item.firstName }}</td>
             <td>{{ item.lastName }}</td>
             <td>{{ item.city }}</td>
-            <td><a v-bind:href="`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${item.id}`">Link</a></td>
-
-            <router-link :to="{ name: 'form-elements', params: { id: item.id } }">Navigate to Page2</router-link>
-
           </tr>
           </tbody>
         </table>
@@ -83,6 +77,7 @@
 </template>
 
 <script>
+import router from '../../../router'
 import VuesticWidget
   from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
 import FilterBar
@@ -113,6 +108,9 @@ export default {
       this.name = ''
       this.email = ''
       this.city = ''
+    },
+    clickList (item) {
+      router.push({ name: 'form-elements', params: { id: item.id } })
     }
   },
   computed: {

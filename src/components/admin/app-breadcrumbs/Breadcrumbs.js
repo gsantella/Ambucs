@@ -9,21 +9,6 @@ export const breadcrumbs = {
       displayName: 'menu.dashboard',
     },
     {
-      name: 'statistics',
-      displayName: 'menu.statistics',
-      disabled: true,
-      children: [
-        {
-          name: 'charts',
-          displayName: 'menu.charts',
-        },
-        {
-          name: 'progress-bars',
-          displayName: 'menu.progressBars',
-        },
-      ],
-    },
-    {
       name: 'forms',
       displayName: 'menu.forms',
       disabled: true,
@@ -122,48 +107,6 @@ export const breadcrumbs = {
           displayName: 'menu.treeView',
         },
       ],
-    },
-    {
-      name: 'extra',
-      displayName: 'menu.extra',
-    },
-    {
-      name: 'maps',
-      displayName: 'menu.maps',
-      disabled: true,
-      children: [
-        {
-          name: 'google-maps',
-          displayName: 'Google Maps',
-        },
-        {
-          name: 'yandex-maps',
-          displayName: 'Yandex Maps',
-        },
-        {
-          name: 'leaflet-maps',
-          displayName: 'Leaflet Maps',
-        },
-        {
-          name: 'bubble-maps',
-          displayName: 'Bubble Maps',
-        },
-        {
-          name: 'line-maps',
-          displayName: 'Line Maps',
-        },
-      ],
-    },
-    {
-      name: 'pages',
-      displayName: 'menu.pages',
-      disabled: true,
-      children: [
-        {
-          name: '404-pages',
-          displayName: '404 Pages',
-        },
-      ],
-    },
+    }
   ],
 }

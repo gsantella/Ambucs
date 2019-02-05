@@ -93,29 +93,6 @@ export default new Router({
           default: true,
         },
         {
-          name: 'statistics',
-          path: 'statistics',
-          component: EmptyParentComponent,
-          children: [
-            {
-              name: 'charts',
-              path: 'charts',
-              component: lazyLoading('statistics/charts/Charts'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Charts',
-              },
-            },
-            {
-              name: 'progress-bars',
-              path: 'progress-bars',
-              component: lazyLoading('statistics/progress-bars/ProgressBars'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Progress-Bars',
-              },
-            },
-          ],
-        },
-        {
           name: 'forms',
           path: 'forms',
           component: EmptyParentComponent,
@@ -279,61 +256,6 @@ export default new Router({
               component: lazyLoading('ui/filters/Filters')
             }
           ]
-        },
-        {
-          name: 'extra',
-          path: 'extra',
-          component: lazyLoading('extra/Extra'),
-          meta: {
-            wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tabs',
-          },
-        },
-        {
-          name: 'maps',
-          path: 'maps',
-          component: EmptyParentComponent,
-          children: [
-            {
-              name: 'google-maps',
-              path: 'google-maps',
-              component: lazyLoading('maps/google-maps/GoogleMapsPage'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-              },
-            },
-            {
-              name: 'yandex-maps',
-              path: 'yandex-maps',
-              component: lazyLoading('maps/yandex-maps/YandexMapsPage'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-              },
-            },
-            {
-              name: 'leaflet-maps',
-              path: 'leaflet-maps',
-              component: lazyLoading('maps/leaflet-maps/LeafletMapsPage'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-              },
-            },
-            {
-              name: 'bubble-maps',
-              path: 'bubble-maps',
-              component: lazyLoading('maps/bubble-maps/BubbleMapsPage'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-              },
-            },
-            {
-              name: 'line-maps',
-              path: 'line-maps',
-              component: lazyLoading('maps/line-maps/LineMapsPage'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-              },
-            },
-          ],
         },
         {
           name: 'pages',

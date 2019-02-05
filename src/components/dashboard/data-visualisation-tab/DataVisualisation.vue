@@ -1,13 +1,6 @@
 <template>
   <div class="data-visualisation-tab dashboard-tab">
-    <div class="va-row">
-      <div class="flex md6 xs12">
-        <div class="chart-container">
-          <vuestic-chart v-bind:data="donutChartData"
-                         type="donut"></vuestic-chart>
-        </div>
-      </div>
-      <div class="flex md6">
+      <div>
         <vuestic-data-table
           :apiMode="apiMode"
           :tableData="tableData"
@@ -19,7 +12,6 @@
         />
       </div>
     </div>
-  </div>
 </template>
 
 <script>

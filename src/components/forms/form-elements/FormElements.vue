@@ -460,12 +460,6 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    // alert(this.$route.params.id)
-    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-      .then(response => response.json())
-      .then(json => {
-        alert(json)
-      })
   },
 }
 </script>

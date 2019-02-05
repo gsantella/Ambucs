@@ -73,16 +73,7 @@
       "launchToast": "Launch toast"
     }
   },
-  "extra": {
-    "tabs": {
-      "title": "Guias",
-      "maps": "Mapas",
-      "overview": "Visão geral",
-      "setupProfile": "Perfil de instalação"
-    },
-    "chat": "Gráficos",
-    "profileCard": "Cartão de perfil"
-  },
+  
   "forms": {
     "controls": {
       "female": "Feminino",
@@ -163,7 +154,7 @@
     "charts": "Gráficos",
     "colorPickers": "Colhedores de Cor",
     "dashboard": "Painel principal",
-    "extra": "Extra",
+    
     "formElements": "Elementos de Formulários",
     "forms": "Formulários",
     "formWizards": "Formulários Wizards",
@@ -173,12 +164,10 @@
     "cards": "Cards",
     "spinners": "Spinners",
     "login": "Login",
-    "maps": "Mapas",
     "modals": "Modals",
     "notifications": "Notificações",
     "progressBars": "Barra de progresso",
     "signUp": "Cadastrar-se",
-    "statistics": "Estatística",
     "tables": "Tabelas",
     "typography": "Tipografia",
     "uiElements": "Elementos UI",

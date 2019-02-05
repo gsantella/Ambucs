@@ -9,7 +9,7 @@
           v-for="name in names"
           :key="name"
         >
-          <span class="nav-link"><h5>{{name}}</h5></span>
+          <span class="nav-link"><h5>Users</h5></span>
         </div>
       </nav>
       <div class="track">
