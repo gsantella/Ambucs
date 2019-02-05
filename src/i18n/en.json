@@ -128,7 +128,8 @@
       "textInputWithDescription": "Text Input (with description)",
       "textArea": "Text Area",
       "title": "Inputs",
-      "upload": "UPLOAD"
+      "upload": "UPLOAD",
+      "testName": "Guido Santella"
     },
     "mediumEditor": {
       "title": "Medium Editor"

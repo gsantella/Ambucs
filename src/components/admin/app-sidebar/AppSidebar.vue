@@ -1,6 +1,16 @@
 <template>
   <vuestic-sidebar :hidden="isOpen">
     <template slot="menu">
+
+      <sidebar-link
+        :to="{ name: 'filters' }">
+        <span slot="title">
+          <span
+            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
+          <span>Search</span>
+        </span>
+      </sidebar-link>
+
       <sidebar-link
         :to="{ name: 'dashboard' }">
         <span slot="title">
@@ -89,20 +99,6 @@
           :to="{ name: 'color-pickers' }">
           <span slot="title">
             <span>{{ $t('menu.colorPickers') }}</span>
-          </span>
-        </sidebar-link>
-        <!-- NOTE Dropdowns are not presentation ready yet. See https://github.com/epicmaxco/vuestic-admin/issues/438 -->
-        <!--<sidebar-link-->
-          <!--:to="{ name: 'dropdowns' }"-->
-        <!--&gt;-->
-          <!--<span slot="title">-->
-            <!--<span>{{ $t('menu.dropdowns') }}</span>-->
-          <!--</span>-->
-        <!--</sidebar-link>-->
-        <sidebar-link
-          :to="{ name: 'filters' }">
-          <span slot="title">
-            <span>{{ $t('menu.filters') }}</span>
           </span>
         </sidebar-link>
         <sidebar-link

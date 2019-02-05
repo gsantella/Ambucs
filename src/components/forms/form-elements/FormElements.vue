@@ -2,6 +2,15 @@
   <div class="form-elements">
     <div class="va-row">
       <div class="flex md12">
+
+        <div class="va-row">
+          <div class="flex md12">
+            <vuestic-widget :headerText="'forms.inputs.testName' | translate">
+              {{ $route.params.id }}
+            </vuestic-widget>
+          </div>
+        </div>
+
         <vuestic-widget :headerText="'forms.inputs.title' | translate">
           <form>
 

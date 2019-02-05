@@ -4,9 +4,6 @@
     <span slot="logo">
       <vuestic-icon-vuestic/>
     </span>
-    <span slot="center">
-      {{$t('navbar.messageUs')}}&nbsp;<a href="mailto:hello@epicmax.co">hello@epicmax.co</a>
-    </span>
 
     <message-dropdown class="col nav-item"/>
     <notification-dropdown class="col nav-item"/>

@@ -8,12 +8,12 @@
               <filter-bar
                 v-model="name"
                 class="filters-page__filter-bar"
-                label="Name"
+                label="First Name"
               />
               <filter-bar
                 v-model="email"
                 class="filters-page__filter-bar"
-                label="Email"
+                label="Last Name"
               />
               <vuestic-simple-select
                 class="filters-page__filter-bar"
@@ -58,20 +58,22 @@
         <table class="table table-striped first-td-padding">
           <thead>
           <tr>
-            <td class="filters-page__table-heading">{{ $t('tables.headings.name') }}</td>
-            <td class="filters-page__table-heading">{{ $t('tables.headings.email') }}</td>
-            <td class="filters-page__table-heading">{{ $t('tables.headings.city') }}</td>
-            <td align="right" class="filters-page__table-heading">{{ $t('tables.headings.score') }}</td>
-            <td></td>
+            <td class="filters-page__table-heading">First Name</td>
+            <td class="filters-page__table-heading">Last Name</td>
+            <td class="filters-page__table-heading">City</td>
+            <td class="filters-page__table-heading">Id</td>
+            <td class="filters-page__table-heading">Link</td>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in filteredItems" v-bind:key="item.email">
-            <td>{{ item.name }}</td>
-            <td>{{ item.email }}</td>
+          <tr v-for="item in filteredItems" v-bind:key="item.id">
+            <td>{{ item.firstName }}</td>
+            <td>{{ item.lastName }}</td>
             <td>{{ item.city }}</td>
-            <td align="right">{{ item.score }}</td>
-            <td></td>
+            <td><a v-bind:href="`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${item.id}`">Link</a></td>
+
+            <router-link :to="{ name: 'form-elements', params: { id: item.id } }">Navigate to Page2</router-link>
+
           </tr>
           </tbody>
         </table>
@@ -96,6 +98,9 @@ export default {
   },
   data () {
     return {
+      id: '',
+      firstName: '',
+      lastName: '',
       name: '',
       email: '',
       city: '',
@@ -114,11 +119,11 @@ export default {
     filteredItems () {
       let filteredItems = this.itemList
       if (this.name) {
-        filteredItems = filteredItems.filter(item => item.name.toUpperCase()
+        filteredItems = filteredItems.filter(item => item.firstName.toUpperCase()
           .search(this.name.toUpperCase()) !== -1)
       }
       if (this.email) {
-        filteredItems = filteredItems.filter(item => item.email.toUpperCase()
+        filteredItems = filteredItems.filter(item => item.lastName.toUpperCase()
           .search(this.email.toUpperCase()) !== -1)
       }
       if (this.city) {
@@ -127,6 +132,13 @@ export default {
       }
       return filteredItems
     }
+  },
+  created () {
+    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
+      .then(response => response.json())
+      .then(json => {
+        this.itemList = json
+      })
   }
 }
 </script>

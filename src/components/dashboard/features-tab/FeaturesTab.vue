@@ -8,13 +8,13 @@
           <div class="overview-icon-container">
             <vuestic-icon-vue/>
           </div>
-          Built with Vue.js framework
+          Built with Vue.js framework!!!
         </div>
         <div class="overview-item">
           <div class="overview-icon-container">
             <vuestic-icon-free/>
           </div>
-          Absolutely free for everyone
+          Absolutely free for everyone!!!
         </div>
         <div class="overview-item">
           <div class="overview-icon-container">

@@ -6,7 +6,7 @@
           <div class="stats">
             <div class="stats-number">
               <i class="ion ion-md-arrow-up text-primary stats-icon"></i>
-              59
+              52
             </div>
             <div class="stats-title">{{'dashboard.elements' | translate}}</div>
           </div>
