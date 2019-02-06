@@ -12,11 +12,16 @@
 
                     <!-- First Name -->
                     <div class="input-group">
-
+                      <input id="simple-input" v-model="awardee.firstName" required/>
+                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                    </div>
+                    <!-- Took this out :disable was making input box display weird
+                    <div class="input-group">
                       <input :disabled="true" id="simple-input" v-model="awardee.firstName" required />
                       <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-
                     </div>
+                    -->
+                     
                     <!-- Last Name -->
                     <div class="input-group">
                       <input id="simple-input" v-model="awardee.lastName" required/>
@@ -101,10 +106,61 @@
       </div>
 
     <div class="flex md6">
-      <vuestic-widget headerText="Trykes" />
-      <p>{{ awardee.trykes }}</p>
-      <vuestic-widget headerText="Contacts" />
-      <p>{{ awardee.contacts }}</p>
+
+      <!-- Contacts Table -->
+      <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
+      <table class="table table-striped first-td-padding">
+          <thead>
+            <tr>
+              <td class="filters-page__table-heading">Type</td>
+              <td class="filters-page__table-heading">First Name</td>
+              <td class="filters-page__table-heading">Last Name</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(1,item)">
+              <td>{{ item.type }}</td>
+              <td>{{ item.firstName }}</td>
+               <td>{{ item.lastName }}</td>
+            </tr>
+          </tbody>
+      </table>
+
+      <br style="margin-bottom:2%"/>
+
+      <!-- Trykes Table -->
+      <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
+      <table class="table table-striped first-td-padding">
+          <thead>
+            <tr>
+              <td class="filters-page__table-heading">Model</td>
+              <td class="filters-page__table-heading">ID</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(2, item)">
+              <td>{{ item.model }}</td>
+              <td>{{ item.id }}</td>
+            </tr>
+          </tbody>
+      </table>
+
+    </div>
+
+    <!--Save Delete Buttons -->
+    <div class="va-row btn-margin-row">
+      <div
+        class="flex sm6 lg6 xl3 justify--center">
+        <button class="btn btn-primary" @click="updateRecord()">
+          {{'Save' | translate}}
+        </button>
+      </div>
+      <div
+        class="flex sm6 lg6 xl3 justify--center">
+        <button class="btn btn-danger" @click="deleteRecord()">
+          {{'Delete' | translate}}
+        </button>
+      </div>
     </div>
 
     </div>
@@ -154,6 +210,59 @@ export default {
     clear (field) {
       this[field] = ''
     },
+    updateRecord() {
+
+      try {
+      
+        alert("The record has been updated.");
+
+      } catch(e) {
+
+        console.log(e);
+        alert("There was an issue trying to update this record,please try again later.");
+
+      }
+      
+    },
+    deleteRecord() {
+
+      if(confirm("Are you sure you want to delete this record?")) {
+        
+        try {
+
+          //delete Record from db
+          alert("The record has been deleted.");
+
+        } catch(e) {
+
+          console.log(e);
+          alert("I'm sorry there was an issue trying to delete that record,please try again later.");
+       
+       }
+
+      } else {
+
+        alert("You have chosen not to delete the record.");
+
+      }
+
+    },
+    displayModal(id, item){
+      //this is to edit information of a contact or tryke will populate information
+      //depending on which id is sent if its 1 it will populate modal with contact info else tryke info
+      if(id == 1) {
+        
+        alert("contact");
+        //Populate Modal with contact information from the item param
+
+      } else {
+
+        alert("tryke");
+        //Populate Modal with tryke information from the item param
+
+      }
+
+    }
   },
   created () {
     this.$nextTick(() => {
