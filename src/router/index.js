@@ -106,6 +106,14 @@ export default new Router({
               },
             },
             {
+              name: 'new-awardee',
+              path: 'new-awardee',
+              component: lazyLoading('forms/new-awardee/NewAwardee'),
+              meta: {
+                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
+              },
+            },
+            {
               name: 'form-wizards',
               path: 'form-wizards',
               component: lazyLoading('forms/form-wizard/FormWizard'),

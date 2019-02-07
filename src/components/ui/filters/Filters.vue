@@ -1,9 +1,20 @@
 <template>
   <div class="filters-page">
+    <div class="row">
+      <div class="col-md-12">
+          <div style="margin-bottom:15px;float:right"
+          class="flex sm6 lg6 xl3 justify--center">
+            <button class="btn btn-primary" @click="newAwardee()" >
+              {{'New Awardee' | translate}}
+            </button>
+          </div>
+      </div>
+    </div>
     <vuestic-widget headerText="Show filters">
       <div class="row">
         <div class="col-md-12">
           <div slot="body">
+         
             <div class="row filters-page__filter-bar-container">
               <filter-bar
                 v-model="name"
@@ -111,6 +122,9 @@ export default {
     },
     clickList (item) {
       router.push({ name: 'form-elements', params: { id: item.id } })
+    },
+    newAwardee() {
+      router.push({ name: 'new-awardee' })
     }
   },
   computed: {

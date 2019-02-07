@@ -25,6 +25,10 @@ export const breadcrumbs = {
           name: 'medium-editor',
           displayName: 'menu.mediumEditor',
         },
+        {
+          name: 'new-awardee',
+          displayName: 'New Awardee',
+        },
       ],
     },
     {
