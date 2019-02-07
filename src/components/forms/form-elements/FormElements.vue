@@ -118,7 +118,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(1,item)">
+            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(item)">
               <td>{{ item.type }}</td>
               <td>{{ item.firstName }}</td>
                <td>{{ item.lastName }}</td>
@@ -138,7 +138,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(2, item)">
+            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(item)">
               <td>{{ item.model }}</td>
               <td>{{ item.id }}</td>
             </tr>
@@ -151,7 +151,7 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-primary" @click="updateRecord()">
+        <button class="btn btn-primary" @click="updateRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
@@ -163,12 +163,24 @@
       </div>
     </div>
 
+
+      
+    <!--MODAL -->
+    <modal v-if="showModal"  :passedObject="objectToPass" @close="showModal = false">
+      <h3 slot="header">Edit / View</h3>
+
+    </modal>
+
     </div>
 
   </div>
 </template>
 
 <script>
+var url = "https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/";
+
+import modal from '@/components/forms/form-elements/modal.vue'
+
 export default {
   name: 'form-elements',
   computed: {
@@ -183,6 +195,8 @@ export default {
   },
   data () {
     return {
+      showModal: false,
+      objectToPass: null,
       awardee: {
         firstName: 'FirstNameDefault',
         lastName: 'LastNameDefault',
@@ -230,7 +244,19 @@ export default {
         
         try {
 
-          //delete Record from db
+          axios.delete(url + 'Test', {data: awardee})
+              .then((response) => {
+                  return response.data;
+              })
+              .then((data) => {
+                  axios.get(url+'Test')
+                  .then((response) => {
+                      app.awardees = response.data
+              }).catch((error) => {
+                  console.log(error);
+                  alert("There was an error, please try again.")
+              });
+          })
           alert("The record has been deleted.");
 
         } catch(e) {
@@ -247,21 +273,10 @@ export default {
       }
 
     },
-    displayModal(id, item){
-      //this is to edit information of a contact or tryke will populate information
-      //depending on which id is sent if its 1 it will populate modal with contact info else tryke info
-      if(id == 1) {
-        
-        alert("contact");
-        //Populate Modal with contact information from the item param
-
-      } else {
-
-        alert("tryke");
-        //Populate Modal with tryke information from the item param
-
-      }
-
+    displayModal(item){
+     
+      this.showModal = true;
+      this.objectToPass = item
     }
   },
   created () {
@@ -276,5 +291,9 @@ export default {
         this.awardee = json.Item
       })
   },
+  components: {
+    'modal': modal
+  }
 }
 </script>
+
