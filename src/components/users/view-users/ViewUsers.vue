@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div>
     <div class="row">
       <div class="col-md-12">
           <div style="margin-bottom:15px;float:right"
@@ -35,24 +35,11 @@
 </template>
 
 <script>
-import router from '../../router'
-import DashboardInfoWidgets from './DashboardInfoWidgets'
-import UsersMembersTab from './users-and-members-tab/UsersMembersTab.vue'
-import SetupProfileTab from './setup-profile-tab/SetupProfileTab.vue'
-import FeaturesTab from './features-tab/FeaturesTab.vue'
-import DataVisualisationTab
-  from './data-visualisation-tab/DataVisualisation.vue'
-import DashboardBottomWidgets from './DashboardBottomWidgets.vue'
+import router from '../../../router'
 
 export default {
-  name: 'dashboard',
+  name: 'ViewUsers',
   components: {
-    DataVisualisationTab,
-    DashboardInfoWidgets,
-    UsersMembersTab,
-    SetupProfileTab,
-    FeaturesTab,
-    DashboardBottomWidgets,
   },
 
   methods: {
@@ -60,7 +47,7 @@ export default {
       router.push({ name: 'edit-user', params: { id: user.id } })
     },
     addUser () {
-      router.push({ name: 'edit-user' })
+      router.push({ name: 'new-user' })
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <vuestic-sidebar :hidden="isOpen">
     <template slot="menu">
-      
+
       <sidebar-link
         :to="{ name: 'filters' }">
         <span slot="title">
@@ -12,14 +12,14 @@
       </sidebar-link>
 
       <sidebar-link
-        :to="{ name: 'dashboard' }">
+        :to="{ name: 'view-users' }">
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
-          <span>{{ $t('menu.dashboard') }}</span>
+          <span>Users</span>
         </span>
       </sidebar-link>
-      
+
     </template>
   </vuestic-sidebar>
 </template>

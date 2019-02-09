@@ -2,7 +2,7 @@
   <nav class="vuestic-navbar navbar navbar-toggleable-md">
     <div
       class="vuestic-navbar__logo navbar-brand-container align--center justify--start">
-      <router-link class="navbar-brand" to="/dashboard">
+      <router-link class="navbar-brand" to="/users">
         <slot name="logo"/>
       </router-link>
     </div>

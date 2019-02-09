@@ -5,9 +5,13 @@ export const breadcrumbs = {
   },
   routes: [
     {
-      name: 'dashboard',
-      displayName: 'menu.dashboard',
+      name: 'users',
+      displayName: 'Users',
       children: [
+        {
+          name: 'view-users',
+          displayName: 'View Users',
+        },
         {
           name: 'new-user',
           displayName: 'New User',

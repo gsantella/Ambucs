@@ -34,7 +34,7 @@
     "donutChart": "Gráfico Rosca",
     "bubbleChart": "Gráfico Bolhas"
   },
-  "dashboard": {
+  "users": {
     "success": "SUCESSO",
     "successMessage": "Você leu com sucesso esta mensagem importante de alerta.",
     "elements": "Elementos",

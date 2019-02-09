@@ -87,28 +87,26 @@ export default new Router({
       component: AppLayout,
       children: [
         {
-          name: 'dashboard',
-          path: 'dashboard',
-          component: lazyLoading('dashboard/Dashboard'),
+          name: 'users',
+          path: 'users',
+          component: EmptyParentComponent,
           children: [
+            {
+              name: 'view-users',
+              path: 'view-users',
+              component: lazyLoading('users/view-users/ViewUsers'),
+            },
             {
               name: 'new-user',
               path: 'new-user',
-              component: lazyLoading('dashboard/new-user/NewUser'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
-              },
+              component: lazyLoading('users/new-user/NewUser'),
             },
             {
               name: 'edit-user',
               path: 'edit-user',
-              component: lazyLoading('dashboard/edit-user/EditUser'),
-              meta: {
-                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
-              },
+              component: lazyLoading('users/edit-user/EditUser'),
             }
-          ],
-          default: true,
+          ]
         },
         {
           name: 'forms',
