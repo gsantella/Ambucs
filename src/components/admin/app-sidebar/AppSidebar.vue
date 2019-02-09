@@ -3,7 +3,7 @@
     <template slot="menu">
 
       <sidebar-link
-        :to="{ name: 'filters' }">
+        :to="{ name: 'view-awardees' }">
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>

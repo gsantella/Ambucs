@@ -177,13 +177,13 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 import router from '../../../router'
-import modal from '@/components/forms/form-elements/modal.vue'
+import modal from '@/components/awardees/edit-awardee/modal.vue'
 import axios from '@/main.js'
 
 var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
 
 export default {
-  name: 'form-elements',
+  name: 'EditAwardee',
   computed: {
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
     isSuccessfulEmailValid () {

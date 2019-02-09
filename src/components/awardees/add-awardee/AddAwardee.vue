@@ -15,12 +15,6 @@
                       <input id="simple-input" v-model="awardee.firstName" required/>
                       <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
-                    <!-- Took this out :disable was making input box display weird
-                    <div class="input-group">
-                      <input :disabled="true" id="simple-input" v-model="awardee.firstName" required />
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
-                    -->
 
                     <!-- Last Name -->
                     <div class="input-group">
@@ -108,6 +102,9 @@
     <div class="flex md6">
 
       <!-- Contacts Table -->
+      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRow()">
+        {{'Add Contact' | translate}}
+      </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
@@ -115,32 +112,40 @@
               <td class="filters-page__table-heading">Type</td>
               <td class="filters-page__table-heading">First Name</td>
               <td class="filters-page__table-heading">Last Name</td>
+              <td style="float:right" class="filters-page__table-heading">Action</td>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(item)">
-              <td>{{ item.type }}</td>
-              <td>{{ item.firstName }}</td>
-               <td>{{ item.lastName }}</td>
+            <tr v-for="item in awardee.contacts" :key="item.id">
+              <td contenteditable="true"></td>
+              <td contenteditable="true"></td>
+              <td contenteditable="true"></td>
+              <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png" @click="deleteContactRow(item.id)"/></td>
             </tr>
           </tbody>
       </table>
 
-      <br style="margin-bottom:2%"/>
+      <hr style="margin:5% 0;" />
 
       <!-- Trykes Table -->
+      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRow()">
+        {{'Add Tryke' | translate}}
+      </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
               <td class="filters-page__table-heading">Model</td>
               <td class="filters-page__table-heading">ID</td>
+              <td style="float:right" class="filters-page__table-heading">Action</td>
+
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(item)">
-              <td>{{ item.model }}</td>
-              <td>{{ item.id }}</td>
+            <tr v-for="item in awardee.trykes" :key="item.id">
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png"  @click="deleteTrykeRow(item.id)"/></td>
             </tr>
           </tbody>
       </table>
@@ -157,55 +162,39 @@
       </div>
       <div
         class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-danger" @click="deleteRecord()">
-          {{'Delete' | translate}}
+        <button class="btn btn-danger" @click="cancelRecord()">
+          {{'Cancel' | translate}}
         </button>
       </div>
     </div>
-
-    <!--MODAL -->
-    <modal v-if="showModal"  :passedObject="objectToPass" @close="showModal = false">
-      <h3 slot="header">Edit / View</h3>
-
-    </modal>
 
     </div>
 
   </div>
 </template>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 import router from '../../../router'
-import modal from '@/components/forms/form-elements/modal.vue'
-import axios from '@/main.js'
 
-var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
+// var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
 
 export default {
-  name: 'form-elements',
+  name: 'AddAwardee',
   computed: {
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
-    isSuccessfulEmailValid () {
-      let isValid = false
-      if (this.formFields.successfulEmail) {
-        isValid = this.formFields.successfulEmail.validated && this.formFields.successfulEmail.valid
-      }
-      return isValid
-    },
   },
   data () {
     return {
       showModal: false,
       objectToPass: null,
       awardee: {
-        firstName: 'FirstNameDefault',
-        lastName: 'LastNameDefault',
+        firstName: '',
+        lastName: '',
         address: {
-          street1: '123 Main Street',
-          street2: 'Apt 2',
-          city: 'Altoona',
-          state: 'PA'
+          street1: '',
+          street2: '',
+          city: '',
+          state: ''
         },
         award: {
           dateAwarded: '',
@@ -216,16 +205,57 @@ export default {
         },
         dateOfBirth: '',
         lastContacted: '',
-        trykes: {},
-        contacts: {}
+        trykes: [
+          {
+            model: '',
+            id: ''
+          }
+        ],
+        contacts: [
+          {
+            firstName: '',
+            lastname: '',
+            type: ''
+          }
+        ]
       }
     }
   },
   methods: {
+
     clear (field) {
       this[field] = ''
     },
-    updateRecord () {
+
+    addNewContactRow () {
+      var contactObject = {
+        firstName: '',
+        lastName: '',
+        type: ''
+      }
+      this.awardee.contacts.push(contactObject)
+      // creates the array but doesnt store the content editable data into array
+    },
+
+    addNewTrykeRow () {
+      var trykeObject = {
+        firstName: '',
+        lastName: '',
+        type: ''
+      }
+      this.awardee.trykes.push(trykeObject)
+      // creates the array but doesnt store the content editable data into array
+    },
+
+    deleteContactRow (id) {
+      this.awardee.contacts.splice(this.awardee.contacts.indexOf(id), 1)
+    },
+
+    deleteTrykeRow (id) {
+      this.awardee.trykes.splice(this.awardee.contacts.indexOf(id), 1)
+    },
+
+    addRecord () {
       try {
         alert('The record has been updated.')
       } catch (e) {
@@ -233,11 +263,10 @@ export default {
         alert('There was an issue trying to update this record,please try again later.')
       }
     },
-    deleteRecord () {
-      if (confirm('Are you sure you want to delete this record?')) {
+
+    cancelRecord () {
+      if (confirm('Are you sure you want to cancel this record?')) {
         try {
-          axios.delete('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-          alert('The record has been deleted.')
           router.push({ name: 'filters' })
         } catch (e) {
           console.log(e)
@@ -246,26 +275,21 @@ export default {
       } else {
         alert('You have chosen not to delete the record.')
       }
-    },
-    displayModal (item) {
-      this.showModal = true
-      this.objectToPass = item
     }
   },
+
   created () {
-    this.$nextTick(() => {
-      this.$validator.validateAll()
-    })
-    // alert(this.$route.params.id)
-    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json)
-        this.awardee = json.Item
-      })
+
   },
   components: {
-    'modal': modal
+
   }
 }
 </script>
+
+<style>
+.deleteIcon {
+  width: 55%;
+  height: 5%;
+}
+</style>

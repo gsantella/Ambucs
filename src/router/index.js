@@ -33,7 +33,7 @@ export default new Router({
     ...demoRoutes,
     {
       path: '*',
-      redirect: { name: 'filters' },
+      redirect: { name: 'view-awardees' },
     },
     {
       path: '/auth',
@@ -105,6 +105,28 @@ export default new Router({
               name: 'edit-user',
               path: 'edit-user',
               component: lazyLoading('users/edit-user/EditUser'),
+            }
+          ]
+        },
+        {
+          name: 'awardees',
+          path: 'awardees',
+          component: EmptyParentComponent,
+          children: [
+            {
+              name: 'view-awardees',
+              path: 'view-awardees',
+              component: lazyLoading('awardees/view-awardees/ViewAwardees'),
+            },
+            {
+              name: 'add-awardee',
+              path: 'add-awardee',
+              component: lazyLoading('awardees/add-awardee/AddAwardee'),
+            },
+            {
+              name: 'edit-awardee',
+              path: 'edit-awardee',
+              component: lazyLoading('awardees/edit-awardee/EditAwardee'),
             }
           ]
         },

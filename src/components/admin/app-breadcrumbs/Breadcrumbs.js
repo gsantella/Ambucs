@@ -23,6 +23,24 @@ export const breadcrumbs = {
       ],
     },
     {
+      name: 'awardees',
+      displayName: 'Awardees',
+      children: [
+        {
+          name: 'view-awardees',
+          displayName: 'View Awardees',
+        },
+        {
+          name: 'add-awardee',
+          displayName: 'Add Awardee',
+        },
+        {
+          name: 'edit-awardee',
+          displayName: 'Edit Awardee',
+        },
+      ],
+    },
+    {
       name: 'forms',
       displayName: 'menu.forms',
       disabled: true,
