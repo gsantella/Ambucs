@@ -14,7 +14,7 @@
       <div class="row">
         <div class="col-md-12">
           <div slot="body">
-         
+
             <div class="row filters-page__filter-bar-container">
               <filter-bar
                 v-model="name"
@@ -123,7 +123,7 @@ export default {
     clickList (item) {
       router.push({ name: 'form-elements', params: { id: item.id } })
     },
-    newAwardee() {
+    newAwardee () {
       router.push({ name: 'new-awardee' })
     }
   },

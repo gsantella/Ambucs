@@ -7,6 +7,16 @@ export const breadcrumbs = {
     {
       name: 'dashboard',
       displayName: 'menu.dashboard',
+      children: [
+        {
+          name: 'new-user',
+          displayName: 'New User',
+        },
+        {
+          name: 'edit-user',
+          displayName: 'Edit User',
+        },
+      ],
     },
     {
       name: 'forms',

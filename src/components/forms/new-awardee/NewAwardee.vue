@@ -13,9 +13,9 @@
                     <!-- First Name -->
                     <div class="input-group">
                       <input id="simple-input" v-model="awardee.firstName" required/>
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
-                    
+
                     <!-- Last Name -->
                     <div class="input-group">
                       <input id="simple-input" v-model="awardee.lastName" required/>
@@ -102,8 +102,10 @@
     <div class="flex md6">
 
       <!-- Contacts Table -->
+      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRow()">
+        {{'Add Contact' | translate}}
+      </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
-      <button style="float:right" @click="addNewContactRow()">Add Contact</button>
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
@@ -118,34 +120,36 @@
               <td contenteditable="true"></td>
               <td contenteditable="true"></td>
               <td contenteditable="true"></td>
-              <td style="float:right"><button @click="deleteContactRow(item.id)">Delete</button></td>
+              <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png" @click="deleteContactRow(item.id)"/></td>
             </tr>
           </tbody>
       </table>
 
-      <br style="margin-bottom:2%"/>
-      
+      <hr style="margin:5% 0;" />
+
       <!-- Trykes Table -->
+      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRow()">
+        {{'Add Tryke' | translate}}
+      </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
-      <button style="float:right" @click="addNewTrykeRow()" >Add Tryke</button>
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
               <td class="filters-page__table-heading">Model</td>
               <td class="filters-page__table-heading">ID</td>
               <td style="float:right" class="filters-page__table-heading">Action</td>
-              
+
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in awardee.trykes" :key="item.id">
                 <td contenteditable="true"></td>
                 <td contenteditable="true"></td>
-                <td style="float:right"><button @click="deleteTrykeRow(item.id)">Delete</button></td>
+                <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png"  @click="deleteTrykeRow(item.id)"/></td>
             </tr>
           </tbody>
       </table>
-    
+
     </div>
 
     <!--Save Delete Buttons -->
@@ -158,8 +162,8 @@
       </div>
       <div
         class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-danger" @click="deleteRecord()">
-          {{'Delete' | translate}}
+        <button class="btn btn-danger" @click="cancelRecord()">
+          {{'Cancel' | translate}}
         </button>
       </div>
     </div>
@@ -170,19 +174,14 @@
 </template>
 
 <script>
-var url = "https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/";
+import router from '../../../router'
+
+// var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
 
 export default {
   name: 'form-elements',
   computed: {
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
-    isSuccessfulEmailValid () {
-      let isValid = false
-      if (this.formFields.successfulEmail) {
-        isValid = this.formFields.successfulEmail.validated && this.formFields.successfulEmail.valid
-      }
-      return isValid
-    },
   },
   data () {
     return {
@@ -207,105 +206,90 @@ export default {
         dateOfBirth: '',
         lastContacted: '',
         trykes: [
-            {
-                model: '',
-                id: ''
-            }
+          {
+            model: '',
+            id: ''
+          }
         ],
         contacts: [
-            {
-                firstName: '',
-                lastname: '',
-                type: ''
-            }
+          {
+            firstName: '',
+            lastname: '',
+            type: ''
+          }
         ]
       }
     }
   },
   methods: {
+
     clear (field) {
       this[field] = ''
     },
-    addNewContactRow() {
-        var contactObject = {
-            firstName: '',
-            lastName: '',
-            type: ''
-        }
-        this.awardee.contacts.push(contactObject);
-        //creates the array but doesnt store the content editable data into array
-    },
-    addNewTrykeRow() {
-        var trykeObject = {
-            firstName: '',
-            lastName: '',
-            type: ''
-        }
-        this.awardee.trykes.push(trykeObject);
-        //creates the array but doesnt store the content editable data into array
-    },
-    deleteContactRow(id) {
-        this.awardee.contacts.splice(this.awardee.contacts.indexOf(id), 1);
-    },
-    deleteTrykeRow(id) {
-        this.awardee.trykes.splice(this.awardee.contacts.indexOf(id), 1);
-    },
-    addRecord() {
 
+    addNewContactRow () {
+      var contactObject = {
+        firstName: '',
+        lastName: '',
+        type: ''
+      }
+      this.awardee.contacts.push(contactObject)
+      // creates the array but doesnt store the content editable data into array
+    },
+
+    addNewTrykeRow () {
+      var trykeObject = {
+        firstName: '',
+        lastName: '',
+        type: ''
+      }
+      this.awardee.trykes.push(trykeObject)
+      // creates the array but doesnt store the content editable data into array
+    },
+
+    deleteContactRow (id) {
+      this.awardee.contacts.splice(this.awardee.contacts.indexOf(id), 1)
+    },
+
+    deleteTrykeRow (id) {
+      this.awardee.trykes.splice(this.awardee.contacts.indexOf(id), 1)
+    },
+
+    addRecord () {
       try {
-      
-        alert("The record has been updated.");
-
-      } catch(e) {
-
-        console.log(e);
-        alert("There was an issue trying to update this record,please try again later.");
-
+        alert('The record has been updated.')
+      } catch (e) {
+        console.log(e)
+        alert('There was an issue trying to update this record,please try again later.')
       }
-      
     },
-    deleteRecord() {
 
-      if(confirm("Are you sure you want to delete this record?")) {
-        
+    cancelRecord () {
+      if (confirm('Are you sure you want to cancel this record?')) {
         try {
-
-          axios.delete(url + 'Test', {data: this.awardee})
-              .then((response) => {
-                  return response.data;
-              })
-              .then((data) => {
-                  axios.get(url+'Test')
-                  .then((response) => {
-                      app.awardees = response.data
-              }).catch((error) => {
-                  console.log(error);
-                  alert("There was an error, please try again.")
-              });
-          })
-          alert("The record has been deleted.");
-
-        } catch(e) {
-
-          console.log(e);
-          alert("I'm sorry there was an issue trying to delete that record,please try again later.");
-       
-       }
-
+          router.push({ name: 'filters' })
+        } catch (e) {
+          console.log(e)
+          alert("I'm sorry there was an issue trying to delete that record,please try again later.")
+        }
       } else {
-
-        alert("You have chosen not to delete the record.");
-
+        alert('You have chosen not to delete the record.')
       }
-
     }
   },
+
   created () {
-    
+
   },
   components: {
-    
+
   }
 }
 </script>
 
+<style>
+.deleteIcon {
+  width: 55%;
+  height: 5%;
+}
+</style>

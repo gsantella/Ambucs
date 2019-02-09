@@ -90,6 +90,24 @@ export default new Router({
           name: 'dashboard',
           path: 'dashboard',
           component: lazyLoading('dashboard/Dashboard'),
+          children: [
+            {
+              name: 'new-user',
+              path: 'new-user',
+              component: lazyLoading('dashboard/new-user/NewUser'),
+              meta: {
+                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
+              },
+            },
+            {
+              name: 'edit-user',
+              path: 'edit-user',
+              component: lazyLoading('dashboard/edit-user/EditUser'),
+              meta: {
+                wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
+              },
+            }
+          ],
           default: true,
         },
         {

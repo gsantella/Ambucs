@@ -1,19 +1,41 @@
 <template>
   <div class="dashboard">
-
-    <vuestic-widget class="no-padding no-v-padding">
-      <vuestic-tabs
-        :names="[$t('dashboard.dataVisualization')]"
-        ref="tabs">
-        <div :slot="$t('dashboard.dataVisualization')">
-          <data-visualisation-tab></data-visualisation-tab>
-        </div>
-      </vuestic-tabs>
+    <div class="row">
+      <div class="col-md-12">
+          <div style="margin-bottom:15px;float:right"
+          class="flex sm6 lg6 xl3 justify--center">
+            <button class="btn btn-primary" @click="addUser()" >
+              {{'New User' | translate}}
+            </button>
+          </div>
+      </div>
+    </div>
+    <vuestic-widget>
+      <div class="table-responsive">
+        <table class="table table-striped first-td-padding">
+          <thead>
+          <tr>
+            <td class="filters-page__table-heading">Display Name</td>
+            <td class="filters-page__table-heading">Email</td>
+            <td class="filters-page__table-heading">User Role</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
+            <td>{{ item.displayName }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.userRole }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </vuestic-widget>
+
   </div>
 </template>
 
 <script>
+import router from '../../router'
 import DashboardInfoWidgets from './DashboardInfoWidgets'
 import UsersMembersTab from './users-and-members-tab/UsersMembersTab.vue'
 import SetupProfileTab from './setup-profile-tab/SetupProfileTab.vue'
@@ -34,21 +56,16 @@ export default {
   },
 
   methods: {
-    launchEpicmaxToast () {
-      this.showToast(`Let's work together!`, {
-        icon: 'fa-star-o',
-        position: 'top-right',
-        duration: Infinity,
-        action: {
-          text: 'Hire us',
-          href: 'http://epicmax.co/#/contact',
-          class: 'vuestic-toasted-link',
-        },
-      })
+    clickList (user) {
+      router.push({ name: 'edit-user', params: { id: user.id } })
     },
-  },
+    addUser () {
+      router.push({ name: 'edit-user' })
+    }
+  }
 }
-
 </script>
+
 <style lang="scss" scoped>
+
 </style>

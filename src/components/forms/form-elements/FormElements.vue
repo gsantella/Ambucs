@@ -21,7 +21,7 @@
                       <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
                     -->
-                     
+
                     <!-- Last Name -->
                     <div class="input-group">
                       <input id="simple-input" v-model="awardee.lastName" required/>
@@ -163,8 +163,6 @@
       </div>
     </div>
 
-
-      
     <!--MODAL -->
     <modal v-if="showModal"  :passedObject="objectToPass" @close="showModal = false">
       <h3 slot="header">Edit / View</h3>
@@ -177,9 +175,10 @@
 </template>
 
 <script>
-var url = "https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/";
-
+import router from '../../../router'
 import modal from '@/components/forms/form-elements/modal.vue'
+
+// var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
 
 export default {
   name: 'form-elements',
@@ -224,58 +223,30 @@ export default {
     clear (field) {
       this[field] = ''
     },
-    updateRecord() {
-
+    updateRecord () {
       try {
-      
-        alert("The record has been updated.");
-
-      } catch(e) {
-
-        console.log(e);
-        alert("There was an issue trying to update this record,please try again later.");
-
+        alert('The record has been updated.')
+      } catch (e) {
+        console.log(e)
+        alert('There was an issue trying to update this record,please try again later.')
       }
-      
     },
-    deleteRecord() {
-
-      if(confirm("Are you sure you want to delete this record?")) {
-        
+    deleteRecord () {
+      if (confirm('Are you sure you want to delete this record?')) {
         try {
-
-          axios.delete(url + 'Test', {data: awardee})
-              .then((response) => {
-                  return response.data;
-              })
-              .then((data) => {
-                  axios.get(url+'Test')
-                  .then((response) => {
-                      app.awardees = response.data
-              }).catch((error) => {
-                  console.log(error);
-                  alert("There was an error, please try again.")
-              });
-          })
-          alert("The record has been deleted.");
-
-        } catch(e) {
-
-          console.log(e);
-          alert("I'm sorry there was an issue trying to delete that record,please try again later.");
-       
-       }
-
+          // axios.delete(url + 'Test', { data: awardee })
+          alert('The record has been deleted.')
+          router.push({ name: 'filters' })
+        } catch (e) {
+          console.log(e)
+          alert("I'm sorry there was an issue trying to delete that record,please try again later.")
+        }
       } else {
-
-        alert("You have chosen not to delete the record.");
-
+        alert('You have chosen not to delete the record.')
       }
-
     },
-    displayModal(item){
-     
-      this.showModal = true;
+    displayModal (item) {
+      this.showModal = true
       this.objectToPass = item
     }
   },
@@ -296,4 +267,3 @@ export default {
   }
 }
 </script>
-
