@@ -1,69 +1,34 @@
 <template>
-  <div class="form-elements">
-    <div class="va-row">
-      <div class="flex md12">
-
-        <vuestic-widget :headerText="'Edit Account' | translate">
-          <form>
-
-                <fieldset>
-
-                  <div class="form-group">
-
-                    <!-- First Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-
-                    <!-- Email -->
-                    <div class="input-group">
-                      <input id="simple-input" type="email" required/>
-                      <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
-                    </div>
-
-                  </div>
-
-                  <div class="form-group">
-
-                    <!-- New Password -->
-                    <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">New Password</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                </fieldset>
-
-          </form>
-        </vuestic-widget>
-
+  <div class="login">
+    <h2>Edit Account</h2>
+    <form method="post" action="/auth/login" name="login">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" id="email" required="required"/>
+          <label class="control-label" for="email">
+            {{ $t('auth.email') }}
+          </label>
+          <i class="bar"/>
+        </div>
       </div>
-    </div>
-     <!--Save Delete Buttons -->
-    <div class="va-row btn-margin-row">
-      <div
-        class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-primary  btn-micro" @click="addUser()" >
-          {{'Save' | translate}}
+      <div class="form-group">
+        <div class="input-group">
+          <input type="password" id="password" required="required"/>
+          <label class="control-label" for="password">
+            {{ $t('auth.password') }}
+          </label>
+          <i class="bar"/>
+        </div>
+      </div>
+      <div class="d-flex align--center justify--space-between">
+        <button class="btn btn-primary" type="submit">
+          {{ $t('Update') }}
         </button>
+        <router-link class='link flex-center pl-2 text-center' :to="{name: 'signup'}">
+          {{ $t('Cancel') }}
+        </router-link>
       </div>
-      <div
-        class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-danger  btn-micro" @click="cancelUser()">
-          {{'Cancel' | translate}}
-        </button>
-      </div>
-    </div>
+    </form>
   </div>
 </template>
 
