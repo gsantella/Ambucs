@@ -50,6 +50,11 @@ export default new Router({
           component: lazyLoading('auth/signup/Signup'),
         },
         {
+          name: 'account',
+          path: 'account',
+          component: lazyLoading('auth/account/Account'),
+        },
+        {
           path: '',
           redirect: { name: 'login' },
         },

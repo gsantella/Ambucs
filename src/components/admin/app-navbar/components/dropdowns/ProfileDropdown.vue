@@ -14,7 +14,7 @@
       >
         <router-link :to="{name: option.redirectTo}" class="plain-link"
                      href="#">
-          {{ $t(`user.${option.name}`) }}
+          {{ $t(`${option.name}`) }}
         </router-link>
       </div>
     </vuestic-dropdown>
@@ -34,11 +34,11 @@ export default {
       type: Array,
       default: () => [
         {
-          name: 'profile',
-          redirectTo: '',
+          name: 'Account',
+          redirectTo: 'account',
         },
         {
-          name: 'logout',
+          name: 'Logout',
           redirectTo: 'login',
         },
       ],
