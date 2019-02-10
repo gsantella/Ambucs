@@ -23,7 +23,8 @@
           <div class="modal-footer">
             <slot name="footer">
                 <input type="submit" value="Save" @click="$emit('close')"/>
-                <input style="margin-left:10px" type="submit" value="Close" @click="$emit('close')"/>
+                <input style="margin:0 10px" type="submit" value="Delete" @click="$emit('close')"/>
+                <input type="submit" value="Close" @click="$emit('close')"/>
             </slot>
           </div>
         </div>
