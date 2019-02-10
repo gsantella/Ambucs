@@ -2,7 +2,7 @@
   <div class="auth-layout">
     <div class="nav d-lg-none">
       <router-link :to="{path: '/'}">
-        <vuestic-icon-vuestic/>
+        Ambucs
       </router-link>
     </div>
     <div class="main va-row">
@@ -14,8 +14,8 @@
       <div class="auth-layout__auth-wallpaper flex md6">
         <div class="flex-center">
           <div class="auth-layout__auth-wallpaper__cross-line"/>
-          <router-link class="auth-layout__auth-wallpaper__logo" :to="{path: '/'}">
-            <vuestic-icon-vuestic/>
+          <router-link align="center" style="font-size:5rem" class="auth-layout__auth-wallpaper__logo" :to="{path: '/'}">
+            <span align="center">Ambucs</span>
           </router-link>
         </div>
       </div>
