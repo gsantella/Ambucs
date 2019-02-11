@@ -31,6 +31,24 @@
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
+                    <!-- Birth Date -->
+                    <div class="input-group">
+                      <vuestic-date-picker
+                        id="date-picker-custom-date-format"
+                        :config="{altInput: true, altFormat: 'F j, Y'}"
+                        v-model="awardee.dateOfBirth"
+                      />
+                      <label class="control-label" for="date-picker-custom-date-format">
+                        Birth Date
+                      </label>
+                      <i class="bar"></i>
+
+                    </div>
+
+                  </div>
+
+                  <div class="form-group with-icon-left">
+
                     <!-- Last Contacted -->
                     <div class="input-group">
                       <vuestic-date-picker
@@ -45,12 +63,9 @@
 
                     </div>
 
-                  </div>
-
-                  <div class="form-group with-icon-left">
                     <!-- Street 1 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.street1" required/>
+                      <input id="simple-input" v-model="awardee.address1" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
@@ -58,7 +73,7 @@
                   <div class="form-group with-icon-left">
                     <!-- Street 2 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.street2" required/>
+                      <input id="simple-input" v-model="awardee.address2" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
                   </div>
@@ -67,17 +82,17 @@
 
                     <!-- City -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.city" required/>
+                      <input id="simple-input" v-model="awardee.city" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
                     <!-- State -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.state" required/>
+                      <input id="simple-input" v-model="awardee.state" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
                     <!-- Zip -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.zip" required/>
+                      <input id="simple-input" v-model="awardee.zip" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -156,7 +171,7 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-primary" @click="updateRecord()" >
+        <button class="btn btn-primary" @click="addRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
@@ -190,25 +205,24 @@ export default {
       awardee: {
         firstName: '',
         lastName: '',
-        address: {
-          street1: '',
-          street2: '',
-          city: '',
-          state: ''
-        },
-        award: {
-          dateAwarded: '',
-          dateReceived: '',
-          fundedBy: '',
-          locationAwarded: '',
-          notes: ''
-        },
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
         dateOfBirth: '',
         lastContacted: '',
+        notes: ''
+        /*
         trykes: [
           {
             model: '',
-            id: ''
+            id: '',
+            dateAwarded: '',
+            dateReceived: '',
+            fundedBy: '',
+            locationAwarded: '',
+            notes: ''
           }
         ],
         contacts: [
@@ -218,6 +232,7 @@ export default {
             type: ''
           }
         ]
+        */
       }
     }
   },
@@ -257,7 +272,15 @@ export default {
 
     addRecord () {
       try {
-        alert('The record has been updated.')
+        console.log(this.awardee);
+
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
+        method: 'post',
+        body: JSON.stringify(this.awardee)
+        })
+
+
+        alert('The record has been added.')
       } catch (e) {
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
@@ -267,7 +290,7 @@ export default {
     cancelRecord () {
       if (confirm('Are you sure you want to cancel this record?')) {
         try {
-          router.push({ name: 'filters' })
+          router.push({ name: 'view-awardees' })
         } catch (e) {
           console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")

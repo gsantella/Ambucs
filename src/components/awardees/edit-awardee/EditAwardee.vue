@@ -236,9 +236,10 @@ export default {
     deleteRecord () {
       if (confirm('Are you sure you want to delete this record?')) {
         try {
+
           axios.delete('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
           alert('The record has been deleted.')
-          router.push({ name: 'filters' })
+          router.push({ name: 'view-awardees' })
         } catch (e) {
           console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")
