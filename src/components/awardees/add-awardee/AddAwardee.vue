@@ -195,7 +195,14 @@
         <input class="styleInput" type="text" v-model="contacts.firstName" placeholder="First Name" />
         <input class="styleInput" type="text" v-model="contacts.lastName" placeholder="Last Name" />
         <input class="styleInput" type="text" v-model="contacts.type" placeholder="Type" />
-        <input class="styleBtn" type="submit" value="Add" @click="addContactToArray()" />
+        <div class="va-row">
+          <div class="flex md6">
+            <input class="styleBtn" type="submit" value="Add" @click="addContactToArray()" />
+          </div>
+          <div class="flex md6">
+            <input class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRow()" />
+          </div>
+        </div>
 
       </div>
     </vuestic-modal>
@@ -212,7 +219,14 @@
         <input class="styleInput" type="text" v-model="trykes.fundedBy" placeholder="Funded By" />
         <input class="styleInput" type="text" v-model="trykes.locationAwarded" placeholder="Location Awarded" />
         <input class="styleInput" type="text" v-model="trykes.notes" placeholder="Notes" />
-        <input class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
+        <div class="va-row">
+          <div class="flex md6">
+            <input class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
+          </div>
+          <div class="flex md6">
+            <input class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteTrykeRow()" />
+          </div>
+        </div>
       </div>
     </vuestic-modal>
 
