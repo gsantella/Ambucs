@@ -291,7 +291,13 @@ export default {
 
     updateRecord () {
       try {
-        alert('The record has been updated.')
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          method: 'PATCH',
+          body: JSON.stringify(this.awardee)
+        }).then(console.log(this.$route.params.id))
+          .then(alert('Updated'))
+          .then(router.push({ name: 'view-awardees' }))
       } catch (e) {
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
