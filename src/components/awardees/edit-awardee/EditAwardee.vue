@@ -118,7 +118,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(item)">
+            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(item,1)">
               <td>{{ item.type }}</td>
               <td>{{ item.firstName }}</td>
                <td>{{ item.lastName }}</td>
@@ -134,13 +134,15 @@
           <thead>
             <tr>
               <td class="filters-page__table-heading">Model</td>
-              <td class="filters-page__table-heading">ID</td>
+              <td class="filters-page__table-heading">Date Awarded</td>
+              <td class="filters-page__table-heading">Funded By</td>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(item)">
+            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(item,2)">
               <td>{{ item.model }}</td>
-              <td>{{ item.id }}</td>
+              <td>{{ item.dateAwarded }}</td>
+              <td>{{ item.fundedBy }}</td>
             </tr>
           </tbody>
       </table>
@@ -163,11 +165,37 @@
       </div>
     </div>
 
-    <!--MODAL -->
-    <modal v-if="showModal"  :passedObject="objectToPass" @close="showModal = false">
-      <h3 slot="header">Edit / View</h3>
+      <!-- Contacts Modal -->
+      <vuestic-modal v-bind:noButtons="true"  :show.sync="show" v-bind:large="true" ref="largeModal"
+          :okText="'modal.confirm' | translate"
+          :cancelText="'modal.cancel' | translate">
+      <div slot="title">{{'Edit Contact' | translate}}</div>
+      <div>
 
-    </modal>
+        <input class="styleInput" type="text" v-model="awardee.contacts.firstName" placeholder="First Name" />
+        <input class="styleInput" type="text" v-model="awardee.contacts.lastName" placeholder="Last Name" />
+        <input class="styleInput" type="text" v-model="awardee.contacts.type" placeholder="Type" />
+        <input class="styleBtn" type="submit" value="Add" @click="test()" />
+
+      </div>
+    </vuestic-modal>
+
+      <!-- Trykes Modal -->
+      <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
+                   :okText="'modal.confirm' | translate"
+                   :cancelText="'modal.cancel' | translate">
+      <div slot="title">{{'Edit Tryke' | translate}}</div>
+      <div>
+
+        <input class="styleInput" type="text" v-model="awardee.trykes.model" placeholder="Model" />
+        <input class="styleInput" type="text" v-model="awardee.trykes.dateAwarded" placeholder="Date Awarded" />
+        <input class="styleInput" type="text" v-model="awardee.trykes.dateReceived" placeholder="Date Recieved" />
+        <input class="styleInput" type="text" v-model="awardee.trykes.fundedBy" placeholder="Funded By" />
+        <input class="styleInput" type="text" v-model="awardee.trykes.locationAwarded" placeholder="Location Awarded" />
+        <input class="styleInput" type="text" v-model="awardee.trykes.notes" placeholder="Notes" />
+        <input class="styleBtn" type="submit" value="Add" @click="test()" />
+      </div>
+    </vuestic-modal>
 
     </div>
 
@@ -177,15 +205,19 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 import router from '../../../router'
-import modal from '@/components/awardees/edit-awardee/modal.vue'
 import axios from '@/main.js'
 
 var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
 
 export default {
   name: 'EditAwardee',
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   computed: {
-    datePickerDisabled: () => [date => !(date.getDate() % 5)],
+
+  datePickerDisabled: () => [date => !(date.getDate() % 5)],
+
     isSuccessfulEmailValid () {
       let isValid = false
       if (this.formFields.successfulEmail) {
@@ -193,68 +225,139 @@ export default {
       }
       return isValid
     },
+
   },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   data () {
+
     return {
-      showModal: false,
-      objectToPass: null,
+
+      show: false,
       awardee: {
-        firstName: 'FirstNameDefault',
-        lastName: 'LastNameDefault',
-        address: {
-          street1: '123 Main Street',
-          street2: 'Apt 2',
-          city: 'Altoona',
-          state: 'PA'
-        },
-        award: {
-          dateAwarded: '',
-          dateReceived: '',
-          fundedBy: '',
-          locationAwarded: '',
-          notes: ''
-        },
+        firstName: '',
+        lastName: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
         dateOfBirth: '',
         lastContacted: '',
-        trykes: {},
-        contacts: {}
+        notes: '',
+        trykes: [
+          {
+            model: '',
+            dateAwarded: '',
+            dateReceived: '',
+            fundedBy: '',
+            locationAwarded: '',
+            notes: ''
+          }
+        ],
+        contacts: [
+          {
+            firstName: '',
+            lastName: '',
+            type: ''
+          }
+        ]
       }
+
     }
+
   },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   methods: {
+
     clear (field) {
+
       this[field] = ''
+
     },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     updateRecord () {
+
       try {
+
         alert('The record has been updated.')
+
       } catch (e) {
+
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
+
       }
+
     },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     deleteRecord () {
+
       if (confirm('Are you sure you want to delete this record?')) {
+
         try {
+
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
             method: 'delete'
           }).then(alert('The record has been deleted.'))
           .then(console.log(this.$route.params.id))
           .then(router.push({ name: 'view-awardees' }))
+
         } catch (e) {
+
           console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")
+
         }
+
       } else {
+
         alert('You have chosen not to delete the record.')
+
       }
+
     },
-    displayModal (item) {
-      this.showModal = true
-      this.objectToPass = item
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    displayModal(item,id) {
+
+      if(id == 1) {
+
+        this.$refs.largeModal.open()
+        this.awardee.contacts.firstName = item.firstName;
+        this.awardee.contacts.lastName = item.lastName;
+        this.awardee.contacts.type = item.type;
+
+      } else {
+
+        this.$refs.mediumModal.open()
+        this.awardee.trykes.model = item.model;
+        this.awardee.trykes.dateAwarded = item.dateAwarded;
+        this.awardee.trykes.dateReceived = item.dateReceived;
+        this.awardee.trykes.fundedBy = item.fundedBy;
+        this.awardee.trykes.locationAwarded = item.locationAwarded;
+        this.awardee.trykes.notes = item.notes;
+
+      }
+
     }
-  },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  }, // end of methods sections
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   created () {
+
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
@@ -265,9 +368,14 @@ export default {
         console.log(json)
         this.awardee = json.Item
       })
+
   },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   components: {
-    'modal': modal
   }
+
 }
+
 </script>

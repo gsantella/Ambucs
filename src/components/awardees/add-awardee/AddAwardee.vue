@@ -186,6 +186,7 @@
       </div>
     </div>
 
+      <!-- Contacts Modal -->
       <vuestic-modal v-bind:noButtons="true"  :show.sync="show" v-bind:large="true" ref="largeModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
@@ -199,6 +200,7 @@
       </div>
     </vuestic-modal>
 
+      <!-- Trykes Modal -->
       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
@@ -241,7 +243,6 @@ export default {
     return {
 
       show: true,
-      showModal: false,
       objectToPass: null,
       contacts: {
         firstName: '',
@@ -338,9 +339,7 @@ export default {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'post',
           body: JSON.stringify(this.awardee)
-        })
-
-        alert('The record has been added.')
+        }).then(alert('The record has been added.'))
       } catch (e) {
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
