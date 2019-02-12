@@ -125,9 +125,9 @@
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
-              <td class="filters-page__table-heading">Type</td>
               <td class="filters-page__table-heading">First Name</td>
               <td class="filters-page__table-heading">Last Name</td>
+              <td class="filters-page__table-heading">Type</td>
             </tr>
           </thead>
           <tbody>
@@ -431,6 +431,50 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    hideUpdateBtnContact () {
+      var addBtn = document.getElementById('addContact')
+      var updateBtn = document.getElementById('updateContact')
+      var deleteContactBtn = document.getElementById('deleteContact')
+      addBtn.style.display = 'block'
+      updateBtn.style.display = 'none'
+      deleteContactBtn.style.display = 'none'
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    hideUpdateBtnTryke () {
+      var addBtnTryke = document.getElementById('addTryke')
+      var updateBtnContact = document.getElementById('updateTryke')
+      var deleteTrykeBtn = document.getElementById('deleteTryke')
+      addBtnTryke.style.display = 'block'
+      updateBtnContact.style.display = 'none'
+      deleteTrykeBtn.style.display = 'none'
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    showUpdateBtnContact () {
+      var addBtn = document.getElementById('addContact')
+      var updateBtn = document.getElementById('updateContact')
+      var deleteContactBtn = document.getElementById('deleteContact')
+      addBtn.style.display = 'none'
+      updateBtn.style.display = 'block'
+      deleteContactBtn.style.display = 'block'
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    showUpdateBtnTryke () {
+      var addBtnTryke = document.getElementById('addTryke')
+      var updateBtnContact = document.getElementById('updateTryke')
+      var deleteTrykeBtn = document.getElementById('deleteTryke')
+      addBtnTryke.style.display = 'none'
+      updateBtnContact.style.display = 'block'
+      deleteTrykeBtn.style.display = 'block'
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     addNewContactRow () {
       this.contacts.firstName = ''
       this.contacts.lastName = ''
@@ -442,12 +486,8 @@ export default {
       this.contacts.city = ''
       this.contacts.state = ''
       this.contacts.zip = ''
-      var addBtn = document.getElementById('addContact')
-      var updateBtn = document.getElementById('updateContact')
-      var deleteContactBtn = document.getElementById('deleteContact')
-      addBtn.style.display = 'block'
-      updateBtn.style.display = 'none'
-      deleteContactBtn.style.display = 'none'
+
+      this.hideUpdateBtnContact()
       this.contactModalTitle = 'Add Contact'
       this.$refs.largeModal.open()
     },
@@ -468,12 +508,7 @@ export default {
       this.trykes.fundedBy = ''
       this.trykes.locationAwarded = ''
       this.trykes.notes = ''
-      var addBtnTryke = document.getElementById('addTryke')
-      var updateBtnContact = document.getElementById('updateTryke')
-      var deleteTrykeBtn = document.getElementById('deleteTryke')
-      addBtnTryke.style.display = 'block'
-      updateBtnContact.style.display = 'none'
-      deleteTrykeBtn.style.display = 'none'
+      this.hideUpdateBtnTryke()
       this.trykeModalTitle = 'Add Tryke'
       this.$refs.mediumModal.open()
     },
@@ -488,26 +523,16 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     deleteContactRow () {
-      this.awardee.contacts.splice(this.awardee.contacts.indexOf(this.editId), 1)
-      var addBtn = document.getElementById('addContact')
-      var updateBtn = document.getElementById('updateContact')
-      var deleteContactBtn = document.getElementById('deleteContact')
-      addBtn.style.display = 'block'
-      updateBtn.style.display = 'none'
-      deleteContactBtn.style.display = 'none'
+      this.awardee.contacts.splice(this.editId, 1)
+      this.hideUpdateBtnContact()
       this.$refs.largeModal.cancel()
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     deleteTrykeRow () {
-      this.awardee.trykes.splice(this.awardee.trykes.indexOf(this.editId), 1)
-      var addBtnTryke = document.getElementById('addTryke')
-      var updateBtnContact = document.getElementById('updateTryke')
-      var deleteTrykeBtn = document.getElementById('deleteTryke')
-      addBtnTryke.style.display = 'block'
-      updateBtnContact.style.display = 'none'
-      deleteTrykeBtn.style.display = 'none'
+      this.awardee.trykes.splice(this.editId, 1)
+      this.hideUpdateBtnTryke()
       this.$refs.mediumModal.cancel()
     },
 
@@ -527,12 +552,8 @@ export default {
         this.contacts.state = item.state
         this.contacts.street = item.street
         this.contacts.zip = item.zip
-        var addBtn = document.getElementById('addContact')
-        var updateBtn = document.getElementById('updateContact')
-        var deleteContactBtn = document.getElementById('deleteContact')
-        addBtn.style.display = 'none'
-        updateBtn.style.display = 'block'
-        deleteContactBtn.style.display = 'block'
+
+        this.showUpdateBtnContact()
         this.contactModalTitle = 'Edit Contact'
       } else {
         this.$refs.mediumModal.open()
@@ -543,12 +564,8 @@ export default {
         this.awardee.trykes.fundedBy = item.fundedBy
         this.awardee.trykes.locationAwarded = item.locationAwarded
         this.awardee.trykes.notes = item.notes
-        var addBtnTryke = document.getElementById('addTryke')
-        var updateBtnContact = document.getElementById('updateTryke')
-        var deleteTrykeBtn = document.getElementById('deleteTryke')
-        addBtnTryke.style.display = 'none'
-        updateBtnContact.style.display = 'block'
-        deleteTrykeBtn.style.display = 'block'
+
+        this.showUpdateBtnTryke()
         this.trykeModalTitle = 'Edit Tryke'
       }
     },
@@ -557,32 +574,20 @@ export default {
 
     updateContactItem () {
       this.awardee.contacts.splice(this.editId, 1, this.contacts)
-
-      var addBtn = document.getElementById('addContact')
-      var updateBtn = document.getElementById('updateContact')
-      var deleteContactBtn = document.getElementById('deleteContact')
-      addBtn.style.display = 'block'
-      updateBtn.style.display = 'none'
-      deleteContactBtn.style.display = 'none'
+      this.hideUpdateBtnContact()
       this.$refs.largeModal.cancel()
 
-      // Push this.awardee.contacts up to save
+      // Push this.awardee.contacts to AWS to save
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateTrykeItem () {
       this.awardee.trykes.splice(this.editId, 1, this.trykes)
-
-      var addBtnTryke = document.getElementById('addTryke')
-      var updateBtnContact = document.getElementById('updateTryke')
-      var deleteTrykeBtn = document.getElementById('deleteTryke')
-      addBtnTryke.style.display = 'block'
-      updateBtnContact.style.display = 'none'
-      deleteTrykeBtn.style.display = 'none'
+      this.hideUpdateBtnTryke()
       this.$refs.mediumModal.cancel()
 
-      // Push this.awardee.trykes up to save
+      // Push this.awardee.trykes to AWS to save
     },
 
     /// ///////////////////////////////////////////////////////////////////////////////////////////////////////
