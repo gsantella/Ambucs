@@ -4,7 +4,8 @@
       <div class="flex md6">
 
         <vuestic-widget :headerText="'forms.inputs.title' | translate">
-          <form>
+
+            <form>
 
                 <fieldset>
 
@@ -101,7 +102,7 @@
                    <!-- Notes -->
                   <div class="form-group">
                     <div class="input-group">
-                      <textarea type="text" id="simple-textarea" v-model="awardee.notes"
+                      <textarea type="text" id="simple-textarea"
                                 required></textarea>
                       <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
                     </div>
@@ -132,10 +133,10 @@
           </thead>
           <tbody>
             <tr v-for="item in awardee.contacts" :key="item.id">
-              <td contenteditable="true"></td>
-              <td contenteditable="true"></td>
-              <td contenteditable="true"></td>
-              <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png" @click="deleteContactRow(item.id)"/></td>
+              <td>{{item.firstName}}</td>
+              <td>{{item.lastName}}</td>
+              <td>{{item.type}}</td>
+              <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png"  @click="deleteContactRow(item.id)"/></td>
             </tr>
           </tbody>
       </table>
@@ -151,15 +152,17 @@
           <thead>
             <tr>
               <td class="filters-page__table-heading">Model</td>
-              <td class="filters-page__table-heading">ID</td>
+              <td class="filters-page__table-heading">Date Awarded</td>
+              <td class="filters-page__table-heading">Funded By</td>
               <td style="float:right" class="filters-page__table-heading">Action</td>
 
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in awardee.trykes" :key="item.id">
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
+                <td>{{item.model}}</td>
+                <td>{{item.dateAwarded}}</td>
+                <td>{{item.fundedBy}}</td>
                 <td style="width:5%"><img class="deleteIcon" src="../../../assets/images/delete.png"  @click="deleteTrykeRow(item.id)"/></td>
             </tr>
           </tbody>
@@ -183,6 +186,34 @@
       </div>
     </div>
 
+      <vuestic-modal v-bind:noButtons="true"  :show.sync="show" v-bind:large="true" ref="largeModal"
+                   :okText="'modal.confirm' | translate"
+                   :cancelText="'modal.cancel' | translate">
+      <div slot="title">{{'Add Contact' | translate}}</div>
+      <div>
+        <input class="styleInput" type="text" v-model="contacts.firstName" placeholder="First Name" />
+        <input class="styleInput" type="text" v-model="contacts.lastName" placeholder="Last Name" />
+        <input class="styleInput" type="text" v-model="contacts.type" placeholder="Type" />
+        <input class="styleBtn" type="submit" value="Add" @click="addContactToArray()" />
+
+      </div>
+    </vuestic-modal>
+
+      <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
+                   :okText="'modal.confirm' | translate"
+                   :cancelText="'modal.cancel' | translate">
+      <div slot="title">{{'Add Tryke' | translate}}</div>
+      <div>
+        <input class="styleInput" type="text" v-model="trykes.model" placeholder="Model" />
+        <input class="styleInput" type="text" v-model="trykes.dateAwarded" placeholder="Date Awarded" />
+        <input class="styleInput" type="text" v-model="trykes.dateReceived" placeholder="Date Recieved" />
+        <input class="styleInput" type="text" v-model="trykes.fundedBy" placeholder="Funded By" />
+        <input class="styleInput" type="text" v-model="trykes.locationAwarded" placeholder="Location Awarded" />
+        <input class="styleInput" type="text" v-model="trykes.notes" placeholder="Notes" />
+        <input class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
+      </div>
+    </vuestic-modal>
+
     </div>
 
   </div>
@@ -195,13 +226,36 @@ import router from '../../../router'
 
 export default {
   name: 'AddAwardee',
+
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   computed: {
+
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
+
   },
+
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   data () {
     return {
+
+      show: true,
       showModal: false,
       objectToPass: null,
+      contacts: {
+        firstName: '',
+        lastName: '',
+        type: ''
+      },
+      trykes: {
+        model: '',
+        dateAwarded: '',
+        dateReceived: '',
+        fundedBy: '',
+        locationAwarded: '',
+        notes: ''
+      },
       awardee: {
         firstName: '',
         lastName: '',
@@ -213,68 +267,74 @@ export default {
         dateOfBirth: '',
         lastContacted: '',
         notes: '',
-        phone: ''
-        /*
-        trykes: [
-          {
-            model: '',
-            id: '',
-            dateAwarded: '',
-            dateReceived: '',
-            fundedBy: '',
-            locationAwarded: '',
-            notes: ''
-          }
-        ],
-        contacts: [
-          {
-            firstName: '',
-            lastname: '',
-            type: ''
-          }
-        ] */
+        trykes: [],
+        contacts: []
       }
+
     }
   },
+
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   methods: {
 
     clear (field) {
       this[field] = ''
     },
 
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     addNewContactRow () {
-      var contactObject = {
-        firstName: '',
-        lastName: '',
-        type: ''
-      }
-      this.awardee.contacts.push(contactObject)
-      // creates the array but doesnt store the content editable data into array
+      this.contacts.firstName = ''
+      this.contacts.lastName = ''
+      this.contacts.type = ''
+
+      this.$refs.largeModal.open()
     },
 
-    addNewTrykeRow () {
-      var trykeObject = {
-        firstName: '',
-        lastName: '',
-        type: ''
-      }
-      this.awardee.trykes.push(trykeObject)
-      // creates the array but doesnt store the content editable data into array
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addContactToArray () {
+      this.awardee.contacts.push(Object.assign({}, this.contacts))
+      this.$refs.largeModal.cancel()
     },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addNewTrykeRow () {
+      this.trykes.model = ''
+      this.trykes.dateAwarded = ''
+      this.trykes.dateReceived = ''
+      this.trykes.fundedBy = ''
+      this.trykes.locationAwarded = ''
+      this.trykes.notes = ''
+
+      this.$refs.mediumModal.open()
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addTrykeToArray () {
+      this.awardee.trykes.push(Object.assign({}, this.trykes))
+      this.$refs.mediumModal.cancel()
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     deleteContactRow (id) {
       this.awardee.contacts.splice(this.awardee.contacts.indexOf(id), 1)
     },
 
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     deleteTrykeRow (id) {
       this.awardee.trykes.splice(this.awardee.contacts.indexOf(id), 1)
     },
 
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     addRecord () {
       try {
-        alert(JSON.stringify(this.awardee))
-        console.log(JSON.stringify(this.awardee))
-
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'post',
           body: JSON.stringify(this.awardee)
@@ -286,6 +346,8 @@ export default {
         alert('There was an issue trying to update this record,please try again later.')
       }
     },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     cancelRecord () {
       if (confirm('Are you sure you want to cancel this record?')) {
@@ -301,18 +363,51 @@ export default {
     }
   },
 
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   created () {
 
   },
+
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   components: {
 
   }
 }
+
 </script>
 
 <style>
+
 .deleteIcon {
   width: 55%;
   height: 5%;
 }
+
+.styleInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.styleBtn {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.styleBtn:hover {
+background-color: #45a049;
+}
+
 </style>
