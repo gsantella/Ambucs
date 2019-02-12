@@ -56,7 +56,7 @@
                   <div class="form-group with-icon-left">
                     <!-- Street 1 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.street1" required/>
+                      <input id="simple-input" v-model="awardee.address1" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
@@ -64,7 +64,7 @@
                   <div class="form-group with-icon-left">
                     <!-- Street 2 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.street2" required/>
+                      <input id="simple-input" v-model="awardee.address2" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
                   </div>
@@ -73,17 +73,17 @@
 
                     <!-- City -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.city" required/>
+                      <input id="simple-input" v-model="awardee.city" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
                     <!-- State -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.state" required/>
+                      <input id="simple-input" v-model="awardee.state" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
                     <!-- Zip -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.zip" required/>
+                      <input id="simple-input" v-model="awardee.zip" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -92,7 +92,7 @@
                    <!-- Notes -->
                   <div class="form-group">
                     <div class="input-group">
-                      <textarea type="text" id="simple-textarea"
+                      <textarea type="text" id="simple-textarea" v-model="awardee.notes"
                                 required></textarea>
                       <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
                     </div>
@@ -236,10 +236,11 @@ export default {
     deleteRecord () {
       if (confirm('Are you sure you want to delete this record?')) {
         try {
-
-          axios.delete('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-          alert('The record has been deleted.')
-          router.push({ name: 'view-awardees' })
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+            method: 'delete'
+          }).then(alert('The record has been deleted.'))
+          .then(console.log(this.$route.params.id))
+          .then(router.push({ name: 'view-awardees' }))
         } catch (e) {
           console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")

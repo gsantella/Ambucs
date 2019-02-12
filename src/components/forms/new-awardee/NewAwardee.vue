@@ -50,7 +50,7 @@
                   <div class="form-group with-icon-left">
                     <!-- Street 1 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.street1" required/>
+                      <input id="simple-input" v-model="awardee.address1" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
@@ -58,7 +58,7 @@
                   <div class="form-group with-icon-left">
                     <!-- Street 2 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.street2" required/>
+                      <input id="simple-input" v-model="awardee.address2" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
                   </div>
@@ -67,17 +67,17 @@
 
                     <!-- City -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.city" required/>
+                      <input id="simple-input" v-model="awardee.city" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
                     <!-- State -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.state" required/>
+                      <input id="simple-input" v-model="awardee.state" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
                     <!-- Zip -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address.zip" required/>
+                      <input id="simple-input" v-model="awardee.zip" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -190,35 +190,34 @@ export default {
       awardee: {
         firstName: '',
         lastName: '',
-        address: {
-          street1: '',
-          street2: '',
-          city: '',
-          state: ''
-        },
-        award: {
-          dateAwarded: '',
-          dateReceived: '',
-          fundedBy: '',
-          locationAwarded: '',
-          notes: ''
-        },
-        dateOfBirth: '',
-        lastContacted: '',
-        trykes: [
-          {
-            model: '',
-            id: ''
-          }
-        ],
-        contacts: [
-          {
-            firstName: '',
-            lastname: '',
-            type: ''
-          }
-        ]
-      }
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: ''
+      },
+      award: {
+        dateAwarded: '',
+        dateReceived: '',
+        fundedBy: '',
+        locationAwarded: '',
+        notes: ''
+      },
+      dateOfBirth: '',
+      lastContacted: '',
+      trykes: [
+        {
+          model: '',
+          id: ''
+        }
+      ],
+      contacts: [
+        {
+          firstName: '',
+          lastname: '',
+          type: ''
+        }
+      ]
     }
   },
   methods: {

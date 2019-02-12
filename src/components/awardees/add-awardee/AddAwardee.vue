@@ -101,7 +101,7 @@
                    <!-- Notes -->
                   <div class="form-group">
                     <div class="input-group">
-                      <textarea type="text" id="simple-textarea"
+                      <textarea type="text" id="simple-textarea" v-model="awardee.notes"
                                 required></textarea>
                       <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
                     </div>
@@ -212,7 +212,8 @@ export default {
         zip: '',
         dateOfBirth: '',
         lastContacted: '',
-        notes: ''
+        notes: '',
+        phone: ''
         /*
         trykes: [
           {
@@ -231,8 +232,7 @@ export default {
             lastname: '',
             type: ''
           }
-        ]
-        */
+        ] */
       }
     }
   },
@@ -272,13 +272,13 @@ export default {
 
     addRecord () {
       try {
-        console.log(this.awardee);
+        alert(JSON.stringify(this.awardee))
+        console.log(JSON.stringify(this.awardee))
 
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
-        method: 'post',
-        body: JSON.stringify(this.awardee)
+          method: 'post',
+          body: JSON.stringify(this.awardee)
         })
-
 
         alert('The record has been added.')
       } catch (e) {
