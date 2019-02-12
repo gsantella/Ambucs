@@ -1,0 +1,7 @@
+Add field in database for error log
+
+On each try catch in the catch send up error to API and store a list of every error that occurs
+
+Create a small single page html vue app that just pulls all errors from API
+
+This will help us or anyone dubug errors easier in PROD
