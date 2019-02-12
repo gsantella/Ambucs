@@ -3,7 +3,7 @@
     <div class="va-row">
       <div class="flex md6">
 
-        <vuestic-widget :headerText="'forms.inputs.title' | translate">
+        <vuestic-widget :headerText="'Add Awardee' | translate">
 
             <form>
 
@@ -102,7 +102,7 @@
                    <!-- Notes -->
                   <div class="form-group">
                     <div class="input-group">
-                      <textarea type="text" id="simple-textarea"
+                      <textarea type="text" v-model="awardee.notes" id="simple-textarea"
                                 required></textarea>
                       <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
                     </div>
@@ -192,17 +192,79 @@
                    :cancelText="'modal.cancel' | translate">
       <div slot="title">{{'Add Contact' | translate}}</div>
       <div>
-        <input class="styleInput" type="text" v-model="contacts.firstName" placeholder="First Name" />
-        <input class="styleInput" type="text" v-model="contacts.lastName" placeholder="Last Name" />
-        <input class="styleInput" type="text" v-model="contacts.type" placeholder="Type" />
-        <div class="va-row">
-          <div class="flex md6">
-            <input class="styleBtn" type="submit" value="Add" @click="addContactToArray()" />
-          </div>
-          <div class="flex md6">
-            <input class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRow()" />
-          </div>
-        </div>
+          <form>
+            <fieldset>
+              <div class="form-group">
+                <!-- First Name -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.firstName" required/>
+                  <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                </div>
+
+                <!-- Last Name -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.lastName" required/>
+                  <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Email -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.email" required/>
+                  <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Phone 1 -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.phone1" required/>
+                  <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
+                </div>
+
+                <!-- Phone 2 -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.phone2" required/>
+                  <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Type -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.type" required/>
+                  <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Street -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.street" required/>
+                  <label class="control-label" for="simple-input">Street</label><i class="bar"></i>
+                </div>
+                <!-- City -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.city" required/>
+                  <label class="control-label" for="simple-input">City</label><i class="bar"></i>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <!-- State -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.state" required/>
+                  <label class="control-label" for="simple-input">State</label><i class="bar"></i>
+                </div>
+                <!-- Zip -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.zip" required/>
+                  <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
+                </div>
+              </div>
+
+            </fieldset>
+          </form>
+
+        <input class="styleBtn" type="submit" value="Add" @click="addContactToArray()" />
 
       </div>
     </vuestic-modal>
@@ -213,20 +275,67 @@
                    :cancelText="'modal.cancel' | translate">
       <div slot="title">{{'Add Tryke' | translate}}</div>
       <div>
-        <input class="styleInput" type="text" v-model="trykes.model" placeholder="Model" />
-        <input class="styleInput" type="text" v-model="trykes.dateAwarded" placeholder="Date Awarded" />
-        <input class="styleInput" type="text" v-model="trykes.dateReceived" placeholder="Date Recieved" />
-        <input class="styleInput" type="text" v-model="trykes.fundedBy" placeholder="Funded By" />
-        <input class="styleInput" type="text" v-model="trykes.locationAwarded" placeholder="Location Awarded" />
-        <input class="styleInput" type="text" v-model="trykes.notes" placeholder="Notes" />
-        <div class="va-row">
-          <div class="flex md6">
-            <input class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
-          </div>
-          <div class="flex md6">
-            <input class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteTrykeRow()" />
+
+        <div class="form-group">
+          <!-- Model -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.model" required/>
+            <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
         </div>
+
+        <div class="form-group">
+          <!-- Date Awarded -->
+          <div class="input-group">
+            <vuestic-date-picker
+              id="date-picker-custom-date-format"
+              :config="{altInput: true, altFormat: 'F j, Y'}"
+              v-model="trykes.dateAwarded"
+            />
+            <label class="control-label" for="date-picker-custom-date-format">
+              Date Awarded
+            </label>
+            <i class="bar"></i>
+          </div>
+
+          <!-- Date Recieved -->
+          <div class="input-group">
+            <vuestic-date-picker
+              id="date-picker-custom-date-format"
+              :config="{altInput: true, altFormat: 'F j, Y'}"
+              v-model="trykes.dateReceived"
+            />
+            <label class="control-label" for="date-picker-custom-date-format">
+              Date Recieved
+            </label>
+            <i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- Funded By -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.fundedBy" required/>
+            <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
+          </div>
+
+          <!-- Location Awarded -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.locationAwarded" required/>
+            <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- Notes -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.notes" required/>
+            <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <input class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
+
       </div>
     </vuestic-modal>
 
@@ -261,7 +370,14 @@ export default {
       contacts: {
         firstName: '',
         lastName: '',
-        type: ''
+        email: '',
+        phone1: '',
+        phone2: '',
+        type: '',
+        city: '',
+        state: '',
+        street: '',
+        zip: ''
       },
       trykes: {
         model: '',
@@ -302,7 +418,14 @@ export default {
     addNewContactRow () {
       this.contacts.firstName = ''
       this.contacts.lastName = ''
+      this.contacts.email = ''
+      this.contacts.phone1 = ''
+      this.contacts.phone2 = ''
       this.contacts.type = ''
+      this.contacts.street = ''
+      this.contacts.city = ''
+      this.contacts.state = ''
+      this.contacts.zip = ''
 
       this.$refs.largeModal.open()
     },
@@ -349,15 +472,19 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addRecord () {
+      /*
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'post',
           body: JSON.stringify(this.awardee)
         }).then(alert('The record has been added.'))
+          .then(router.push({ name: 'view-awardees' }))
       } catch (e) {
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
       }
+      */
+      console.log(this.awardee)
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////
