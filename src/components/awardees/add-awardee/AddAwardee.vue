@@ -556,12 +556,12 @@ export default {
       } else {
         this.$refs.mediumModal.open()
         this.editId = index
-        this.awardee.trykes.model = item.model
-        this.awardee.trykes.dateAwarded = item.dateAwarded
-        this.awardee.trykes.dateReceived = item.dateReceived
-        this.awardee.trykes.fundedBy = item.fundedBy
-        this.awardee.trykes.locationAwarded = item.locationAwarded
-        this.awardee.trykes.notes = item.notes
+        this.trykes.model = item.model
+        this.trykes.dateAwarded = item.dateAwarded
+        this.trykes.dateReceived = item.dateReceived
+        this.trykes.fundedBy = item.fundedBy
+        this.trykes.locationAwarded = item.locationAwarded
+        this.trykes.notes = item.notes
 
         this.showUpdateBtnTryke()
         this.trykeModalTitle = 'Edit Tryke'
@@ -571,21 +571,19 @@ export default {
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactItem () {
-      this.$set(this.awardee.contacts, this.editId, this.contacts)
+      this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
       this.hideUpdateBtnContact()
       this.$refs.largeModal.cancel()
       // THIS IS BROKEN WORKS TO UPDATE ON RECORD BUT BREAKS MUTLIPLE RECORDS
-      // UPDATE ENTIRE AWARDEE.CONTACTS IN AWS -> DO WE WANT TO OVERWRITE REPLACE ALL ITEMS IN AWS WITH NEW?
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateTrykeItem () {
-      this.awardee.trykes.splice(this.editId, 1, this.trykes)
+      this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
       this.hideUpdateBtnTryke()
       this.$refs.mediumModal.cancel()
       // THIS IS BROKEN WORKS TO UPDATE ON RECORD BUT BREAKS MUTLIPLE RECORDS
-      // UPDATE ENTIRE AWARDEE.TRYKES IN AWS -> DO WE WANT TO OVERWRITE REPLACE ALL ITEMS IN AWS WITH NEW?
     },
 
     /// ///////////////////////////////////////////////////////////////////////////////////////////////////////
