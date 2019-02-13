@@ -1,66 +1,65 @@
 <template>
   <div class="form-elements">
     <div class="va-row">
+
+<!-- START OF VUESTIC WIDGET FOR FORM INPUTS -->
+
       <div class="flex md6">
 
         <vuestic-widget :headerText="'Add Awardee' | translate">
+          <form>
+            <fieldset>
 
-            <form>
+              <div class="form-group">
+                <!-- First Name -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="awardee.firstName" required/>
+                  <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                </div>
 
-                <fieldset>
+                <!-- Last Name -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="awardee.lastName" required/>
+                  <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                </div>
+              </div>
 
-                  <div class="form-group">
+              <div class="form-group">
 
-                    <!-- First Name -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.firstName" required/>
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
+                <!-- Phone Number -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="awardee.phone" required/>
+                  <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
+                </div>
 
-                    <!-- Last Name -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.lastName" required/>
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                    </div>
-                  </div>
+                <!-- Birth Date -->
+                <div class="input-group">
+                  <vuestic-date-picker
+                    id="date-picker-custom-date-format"
+                    :config="{altInput: true, altFormat: 'F j, Y'}"
+                    v-model="awardee.dateOfBirth"
+                  />
+                  <label class="control-label" for="date-picker-custom-date-format">
+                    Birth Date
+                  </label>
+                  <i class="bar"></i>
 
-                  <div class="form-group">
+                </div>
 
-                    <!-- Phone Number -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" required/>
-                      <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
-                    </div>
+                <!-- Last Contacted -->
+                <div class="input-group">
+                  <vuestic-date-picker
+                    id="date-picker-custom-date-format"
+                    :config="{altInput: true, altFormat: 'F j, Y'}"
+                    v-model="awardee.lastContacted"
+                  />
+                  <label class="control-label" for="date-picker-custom-date-format">
+                    Last Contacted
+                  </label>
+                  <i class="bar"></i>
 
-                    <!-- Birth Date -->
-                    <div class="input-group">
-                      <vuestic-date-picker
-                        id="date-picker-custom-date-format"
-                        :config="{altInput: true, altFormat: 'F j, Y'}"
-                        v-model="awardee.dateOfBirth"
-                      />
-                      <label class="control-label" for="date-picker-custom-date-format">
-                        Birth Date
-                      </label>
-                      <i class="bar"></i>
-
-                    </div>
-
-                    <!-- Last Contacted -->
-                    <div class="input-group">
-                      <vuestic-date-picker
-                        id="date-picker-custom-date-format"
-                        :config="{altInput: true, altFormat: 'F j, Y'}"
-                        v-model="awardee.lastContacted"
-                      />
-                      <label class="control-label" for="date-picker-custom-date-format">
-                        Last Contacted
-                      </label>
-                      <i class="bar"></i>
-
-                    </div>
-
-                  </div>
+                </div>
+              </div>
 
                   <div class="form-group with-icon-left">
 
@@ -115,9 +114,12 @@
 
       </div>
 
+<!-- END OF VUESTIC WIDGET FOR FORM INPUTS -->
+
+<!-- START OF RIGHT SIDE FLEX MD6-->
     <div class="flex md6">
 
-      <!-- Contacts Table -->
+<!-- START OF CONTACTS TABLE-->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRow()">
         {{'Add Contact' | translate}}
       </button>
@@ -138,10 +140,11 @@
             </tr>
           </tbody>
       </table>
+<!-- END OF CONTACTS TABLE -->
 
-      <hr style="margin:5% 0;" />
+    <hr style="margin:5% 0;" />
 
-      <!-- Trykes Table -->
+<!-- START OF TRYKES TABLE -->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRow()">
         {{'Add Tryke' | translate}}
       </button>
@@ -163,10 +166,12 @@
             </tr>
           </tbody>
       </table>
+<!-- END OF TRYKES TABLE -->
 
     </div>
+<!-- END OF RIGHT SIDE FLEX MD6 -->
 
-    <!--Save Delete Buttons -->
+<!-- START OF SAVE/DELETE BUTTONS -->
     <div class="va-row btn-margin-row">
       <div
         class="flex sm6 lg6 xl3 justify--center">
@@ -181,8 +186,9 @@
         </button>
       </div>
     </div>
+<!-- END OF SAVE/DELETE BUTTONS -->
 
-      <!-- Contacts Modal -->
+<!-- START OF CONTACTS MODAL -->
       <vuestic-modal v-bind:noButtons="true"  :show.sync="show" v-bind:large="true" ref="largeModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
@@ -273,8 +279,9 @@
 
       </div>
     </vuestic-modal>
+<!-- END OF CONTACTS MODAL -->
 
-      <!-- Trykes Modal -->
+<!-- START OF TRYKES MODAL -->
       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
@@ -352,6 +359,7 @@
 
       </div>
     </vuestic-modal>
+<!-- END OF TRYKES MODAL -->
 
     </div>
 
@@ -364,7 +372,7 @@ import router from '../../../router'
 export default {
   name: 'AddAwardee',
 
-  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   computed: {
 
@@ -372,7 +380,7 @@ export default {
 
   },
 
-  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   data () {
     return {
@@ -419,7 +427,7 @@ export default {
     }
   },
 
-  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
 
@@ -427,7 +435,7 @@ export default {
       this[field] = ''
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     hideUpdateBtnContact () {
       var addBtn = document.getElementById('addContact')
@@ -438,7 +446,7 @@ export default {
       deleteContactBtn.style.display = 'none'
     },
 
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     hideUpdateBtnTryke () {
       var addBtnTryke = document.getElementById('addTryke')
@@ -449,7 +457,7 @@ export default {
       deleteTrykeBtn.style.display = 'none'
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     showUpdateBtnContact () {
       var addBtn = document.getElementById('addContact')
@@ -460,7 +468,7 @@ export default {
       deleteContactBtn.style.display = 'block'
     },
 
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     showUpdateBtnTryke () {
       var addBtnTryke = document.getElementById('addTryke')
@@ -471,7 +479,7 @@ export default {
       deleteTrykeBtn.style.display = 'block'
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addNewContactRow () {
       this.contacts.firstName = ''
@@ -490,14 +498,14 @@ export default {
       this.$refs.largeModal.open()
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addContactToArray () {
       this.awardee.contacts.push(Object.assign({}, this.contacts))
       this.$refs.largeModal.cancel()
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addNewTrykeRow () {
       this.trykes.model = ''
@@ -511,14 +519,14 @@ export default {
       this.$refs.mediumModal.open()
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addTrykeToArray () {
       this.awardee.trykes.push(Object.assign({}, this.trykes))
       this.$refs.mediumModal.cancel()
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     deleteContactRow () {
       this.awardee.contacts.splice(this.editId, 1)
@@ -526,7 +534,7 @@ export default {
       this.$refs.largeModal.cancel()
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     deleteTrykeRow () {
       this.awardee.trykes.splice(this.editId, 1)
@@ -534,7 +542,7 @@ export default {
       this.$refs.mediumModal.cancel()
     },
 
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     displayModal (item, index, id) {
       if (id === 1) {
@@ -568,25 +576,23 @@ export default {
       }
     },
 
-    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactItem () {
       this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
       this.hideUpdateBtnContact()
       this.$refs.largeModal.cancel()
-      // THIS IS BROKEN WORKS TO UPDATE ON RECORD BUT BREAKS MUTLIPLE RECORDS
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateTrykeItem () {
       this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
       this.hideUpdateBtnTryke()
       this.$refs.mediumModal.cancel()
-      // THIS IS BROKEN WORKS TO UPDATE ON RECORD BUT BREAKS MUTLIPLE RECORDS
     },
 
-    /// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addRecord () {
       try {
@@ -601,7 +607,7 @@ export default {
       }
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     cancelRecord () {
       if (confirm('Are you sure you want to cancel this record?')) {
@@ -617,13 +623,13 @@ export default {
     }
   },
 
-  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
 
   },
 
-  /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   components: {
 
