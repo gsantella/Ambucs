@@ -498,18 +498,27 @@ export default {
       this.$refs.largeModal.open()
     },
 
+
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    addContactToArray () {
+    checkInputsForNulls(obj) {
       var isValid = false;
-      for (var key in this.contacts) {
-        if (this.contacts[key] == null || this.contacts[key] == "") {
-          isValid = false;
+      for (var key in obj) {
+        if (obj[key] == null || obj[key] == "") {
+          isValid =  false;
           break;
         } else {
           isValid = true;
         }
       }
+      return isValid;
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addContactToArray () {
+      var isValid = false;
+      isValid = this.checkInputsForNulls(this.contacts);
     
       if( !isValid ) {
         alert('Please fill in all fields');
@@ -537,14 +546,7 @@ export default {
 
     addTrykeToArray () {
       var isValid = false;
-      for (var key in this.trykes) {
-        if (this.trykes[key] == null || this.trykes[key] == "") {
-          isValid = false;
-          break;
-        } else {
-          isValid = true;
-        }
-      }
+      isValid = this.checkInputsForNulls(this.trykes);
 
       if( !isValid ) {
         alert("Please fill in all fields.");
@@ -630,14 +632,7 @@ export default {
 
     addRecord () {
       var isValid = false;
-      for (var key in this.awardee) {
-        if (this.awardee[key] == null || this.awardee[key] == "") {
-          isValid = false;
-          break;
-        } else {
-          isValid = true;
-        }
-      }
+      isValid = this.checkInputsForNulls(this.awardee);
 
       if ( !isValid ) {
         alert("Please fill in all fields.");
