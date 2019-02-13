@@ -610,10 +610,12 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactItem () {
-      if(this.contacts.firstName === '') {
-        alert('Fields must have input')
+      var isValid = false;
+      isValid = this.checkInputsForNulls(this.contacts);
+      
+      if( !isValid) {
+        alert("Please fill in all fields.")
       } else {
-        alert('test')
         this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
         this.hideUpdateBtnContact()
         this.$refs.largeModal.cancel()
@@ -623,9 +625,17 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateTrykeItem () {
-      this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
-      this.hideUpdateBtnTryke()
-      this.$refs.mediumModal.cancel()
+      var isValid = false;
+      isValid = this.checkInputsForNulls(this.trykes);
+      
+      if( !isValid) {
+        alert("Please fill in all fields.")
+      } else {
+        //this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
+        this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.trykes))
+        this.hideUpdateBtnTryke()
+        this.$refs.mediumModal.cancel()
+      }
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
