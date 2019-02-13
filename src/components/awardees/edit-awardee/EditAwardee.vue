@@ -252,6 +252,15 @@ export default {
       return isValid
     },
 
+    awardeeCleaned () {
+      let newObj = {}
+      Object.keys(this.awardee).forEach((prop) => {
+        if (this.awardee[prop] !== '') { newObj[prop] = this.awardee[prop] }
+      })
+      return newObj
+      // return this.awardee;
+    }
+
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -310,7 +319,7 @@ export default {
           method: 'PATCH',
           body: JSON.stringify(this.awardee)
         }).then(alert('The record has been edited.'))
-        
+
         router.push({ name: 'view-awardees' })
       } catch (e) {
         console.log(e)
@@ -328,8 +337,7 @@ export default {
           }).then(alert('The record has been deleted.'))
             .then(console.log(this.$route.params.id))
 
-            router.push({ name: 'view-awardees' })
-
+          router.push({ name: 'view-awardees' })
         } catch (e) {
           console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")
