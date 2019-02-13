@@ -37,6 +37,20 @@
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
+                    <!-- Birth Date -->
+                    <div class="input-group">
+                      <vuestic-date-picker
+                        id="date-picker-custom-date-format"
+                        :config="{altInput: true, altFormat: 'F j, Y'}"
+                        v-model="awardee.dateOfBirth"
+                      />
+                      <label class="control-label" for="date-picker-custom-date-format">
+                        Birth Date
+                      </label>
+                      <i class="bar"></i>
+
+                    </div>
+
                     <!-- Last Contacted -->
                     <div class="input-group">
                       <vuestic-date-picker
@@ -295,8 +309,7 @@ export default {
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           method: 'PATCH',
           body: JSON.stringify(this.awardee)
-        }).then(console.log(this.$route.params.id))
-          .then(alert('Updated'))
+        }).then(alert('The record has been edited.'))
           .then(router.push({ name: 'view-awardees' }))
       } catch (e) {
         console.log(e)

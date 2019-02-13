@@ -46,10 +46,6 @@
 
                     </div>
 
-                  </div>
-
-                  <div class="form-group with-icon-left">
-
                     <!-- Last Contacted -->
                     <div class="input-group">
                       <vuestic-date-picker
@@ -63,6 +59,10 @@
                       <i class="bar"></i>
 
                     </div>
+
+                  </div>
+
+                  <div class="form-group with-icon-left">
 
                     <!-- Street 1 -->
                     <div class="input-group">
@@ -361,8 +361,6 @@
 <script>
 import router from '../../../router'
 
-// var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
-
 export default {
   name: 'AddAwardee',
 
@@ -573,11 +571,11 @@ export default {
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactItem () {
-      this.awardee.contacts.splice(this.editId, 1, this.contacts)
+      this.$set(this.awardee.contacts, this.editId, this.contacts)
       this.hideUpdateBtnContact()
       this.$refs.largeModal.cancel()
-
-      // Push this.awardee.contacts to AWS to save
+      // THIS IS BROKEN WORKS TO UPDATE ON RECORD BUT BREAKS MUTLIPLE RECORDS
+      // UPDATE ENTIRE AWARDEE.CONTACTS IN AWS -> DO WE WANT TO OVERWRITE REPLACE ALL ITEMS IN AWS WITH NEW?
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -586,8 +584,8 @@ export default {
       this.awardee.trykes.splice(this.editId, 1, this.trykes)
       this.hideUpdateBtnTryke()
       this.$refs.mediumModal.cancel()
-
-      // Push this.awardee.trykes to AWS to save
+      // THIS IS BROKEN WORKS TO UPDATE ON RECORD BUT BREAKS MUTLIPLE RECORDS
+      // UPDATE ENTIRE AWARDEE.TRYKES IN AWS -> DO WE WANT TO OVERWRITE REPLACE ALL ITEMS IN AWS WITH NEW?
     },
 
     /// ///////////////////////////////////////////////////////////////////////////////////////////////////////
