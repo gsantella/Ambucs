@@ -501,8 +501,22 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addContactToArray () {
-      this.awardee.contacts.push(Object.assign({}, this.contacts))
-      this.$refs.largeModal.cancel()
+      var isValid = false;
+      for (var key in this.contacts) {
+        if (this.contacts[key] == null || this.contacts[key] == "") {
+          isValid = false;
+          break;
+        } else {
+          isValid = true;
+        }
+      }
+    
+      if( !isValid ) {
+        alert('Please fill in all fields');
+      } else {
+        this.awardee.contacts.push(Object.assign({}, this.contacts))
+        this.$refs.largeModal.cancel()
+      }
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -522,8 +536,23 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addTrykeToArray () {
-      this.awardee.trykes.push(Object.assign({}, this.trykes))
-      this.$refs.mediumModal.cancel()
+      var isValid = false;
+      for (var key in this.trykes) {
+        if (this.trykes[key] == null || this.trykes[key] == "") {
+          isValid = false;
+          break;
+        } else {
+          isValid = true;
+        }
+      }
+
+      if( !isValid ) {
+        alert("Please fill in all fields.");
+      } else {
+        this.awardee.trykes.push(Object.assign({}, this.trykes))
+        this.$refs.mediumModal.cancel()
+      }
+
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -579,9 +608,14 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactItem () {
-      this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
-      this.hideUpdateBtnContact()
-      this.$refs.largeModal.cancel()
+      if(this.contacts.firstName === '') {
+        alert('Fields must have input')
+      } else {
+        alert('test')
+        this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
+        this.hideUpdateBtnContact()
+        this.$refs.largeModal.cancel()
+      }
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -595,16 +629,32 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addRecord () {
-      try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
-          method: 'post',
-          body: JSON.stringify(this.awardee)
-        }).then(alert('The record has been added.'))
-          .then(router.push({ name: 'view-awardees' }))
-      } catch (e) {
-        console.log(e)
-        alert('There was an issue trying to update this record,please try again later.')
+      var isValid = false;
+      for (var key in this.awardee) {
+        if (this.awardee[key] == null || this.awardee[key] == "") {
+          isValid = false;
+          break;
+        } else {
+          isValid = true;
+        }
       }
+
+      if ( !isValid ) {
+        alert("Please fill in all fields.");
+      } else {
+          try {   
+            fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
+              method: 'post',
+              body: JSON.stringify(this.awardee)
+            }).then(alert('The record has been added.'))
+
+            router.push({ name: 'view-awardees' })
+        } catch (e) {
+          console.log(e)
+          alert('There was an issue trying to update this record,please try again later.')
+        }
+      }
+      
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -310,7 +310,8 @@ export default {
           method: 'PATCH',
           body: JSON.stringify(this.awardee)
         }).then(alert('The record has been edited.'))
-          .then(router.push({ name: 'view-awardees' }))
+        
+        router.push({ name: 'view-awardees' })
       } catch (e) {
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
@@ -326,7 +327,9 @@ export default {
             method: 'delete'
           }).then(alert('The record has been deleted.'))
             .then(console.log(this.$route.params.id))
-            .then(router.push({ name: 'view-awardees' }))
+
+            router.push({ name: 'view-awardees' })
+
         } catch (e) {
           console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")
