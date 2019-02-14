@@ -335,7 +335,6 @@ export default {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
             method: 'delete'
           }).then(alert('The record has been deleted.'))
-            .then(console.log(this.$route.params.id))
 
           router.push({ name: 'view-awardees' })
         } catch (e) {
