@@ -129,20 +129,20 @@ export default {
   },
   computed: {
     filteredItems () {
-      let filteredItems = this.itemList
+      let filteredItemsLocal = this.itemList
       if (this.name) {
-        filteredItems = filteredItems.filter(item => item.firstName.toUpperCase()
+        filteredItemsLocal = filteredItemsLocal.filter(item => item.firstName.toUpperCase()
           .search(this.name.toUpperCase()) !== -1)
       }
       if (this.email) {
-        filteredItems = filteredItems.filter(item => item.lastName.toUpperCase()
+        filteredItemsLocal = filteredItemsLocal.filter(item => item.lastName.toUpperCase()
           .search(this.email.toUpperCase()) !== -1)
       }
       if (this.city) {
-        filteredItems = filteredItems.filter(item => item.city.toUpperCase()
+        filteredItemsLocal = filteredItemsLocal.filter(item => item.city.toUpperCase()
           .search(this.city.toUpperCase()) !== -1)
       }
-      return filteredItems
+      return filteredItemsLocal
     }
   },
   created () {
