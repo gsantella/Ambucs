@@ -142,7 +142,7 @@
       </table>
 <!-- END OF CONTACTS TABLE -->
 
-    <hr style="margin:5% 0;" />
+<br style="margin:10%"/>
 
 <!-- START OF TRYKES TABLE -->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRow()">
@@ -498,30 +498,29 @@ export default {
       this.$refs.largeModal.open()
     },
 
-
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    checkInputsForNulls(obj) {
-      var isValid = false;
+    checkInputsForNulls (obj) {
+      var isValid = false
       for (var key in obj) {
-        if (obj[key] == null || obj[key] == "") {
-          isValid =  false;
-          break;
+        if (obj[key] === null || obj[key] === '') {
+          isValid = false
+          break
         } else {
-          isValid = true;
+          isValid = true
         }
       }
-      return isValid;
+      return isValid
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addContactToArray () {
-      var isValid = false;
-      isValid = this.checkInputsForNulls(this.contacts);
-    
-      if( !isValid ) {
-        alert('Please fill in all fields');
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.contacts)
+
+      if (!isValid) {
+        alert('Please fill in all fields')
       } else {
         this.awardee.contacts.push(Object.assign({}, this.contacts))
         this.$refs.largeModal.cancel()
@@ -545,16 +544,15 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addTrykeToArray () {
-      var isValid = false;
-      isValid = this.checkInputsForNulls(this.trykes);
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.trykes)
 
-      if( !isValid ) {
-        alert("Please fill in all fields.");
+      if (!isValid) {
+        alert('Please fill in all fields.')
       } else {
         this.awardee.trykes.push(Object.assign({}, this.trykes))
         this.$refs.mediumModal.cancel()
       }
-
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -610,11 +608,11 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactItem () {
-      var isValid = false;
-      isValid = this.checkInputsForNulls(this.contacts);
-      
-      if( !isValid) {
-        alert("Please fill in all fields.")
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.contacts)
+
+      if (!isValid) {
+        alert('Please fill in all fields.')
       } else {
         this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
         this.hideUpdateBtnContact()
@@ -625,13 +623,13 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateTrykeItem () {
-      var isValid = false;
-      isValid = this.checkInputsForNulls(this.trykes);
-      
-      if( !isValid) {
-        alert("Please fill in all fields.")
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.trykes)
+
+      if (!isValid) {
+        alert('Please fill in all fields.')
       } else {
-        //this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
+        // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
         this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.trykes))
         this.hideUpdateBtnTryke()
         this.$refs.mediumModal.cancel()
@@ -641,25 +639,24 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addRecord () {
-      var isValid = false;
-      isValid = this.checkInputsForNulls(this.awardee);
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.awardee)
 
-      if ( !isValid ) {
-        alert("Please fill in all fields.");
+      if (!isValid) {
+        alert('Please fill in all fields.')
       } else {
-          try {   
-            fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
-              method: 'post',
-              body: JSON.stringify(this.awardee)
-            }).then(alert('The record has been added.'))
+        try {
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
+            method: 'post',
+            body: JSON.stringify(this.awardee)
+          }).then(alert('The record has been added.'))
 
-            router.push({ name: 'view-awardees' })
+          router.push({ name: 'view-awardees' })
         } catch (e) {
           console.log(e)
           alert('There was an issue trying to update this record,please try again later.')
         }
       }
-      
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

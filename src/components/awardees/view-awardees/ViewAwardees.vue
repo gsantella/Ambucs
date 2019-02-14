@@ -26,11 +26,10 @@
                 class="filters-page__filter-bar"
                 label="Last Name"
               />
-              <vuestic-simple-select
+              <filter-bar
+                v-model="city"
                 class="filters-page__filter-bar"
                 label="City"
-                v-model="city"
-                :options="cityList"
               />
             </div>
           </div>

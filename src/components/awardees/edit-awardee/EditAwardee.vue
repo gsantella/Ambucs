@@ -133,9 +133,9 @@
           </thead>
           <tbody>
             <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(item,1)">
-              <td>{{ item.type }}</td>
               <td>{{ item.firstName }}</td>
-               <td>{{ item.lastName }}</td>
+              <td>{{ item.lastName }}</td>
+              <td>{{ item.type }}</td>
             </tr>
           </tbody>
       </table>
@@ -185,10 +185,77 @@
           :cancelText="'modal.cancel' | translate">
       <div slot="title">{{'Edit Contact' | translate}}</div>
       <div>
+          <form>
+            <fieldset>
+              <div class="form-group">
+                <!-- First Name -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.firstName" required/>
+                  <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                </div>
 
-        <input class="styleInput" type="text" v-model="awardee.contacts.firstName" placeholder="First Name" />
-        <input class="styleInput" type="text" v-model="awardee.contacts.lastName" placeholder="Last Name" />
-        <input class="styleInput" type="text" v-model="awardee.contacts.type" placeholder="Type" />
+                <!-- Last Name -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.lastName" required/>
+                  <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Email -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.email" required/>
+                  <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Phone 1 -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.phone1" required/>
+                  <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
+                </div>
+
+                <!-- Phone 2 -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.phone2" required/>
+                  <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Type -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.type" required/>
+                  <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <!-- Street -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.street" required/>
+                  <label class="control-label" for="simple-input">Street</label><i class="bar"></i>
+                </div>
+                <!-- City -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.city" required/>
+                  <label class="control-label" for="simple-input">City</label><i class="bar"></i>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <!-- State -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.state" required/>
+                  <label class="control-label" for="simple-input">State</label><i class="bar"></i>
+                </div>
+                <!-- Zip -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contacts.zip" required/>
+                  <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
+                </div>
+              </div>
+
+            </fieldset>
+          </form>
         <div class="va-row">
           <div class="flex md6">
             <input class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
@@ -208,13 +275,64 @@
       <div slot="title">{{'Edit Tryke' | translate}}</div>
       <div>
 
-        <input class="styleInput" type="text" v-model="awardee.trykes.model" placeholder="Model" />
-        <input class="styleInput" type="text" v-model="awardee.trykes.dateAwarded" placeholder="Date Awarded" />
-        <input class="styleInput" type="text" v-model="awardee.trykes.dateReceived" placeholder="Date Recieved" />
-        <input class="styleInput" type="text" v-model="awardee.trykes.fundedBy" placeholder="Funded By" />
-        <input class="styleInput" type="text" v-model="awardee.trykes.locationAwarded" placeholder="Location Awarded" />
-        <input class="styleInput" type="text" v-model="awardee.trykes.notes" placeholder="Notes" />
-        <div class="va-row">
+        <div class="form-group">
+          <!-- Model -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.model" required/>
+            <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- Date Awarded -->
+          <div class="input-group">
+            <vuestic-date-picker
+              id="date-picker-custom-date-format"
+              :config="{altInput: true, altFormat: 'F j, Y'}"
+              v-model="trykes.dateAwarded"
+            />
+            <label class="control-label" for="date-picker-custom-date-format">
+              Date Awarded
+            </label>
+            <i class="bar"></i>
+          </div>
+
+          <!-- Date Recieved -->
+          <div class="input-group">
+            <vuestic-date-picker
+              id="date-picker-custom-date-format"
+              :config="{altInput: true, altFormat: 'F j, Y'}"
+              v-model="trykes.dateReceived"
+            />
+            <label class="control-label" for="date-picker-custom-date-format">
+              Date Recieved
+            </label>
+            <i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- Funded By -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.fundedBy" required/>
+            <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
+          </div>
+
+          <!-- Location Awarded -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.locationAwarded" required/>
+            <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- Notes -->
+          <div class="input-group">
+            <input id="simple-input" v-model="trykes.notes" required/>
+            <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+          </div>
+        </div>
+       <div class="va-row">
           <div class="flex md6">
             <input class="styleBtn" type="submit" value="Save" @click="updateTrykeRecord()" />
           </div>
@@ -269,6 +387,26 @@ export default {
     return {
 
       show: false,
+      contacts: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone1: '',
+        phone2: '',
+        type: '',
+        city: '',
+        state: '',
+        street: '',
+        zip: ''
+      },
+      trykes: {
+        model: '',
+        dateAwarded: '',
+        dateReceived: '',
+        fundedBy: '',
+        locationAwarded: '',
+        notes: ''
+      },
       awardee: {
         firstName: '',
         lastName: '',
@@ -280,23 +418,8 @@ export default {
         dateOfBirth: '',
         lastContacted: '',
         notes: '',
-        trykes: [
-          {
-            model: '',
-            dateAwarded: '',
-            dateReceived: '',
-            fundedBy: '',
-            locationAwarded: '',
-            notes: ''
-          }
-        ],
-        contacts: [
-          {
-            firstName: '',
-            lastName: '',
-            type: ''
-          }
-        ]
+        trykes: [],
+        contacts: []
       }
 
     }
@@ -312,15 +435,37 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    checkInputsForNulls (obj) {
+      var isValid = false
+      for (var key in obj) {
+        if (obj[key] === null || obj[key] === '') {
+          isValid = false
+          break
+        } else {
+          isValid = true
+        }
+      }
+      return isValid
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     updateRecord () {
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          method: 'PATCH',
-          body: JSON.stringify(this.awardee)
-        }).then(alert('The record has been edited.'))
+        var isValid = false
+        isValid = this.checkInputsForNulls(this.awardee)
 
-        router.push({ name: 'view-awardees' })
+        if (isValid) {
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            method: 'PATCH',
+            body: JSON.stringify(this.awardee)
+          }).then(alert('The record has been edited.'))
+
+          router.push({ name: 'view-awardees' })
+        } else {
+          alert('Please ensure all fields are not empty.')
+        }
       } catch (e) {
         console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
@@ -349,25 +494,59 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateContactRecord () {
+      try {
+        var isValid = false
+        isValid = this.checkInputsForNulls(this.contacts)
 
+        if (isValid) {
+          alert('The contact has been updated.')
+          this.$refs.largeModal.cancel()
+        } else {
+          alert('Please ensure all fields are not empty.')
+        }
+      } catch (e) {
+        alert('An error occurred please try again.')
+      }
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     deleteContactRecord () {
-
+      try {
+        alert('The contact has been deleted.')
+        this.$refs.largeModal.cancel()
+      } catch (e) {
+        alert('An error occurred please try again.')
+      }
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateTrykeRecord () {
+      try {
+        var isValid = false
+        isValid = this.checkInputsForNulls(this.trykes)
 
+        if (isValid) {
+          alert('The tryke has been updated.')
+          this.$refs.mediumModal.cancel()
+        } else {
+          alert('Please ensure all fields are not empty.')
+        }
+      } catch (e) {
+        alert('An error occurred please try again.')
+      }
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    deleteTrykeContact () {
-
+    deleteTrykeRecord () {
+      try {
+        alert('The tryke has been deleted.')
+        this.$refs.mediumModal.cancel()
+      } catch (e) {
+        alert('An error occurred please try again.')
+      }
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -375,17 +554,24 @@ export default {
     displayModal (item, id) {
       if (id === 1) {
         this.$refs.largeModal.open()
-        this.awardee.contacts.firstName = item.firstName
-        this.awardee.contacts.lastName = item.lastName
-        this.awardee.contacts.type = item.type
+        this.contacts.firstName = item.firstName
+        this.contacts.lastName = item.lastName
+        this.contacts.email = item.email
+        this.contacts.phone1 = item.phone1
+        this.contacts.phone2 = item.phone2
+        this.contacts.type = item.type
+        this.contacts.city = item.city
+        this.contacts.state = item.state
+        this.contacts.street = item.street
+        this.contacts.zip = item.zip
       } else {
         this.$refs.mediumModal.open()
-        this.awardee.trykes.model = item.model
-        this.awardee.trykes.dateAwarded = item.dateAwarded
-        this.awardee.trykes.dateReceived = item.dateReceived
-        this.awardee.trykes.fundedBy = item.fundedBy
-        this.awardee.trykes.locationAwarded = item.locationAwarded
-        this.awardee.trykes.notes = item.notes
+        this.trykes.model = item.model
+        this.trykes.dateAwarded = item.dateAwarded
+        this.trykes.dateReceived = item.dateReceived
+        this.trykes.fundedBy = item.fundedBy
+        this.trykes.locationAwarded = item.locationAwarded
+        this.trykes.notes = item.notes
       }
     }
 

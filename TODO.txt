@@ -1,0 +1,27 @@
+Possible Feature
+
+Add field in database for error log
+
+On each try catch in the catch send up error to API and store a list of every error that occurs
+
+Create a small single page html vue app that just pulls all errors from API
+
+This will help us or anyone dubug errors easier in PROD
+
+================================================================
+
+
+Add error checking for fields like phone number, zipcode
+Choice which fields are required and what arent
+
+Decide how to EDIT a contact or tryke -> Send up entire awardee.contacts object to aws and replace that whole array of objects?
+
+Add AUTH 
+
+Add Permissions -> Only admins should see Users Tab -> Certain people should only be able to view an awardee not edit or Add awardee
+
+On view Awardee page fix city search 
+
+Possibly change guardian type to dropdown in contacts 
+
+Add pagination to View awardees page / Contacts / Trykes / Users pages
