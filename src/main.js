@@ -11,9 +11,9 @@ import store from './store'
 import router from './router'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
-import axios from 'axios'
+// import axios from 'axios'
 
-Vue.use(axios)
+// Vue.use(axios)
 Vue.use(router)
 Vue.use(VuesticPlugin)
 
@@ -33,7 +33,7 @@ router.afterEach((to, from) => {
 
 new Vue({
   el: '#app',
-  axios,
+  // axios,
   router,
   store,
   render: h => h(App),
