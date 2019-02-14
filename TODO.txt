@@ -10,6 +10,7 @@ This will help us or anyone dubug errors easier in PROD
 
 ================================================================
 
+Add API call to edit user edit contact/tryke add contact/tryke delete contact/tryke 
 
 Add error checking for fields like phone number, zipcode
 Choice which fields are required and what arent
@@ -25,3 +26,10 @@ On view Awardee page fix city search
 Possibly change guardian type to dropdown in contacts 
 
 Add pagination to View awardees page / Contacts / Trykes / Users pages
+
+Possibly add data fill in for adding a contact -> option to pull address from the awardee 
+that is being craeted --> makes it nicer for the user.
+
+For a Tryke do we want a city and state field for location awarded
+
+Add contact add tryke to edit user

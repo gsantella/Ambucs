@@ -653,7 +653,6 @@ export default {
 
           router.push({ name: 'view-awardees' })
         } catch (e) {
-          console.log(e)
           alert('There was an issue trying to update this record,please try again later.')
         }
       }
@@ -666,7 +665,6 @@ export default {
         try {
           router.push({ name: 'view-awardees' })
         } catch (e) {
-          console.log(e)
           alert("I'm sorry there was an issue trying to delete that record,please try again later.")
         }
       } else {
