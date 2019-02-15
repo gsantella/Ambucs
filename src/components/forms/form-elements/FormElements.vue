@@ -174,13 +174,11 @@
   </div>
 </template>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 import router from '../../../router'
 import modal from '@/components/forms/form-elements/modal.vue'
-import axios from '@/main.js'
 
-var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
+// var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
 
 export default {
   name: 'form-elements',
@@ -236,7 +234,7 @@ export default {
     deleteRecord () {
       if (confirm('Are you sure you want to delete this record?')) {
         try {
-          axios.delete('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+          // axios.delete('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
           alert('The record has been deleted.')
           router.push({ name: 'filters' })
         } catch (e) {
