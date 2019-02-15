@@ -121,7 +121,7 @@
 
 <!-- START OF CONTACTS TABLE-->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRow()">
-        {{'Add Contact' | translate}}
+        {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
@@ -146,7 +146,7 @@
 
 <!-- START OF TRYKES TABLE -->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRow()">
-        {{'Add Tryke' | translate}}
+        {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">

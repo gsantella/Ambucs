@@ -123,7 +123,7 @@
 
       <!-- Contacts Table -->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
-        {{'Add Contact' | translate}}
+        {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
@@ -147,7 +147,7 @@
 
       <!-- Trykes Table -->
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
-        {{'Add Tryke' | translate}}
+        {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
@@ -344,10 +344,10 @@
         <input id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
 
         <div class="va-row">
-          <div class="flex md6">
+          <div class="flex md3">
             <input id="updateTryke" class="styleBtn" style="display:none" type="submit" value="Update" @click="updateTrykeRecord()" />
           </div>
-          <div class="flex md6">
+          <div class="flex md3">
             <input id="deleteTryke" class="styleBtn" style="display:none;background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
           </div>
         </div>
