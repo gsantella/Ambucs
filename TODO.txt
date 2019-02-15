@@ -1,3 +1,5 @@
+✓ = Done
+
 Possible Feature
 
 Add field in database for error log
@@ -22,7 +24,7 @@ Add AUTH
 Add Permissions -> Only admins should see Users Tab -> Certain people should only be able to view an awardee not edit or Add awardee
 
 On view Awardee page fix city search 
-
+ 
 Possibly change guardian type to dropdown in contacts 
 
 Add pagination to View awardees page / Contacts / Trykes / Users pages
@@ -34,7 +36,7 @@ For a Tryke do we want a city and state field for location awarded
 
 Add contact add tryke to edit user
 
-Edit this.trykes | this.contacts in add and edit awardee to this.tryke and this.contacts
+✓  Edit this.trykes | this.contacts in add and edit awardee to this.tryke and this.contacts
 
 Refactor how were editing a contact or tryke I am using index <- we need to add an id field to this.contacts and this.Contacts
 and find record by that uuid to edit and delete and so on.

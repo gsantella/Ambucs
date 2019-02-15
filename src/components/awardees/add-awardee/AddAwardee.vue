@@ -199,52 +199,52 @@
               <div class="form-group">
                 <!-- First Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.firstName" required/>
+                  <input id="simple-input" v-model="contact.firstName" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- Last Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.lastName" required/>
+                  <input id="simple-input" v-model="contact.lastName" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.email" required/>
+                  <input id="simple-input" v-model="contact.email" required/>
                   <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Phone 1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.phone1" required/>
+                  <input id="simple-input" v-model="contact.phone1" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
                 <!-- Phone 2 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.phone2" required/>
+                  <input id="simple-input" v-model="contact.phone2" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Type -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.type" required/>
+                  <input id="simple-input" v-model="contact.type" required/>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Street -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.street" required/>
+                  <input id="simple-input" v-model="contact.street" required/>
                   <label class="control-label" for="simple-input">Street</label><i class="bar"></i>
                 </div>
                 <!-- City -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.city" required/>
+                  <input id="simple-input" v-model="contact.city" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
@@ -253,12 +253,12 @@
               <div class="form-group">
                 <!-- State -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.state" required/>
+                  <input id="simple-input" v-model="contact.state" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
                 <!-- Zip -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contacts.zip" required/>
+                  <input id="simple-input" v-model="contact.zip" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
@@ -291,7 +291,7 @@
         <div class="form-group">
           <!-- Model -->
           <div class="input-group">
-            <input id="simple-input" v-model="trykes.model" required/>
+            <input id="simple-input" v-model="tryke.model" required/>
             <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
         </div>
@@ -302,7 +302,7 @@
             <vuestic-date-picker
               id="date-picker-custom-date-format"
               :config="{altInput: true, altFormat: 'F j, Y'}"
-              v-model="trykes.dateAwarded"
+              v-model="tryke.dateAwarded"
             />
             <label class="control-label" for="date-picker-custom-date-format">
               Date Awarded
@@ -315,7 +315,7 @@
             <vuestic-date-picker
               id="date-picker-custom-date-format"
               :config="{altInput: true, altFormat: 'F j, Y'}"
-              v-model="trykes.dateReceived"
+              v-model="tryke.dateReceived"
             />
             <label class="control-label" for="date-picker-custom-date-format">
               Date Recieved
@@ -327,13 +327,13 @@
         <div class="form-group">
           <!-- Funded By -->
           <div class="input-group">
-            <input id="simple-input" v-model="trykes.fundedBy" required/>
+            <input id="simple-input" v-model="tryke.fundedBy" required/>
             <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
           <!-- Location Awarded -->
           <div class="input-group">
-            <input id="simple-input" v-model="trykes.locationAwarded" required/>
+            <input id="simple-input" v-model="tryke.locationAwarded" required/>
             <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
           </div>
         </div>
@@ -341,7 +341,7 @@
         <div class="form-group">
           <!-- Notes -->
           <div class="input-group">
-            <input id="simple-input" v-model="trykes.notes" required/>
+            <input id="simple-input" v-model="tryke.notes" required/>
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
         </div>
@@ -389,7 +389,7 @@ export default {
       editId: 0,
       show: true,
       objectToPass: null,
-      contacts: {
+      contact: {
         firstName: '',
         lastName: '',
         email: '',
@@ -401,7 +401,7 @@ export default {
         street: '',
         zip: ''
       },
-      trykes: {
+      tryke: {
         model: '',
         dateAwarded: '',
         dateReceived: '',
@@ -482,16 +482,16 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addNewContactRow () {
-      this.contacts.firstName = ''
-      this.contacts.lastName = ''
-      this.contacts.email = ''
-      this.contacts.phone1 = ''
-      this.contacts.phone2 = ''
-      this.contacts.type = ''
-      this.contacts.street = ''
-      this.contacts.city = ''
-      this.contacts.state = ''
-      this.contacts.zip = ''
+      this.contact.firstName = ''
+      this.contact.lastName = ''
+      this.contact.email = ''
+      this.contact.phone1 = ''
+      this.contact.phone2 = ''
+      this.contact.type = ''
+      this.contact.street = ''
+      this.contact.city = ''
+      this.contact.state = ''
+      this.contact.zip = ''
 
       this.hideUpdateBtnContact()
       this.contactModalTitle = 'Add Contact'
@@ -517,12 +517,12 @@ export default {
 
     addContactToArray () {
       var isValid = false
-      isValid = this.checkInputsForNulls(this.contacts)
+      isValid = this.checkInputsForNulls(this.contact)
 
       if (!isValid) {
         alert('Please fill in all fields')
       } else {
-        this.awardee.contacts.push(Object.assign({}, this.contacts))
+        this.awardee.contacts.push(Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       }
     },
@@ -530,12 +530,12 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addNewTrykeRow () {
-      this.trykes.model = ''
-      this.trykes.dateAwarded = ''
-      this.trykes.dateReceived = ''
-      this.trykes.fundedBy = ''
-      this.trykes.locationAwarded = ''
-      this.trykes.notes = ''
+      this.tryke.model = ''
+      this.tryke.dateAwarded = ''
+      this.tryke.dateReceived = ''
+      this.tryke.fundedBy = ''
+      this.tryke.locationAwarded = ''
+      this.tryke.notes = ''
       this.hideUpdateBtnTryke()
       this.trykeModalTitle = 'Add Tryke'
       this.$refs.mediumModal.open()
@@ -545,12 +545,12 @@ export default {
 
     addTrykeToArray () {
       var isValid = false
-      isValid = this.checkInputsForNulls(this.trykes)
+      isValid = this.checkInputsForNulls(this.tryke)
 
       if (!isValid) {
         alert('Please fill in all fields.')
       } else {
-        this.awardee.trykes.push(Object.assign({}, this.trykes))
+        this.awardee.trykes.push(Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       }
     },
@@ -574,28 +574,28 @@ export default {
     displayModal (item, index, id) {
       if (id === 1) {
         this.editId = index
-        this.contacts.firstName = item.firstName
-        this.contacts.lastName = item.lastName
-        this.contacts.email = item.email
-        this.contacts.phone1 = item.phone1
-        this.contacts.phone2 = item.phone2
-        this.contacts.type = item.type
-        this.contacts.city = item.city
-        this.contacts.state = item.state
-        this.contacts.street = item.street
-        this.contacts.zip = item.zip
+        this.contact.firstName = item.firstName
+        this.contact.lastName = item.lastName
+        this.contact.email = item.email
+        this.contact.phone1 = item.phone1
+        this.contact.phone2 = item.phone2
+        this.contact.type = item.type
+        this.contact.city = item.city
+        this.contact.state = item.state
+        this.contact.street = item.street
+        this.contact.zip = item.zip
 
         this.showUpdateBtnContact()
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
         this.editId = index
-        this.trykes.model = item.model
-        this.trykes.dateAwarded = item.dateAwarded
-        this.trykes.dateReceived = item.dateReceived
-        this.trykes.fundedBy = item.fundedBy
-        this.trykes.locationAwarded = item.locationAwarded
-        this.trykes.notes = item.notes
+        this.tryke.model = item.model
+        this.tryke.dateAwarded = item.dateAwarded
+        this.tryke.dateReceived = item.dateReceived
+        this.tryke.fundedBy = item.fundedBy
+        this.tryke.locationAwarded = item.locationAwarded
+        this.tryke.notes = item.notes
 
         this.showUpdateBtnTryke()
         this.trykeModalTitle = 'Edit Tryke'
@@ -607,12 +607,12 @@ export default {
 
     updateContactItem () {
       var isValid = false
-      isValid = this.checkInputsForNulls(this.contacts)
+      isValid = this.checkInputsForNulls(this.contact)
 
       if (!isValid) {
         alert('Please fill in all fields.')
       } else {
-        this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
+        this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       }
     },
@@ -621,13 +621,13 @@ export default {
 
     updateTrykeItem () {
       var isValid = false
-      isValid = this.checkInputsForNulls(this.trykes)
+      isValid = this.checkInputsForNulls(this.tryke)
 
       if (!isValid) {
         alert('Please fill in all fields.')
       } else {
         // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
-        this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.trykes))
+        this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       }
     },
