@@ -122,6 +122,9 @@
     <div class="flex md6">
 
       <!-- Contacts Table -->
+      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
+        {{'Add Contact' | translate}}
+      </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
@@ -143,6 +146,9 @@
       <br style="margin-bottom:2%"/>
 
       <!-- Trykes Table -->
+      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
+        {{'Add Tryke' | translate}}
+      </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
@@ -183,7 +189,7 @@
       <vuestic-modal v-bind:noButtons="true"  :show.sync="show" v-bind:large="true" ref="largeModal"
           :okText="'modal.confirm' | translate"
           :cancelText="'modal.cancel' | translate">
-      <div slot="title">{{'Edit Contact' | translate}}</div>
+      <div slot="title">{{ contactModalTitle | translate}}</div>
       <div>
           <form>
             <fieldset>
@@ -256,12 +262,14 @@
 
             </fieldset>
           </form>
+        <input id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
+
         <div class="va-row">
           <div class="flex md6">
-            <input class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
+            <input id="updateContact" class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
           </div>
           <div class="flex md6">
-            <input class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRecord()" />
+            <input id="deleteContact" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRecord()" />
           </div>
         </div>
 
@@ -272,7 +280,7 @@
       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
-      <div slot="title">{{'Edit Tryke' | translate}}</div>
+      <div slot="title">{{ trykeModalTitle | translate}}</div>
       <div>
 
         <div class="form-group">
@@ -332,14 +340,18 @@
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
         </div>
-       <div class="va-row">
+
+        <input id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
+
+        <div class="va-row">
           <div class="flex md6">
-            <input class="styleBtn" type="submit" value="Save" @click="updateTrykeRecord()" />
+            <input id="updateTryke" class="styleBtn" style="display:none" type="submit" value="Update" @click="updateTrykeRecord()" />
           </div>
           <div class="flex md6">
-            <input class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
+            <input id="deleteTryke" class="styleBtn" style="display:none;background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
           </div>
         </div>
+
       </div>
     </vuestic-modal>
 
@@ -386,6 +398,8 @@ export default {
   data () {
     return {
 
+      trykeModalTitle: '',
+      contactModalTitle: '',
       show: false,
       contacts: {
         firstName: '',
@@ -448,7 +462,51 @@ export default {
       return isValid
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    hideUpdateBtnContact () {
+      var addBtn = document.getElementById('addContact')
+      var updateBtn = document.getElementById('updateContact')
+      var deleteContactBtn = document.getElementById('deleteContact')
+      addBtn.style.display = 'block'
+      updateBtn.style.display = 'none'
+      deleteContactBtn.style.display = 'none'
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    hideUpdateBtnTryke () {
+      var addBtnTryke = document.getElementById('addTryke')
+      var updateBtnContact = document.getElementById('updateTryke')
+      var deleteTrykeBtn = document.getElementById('deleteTryke')
+      addBtnTryke.style.display = 'block'
+      updateBtnContact.style.display = 'none'
+      deleteTrykeBtn.style.display = 'none'
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    showUpdateBtnContact () {
+      var addBtn = document.getElementById('addContact')
+      var updateBtn = document.getElementById('updateContact')
+      var deleteContactBtn = document.getElementById('deleteContact')
+      addBtn.style.display = 'none'
+      updateBtn.style.display = 'block'
+      deleteContactBtn.style.display = 'block'
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    showUpdateBtnTryke () {
+      var addBtnTryke = document.getElementById('addTryke')
+      var updateBtnContact = document.getElementById('updateTryke')
+      var deleteTrykeBtn = document.getElementById('deleteTryke')
+      addBtnTryke.style.display = 'none'
+      updateBtnContact.style.display = 'block'
+      deleteTrykeBtn.style.display = 'block'
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     updateRecord () {
       try {
@@ -467,7 +525,6 @@ export default {
           alert('Please ensure all fields are not empty.')
         }
       } catch (e) {
-        console.log(e)
         alert('There was an issue trying to update this record,please try again later.')
       }
     },
@@ -492,12 +549,38 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    addNewContactRecord () {
+      this.contacts.firstName = ''
+      this.contacts.lastName = ''
+      this.contacts.email = ''
+      this.contacts.phone1 = ''
+      this.contacts.phone2 = ''
+      this.contacts.type = ''
+      this.contacts.street = ''
+      this.contacts.city = ''
+      this.contacts.state = ''
+      this.contacts.zip = ''
+
+      this.hideUpdateBtnContact()
+      this.contactModalTitle = 'Add Contact'
+      this.$refs.largeModal.open()
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addContactToAwardeeObject () {
+      // Here is where we will push this object up to AWS to add to awardee.contacts array --> Then refresh Table list
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     updateContactRecord () {
       try {
         var isValid = false
         isValid = this.checkInputsForNulls(this.contacts)
 
         if (isValid) {
+          // Send up this.contacts up to AWS overwrite to update object
           alert('The contact has been updated.')
           this.$refs.largeModal.cancel()
         } else {
@@ -512,11 +595,32 @@ export default {
 
     deleteContactRecord () {
       try {
+        // Delete object from AWS
         alert('The contact has been deleted.')
         this.$refs.largeModal.cancel()
       } catch (e) {
         alert('An error occurred please try again.')
       }
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addNewTrykeRecord () {
+      this.trykes.model = ''
+      this.trykes.dateAwarded = ''
+      this.trykes.dateReceived = ''
+      this.trykes.fundedBy = ''
+      this.trykes.locationAwarded = ''
+      this.trykes.notes = ''
+      this.hideUpdateBtnTryke()
+      this.trykeModalTitle = 'Add Tryke'
+      this.$refs.mediumModal.open()
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addTrykeToAwardeeObject () {
+      // Here is where we will push this object up to AWS to add to awardee.trykes array --> Then refresh Table list
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -527,6 +631,7 @@ export default {
         isValid = this.checkInputsForNulls(this.trykes)
 
         if (isValid) {
+          // Send this.trykes up to AWS to update
           alert('The tryke has been updated.')
           this.$refs.mediumModal.cancel()
         } else {
@@ -541,6 +646,7 @@ export default {
 
     deleteTrykeRecord () {
       try {
+        // Delete this.trykes object from AWS
         alert('The tryke has been deleted.')
         this.$refs.mediumModal.cancel()
       } catch (e) {
@@ -552,7 +658,6 @@ export default {
 
     displayModal (item, id) {
       if (id === 1) {
-        this.$refs.largeModal.open()
         this.contacts.firstName = item.firstName
         this.contacts.lastName = item.lastName
         this.contacts.email = item.email
@@ -563,14 +668,19 @@ export default {
         this.contacts.state = item.state
         this.contacts.street = item.street
         this.contacts.zip = item.zip
+        this.contactModalTitle = 'Edit Contact'
+        this.showUpdateBtnContact()
+        this.$refs.largeModal.open()
       } else {
-        this.$refs.mediumModal.open()
         this.trykes.model = item.model
         this.trykes.dateAwarded = item.dateAwarded
         this.trykes.dateReceived = item.dateReceived
         this.trykes.fundedBy = item.fundedBy
         this.trykes.locationAwarded = item.locationAwarded
         this.trykes.notes = item.notes
+        this.trykeModalTitle = 'Edit Tryke'
+        this.showUpdateBtnTryke()
+        this.$refs.mediumModal.open()
       }
     }
 

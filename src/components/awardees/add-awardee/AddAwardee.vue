@@ -559,7 +559,6 @@ export default {
 
     deleteContactRow () {
       this.awardee.contacts.splice(this.editId, 1)
-      this.hideUpdateBtnContact()
       this.$refs.largeModal.cancel()
     },
 
@@ -567,7 +566,6 @@ export default {
 
     deleteTrykeRow () {
       this.awardee.trykes.splice(this.editId, 1)
-      this.hideUpdateBtnTryke()
       this.$refs.mediumModal.cancel()
     },
 
@@ -575,7 +573,6 @@ export default {
 
     displayModal (item, index, id) {
       if (id === 1) {
-        this.$refs.largeModal.open()
         this.editId = index
         this.contacts.firstName = item.firstName
         this.contacts.lastName = item.lastName
@@ -590,8 +587,8 @@ export default {
 
         this.showUpdateBtnContact()
         this.contactModalTitle = 'Edit Contact'
+        this.$refs.largeModal.open()
       } else {
-        this.$refs.mediumModal.open()
         this.editId = index
         this.trykes.model = item.model
         this.trykes.dateAwarded = item.dateAwarded
@@ -602,6 +599,7 @@ export default {
 
         this.showUpdateBtnTryke()
         this.trykeModalTitle = 'Edit Tryke'
+        this.$refs.mediumModal.open()
       }
     },
 
@@ -615,7 +613,6 @@ export default {
         alert('Please fill in all fields.')
       } else {
         this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contacts))
-        this.hideUpdateBtnContact()
         this.$refs.largeModal.cancel()
       }
     },
@@ -631,7 +628,6 @@ export default {
       } else {
         // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
         this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.trykes))
-        this.hideUpdateBtnTryke()
         this.$refs.mediumModal.cancel()
       }
     },

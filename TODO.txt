@@ -33,3 +33,8 @@ that is being craeted --> makes it nicer for the user.
 For a Tryke do we want a city and state field for location awarded
 
 Add contact add tryke to edit user
+
+Edit this.trykes | this.contacts in add and edit awardee to this.tryke and this.contacts
+
+Refactor how were editing a contact or tryke I am using index <- we need to add an id field to this.contacts and this.Contacts
+and find record by that uuid to edit and delete and so on.
