@@ -418,7 +418,6 @@ export default {
 
   data () {
     return {
-
       trykeModalTitle: '',
       contactModalTitle: '',
       show: false,
@@ -470,6 +469,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Check this.awardee | this.contact | this.tryke for nulls when adding/updating
     checkInputsForNulls (obj) {
       var isValid = false
       for (var key in obj) {
@@ -485,6 +485,7 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Hide The Update/Delete Buttons on Contacts MODAL when on ADD NEW
     hideUpdateBtnContact () {
       var addBtn = document.getElementById('addContact')
       var updateBtn = document.getElementById('updateContact')
@@ -496,6 +497,7 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Hide The Update/Delete Buttons on Trykes MODAL when on ADD NEW
     hideUpdateBtnTryke () {
       var addBtnTryke = document.getElementById('addTryke')
       var updateBtnContact = document.getElementById('updateTryke')
@@ -507,6 +509,7 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Show The Update/Delete Buttons on Contacts MODAL when on ADD NEW
     showUpdateBtnContact () {
       var addBtn = document.getElementById('addContact')
       var updateBtn = document.getElementById('updateContact')
@@ -518,6 +521,7 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Show The Update/Delete Buttons on Trykes MODAL when on ADD NEW
     showUpdateBtnTryke () {
       var addBtnTryke = document.getElementById('addTryke')
       var updateBtnContact = document.getElementById('updateTryke')
@@ -529,6 +533,7 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
       try {
         var isValid = false
@@ -552,6 +557,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Attemps to make a DELETE request to AWS sending up this.awardee to be deleted
     deleteRecord () {
       if (confirm('Are you sure you want to delete this record?')) {
         try {
@@ -570,6 +576,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Loop through this.contact object and reset all items to null string
     addNewContactRecord () {
       this.contact.firstName = ''
       this.contact.lastName = ''
@@ -589,6 +596,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Add a new this.contact object into this.awardee.contacts array
     addContactToAwardeeObject () {
       var isValid = false
       isValid = this.checkInputsForNulls(this.contact)
@@ -604,6 +612,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Find the item in this.awardee.contacts array by index and replace it with this.contact object
     updateContactRecord () {
       try {
         var isValid = false
@@ -624,6 +633,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Find the object in this.awardees.contacts array by index and delete it
     deleteContactRecord () {
       try {
         if (confirm('Are you sure you want to delete this contact?')) {
@@ -641,6 +651,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Loop through this.tryke object and reset all items to null string
     addNewTrykeRecord () {
       this.tryke.model = ''
       this.tryke.dateAwarded = ''
@@ -655,6 +666,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToAwardeeObject () {
       var isValid = false
       isValid = this.checkInputsForNulls(this.tryke)
@@ -670,6 +682,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Find the item in this.awardee.trykes array by index and replace it with this.tryke object
     updateTrykeRecord () {
       try {
         var isValid = false
@@ -690,6 +703,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Find the object in this.awardees.trykes array by index and delete it
     deleteTrykeRecord () {
       try {
         if (confirm('Are you sure you want to delete this tryke?')) {
@@ -707,6 +721,7 @@ export default {
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Depending on which id is sent it will open the Contacts MODAL or Trykes MODAL --> params - item = onClick item from Array, index = index where it was found in array id = 1 for Contact or 2 for Tryke
     displayModal (item, id) {
       if (id === 1) {
         this.contact.firstName = item.firstName
