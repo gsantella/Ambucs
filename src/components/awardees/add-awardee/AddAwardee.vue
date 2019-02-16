@@ -481,6 +481,21 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    checkInputsForNulls (obj) {
+      var isValid = false
+      for (var key in obj) {
+        if (obj[key] === null || obj[key] === '') {
+          isValid = false
+          break
+        } else {
+          isValid = true
+        }
+      }
+      return isValid
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     addNewContactRow () {
       this.contact.firstName = ''
       this.contact.lastName = ''
@@ -500,31 +515,37 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    checkInputsForNulls (obj) {
-      var isValid = false
-      for (var key in obj) {
-        if (obj[key] === null || obj[key] === '') {
-          isValid = false
-          break
-        } else {
-          isValid = true
-        }
-      }
-      return isValid
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     addContactToArray () {
       var isValid = false
       isValid = this.checkInputsForNulls(this.contact)
 
-      if (!isValid) {
-        alert('Please fill in all fields')
-      } else {
+      if (isValid) {
         this.awardee.contacts.push(Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
+      } else {
+        alert('Please fill in all fields')
       }
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    updateContactItem () {
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.contact)
+
+      if (isValid) {
+        this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contact))
+        this.$refs.largeModal.cancel()
+      } else {
+        alert('Please fill in all fields.')
+      }
+    },
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    deleteContactRow () {
+      this.awardee.contacts.splice(this.editId, 1)
+      this.$refs.largeModal.cancel()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -547,19 +568,27 @@ export default {
       var isValid = false
       isValid = this.checkInputsForNulls(this.tryke)
 
-      if (!isValid) {
-        alert('Please fill in all fields.')
-      } else {
+      if (isValid) {
         this.awardee.trykes.push(Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
+      } else {
+        alert('Please fill in all fields.')
       }
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    deleteContactRow () {
-      this.awardee.contacts.splice(this.editId, 1)
-      this.$refs.largeModal.cancel()
+    updateTrykeItem () {
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.tryke)
+
+      if (isValid) {
+        // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
+        this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.tryke))
+        this.$refs.mediumModal.cancel()
+      } else {
+        alert('Please fill in all fields.')
+      }
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -572,8 +601,8 @@ export default {
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     displayModal (item, index, id) {
+      this.editId = index
       if (id === 1) {
-        this.editId = index
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
         this.contact.email = item.email
@@ -589,7 +618,6 @@ export default {
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
-        this.editId = index
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived
@@ -605,42 +633,11 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    updateContactItem () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.contact)
-
-      if (!isValid) {
-        alert('Please fill in all fields.')
-      } else {
-        this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contact))
-        this.$refs.largeModal.cancel()
-      }
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    updateTrykeItem () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.tryke)
-
-      if (!isValid) {
-        alert('Please fill in all fields.')
-      } else {
-        // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
-        this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.tryke))
-        this.$refs.mediumModal.cancel()
-      }
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     addRecord () {
       var isValid = false
       isValid = this.checkInputsForNulls(this.awardee)
 
-      if (!isValid) {
-        alert('Please fill in all fields.')
-      } else {
+      if (isValid) {
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
             method: 'post',
@@ -651,6 +648,8 @@ export default {
         } catch (e) {
           alert('There was an issue trying to update this record,please try again later.')
         }
+      } else {
+        alert('Please fill in all fields.')
       }
     },
 

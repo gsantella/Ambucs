@@ -40,3 +40,5 @@ Add contact add tryke to edit user
 
 Refactor how were editing a contact or tryke I am using index <- we need to add an id field to this.contacts and this.Contacts
 and find record by that uuid to edit and delete and so on.
+
+Clean up and document code

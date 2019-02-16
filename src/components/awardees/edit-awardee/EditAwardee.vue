@@ -1,13 +1,13 @@
 <template>
   <div class="form-elements">
     <div class="va-row">
-      <div class="flex md6">
 
+<!-- START OF MAIN FORM -->
+
+      <div class="flex md6">
         <vuestic-widget :headerText="'forms.inputs.title' | translate">
           <form>
-
                 <fieldset>
-
                   <div class="form-group">
 
                     <!-- First Name -->
@@ -117,11 +117,16 @@
           </form>
         </vuestic-widget>
 
+<!-- END OF MAIN FORM -->
+
       </div>
+
+<!-- START OF TABLES RIGHT SIDE -->
 
     <div class="flex md6">
 
-      <!-- Contacts Table -->
+<!-- CONTACTS TABLE -->
+
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
         {{'Add' | translate}}
       </button>
@@ -143,9 +148,12 @@
           </tbody>
       </table>
 
+<!-- END OF CONTACTS TABLE -->
+
       <br style="margin-bottom:2%"/>
 
-      <!-- Trykes Table -->
+<!-- START OF TRYKES TABLE -->
+
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
         {{'Add' | translate}}
       </button>
@@ -169,23 +177,31 @@
 
     </div>
 
-    <!--Save Delete Buttons -->
+<!-- END OF TRYKES TABLE -->
+
+<!-- END OF TABLES RIGHT SIDE -->
+
+<!-- START OF CANCEL ADD BUTTONS -->
+
     <div class="va-row btn-margin-row">
       <div
-        class="flex sm6 lg6 xl3 justify--center">
+        class="flex md3 justify--center">
         <button class="btn btn-primary" @click="updateRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
       <div
-        class="flex sm6 lg6 xl3 justify--center">
+        class="flex md3 justify--center">
         <button class="btn btn-danger" @click="deleteRecord()">
           {{'Delete' | translate}}
         </button>
       </div>
     </div>
 
-      <!-- Contacts Modal -->
+<!-- END OF CANCEL ADD BUTTONS -->
+
+<!-- START OF CONTACTS MODAL -->
+
       <vuestic-modal v-bind:noButtons="true"  :show.sync="show" v-bind:large="true" ref="largeModal"
           :okText="'modal.confirm' | translate"
           :cancelText="'modal.cancel' | translate">
@@ -276,7 +292,10 @@
       </div>
     </vuestic-modal>
 
-      <!-- Trykes Modal -->
+<!-- END OF CONTACTS MODAL -->
+
+<!-- START OF TRYKES MODAL -->
+
       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
@@ -344,16 +363,18 @@
         <input id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
 
         <div class="va-row">
-          <div class="flex md3">
+          <div class="flex md6">
             <input id="updateTryke" class="styleBtn" style="display:none" type="submit" value="Update" @click="updateTrykeRecord()" />
           </div>
-          <div class="flex md3">
+          <div class="flex md6">
             <input id="deleteTryke" class="styleBtn" style="display:none;background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
           </div>
         </div>
 
       </div>
     </vuestic-modal>
+
+<!-- END OF TRYKES MODAL -->
 
     </div>
 
@@ -569,9 +590,15 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addContactToAwardeeObject () {
-        var isValid = false;
-      
-        isValid = this.checkInputsForNulls(this.contact)
+      var isValid = false
+      isValid = this.checkInputsForNulls(this.contact)
+
+      if (isValid) {
+        this.awardee.contacts.push(Object.assign({}, this.contact))
+        this.$refs.largeModal.cancel()
+      } else {
+        alert('Please fill in all fields')
+      }
       // Here is where we will push this object up to AWS to add to awardee.contacts array --> Then refresh Table list
     },
 
@@ -584,6 +611,7 @@ export default {
 
         if (isValid) {
           // Send up this.contacts up to AWS overwrite to update object
+          // update locally in array aswell
           alert('The contact has been updated.')
           this.$refs.largeModal.cancel()
         } else {
@@ -598,9 +626,14 @@ export default {
 
     deleteContactRecord () {
       try {
-        // Delete object from AWS
-        alert('The contact has been deleted.')
-        this.$refs.largeModal.cancel()
+        if (confirm('Are you sure you want to delete this contact?')) {
+          // Delete object from AWS
+          // delete from array
+          alert('The contact has been deleted.')
+          this.$refs.largeModal.cancel()
+        } else {
+          alert('The contact was not deleted.')
+        }
       } catch (e) {
         alert('An error occurred please try again.')
       }
@@ -623,11 +656,16 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addTrykeToAwardeeObject () {
-      var isValid = false;
-
+      var isValid = false
       isValid = this.checkInputsForNulls(this.tryke)
-      // Here is where we will push this object up to AWS to add to awardee.trykes array --> Then refresh Table list
 
+      if (isValid) {
+        this.awardee.trykes.push(Object.assign({}, this.tryke))
+        this.$refs.mediumModal.cancel()
+      } else {
+        alert('Please fill in all fields.')
+      }
+      // Here is where we will push this object up to AWS to add to awardee.trykes array --> Then refresh Table list
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -639,6 +677,7 @@ export default {
 
         if (isValid) {
           // Send this.trykes up to AWS to update
+          // update locally in array aswell
           alert('The tryke has been updated.')
           this.$refs.mediumModal.cancel()
         } else {
@@ -653,9 +692,14 @@ export default {
 
     deleteTrykeRecord () {
       try {
-        // Delete this.trykes object from AWS
-        alert('The tryke has been deleted.')
-        this.$refs.mediumModal.cancel()
+        if (confirm('Are you sure you want to delete this tryke?')) {
+          // Delete this.trykes object from AWS
+          // delete from array
+          alert('The tryke has been deleted.')
+          this.$refs.mediumModal.cancel()
+        } else {
+          alert('The tryke was not deleted.')
+        }
       } catch (e) {
         alert('An error occurred please try again.')
       }
