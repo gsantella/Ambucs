@@ -384,8 +384,6 @@
 <script>
 import router from '../../../router'
 
-// var url = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/'
-
 export default {
   name: 'EditAwardee',
 
@@ -578,16 +576,9 @@ export default {
 
     // Loop through this.contact object and reset all items to null string
     addNewContactRecord () {
-      this.contact.firstName = ''
-      this.contact.lastName = ''
-      this.contact.email = ''
-      this.contact.phone1 = ''
-      this.contact.phone2 = ''
-      this.contact.type = ''
-      this.contact.street = ''
-      this.contact.city = ''
-      this.contact.state = ''
-      this.contact.zip = ''
+      for (var key in this.contact) {
+        this.contact[key] = ''
+      }
 
       this.hideUpdateBtnContact()
       this.contactModalTitle = 'Add Contact'
@@ -653,12 +644,9 @@ export default {
 
     // Loop through this.tryke object and reset all items to null string
     addNewTrykeRecord () {
-      this.tryke.model = ''
-      this.tryke.dateAwarded = ''
-      this.tryke.dateReceived = ''
-      this.tryke.fundedBy = ''
-      this.tryke.locationAwarded = ''
-      this.tryke.notes = ''
+      for (var key in this.tryke) {
+        this.tryke[key] = ''
+      }
       this.hideUpdateBtnTryke()
       this.trykeModalTitle = 'Add Tryke'
       this.$refs.mediumModal.open()
