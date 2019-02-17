@@ -487,10 +487,7 @@ export default {
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
       try {
-        var isValid = false
-        isValid = this.checkInputsForNulls(this.awardee)
-
-        if (isValid) {
+        if (this.checkInputsForNulls(this.awardee)) {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
             method: 'PATCH',
@@ -542,10 +539,7 @@ export default {
 
     // Add a new this.contact object into this.awardee.contacts array
     addContactToAwardeeObject () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.contact)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.contact)) {
         this.awardee.contacts.push(Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       } else {
@@ -559,10 +553,7 @@ export default {
     // Find the item in this.awardee.contacts array by index and replace it with this.contact object
     updateContactRecord () {
       try {
-        var isValid = false
-        isValid = this.checkInputsForNulls(this.contact)
-
-        if (isValid) {
+        if (this.checkInputsForNulls(this.contact)) {
           // Send up this.contacts up to AWS overwrite to update object
           // update locally in array aswell
           alert('The contact has been updated.')
@@ -609,10 +600,7 @@ export default {
 
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToAwardeeObject () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.tryke)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.tryke)) {
         this.awardee.trykes.push(Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       } else {
@@ -626,10 +614,7 @@ export default {
     // Find the item in this.awardee.trykes array by index and replace it with this.tryke object
     updateTrykeRecord () {
       try {
-        var isValid = false
-        isValid = this.checkInputsForNulls(this.tryke)
-
-        if (isValid) {
+        if (this.checkInputsForNulls(this.tryke)) {
           // Send this.trykes up to AWS to update
           // update locally in array aswell
           alert('The tryke has been updated.')

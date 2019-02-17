@@ -469,10 +469,7 @@ export default {
 
     // Add a new this.contact object into this.awardee.contacts array
     addContactToArray () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.contact)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.contact)) {
         this.awardee.contacts.push(Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       } else {
@@ -484,10 +481,7 @@ export default {
 
     // Find the item in this.awardee.contacts array by index and replace it with this.contact object
     updateContactItem () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.contact)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.contact)) {
         this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       } else {
@@ -519,10 +513,7 @@ export default {
 
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToArray () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.tryke)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.tryke)) {
         this.awardee.trykes.push(Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       } else {
@@ -534,10 +525,7 @@ export default {
 
     // Find the item in this.awardee.trykes array by index and replace it with this.tryke object
     updateTrykeItem () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.tryke)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.tryke)) {
         // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
         this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
@@ -589,10 +577,7 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
-      var isValid = false
-      isValid = this.checkInputsForNulls(this.awardee)
-
-      if (isValid) {
+      if (this.checkInputsForNulls(this.awardee)) {
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
             method: 'post',
