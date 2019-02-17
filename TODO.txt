@@ -3,7 +3,7 @@
         API CALLS TO ADD
 ________________________________
 **NOTE** -> Is AWS generating a uuid for each object in contacts array and each object in trykes array?
-            If not should be generate it when we create a contact|tryke object?
+            If not should we generate it when we create a contact|tryke object?
             This would make it easier to find|edit|delete| in AWS so we dont have an index issue with multipe Users
 
 
@@ -96,6 +96,8 @@ https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID}
         
             TO DO
 ________________________________
+
+Refactor Add/Edit awardee code -> Create components for MODAL's and FORMS
 
 Add API call to edit user edit contact/tryke add contact/tryke delete contact/tryke 
 

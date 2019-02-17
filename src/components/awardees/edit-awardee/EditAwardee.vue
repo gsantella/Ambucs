@@ -278,9 +278,9 @@
 
             </fieldset>
           </form>
-        <input id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
+        <input v-if="displayMode=='ADD'" id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
 
-        <div class="va-row">
+        <div class="va-row" v-if="displayMode=='EDIT'">
           <div class="flex md6">
             <input id="updateContact" class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
           </div>
@@ -360,14 +360,14 @@
           </div>
         </div>
 
-        <input id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
+        <input v-if="displayMode=='ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
 
-        <div class="va-row">
+        <div v-if="displayMode=='EDIT'" class="va-row">
           <div class="flex md6">
-            <input id="updateTryke" class="styleBtn" style="display:none" type="submit" value="Update" @click="updateTrykeRecord()" />
+            <input id="updateTryke" class="styleBtn" type="submit" value="Update" @click="updateTrykeRecord()" />
           </div>
           <div class="flex md6">
-            <input id="deleteTryke" class="styleBtn" style="display:none;background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
+            <input id="deleteTryke" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
           </div>
         </div>
 
@@ -416,6 +416,7 @@ export default {
 
   data () {
     return {
+      displayMode: '',
       trykeModalTitle: '',
       contactModalTitle: '',
       show: false,
@@ -483,54 +484,6 @@ export default {
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Hide The Update/Delete Buttons on Contacts MODAL when on ADD NEW
-    hideUpdateBtnContact () {
-      var addBtn = document.getElementById('addContact')
-      var updateBtn = document.getElementById('updateContact')
-      var deleteContactBtn = document.getElementById('deleteContact')
-      addBtn.style.display = 'block'
-      updateBtn.style.display = 'none'
-      deleteContactBtn.style.display = 'none'
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Hide The Update/Delete Buttons on Trykes MODAL when on ADD NEW
-    hideUpdateBtnTryke () {
-      var addBtnTryke = document.getElementById('addTryke')
-      var updateBtnContact = document.getElementById('updateTryke')
-      var deleteTrykeBtn = document.getElementById('deleteTryke')
-      addBtnTryke.style.display = 'block'
-      updateBtnContact.style.display = 'none'
-      deleteTrykeBtn.style.display = 'none'
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Show The Update/Delete Buttons on Contacts MODAL when on ADD NEW
-    showUpdateBtnContact () {
-      var addBtn = document.getElementById('addContact')
-      var updateBtn = document.getElementById('updateContact')
-      var deleteContactBtn = document.getElementById('deleteContact')
-      addBtn.style.display = 'none'
-      updateBtn.style.display = 'block'
-      deleteContactBtn.style.display = 'block'
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Show The Update/Delete Buttons on Trykes MODAL when on ADD NEW
-    showUpdateBtnTryke () {
-      var addBtnTryke = document.getElementById('addTryke')
-      var updateBtnContact = document.getElementById('updateTryke')
-      var deleteTrykeBtn = document.getElementById('deleteTryke')
-      addBtnTryke.style.display = 'none'
-      updateBtnContact.style.display = 'block'
-      deleteTrykeBtn.style.display = 'block'
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
       try {
@@ -580,7 +533,7 @@ export default {
         this.contact[key] = ''
       }
 
-      this.hideUpdateBtnContact()
+      this.displayMode = 'ADD'
       this.contactModalTitle = 'Add Contact'
       this.$refs.largeModal.open()
     },
@@ -647,7 +600,7 @@ export default {
       for (var key in this.tryke) {
         this.tryke[key] = ''
       }
-      this.hideUpdateBtnTryke()
+      this.displayMode = 'ADD'
       this.trykeModalTitle = 'Add Tryke'
       this.$refs.mediumModal.open()
     },
@@ -711,6 +664,7 @@ export default {
 
     // Depending on which id is sent it will open the Contacts MODAL or Trykes MODAL --> params - item = onClick item from Array, index = index where it was found in array id = 1 for Contact or 2 for Tryke
     displayModal (item, id) {
+      this.displayMode = 'EDIT'
       if (id === 1) {
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
@@ -723,7 +677,6 @@ export default {
         this.contact.street = item.street
         this.contact.zip = item.zip
         this.contactModalTitle = 'Edit Contact'
-        this.showUpdateBtnContact()
         this.$refs.largeModal.open()
       } else {
         this.tryke.model = item.model
@@ -733,7 +686,6 @@ export default {
         this.tryke.locationAwarded = item.locationAwarded
         this.tryke.notes = item.notes
         this.trykeModalTitle = 'Edit Tryke'
-        this.showUpdateBtnTryke()
         this.$refs.mediumModal.open()
       }
     }
