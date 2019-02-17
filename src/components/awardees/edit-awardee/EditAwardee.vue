@@ -383,6 +383,7 @@
 
 <script>
 import router from '../../../router'
+import swal from 'sweetalert'
 
 export default {
   name: 'EditAwardee',
@@ -492,14 +493,14 @@ export default {
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
             method: 'PATCH',
             body: JSON.stringify(this.awardee)
-          }).then(alert('The record has been edited.'))
+          }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
 
           router.push({ name: 'view-awardees' })
         } else {
-          alert('Please ensure all fields are not empty.')
+          swal('Error', 'These fields cannot be empty.', 'error')
         }
       } catch (e) {
-        alert('There was an issue trying to update this record,please try again later.')
+        swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
       }
     },
 
@@ -507,19 +508,28 @@ export default {
 
     // Attemps to make a DELETE request to AWS sending up this.awardee to be deleted
     deleteRecord () {
-      if (confirm('Are you sure you want to delete this record?')) {
-        try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
-            method: 'delete'
-          }).then(alert('The record has been deleted.'))
+      swal({
+        title: 'Are you sure you want to delete this record?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+                method: 'delete'
+              }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 
-          router.push({ name: 'view-awardees' })
-        } catch (e) {
-          alert("I'm sorry there was an issue trying to delete that record,please try again later.")
-        }
-      } else {
-        alert('You have chosen not to delete the record.')
-      }
+              router.push({ name: 'view-awardees' })
+            } catch (e) {
+              swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
+            }
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the record.', 'warning')
+          }
+        })
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -543,7 +553,7 @@ export default {
         this.awardee.contacts.push(Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       } else {
-        alert('Please fill in all fields')
+        swal('Error', 'These fields cannot be empty.', 'error')
       }
       // Here is where we will push this object up to AWS to add to awardee.contacts array --> Then refresh Table list
     },
@@ -556,13 +566,14 @@ export default {
         if (this.checkInputsForNulls(this.contact)) {
           // Send up this.contacts up to AWS overwrite to update object
           // update locally in array aswell
-          alert('The contact has been updated.')
+          swal('Updated', 'The contact has been updated.', 'success')
           this.$refs.largeModal.cancel()
         } else {
-          alert('Please ensure all fields are not empty.')
+          swal('Error', 'These fields cannot be empty.', 'error')
         }
       } catch (e) {
-        alert('An error occurred please try again.')
+        alert('')
+        swal('Error', 'An error occurred please try again.', 'error')
       }
     },
 
@@ -570,18 +581,27 @@ export default {
 
     // Find the object in this.awardees.contacts array by index and delete it
     deleteContactRecord () {
-      try {
-        if (confirm('Are you sure you want to delete this contact?')) {
-          // Delete object from AWS
-          // delete from array
-          alert('The contact has been deleted.')
-          this.$refs.largeModal.cancel()
-        } else {
-          alert('The contact was not deleted.')
-        }
-      } catch (e) {
-        alert('An error occurred please try again.')
-      }
+      swal({
+        title: 'Are you sure you want to delete this contact?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+            // Delete object from AWS
+            // delete from array
+              swal('Deleted', 'The contact has been deleted.', 'success')
+              this.$refs.largeModal.cancel()
+            } catch (e) {
+              swal('Error', "I'm sorry there was an issue trying to delete that contact,please try again later.", 'error')
+            }
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the contact.', 'warning')
+          }
+        })
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -604,7 +624,7 @@ export default {
         this.awardee.trykes.push(Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       } else {
-        alert('Please fill in all fields.')
+        swal('Error', 'Please fill in all fields.', 'error')
       }
       // Here is where we will push this object up to AWS to add to awardee.trykes array --> Then refresh Table list
     },
@@ -617,13 +637,13 @@ export default {
         if (this.checkInputsForNulls(this.tryke)) {
           // Send this.trykes up to AWS to update
           // update locally in array aswell
-          alert('The tryke has been updated.')
+          swal('Updated', 'The tryke has been updated.', 'success')
           this.$refs.mediumModal.cancel()
         } else {
-          alert('Please ensure all fields are not empty.')
+          swal('Error', 'Please fill in all fields.', 'error')
         }
       } catch (e) {
-        alert('An error occurred please try again.')
+        swal('Error', 'An error occurred please try again.', 'error')
       }
     },
 
@@ -631,18 +651,27 @@ export default {
 
     // Find the object in this.awardees.trykes array by index and delete it
     deleteTrykeRecord () {
-      try {
-        if (confirm('Are you sure you want to delete this tryke?')) {
-          // Delete this.trykes object from AWS
-          // delete from array
-          alert('The tryke has been deleted.')
-          this.$refs.mediumModal.cancel()
-        } else {
-          alert('The tryke was not deleted.')
-        }
-      } catch (e) {
-        alert('An error occurred please try again.')
-      }
+      swal({
+        title: 'Are you sure you want to delete this tryke?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+            // Delete object from AWS
+            // delete from array
+              swal('Deleted', 'The tryke has been deleted.', 'success')
+              this.$refs.largeModal.cancel()
+            } catch (e) {
+              swal('Error', "I'm sorry there was an issue trying to delete that tryke,please try again later.", 'error')
+            }
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the tryke.', 'warning')
+          }
+        })
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////

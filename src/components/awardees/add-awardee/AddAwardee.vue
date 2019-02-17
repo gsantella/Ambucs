@@ -182,7 +182,7 @@
       <div
         class="flex sm6 lg6 xl3 justify--center">
         <button class="btn btn-danger" @click="cancelRecord()">
-          {{'Cancel' | translate}}
+          {{'Delete' | translate}}
         </button>
       </div>
     </div>
@@ -270,7 +270,7 @@
 
         <div v-if="displayMode == 'EDIT'" class="va-row">
           <div class="flex md6">
-            <input id="updateContact" style="display:none" class="styleBtn" type="submit" value="Update" @click="updateContactItem()" />
+            <input id="updateContact" class="styleBtn" type="submit" value="Update" @click="updateContactItem()" />
           </div>
           <div class="flex md6">
             <input id="deleteContact" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRow()" />
@@ -368,6 +368,7 @@
 
 <script>
 import router from '../../../router'
+import swal from 'sweetalert'
 
 export default {
   name: 'AddAwardee',
@@ -473,7 +474,7 @@ export default {
         this.awardee.contacts.push(Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       } else {
-        alert('Please fill in all fields')
+        swal('Error', 'Please fill in all fields.', 'error')
       }
     },
 
@@ -485,7 +486,7 @@ export default {
         this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contact))
         this.$refs.largeModal.cancel()
       } else {
-        alert('Please fill in all fields.')
+        swal('Error', 'Please fill in all fields.', 'error')
       }
     },
 
@@ -517,7 +518,7 @@ export default {
         this.awardee.trykes.push(Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       } else {
-        alert('Please fill in all fields.')
+        swal('Error', 'Please fill in all fields.', 'error')
       }
     },
 
@@ -530,7 +531,7 @@ export default {
         this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.tryke))
         this.$refs.mediumModal.cancel()
       } else {
-        alert('Please fill in all fields.')
+        swal('Error', 'Please fill in all fields.', 'error')
       }
     },
 
@@ -582,14 +583,14 @@ export default {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
             method: 'post',
             body: JSON.stringify(this.awardee)
-          }).then(alert('The record has been added.'))
+          }).then(swal('Added', 'The record has been added.', 'success'))
 
           router.push({ name: 'view-awardees' })
         } catch (e) {
-          alert('There was an issue trying to update this record,please try again later.')
+          swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
         }
       } else {
-        alert('Please fill in all fields.')
+        swal('Error', 'Please fill in all fields.', 'error')
       }
     },
 
@@ -597,15 +598,25 @@ export default {
 
     // The record gets canceled and redirects user back to View Awardee page
     cancelRecord () {
-      if (confirm('Are you sure you want to cancel this record?')) {
-        try {
-          router.push({ name: 'view-awardees' })
-        } catch (e) {
-          alert("I'm sorry there was an issue trying to delete that record,please try again later.")
-        }
-      } else {
-        alert('You have chosen not to delete the record.')
-      }
+      swal({
+        title: 'Are you sure you want to delete this record?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+              swal('Deleted', 'The record has been deleted.', 'success')
+              router.push({ name: 'view-awardees' })
+            } catch (e) {
+              swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
+            }
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the record.', 'warning')
+          }
+        })
     }
   },
 
