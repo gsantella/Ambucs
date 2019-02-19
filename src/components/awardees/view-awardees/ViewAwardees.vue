@@ -96,6 +96,7 @@ import VuesticSimpleSelect
   from '../../../vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import { SpringSpinner } from 'epic-spinners'
 import { cityList, itemList } from './filtersData'
+import swal from 'sweetalert'
 export default {
   name: 'ViewAwardees',
   components: {
@@ -145,11 +146,15 @@ export default {
     }
   },
   created () {
-    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
-      .then(response => response.json())
-      .then(json => {
-        this.itemList = json
-      })
+    try {
+      fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
+        .then(response => response.json())
+        .then(json => {
+          this.itemList = json
+        })
+    } catch (e) {
+      swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
+    }
   }
 }
 </script>
