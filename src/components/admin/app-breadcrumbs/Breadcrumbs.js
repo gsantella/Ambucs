@@ -5,7 +5,7 @@ export const breadcrumbs = {
   },
   routes: [
     {
-      name: 'users',
+      name: 'view-users',
       displayName: 'Users',
       children: [
         {
@@ -23,7 +23,7 @@ export const breadcrumbs = {
       ],
     },
     {
-      name: 'awardees',
+      name: 'view-awardees',
       displayName: 'Awardees',
       children: [
         {

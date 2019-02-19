@@ -10,7 +10,7 @@
           </div>
       </div>
     </div>
-    <vuestic-widget headerText="Show filters">
+    <vuestic-widget headerText="Search">
       <div class="row">
         <div class="col-md-12">
           <div slot="body">
