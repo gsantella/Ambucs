@@ -2,120 +2,41 @@
 
         API CALLS TO ADD
 ________________________________
-**NOTE** -> Is AWS generating a uuid for each object in contacts array and each object in trykes array?
-            If not should we generate it when we create a contact|tryke object?
-            This would make it easier to find|edit|delete| in AWS so we dont have an index issue with multipe Users
 
+**NOTE** -> On New Awardee --> When you create a Contact Object or Tryke object we should generate a random uuid as id for
+each object that gets created.. I believe this will help out with some issues in the future
 
-EditAwardee Page --> Add Contact to Awardee.Contacts Array
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID} 
-    -- POST this.contact object to Awardee.Contacts array
-      this.contact: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone1: '',
-        phone2: '',
-        type: '',
-        city: '',
-        state: '',
-        street: '',
-        zip: ''
-      },
 
 EditAwardee Page --> Edit Contact in Awardee.Contacts Array 
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID} 
-    -- PATCH this.contact object override object in database  --> NEED OBJECT ID TO FIND WHICH OBJECT TO REPLACE
-      this.contact: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone1: '',
-        phone2: '',
-        type: '',
-        city: '',
-        state: '',
-        street: '',
-        zip: ''
-      },
+https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact 
 
-EditAwardee Page --> Delete Contact in Awardee.Contacts Array 
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID} 
-    -- DELETE this.contact object in database --> NEED OBJECT ID TO FIND WHICH OBJECT TO DELETE
-      this.contact: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone1: '',
-        phone2: '',
-        type: '',
-        city: '',
-        state: '',
-        street: '',
-        zip: ''
-      },
+EditAwardee Page --> Edit Tryke in Awardee.Trykes Array 
+https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke
 
-
-    EditAwardee Page --> Add Tryke to Awardee.Trykes Array
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID} 
-    -- POST this.tryke object to Awardee.Trykes array
-      tryke: {
-        model: '',
-        dateAwarded: '',
-        dateReceived: '',
-        fundedBy: '',
-        locationAwarded: '',
-        notes: ''
-      },
-
-    EditAwardee Page --> Edit Tryke in Awardee.Trykes Array 
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID} 
-    -- PATCH this.tryke object override object in database  --> NEED OBJECT ID TO FIND WHICH OBJECT TO REPLACE 
-      tryke: {
-        model: '',
-        dateAwarded: '',
-        dateReceived: '',
-        fundedBy: '',
-        locationAwarded: '',
-        notes: ''
-      },
-
-EditAwardee Page --> Delete Tryke in Awardee.Trykes Array 
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/{awardeeID} 
-    -- DELETE this.tryke object in database --> NEED OBJECT ID TO FIND WHICH OBJECT TO DELETE
-      tryke: {
-        model: '',
-        dateAwarded: '',
-        dateReceived: '',
-        fundedBy: '',
-        locationAwarded: '',
-        notes: ''
-      },
 
 ============================================================
         
             TO DO
 ________________________________
 
+Fix refresh on Update/Add Awardee --> Redirects back to view-awardee page and doesnt show the new/updated award right away
+Omar had this fixed the other day.. Maybe settings got flipped back to default maybe we have to go back into AWS and
+do the same thing we did again to fix it. 
+
 Refactor Add/Edit awardee code -> Create components for MODAL's and FORMS
 
-Add API call to edit user edit contact/tryke add contact/tryke delete contact/tryke 
-
 Add error checking for fields like phone number, zipcode
-Choice which fields are required and what arent
-
-Decide how to EDIT a contact or tryke -> Send up entire awardee.contacts object to aws and replace that whole array of objects?
+Choice which fields are required and what arent and how to handle
 
 Add AUTH 
 
 Add Permissions -> Only admins should see Users Tab -> Certain people should only be able to view an awardee not edit or Add awardee
-
-On view Awardee page fix city search 
  
 Add pagination to View awardees page / Contacts / Trykes / Users pages
 
 Refactor how were editing a contact or tryke I am using index <- we need to add an id field to this.contacts and this.Contacts
 and find record by that uuid to edit and delete and so on.
+
 
 ================================================================
 
@@ -154,3 +75,14 @@ ________________________________
 ✓  Edit this.trykes | this.contacts in add and edit awardee to this.tryke and this.contacts
 
 ✓  Add contact add tryke to edit user
+
+✓ EditAwardee Page --> Add Contact to Awardee.Contacts Array
+
+✓ EditAwardee Page --> Delete Contact in Awardee.Contacts Array 
+
+✓ EditAwardee Page --> Add Tryke to Awardee.Trykes Array
+
+✓ EditAwardee Page --> Delete Tryke to Awardee.Trykes Array
+
+
+
