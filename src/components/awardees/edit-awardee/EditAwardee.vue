@@ -137,13 +137,15 @@
               <td class="filters-page__table-heading">Type</td>
               <td class="filters-page__table-heading">First Name</td>
               <td class="filters-page__table-heading">Last Name</td>
+              <td class="filters-page__table-heading">Phone Number</td>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item,index) in awardee.contacts" :key="item.id" @click="displayModal(item,index,1)">
+              <td>{{ item.type }}</td>
               <td>{{ item.firstName }}</td>
               <td>{{ item.lastName }}</td>
-              <td>{{ item.type }}</td>
+              <td>{{ item.phone1 }}</td>
             </tr>
           </tbody>
       </table>
@@ -163,6 +165,7 @@
             <tr>
               <td class="filters-page__table-heading">Model</td>
               <td class="filters-page__table-heading">Date Awarded</td>
+              <td class="filters-page__table-heading">Date Recieved</td>
               <td class="filters-page__table-heading">Funded By</td>
             </tr>
           </thead>
@@ -170,6 +173,7 @@
             <tr v-for="(item,index) in awardee.trykes" :key="item.id" @click="displayModal(item,index,2)">
               <td>{{ item.model }}</td>
               <td>{{ item.dateAwarded }}</td>
+              <td>{{ item.dateReceived }}</td>
               <td>{{ item.fundedBy }}</td>
             </tr>
           </tbody>
@@ -749,12 +753,21 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    // alert(this.$route.params.id)
-    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-      .then(response => response.json())
-      .then(json => {
-        this.awardee = json.Item
-      })
+    if (this.$route.params.id == null) {
+      swal('Error', 'That is not a valid user.', 'error')
+      router.push({ name: 'view-awardees' })
+    } else {
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+          .then(response => response.json())
+          .then(json => {
+            this.awardee = json.Item
+          })
+      } catch (e) {
+        swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
+        router.push({ name: 'view-awardees' })
+      }
+    }
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
