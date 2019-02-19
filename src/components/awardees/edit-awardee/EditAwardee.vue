@@ -5,7 +5,7 @@
 <!-- START OF MAIN FORM -->
 
       <div class="flex md6">
-        <vuestic-widget :headerText="'forms.inputs.title' | translate">
+        <vuestic-widget :headerText="'Edit Awardee' | translate">
           <form>
                 <fieldset>
                   <div class="form-group">
@@ -140,7 +140,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.contacts" :key="item.id" @click="displayModal(item,1)">
+            <tr v-for="(item,index) in awardee.contacts" :key="item.id" @click="displayModal(item,index,1)">
               <td>{{ item.firstName }}</td>
               <td>{{ item.lastName }}</td>
               <td>{{ item.type }}</td>
@@ -167,7 +167,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in awardee.trykes" :key="item.id" @click="displayModal(item,2)">
+            <tr v-for="(item,index) in awardee.trykes" :key="item.id" @click="displayModal(item,index,2)">
               <td>{{ item.model }}</td>
               <td>{{ item.dateAwarded }}</td>
               <td>{{ item.fundedBy }}</td>
@@ -417,11 +417,13 @@ export default {
 
   data () {
     return {
+      editId: '',
       displayMode: '',
       trykeModalTitle: '',
       contactModalTitle: '',
       show: false,
       contact: {
+        id: '',
         firstName: '',
         lastName: '',
         email: '',
@@ -434,6 +436,7 @@ export default {
         zip: ''
       },
       tryke: {
+        id: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
@@ -442,6 +445,7 @@ export default {
         notes: ''
       },
       awardee: {
+        id: '',
         firstName: '',
         lastName: '',
         address1: '',
@@ -473,11 +477,13 @@ export default {
     checkInputsForNulls (obj) {
       var isValid = false
       for (var key in obj) {
-        if (obj[key] === null || obj[key] === '') {
-          isValid = false
-          break
-        } else {
-          isValid = true
+        if (key !== 'id') {
+          if (obj[key] === null || obj[key] === '') {
+            isValid = false
+            break
+          } else {
+            isValid = true
+          }
         }
       }
       return isValid
@@ -549,13 +555,21 @@ export default {
 
     // Add a new this.contact object into this.awardee.contacts array
     addContactToAwardeeObject () {
+      this.contact.id = this.awardee.id
       if (this.checkInputsForNulls(this.contact)) {
-        this.awardee.contacts.push(Object.assign({}, this.contact))
-        this.$refs.largeModal.cancel()
+        try {
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact', {
+            method: 'post',
+            body: JSON.stringify(this.contact)
+          }).then(swal('Added', 'The contact has been added.', 'success'))
+          this.awardee.contacts.push(Object.assign({}, this.contact))
+          this.$refs.largeModal.cancel()
+        } catch (e) {
+          swal('Error', 'There was an error adding that contact, please try again.', 'error')
+        }
       } else {
         swal('Error', 'These fields cannot be empty.', 'error')
       }
-      // Here is where we will push this object up to AWS to add to awardee.contacts array --> Then refresh Table list
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -581,6 +595,11 @@ export default {
 
     // Find the object in this.awardees.contacts array by index and delete it
     deleteContactRecord () {
+      var deleteObject = {
+        'id': this.awardee.id,
+        'index': this.editId
+      }
+
       swal({
         title: 'Are you sure you want to delete this contact?',
         text: 'Once deleted, you will not be able to recover this file.',
@@ -591,9 +610,11 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-            // Delete object from AWS
-            // delete from array
-              swal('Deleted', 'The contact has been deleted.', 'success')
+              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact', {
+                method: 'delete',
+                body: JSON.stringify(deleteObject)
+              }).then(swal('Deleted', 'The contact has been deleted.', 'success'))
+              this.awardee.contacts.splice(this.editId, 1)
               this.$refs.largeModal.cancel()
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that contact,please try again later.", 'error')
@@ -620,13 +641,17 @@ export default {
 
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToAwardeeObject () {
+      this.tryke.id = this.awardee.id
       if (this.checkInputsForNulls(this.tryke)) {
-        this.awardee.trykes.push(Object.assign({}, this.tryke))
-        this.$refs.mediumModal.cancel()
+        try {
+          this.awardee.trykes.push(Object.assign({}, this.tryke))
+          this.$refs.mediumModal.cancel()
+        } catch (e) {
+          swal('Error', 'There was an error adding that contact, please try again.', 'error')
+        }
       } else {
-        swal('Error', 'Please fill in all fields.', 'error')
+        swal('Error', 'These fields cannot be empty.', 'error')
       }
-      // Here is where we will push this object up to AWS to add to awardee.trykes array --> Then refresh Table list
     },
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -651,6 +676,11 @@ export default {
 
     // Find the object in this.awardees.trykes array by index and delete it
     deleteTrykeRecord () {
+      var deleteObject = {
+        'id': this.awardee.id,
+        'index': this.editId
+      }
+
       swal({
         title: 'Are you sure you want to delete this tryke?',
         text: 'Once deleted, you will not be able to recover this file.',
@@ -661,10 +691,12 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-            // Delete object from AWS
-            // delete from array
-              swal('Deleted', 'The tryke has been deleted.', 'success')
-              this.$refs.largeModal.cancel()
+              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke', {
+                method: 'delete',
+                body: JSON.stringify(deleteObject)
+              }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
+              this.awardee.trykes.splice(this.editId, 1)
+              this.$refs.mediumModal.cancel()
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that tryke,please try again later.", 'error')
             }
@@ -677,9 +709,11 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Depending on which id is sent it will open the Contacts MODAL or Trykes MODAL --> params - item = onClick item from Array, index = index where it was found in array id = 1 for Contact or 2 for Tryke
-    displayModal (item, id) {
+    displayModal (item, index, id) {
       this.displayMode = 'EDIT'
+      this.editId = index
       if (id === 1) {
+        this.contact.id = item.id
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
         this.contact.email = item.email
@@ -693,6 +727,7 @@ export default {
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
+        this.tryke.id = item.id
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived
