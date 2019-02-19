@@ -4,11 +4,15 @@
 1 - ADD
 2 - FIX
 
+Severity Level
+HIGH
+MEDIUM
+LOW
 
 1 - HIGH ] EditAwardee Page --> Edit Contact in Awardee.Contacts Array
                 Object Expected
                 {
-                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        id: 'GENERATED ID FROM CLIENT SIDE', --> View Pages Section below for more information about this
                         awardeeId: 'ID FROM THE CLICKED AWARDEE',
                         firstName: 'Fname',
                         lastName: 'LName',
@@ -79,20 +83,23 @@
 
                                                            PAGES
                                                 ________________________________
+Severity Level
 1 - HIGH
 2 - MEDIUM
 3 - LOW
+
 
 1 ] Edit Awardee Page - Almost completed, needs major refactoring on how the tryke,contacts get edited/added/delete
                         - What all fields for the form, tryke,contact do we want to be required?
                         - Should we change guardian type to be a dropdown in Contact?
                         - Set fields like zipcode,phone number, pa to desired data tables and character limits.
-                        - **** When adding a Tryke|Contact to a preexisting awardee record we should be generating
+                        - **** When adding a Tryke|Contact to a pre existing awardee record we should be generating
                                  there object ids (client side). 
                                 We will do this because after we add the object to AWS its not getting refetched on
-                                the client side therefore the client sideobject isnt getting updated with the new id.
+                                the client side therefore the client side object isnt getting updated with the new id.
                                 This poses concerns for updating/deleting if the user hasnt refreshed the page because
-                                instead of refetching we are just storing the new record in a local array. ****
+                                instead of refetching we are just storing the new record in a local array until
+                                they refresh the page because this.awardee.contacts array doesnt get freshed until refresh ****
                         
 
 2 ] View Awardee Page - Almost done, needs pagination added to the page
