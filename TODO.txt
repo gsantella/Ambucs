@@ -1,49 +1,138 @@
-✓ = Done
 
-        API CALLS TO ADD
-________________________________
-
-**NOTE** -> On New Awardee --> When you create a Contact Object or Tryke object we should generate a random uuid as id for
-each object that gets created.. I believe this will help out with some issues in the future
+                                                    API CALLS TO ADD/FIX
+                                                ________________________________
+1 - ADD
+2 - FIX
 
 
-EditAwardee Page --> Edit Contact in Awardee.Contacts Array 
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact 
+1 - HIGH ] EditAwardee Page --> Edit Contact in Awardee.Contacts Array
+                Object Expected
+                {
+                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
+                        firstName: 'Fname',
+                        lastName: 'LName',
+                        email: 'email',
+                        phone1: 'phone1',
+                        phone2: 'phon2',
+                        type: 'type',
+                        city: 'city',
+                        state: 'state',
+                        street: 'street',
+                        zip: 'zip'
+                }
+1 - HIGH ] EditAwardee Page --> Edit Tryke in Awardee.Trykes Array 
+                Expected Object
+                {
+                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
+                        model: 'model',
+                        dateAwarded: 'dateAwarded',
+                        dateReceived: 'dateRecieved',
+                        fundedBy: 'fundedBy',
+                        locationAwarded: 'location',
+                        notes: 'notes'
+                }
+2 - HIGH ] EditAwardee Page --> Add Contact in Awardee.Contacts Array 
+                Object Expected
+                {
+                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
+                        firstName: 'Fname',
+                        lastName: 'LName',
+                        email: 'email',
+                        phone1: 'phone1',
+                        phone2: 'phon2',
+                        type: 'type',
+                        city: 'city',
+                        state: 'state',
+                        street: 'street',
+                        zip: 'zip'
+                }
+2 - HIGH] EditAwardee Page --> Add Tryke in Awardee.Trykes Array 
+                Expected Object
+                {
+                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
+                        model: 'model',
+                        dateAwarded: 'dateAwarded',
+                        dateReceived: 'dateRecieved',
+                        fundedBy: 'fundedBy',
+                        locationAwarded: 'location',
+                        notes: 'notes'
+                }
+2 - HIGH ] EditAwardee Page --> Delete Contact in Awardee.Contacts Array 
+                Object Expected
+                {
+                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
+                }
+2 - HIGH ] EditAwardee Page --> Delete Tryke in Awardee.Trykes Array 
+                Object Expected
+                {
+                        id: 'GENERATED ID FROM CLIENT SIDE',
+                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
+                }
 
-EditAwardee Page --> Edit Tryke in Awardee.Trykes Array 
-https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke
+
+=======================================================================================================================================
+
+                                                           PAGES
+                                                ________________________________
+1 - HIGH
+2 - MEDIUM
+3 - LOW
+
+1 ] Edit Awardee Page - Almost completed, needs major refactoring on how the tryke,contacts get edited/added/delete
+                        - What all fields for the form, tryke,contact do we want to be required?
+                        - Should we change guardian type to be a dropdown in Contact?
+                        - Set fields like zipcode,phone number, pa to desired data tables and character limits.
+                        - **** When adding a Tryke|Contact to a preexisting awardee record we should be generating
+                                 there object ids (client side). 
+                                We will do this because after we add the object to AWS its not getting refetched on
+                                the client side therefore the client sideobject isnt getting updated with the new id.
+                                This poses concerns for updating/deleting if the user hasnt refreshed the page because
+                                instead of refetching we are just storing the new record in a local array. ****
+                        
+
+2 ] View Awardee Page - Almost done, needs pagination added to the page
+                        - Add pagination to the table
 
 
-============================================================
+3 ] Add Awardee Page - Pretty much completed, needs small error including...
+                        - What all fields for the form, tryke,contact do we want to be required?
+                        - Should we change guardian type to be a dropdown in Contact?
+                        - Set fields like zipcode,phone number, pa to desired data tables and character limits.
+                        - **** When creating Tryke|Contact objects they should generate an id server side(AWS) ****
+
+
+
+
+=======================================================================================================================================
         
-            TO DO
-________________________________
+                                                           OTHER TO DO
+                                                ________________________________
 
-Fix refresh on Update/Add Awardee --> Redirects back to view-awardee page and doesnt show the new/updated award right away
+1 - HIGH
+2 - MEDIUM
+3 - LOW
+
+2 ] Fix refresh on Update/Add Awardee --> Redirects back to view-awardee page and doesnt show the new/updated award right away
 Omar had this fixed the other day.. Maybe settings got flipped back to default maybe we have to go back into AWS and
 do the same thing we did again to fix it. 
 
-Refactor Add/Edit awardee code -> Create components for MODAL's and FORMS
+2 ] Add AUTH - Build users pages 
 
-Add error checking for fields like phone number, zipcode
-Choice which fields are required and what arent and how to handle
+2 ] Add Permissions -> Only admins should see Users Tab -> Certain people should only be able to view an awardee not edit or Add awardee
 
-Add AUTH 
-
-Add Permissions -> Only admins should see Users Tab -> Certain people should only be able to view an awardee not edit or Add awardee
- 
-Add pagination to View awardees page / Contacts / Trykes / Users pages
-
-Refactor how were editing a contact or tryke I am using index <- we need to add an id field to this.contacts and this.Contacts
-and find record by that uuid to edit and delete and so on.
+3 ] Refactor Add/Edit awardee code -> Create components for MODAL's and FORMS
 
 
-================================================================
+=======================================================================================================================================
 
+                                                        CODE SUGGESTIONS
+                                                ________________________________
 
-
-        CODE SUGGESTIONS
-________________________________
 
 Possibly add data fill in for adding a contact -> option to pull address from the awardee 
 that is being craeted --> makes it nicer for the user.
@@ -62,19 +151,15 @@ Create a small single page html vue app that just pulls all errors from API
 This will help us or anyone dubug errors easier in PROD
 ///
 
-================================================================
+=======================================================================================================================================
+
+                                                          COMPLETED
+                                                 ________________________________
 
 
+✓ Edit this.trykes | this.contacts in add and edit awardee to this.tryke and this.contacts
 
-        COMPLETED
-________________________________
-
-
-✓ Clean up and document code
-
-✓  Edit this.trykes | this.contacts in add and edit awardee to this.tryke and this.contacts
-
-✓  Add contact add tryke to edit user
+✓ Add contact add tryke to edit user
 
 ✓ EditAwardee Page --> Add Contact to Awardee.Contacts Array
 
@@ -83,6 +168,9 @@ ________________________________
 ✓ EditAwardee Page --> Add Tryke to Awardee.Trykes Array
 
 ✓ EditAwardee Page --> Delete Tryke to Awardee.Trykes Array
+
+
+=======================================================================================================================================
 
 
 
