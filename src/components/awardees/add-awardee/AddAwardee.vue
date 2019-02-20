@@ -420,6 +420,7 @@ export default {
         lastName: '',
         address1: '',
         address2: '',
+        phone: '',
         city: '',
         state: '',
         zip: '',

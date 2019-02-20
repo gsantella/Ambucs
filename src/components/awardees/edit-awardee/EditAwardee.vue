@@ -448,22 +448,7 @@ export default {
         locationAwarded: '',
         notes: ''
       },
-      awardee: {
-        id: '',
-        firstName: '',
-        lastName: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zip: '',
-        dateOfBirth: '',
-        lastContacted: '',
-        notes: '',
-        trykes: [],
-        contacts: []
-      }
-
+      awardee: {}
     }
   },
 
