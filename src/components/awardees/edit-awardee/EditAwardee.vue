@@ -388,6 +388,7 @@
 <script>
 import router from '../../../router'
 import swal from 'sweetalert'
+import { uuid } from 'vue-uuid'
 
 export default {
   name: 'EditAwardee',
@@ -428,6 +429,7 @@ export default {
       show: false,
       contact: {
         id: '',
+        awardeeId: '',
         firstName: '',
         lastName: '',
         email: '',
@@ -441,6 +443,7 @@ export default {
       },
       tryke: {
         id: '',
+        awardeeId: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
@@ -544,7 +547,9 @@ export default {
 
     // Add a new this.contact object into this.awardee.contacts array
     addContactToAwardeeObject () {
-      this.contact.id = this.awardee.id
+      this.contact.awardeeId = this.awardee.id
+      this.contact.id = uuid.v1()
+
       if (this.checkInputsForNulls(this.contact)) {
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact', {
@@ -630,9 +635,16 @@ export default {
 
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToAwardeeObject () {
-      this.tryke.id = this.awardee.id
+      this.tryke.awardeeId = this.awardee.id
+      this.tryke.id = uuid.v1()
+      alert(this.tryke.id)
+
       if (this.checkInputsForNulls(this.tryke)) {
         try {
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke', {
+            method: 'post',
+            body: JSON.stringify(this.tryke)
+          }).then(swal('Added', 'The tryke has been added.', 'success'))
           this.awardee.trykes.push(Object.assign({}, this.tryke))
           this.$refs.mediumModal.cancel()
         } catch (e) {
