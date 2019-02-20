@@ -99,7 +99,7 @@ Severity Level
                                 the client side therefore the client side object isnt getting updated with the new id.
                                 This poses concerns for updating/deleting if the user hasnt refreshed the page because
                                 instead of refetching we are just storing the new record in a local array until
-                                they refresh the page because this.awardee.contacts array doesnt get freshed until refresh ****
+                                they refresh the page  ****
                         
 
 2 ] View Awardee Page - Almost done, needs pagination added to the page
@@ -120,6 +120,7 @@ Severity Level
                                                            OTHER TO DO
                                                 ________________________________
 
+Severity Level
 1 - HIGH
 2 - MEDIUM
 3 - LOW
