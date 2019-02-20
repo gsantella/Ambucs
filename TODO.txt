@@ -149,6 +149,10 @@ For a Tryke do we want a city and state field for location awarded
 
 Possibly change guardian type to dropdown in contacts 
 
+GUIDO - Lambda may be able to instead of take hard-coded values as database fields, could 
+just interpret data as it comes in from JSON object and construct UPDATE string, INSERT string 
+on the fly.
+
 ///
 Add field in database for error log
 
