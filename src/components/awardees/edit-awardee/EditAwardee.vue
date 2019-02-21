@@ -141,8 +141,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in awardee.contacts" :key="item.id" @click="displayModal(item,index,1)">
-              <td>{{ item.type }}</td>
+            <tr v-for="(item,index) in contacts" :key="item.id" @click="displayModal(item,index,1)">
+              <td>{{ item.contactType }}</td>
               <td>{{ item.firstName }}</td>
               <td>{{ item.lastName }}</td>
               <td>{{ item.phone1 }}</td>
@@ -153,6 +153,8 @@
 <!-- END OF CONTACTS TABLE -->
 
       <br style="margin-bottom:2%"/>
+
+
 
 <!-- START OF TRYKES TABLE -->
 
@@ -170,7 +172,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in awardee.trykes" :key="item.id" @click="displayModal(item,index,2)">
+            <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
               <td>{{ item.model }}</td>
               <td>{{ item.dateAwarded }}</td>
               <td>{{ item.dateReceived }}</td>
@@ -249,19 +251,25 @@
               <div class="form-group">
                 <!-- Type -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.type" required/>
+                  <input id="simple-input" v-model="contact.contactType" required/>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
-                <!-- Street -->
+                <!-- Street1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.street" required/>
-                  <label class="control-label" for="simple-input">Street</label><i class="bar"></i>
+                  <input id="simple-input" v-model="contact.address1" required/>
+                  <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                 </div>
+                <!-- Street2 -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contact.address2" required/>
+                  <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
+                </div>
+
                 <!-- City -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.city" required/>
+                  <input id="simple-input" v-model="contact.addressCity" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
@@ -270,13 +278,21 @@
               <div class="form-group">
                 <!-- State -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.state" required/>
+                  <input id="simple-input" v-model="contact.addressState" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
                 <!-- Zip -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.zip" required/>
+                  <input id="simple-input" v-model="contact.addressZip" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <!-- Notes -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contact.notes" required/>
+                  <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
                 </div>
               </div>
 
@@ -388,7 +404,6 @@
 <script>
 import router from '../../../router'
 import swal from 'sweetalert'
-import { uuid } from 'vue-uuid'
 
 export default {
   name: 'EditAwardee',
@@ -435,11 +450,13 @@ export default {
         email: '',
         phone1: '',
         phone2: '',
-        type: '',
-        city: '',
-        state: '',
-        street: '',
-        zip: ''
+        address1: '',
+        address2: '',
+        addressCity: '',
+        addressState: '',
+        addressZip: '',
+        notes: '',
+        contactType: ''
       },
       tryke: {
         id: '',
@@ -451,7 +468,9 @@ export default {
         locationAwarded: '',
         notes: ''
       },
-      awardee: {}
+      awardee: {},
+      contacts: [],
+      trykes: []
     }
   },
 
@@ -468,11 +487,12 @@ export default {
     // Check this.awardee | this.contact | this.tryke for nulls when adding/updating
     checkInputsForNulls (obj) {
       var isValid = false
+      
       for (var key in obj) {
-        if (key !== 'id') {
+        if(key !== 'id' && key !== 'awardeeId') {
           if (obj[key] === null || obj[key] === '') {
-            isValid = false
-            break
+          isValid = false
+          break
           } else {
             isValid = true
           }
@@ -517,9 +537,10 @@ export default {
           if (willDelete) {
             try {
               fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
-                method: 'delete'
+                method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
-
+              //fetch delete all contacts
+              //fetch delete all trykes
               router.push({ name: 'view-awardees' })
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
@@ -548,15 +569,28 @@ export default {
     // Add a new this.contact object into this.awardee.contacts array
     addContactToAwardeeObject () {
       this.contact.awardeeId = this.awardee.id
-      this.contact.id = uuid.v1()
 
       if (this.checkInputsForNulls(this.contact)) {
         try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact', {
-            method: 'post',
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact', {
+            method: 'POST',
             body: JSON.stringify(this.contact)
           }).then(swal('Added', 'The contact has been added.', 'success'))
-          this.awardee.contacts.push(Object.assign({}, this.contact))
+          .then(fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.contact.awardeeId}/contacts`)
+          .then(response => response.json())
+          .then(json => {
+            this.contacts = json.Items
+            console.log(this.contacts)
+        }))
+          /*
+            .then(response => response.json())
+            .then(json => {
+              this.contacts = json.Items 
+            })
+          */ //use this to get updated stuff
+          
+          // may not need local storage
+          //this.awardee.contacts.push(Object.assign({}, this.contact))
           this.$refs.largeModal.cancel()
         } catch (e) {
           swal('Error', 'There was an error adding that contact, please try again.', 'error')
@@ -572,8 +606,10 @@ export default {
     updateContactRecord () {
       try {
         if (this.checkInputsForNulls(this.contact)) {
-          // Send up this.contacts up to AWS overwrite to update object
-          // update locally in array aswell
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/' + this.contact.id, {
+            method: 'PATCH',
+            body: JSON.stringify(this.contact)
+          }).then(swal('Updated', 'The contact has been updated.', 'success'))
           swal('Updated', 'The contact has been updated.', 'success')
           this.$refs.largeModal.cancel()
         } else {
@@ -589,11 +625,6 @@ export default {
 
     // Find the object in this.awardees.contacts array by index and delete it
     deleteContactRecord () {
-      var deleteObject = {
-        'id': this.awardee.id,
-        'index': this.editId
-      }
-
       swal({
         title: 'Are you sure you want to delete this contact?',
         text: 'Once deleted, you will not be able to recover this file.',
@@ -604,10 +635,11 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact', {
-                method: 'delete',
-                body: JSON.stringify(deleteObject)
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact/ ${this.contact.id}`, {
+                method: 'DELETE',
               }).then(swal('Deleted', 'The contact has been deleted.', 'success'))
+              
+              
               this.awardee.contacts.splice(this.editId, 1)
               this.$refs.largeModal.cancel()
             } catch (e) {
@@ -636,15 +668,14 @@ export default {
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToAwardeeObject () {
       this.tryke.awardeeId = this.awardee.id
-      this.tryke.id = uuid.v1()
-      alert(this.tryke.id)
-
       if (this.checkInputsForNulls(this.tryke)) {
         try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke', {
-            method: 'post',
+          fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke/${this.tryke.id}`, {
+            method: 'POST',
             body: JSON.stringify(this.tryke)
           }).then(swal('Added', 'The tryke has been added.', 'success'))
+
+          //may not need to do this if we return from fetch
           this.awardee.trykes.push(Object.assign({}, this.tryke))
           this.$refs.mediumModal.cancel()
         } catch (e) {
@@ -661,9 +692,10 @@ export default {
     updateTrykeRecord () {
       try {
         if (this.checkInputsForNulls(this.tryke)) {
-          // Send this.trykes up to AWS to update
-          // update locally in array aswell
-          swal('Updated', 'The tryke has been updated.', 'success')
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke' + this.tryke, {
+            method: 'PATCH',
+            body: JSON.stringify(this.tryke)
+          }).then(swal('Updated', 'The tryke has been updated.', 'success'))
           this.$refs.mediumModal.cancel()
         } else {
           swal('Error', 'Please fill in all fields.', 'error')
@@ -677,11 +709,6 @@ export default {
 
     // Find the object in this.awardees.trykes array by index and delete it
     deleteTrykeRecord () {
-      var deleteObject = {
-        'id': this.awardee.id,
-        'index': this.editId
-      }
-
       swal({
         title: 'Are you sure you want to delete this tryke?',
         text: 'Once deleted, you will not be able to recover this file.',
@@ -692,9 +719,8 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke', {
-                method: 'delete',
-                body: JSON.stringify(deleteObject)
+              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke' + this.tryke.id, {
+                method: 'DELETE',
               }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
               this.awardee.trykes.splice(this.editId, 1)
               this.$refs.mediumModal.cancel()
@@ -714,21 +740,25 @@ export default {
       this.displayMode = 'EDIT'
       this.editId = index
       if (id === 1) {
-        this.contact.id = item.id
+        console.log(item)
+        this.contact.id = item.contactId
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
         this.contact.email = item.email
         this.contact.phone1 = item.phone1
         this.contact.phone2 = item.phone2
-        this.contact.type = item.type
-        this.contact.city = item.city
-        this.contact.state = item.state
-        this.contact.street = item.street
-        this.contact.zip = item.zip
+        this.contact.contactType = item.contactType
+        this.contact.addressCity = item.addressCity
+        this.contact.addressState = item.addressState
+        this.contact.address1 = item.address1
+        this.contact.address2 = item.address2
+        this.contact.addressZip = item.addressZip
+        this.contact.notes = item.notes
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
-        this.tryke.id = item.id
+        console.log(item)
+        this.tryke.id = item.trykeId
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived
@@ -755,11 +785,22 @@ export default {
       router.push({ name: 'view-awardees' })
     } else {
       try {
+        
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
-          })
+        })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
+          .then(response => response.json())
+          .then(json => {
+            this.contacts = json.Items
+        })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
+          .then(response => response.json())
+          .then(json => {
+            this.trykes = json.Items
+        })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
         router.push({ name: 'view-awardees' })
