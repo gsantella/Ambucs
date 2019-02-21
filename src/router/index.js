@@ -7,7 +7,7 @@ import lazyLoading from './lazyLoading'
 Vue.use(Router)
 
 const demoRoutes = []
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
   const VueBook = require('vue-book')
 
   demoRoutes.push(
@@ -42,16 +42,19 @@ export default new Router({
         {
           name: 'login',
           path: 'login',
+          // component: require('../components/auth/login/Login.vue'),
           component: lazyLoading('auth/login/Login'),
         },
         {
           name: 'signup',
           path: 'signup',
+          // component: require('../components/auth/signup/Signup.vue'),
           component: lazyLoading('auth/signup/Signup'),
         },
         {
           name: 'account',
           path: 'account',
+          // component: require('../components/auth/account/Account.vue'),
           component: lazyLoading('auth/account/Account'),
         },
         {
@@ -73,16 +76,19 @@ export default new Router({
             {
               name: 'view-users',
               path: 'view-users',
+              // component: require('../components/users/view-users/ViewUsers.vue'),
               component: lazyLoading('users/view-users/ViewUsers'),
             },
             {
               name: 'new-user',
               path: 'new-user',
+              // component: require('../components/users/new-user/NewUser.vue'),
               component: lazyLoading('users/new-user/NewUser'),
             },
             {
               name: 'edit-user',
               path: 'edit-user',
+              // component: require('../components/users/edit-user/EditUser.vue'),
               component: lazyLoading('users/edit-user/EditUser'),
             }
           ]
@@ -95,16 +101,19 @@ export default new Router({
             {
               name: 'view-awardees',
               path: 'view-awardees',
+              // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
               component: lazyLoading('awardees/view-awardees/ViewAwardees'),
             },
             {
               name: 'add-awardee',
               path: 'add-awardee',
+              // component: require('../components/awardees/add-awardee/AddAwardee.vue'),
               component: lazyLoading('awardees/add-awardee/AddAwardee'),
             },
             {
               name: 'edit-awardee',
               path: 'edit-awardee',
+              // component: require('../components/awardees/edit-awardee/EditAwardee.vue'),
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
             }
           ]
