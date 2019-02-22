@@ -134,8 +134,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in awardee.contacts" :key="item.id" @click="displayModal(item,index,1)">
-              <td>{{item.type}}</td>
+            <tr v-for="(item,index) in contacts" :key="item.id" @click="displayModal(item,index,1)">
+              <td>{{item.contactType}}</td>
               <td>{{item.firstName}}</td>
               <td>{{item.lastName}}</td>
               <td>{{item.phone1}}</td>
@@ -162,7 +162,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in awardee.trykes" :key="item.id" @click="displayModal(item,index,2)">
+            <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
                 <td>{{item.model}}</td>
                 <td>{{item.dateAwarded}}</td>
                 <td>{{item.dateReceived}}</td>
@@ -236,19 +236,24 @@
               <div class="form-group">
                 <!-- Type -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.type" required/>
+                  <input id="simple-input" v-model="contact.contactType" required/>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
-                <!-- Street -->
+                <!-- Street 1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.street" required/>
-                  <label class="control-label" for="simple-input">Street</label><i class="bar"></i>
+                  <input id="simple-input" v-model="contact.address1" required/>
+                  <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
+                </div>
+                <!-- Street 2-->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contact.address2" required/>
+                  <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                 </div>
                 <!-- City -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.city" required/>
+                  <input id="simple-input" v-model="contact.addressCity" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
@@ -257,13 +262,21 @@
               <div class="form-group">
                 <!-- State -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.state" required/>
+                  <input id="simple-input" v-model="contact.addressState" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
                 <!-- Zip -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.zip" required/>
+                  <input id="simple-input" v-model="contact.addressZip" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <!-- Notes -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contact.notes" required/>
+                  <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
                 </div>
               </div>
 
@@ -401,11 +414,13 @@ export default {
         email: '',
         phone1: '',
         phone2: '',
-        type: '',
-        city: '',
-        state: '',
-        street: '',
-        zip: ''
+        address1: '',
+        address2: '',
+        addressCity: '',
+        addressState: '',
+        addressZip: '',
+        notes: '',
+        contactType: ''
       },
       tryke: {
         model: '',
@@ -427,10 +442,9 @@ export default {
         dateOfBirth: '',
         lastContacted: '',
         notes: '',
-        trykes: [],
-        contacts: []
-      }
-
+      },
+      trykes: [],
+      contacts: []
     }
   },
 
@@ -440,22 +454,6 @@ export default {
 
     clear (field) {
       this[field] = ''
-    },
-
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Check this.awardee | this.contact | this.tryke for nulls when adding/updating
-    checkInputsForNulls (obj) {
-      var isValid = false
-      for (var key in obj) {
-        if (obj[key] === null || obj[key] === '') {
-          isValid = false
-          break
-        } else {
-          isValid = true
-        }
-      }
-      return isValid
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -475,31 +473,23 @@ export default {
 
     // Add a new this.contact object into this.awardee.contacts array
     addContactToArray () {
-      if (this.checkInputsForNulls(this.contact)) {
-        this.awardee.contacts.push(Object.assign({}, this.contact))
-        this.$refs.largeModal.cancel()
-      } else {
-        swal('Error', 'Please fill in all fields.', 'error')
-      }
+      this.contacts.push(Object.assign({}, this.contact))
+      this.$refs.largeModal.cancel()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Find the item in this.awardee.contacts array by index and replace it with this.contact object
     updateContactItem () {
-      if (this.checkInputsForNulls(this.contact)) {
-        this.$set(this.awardee.contacts, this.editId, Object.assign({}, this.contact))
-        this.$refs.largeModal.cancel()
-      } else {
-        swal('Error', 'Please fill in all fields.', 'error')
-      }
+      this.$set(this.contacts, this.editId, Object.assign({}, this.contact))
+      this.$refs.largeModal.cancel()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Find the object in this.awardees.contacts array by index and delete it
     deleteContactRow () {
-      this.awardee.contacts.splice(this.editId, 1)
+      this.contacts.splice(this.editId, 1)
       this.$refs.largeModal.cancel()
     },
 
@@ -519,32 +509,23 @@ export default {
 
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToArray () {
-      if (this.checkInputsForNulls(this.tryke)) {
-        this.awardee.trykes.push(Object.assign({}, this.tryke))
-        this.$refs.mediumModal.cancel()
-      } else {
-        swal('Error', 'Please fill in all fields.', 'error')
-      }
+      this.trykes.push(Object.assign({}, this.tryke))
+      this.$refs.mediumModal.cancel()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Find the item in this.awardee.trykes array by index and replace it with this.tryke object
     updateTrykeItem () {
-      if (this.checkInputsForNulls(this.tryke)) {
-        // this.awardee.trykes.splice(this.editId, 1, Object.assign({}, this.trykes))
-        this.$set(this.awardee.trykes, this.editId, Object.assign({}, this.tryke))
-        this.$refs.mediumModal.cancel()
-      } else {
-        swal('Error', 'Please fill in all fields.', 'error')
-      }
+      this.$set(this.trykes, this.editId, Object.assign({}, this.tryke))
+      this.$refs.mediumModal.cancel()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Find the object in this.awardees.trykes array by index and delete it
     deleteTrykeRow () {
-      this.awardee.trykes.splice(this.editId, 1)
+      this.trykes.splice(this.editId, 1)
       this.$refs.mediumModal.cancel()
     },
 
@@ -560,11 +541,13 @@ export default {
         this.contact.email = item.email
         this.contact.phone1 = item.phone1
         this.contact.phone2 = item.phone2
-        this.contact.type = item.type
-        this.contact.city = item.city
-        this.contact.state = item.state
-        this.contact.street = item.street
-        this.contact.zip = item.zip
+        this.contact.contactType = item.contactType
+        this.contact.addressCity = item.addressCity
+        this.contact.addressState = item.addressState
+        this.contact.address1 = item.address1
+        this.contact.address2 = item.address2
+        this.contact.addressZip = item.addressZip
+        this.contacts.notes = item.notes
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
@@ -583,19 +566,18 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
-      if (this.checkInputsForNulls(this.awardee)) {
-        try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
-            method: 'post',
-            body: JSON.stringify(this.awardee)
-          }).then(swal('Added', 'The record has been added.', 'success'))
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
+          method: 'POST',
+          body: JSON.stringify(this.awardee)
+        }).then(response => response.json())
+          .then(json => {
 
-          router.push({ name: 'view-awardees' })
-        } catch (e) {
-          swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
-        }
-      } else {
-        swal('Error', 'Please fill in all fields.', 'error')
+          })
+        swal('Added', 'The record has been added.', 'success')
+        setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
+      } catch (e) {
+        swal('Error', 'There was an issue trying to add this record,please try again later.', 'error')
       }
     },
 
@@ -641,6 +623,27 @@ export default {
 </script>
 
 <style>
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .deleteIcon {
   width: 55%;

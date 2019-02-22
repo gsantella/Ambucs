@@ -154,8 +154,6 @@
 
       <br style="margin-bottom:2%"/>
 
-
-
 <!-- START OF TRYKES TABLE -->
 
       <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
@@ -482,41 +480,18 @@ export default {
       this[field] = ''
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Check this.awardee | this.contact | this.tryke for nulls when adding/updating
-    checkInputsForNulls (obj) {
-      var isValid = false
-      
-      for (var key in obj) {
-        if(key !== 'id' && key !== 'awardeeId') {
-          if (obj[key] === null || obj[key] === '') {
-          isValid = false
-          break
-          } else {
-            isValid = true
-          }
-        }
-      }
-      return isValid
-    },
-
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
       try {
-        if (this.checkInputsForNulls(this.awardee)) {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
-            headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            method: 'PATCH',
-            body: JSON.stringify(this.awardee)
-          }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          method: 'PATCH',
+          body: JSON.stringify(this.awardee)
+        }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
 
-          router.push({ name: 'view-awardees' })
-        } else {
-          swal('Error', 'These fields cannot be empty.', 'error')
-        }
+        setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
       } catch (e) {
         swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
       }
@@ -539,9 +514,9 @@ export default {
               fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
-              //fetch delete all contacts
-              //fetch delete all trykes
-              router.push({ name: 'view-awardees' })
+              // fetch delete all contacts
+              // fetch delete all trykes
+              setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }
@@ -570,33 +545,18 @@ export default {
     addContactToAwardeeObject () {
       this.contact.awardeeId = this.awardee.id
 
-      if (this.checkInputsForNulls(this.contact)) {
-        try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact', {
-            method: 'POST',
-            body: JSON.stringify(this.contact)
-          }).then(swal('Added', 'The contact has been added.', 'success'))
-          .then(fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.contact.awardeeId}/contacts`)
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact', {
+          method: 'POST',
+          body: JSON.stringify(this.contact)
+        }).then(swal('Added', 'The contact has been added.', 'success'))
           .then(response => response.json())
           .then(json => {
-            this.contacts = json.Items
-            console.log(this.contacts)
-        }))
-          /*
-            .then(response => response.json())
-            .then(json => {
-              this.contacts = json.Items 
-            })
-          */ //use this to get updated stuff
-          
-          // may not need local storage
-          //this.awardee.contacts.push(Object.assign({}, this.contact))
-          this.$refs.largeModal.cancel()
-        } catch (e) {
-          swal('Error', 'There was an error adding that contact, please try again.', 'error')
-        }
-      } else {
-        swal('Error', 'These fields cannot be empty.', 'error')
+            this.contacts.push(Object.assign({}, json.Attributes))
+          })
+        this.$refs.largeModal.cancel()
+      } catch (e) {
+        swal('Error', 'There was an error adding that contact, please try again.', 'error')
       }
     },
 
@@ -605,16 +565,16 @@ export default {
     // Find the item in this.awardee.contacts array by index and replace it with this.contact object
     updateContactRecord () {
       try {
-        if (this.checkInputsForNulls(this.contact)) {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/' + this.contact.id, {
-            method: 'PATCH',
-            body: JSON.stringify(this.contact)
-          }).then(swal('Updated', 'The contact has been updated.', 'success'))
-          swal('Updated', 'The contact has been updated.', 'success')
-          this.$refs.largeModal.cancel()
-        } else {
-          swal('Error', 'These fields cannot be empty.', 'error')
-        }
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/${this.contact.id}`, {
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          method: 'PATCH',
+          body: JSON.stringify(this.contact)
+        }).then(swal('Updated', 'The contact has been updated.', 'success'))
+          .then(response => response.json())
+          .then(json => {
+            this.$set(this.contacts, this.editId, Object.assign({}, json.Attributes))
+          }) // fix this.editid to contactid
+        this.$refs.largeModal.cancel()
       } catch (e) {
         alert('')
         swal('Error', 'An error occurred please try again.', 'error')
@@ -635,12 +595,10 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/contact/ ${this.contact.id}`, {
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/${this.contact.id}`, {
                 method: 'DELETE',
               }).then(swal('Deleted', 'The contact has been deleted.', 'success'))
-              
-              
-              this.awardee.contacts.splice(this.editId, 1)
+              this.contacts.splice(this.editId, 1) // this is using index we need to change to contact id
               this.$refs.largeModal.cancel()
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that contact,please try again later.", 'error')
@@ -668,21 +626,20 @@ export default {
     // Add a new this.trkye object into this.awardee.trykes array
     addTrykeToAwardeeObject () {
       this.tryke.awardeeId = this.awardee.id
-      if (this.checkInputsForNulls(this.tryke)) {
-        try {
-          fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke/${this.tryke.id}`, {
-            method: 'POST',
-            body: JSON.stringify(this.tryke)
-          }).then(swal('Added', 'The tryke has been added.', 'success'))
 
-          //may not need to do this if we return from fetch
-          this.awardee.trykes.push(Object.assign({}, this.tryke))
-          this.$refs.mediumModal.cancel()
-        } catch (e) {
-          swal('Error', 'There was an error adding that contact, please try again.', 'error')
-        }
-      } else {
-        swal('Error', 'These fields cannot be empty.', 'error')
+      try {
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke/${this.tryke.id}`, {
+          method: 'POST',
+          body: JSON.stringify(this.tryke)
+        }).then(swal('Added', 'The tryke has been added.', 'success'))
+          .then(response => response.json())
+          .then(json => {
+            this.trykes.push(Object.assign({}, json.Attributes))
+          })
+
+        this.$refs.mediumModal.cancel()
+      } catch (e) {
+        swal('Error', 'There was an error adding that contact, please try again.', 'error')
       }
     },
 
@@ -691,15 +648,16 @@ export default {
     // Find the item in this.awardee.trykes array by index and replace it with this.tryke object
     updateTrykeRecord () {
       try {
-        if (this.checkInputsForNulls(this.tryke)) {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke' + this.tryke, {
-            method: 'PATCH',
-            body: JSON.stringify(this.tryke)
-          }).then(swal('Updated', 'The tryke has been updated.', 'success'))
-          this.$refs.mediumModal.cancel()
-        } else {
-          swal('Error', 'Please fill in all fields.', 'error')
-        }
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke/${this.tryke.id}`, {
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          method: 'PATCH',
+          body: JSON.stringify(this.tryke)
+        }).then(swal('Updated', 'The tryke has been updated.', 'success'))
+          .then(response => response.json())
+          .then(json => {
+            this.$set(this.trykes, this.editId, Object.assign({}, json.Attributes))
+          }) // change away from using editid
+        this.$refs.mediumModal.cancel()
       } catch (e) {
         swal('Error', 'An error occurred please try again.', 'error')
       }
@@ -722,7 +680,7 @@ export default {
               fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke' + this.tryke.id, {
                 method: 'DELETE',
               }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
-              this.awardee.trykes.splice(this.editId, 1)
+              this.trykes.splice(this.editId, 1)
               this.$refs.mediumModal.cancel()
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that tryke,please try again later.", 'error')
@@ -740,7 +698,6 @@ export default {
       this.displayMode = 'EDIT'
       this.editId = index
       if (id === 1) {
-        console.log(item)
         this.contact.id = item.contactId
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
@@ -757,7 +714,6 @@ export default {
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
-        console.log(item)
         this.tryke.id = item.trykeId
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
@@ -785,22 +741,21 @@ export default {
       router.push({ name: 'view-awardees' })
     } else {
       try {
-        
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
-        })
+          })
         fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
           .then(response => response.json())
           .then(json => {
             this.contacts = json.Items
-        })
+          })
         fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items
-        })
+          })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
         router.push({ name: 'view-awardees' })

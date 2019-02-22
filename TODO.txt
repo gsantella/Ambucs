@@ -9,75 +9,15 @@ HIGH
 MEDIUM
 LOW
 
-1 - HIGH ] EditAwardee Page --> Edit Contact in Awardee.Contacts Array
-                Object Expected
-                {
-                        id: 'GENERATED ID FROM CLIENT SIDE', --> View Pages Section below for more information about this
-                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
-                        firstName: 'Fname',
-                        lastName: 'LName',
-                        email: 'email',
-                        phone1: 'phone1',
-                        phone2: 'phon2',
-                        type: 'type',
-                        city: 'city',
-                        state: 'state',
-                        street: 'street',
-                        zip: 'zip'
-                }
-1 - HIGH ] EditAwardee Page --> Edit Tryke in Awardee.Trykes Array 
-                Expected Object
-                {
-                        id: 'GENERATED ID FROM CLIENT SIDE',
-                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
-                        model: 'model',
-                        dateAwarded: 'dateAwarded',
-                        dateReceived: 'dateRecieved',
-                        fundedBy: 'fundedBy',
-                        locationAwarded: 'location',
-                        notes: 'notes'
-                }
-2 - HIGH ] EditAwardee Page --> Add Contact in Awardee.Contacts Array 
-                Object Expected
-                {
-                        id: 'GENERATED ID FROM CLIENT SIDE',
-                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
-                        firstName: 'Fname',
-                        lastName: 'LName',
-                        email: 'email',
-                        phone1: 'phone1',
-                        phone2: 'phon2',
-                        type: 'type',
-                        city: 'city',
-                        state: 'state',
-                        street: 'street',
-                        zip: 'zip'
-                }
-2 - HIGH] EditAwardee Page --> Add Tryke in Awardee.Trykes Array 
-                Expected Object
-                {
-                        id: 'GENERATED ID FROM CLIENT SIDE',
-                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
-                        model: 'model',
-                        dateAwarded: 'dateAwarded',
-                        dateReceived: 'dateRecieved',
-                        fundedBy: 'fundedBy',
-                        locationAwarded: 'location',
-                        notes: 'notes'
-                }
-2 - HIGH ] EditAwardee Page --> Delete Contact in Awardee.Contacts Array 
-                Object Expected
-                {
-                        id: 'GENERATED ID FROM CLIENT SIDE',
-                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
-                }
-2 - HIGH ] EditAwardee Page --> Delete Tryke in Awardee.Trykes Array 
-                Object Expected
-                {
-                        id: 'GENERATED ID FROM CLIENT SIDE',
-                        awardeeId: 'ID FROM THE CLICKED AWARDEE',
-                }
+1 HIGH ] - Edit Awardee Page  - When deleting Awardee Record --> 3 Fetches 
+        - Delete Awardee Object --> Already completed
+        - Delete Contacts Array assoicated with awardee id --> Needs added  
+        - Delete Trykes Array associated with awardee id --> Needs added
 
+1 HIGH ] - Add Awardee Page - Adding an awardee --> 1 fetch
+         - Add Awardee Object --> this happens first, gets awardee id
+         - Add Contacts Array --> this happens next after awardee id is gathered
+         - Add Trykes Array --> this happens last
 
 =======================================================================================================================================
 
@@ -88,32 +28,17 @@ Severity Level
 2 - MEDIUM
 3 - LOW
 
-
-1 ] Edit Awardee Page - Almost completed, needs major refactoring on how the tryke,contacts get edited/added/delete
-                        - What all fields for the form, tryke,contact do we want to be required?
+3 ] Edit Awardee Page - Almost completed, needs major refactoring on how the tryke,contacts get edited/added/delete
                         - Should we change guardian type to be a dropdown in Contact?
                         - Set fields like zipcode,phone number, pa to desired data tables and character limits.
-                        - **** When adding a Tryke|Contact to a pre existing awardee record we should be generating
-                                 there object ids (client side). 
-                                We will do this because after we add the object to AWS its not getting refetched on
-                                the client side therefore the client side object isnt getting updated with the new id.
-                                This poses concerns for updating/deleting if the user hasnt refreshed the page because
-                                instead of refetching we are just storing the new record in a local array until
-                                they refresh the page  ****
                         
 
 2 ] View Awardee Page - Almost done, needs pagination added to the page
                         - Add pagination to the table
 
-
 3 ] Add Awardee Page - Pretty much completed, needs small error including...
-                        - What all fields for the form, tryke,contact do we want to be required?
                         - Should we change guardian type to be a dropdown in Contact?
                         - Set fields like zipcode,phone number, pa to desired data tables and character limits.
-                        - **** When creating Tryke|Contact objects they should generate an id server side(AWS) ****
-
-
-
 
 =======================================================================================================================================
         
@@ -152,6 +77,8 @@ Possibly change guardian type to dropdown in contacts
 GUIDO - Lambda may be able to instead of take hard-coded values as database fields, could 
 just interpret data as it comes in from JSON object and construct UPDATE string, INSERT string 
 on the fly.
+
+Sort view awardees by timestamp when created - newests people should be at the top
 
 ///
 Add field in database for error log
