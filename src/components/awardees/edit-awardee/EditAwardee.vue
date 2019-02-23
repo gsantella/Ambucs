@@ -511,10 +511,23 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
+              this.contacts.forEach(element => {
+                fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/${element.id}`, {
+                  method: 'DELETE',
+                })
+              })
+
+              this.trykes.forEach(element => {
+                fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke/${element.id}`, {
+                  method: 'DELETE',
+                })
+              })
+
               fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
-              // fetch delete all contacts
+
+              // fetch delete all contacts the above is a hack but it works
               // fetch delete all trykes
               setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
