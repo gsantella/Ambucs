@@ -136,7 +136,7 @@ fieldset {
 
     select,
     input:focus,
-    input:valid,
+    /*input:valid,*/
     input.form-file,
     input.has-value,
     textarea:focus,
@@ -208,7 +208,8 @@ fieldset {
 
   .control-label {
     position: absolute;
-    top: ($mf-font-size / 4);
+    top: -0.8rem;
+    /*top: ($mf-font-size / 4); GUIDO*/ 
     left: 0;
     max-width: 100%;
     overflow: hidden;
@@ -266,7 +267,8 @@ fieldset {
   &.show input,
   select,
   input:focus,
-  input:valid,
+  /*input:valid,
+  input:invalid,*/
   input.form-file,
   input.has-value,
   textarea:focus,
@@ -310,6 +312,11 @@ fieldset {
   &.form-group .control-label.control-label {
     // Prevent !importantRule
     color: $mf-focus-color;
+    font-size: 0.6rem;
+    color: #4ae387;
+    font-weight: 600;
+    text-transform: uppercase;
+    top: -0.6rem;
   }
 
   .valid-icon {

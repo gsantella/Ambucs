@@ -6,6 +6,11 @@
 
       <div class="flex md6">
         <vuestic-widget :headerText="'Edit Awardee' | translate">
+
+          <input
+  type="checkbox"
+  v-model="isDisabled"
+  >
           <form>
                 <fieldset>
                   <div class="form-group">
@@ -22,9 +27,15 @@
                     </div>
                     -->
 
+                    <!-- Last Name222222222 -->
+                    <div class="input-group">
+                      <input :disabled="!!isDisabled" id="simple-input" v-model="awardee.lastName" />
+                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                    </div>
+
                     <!-- Last Name -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.lastName" required/>
+                      <input disabled id="simple-input" v-model="awardee.lastName" inpu/>
                       <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                     </div>
                   </div>
@@ -127,7 +138,7 @@
 
 <!-- CONTACTS TABLE -->
 
-      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
+      <button v-if="!isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
@@ -156,7 +167,7 @@
 
 <!-- START OF TRYKES TABLE -->
 
-      <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
+      <button v-if="!isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
@@ -190,13 +201,13 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex md3 justify--center">
-        <button class="btn btn-primary" @click="updateRecord()" >
+        <button v-if="!isDisabled" class="btn btn-primary" @click="updateRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
       <div
         class="flex md3 justify--center">
-        <button class="btn btn-danger" @click="deleteRecord()">
+        <button v-if="!isDisabled" class="btn btn-danger" @click="deleteRecord()">
           {{'Delete' | translate}}
         </button>
       </div>
@@ -216,20 +227,20 @@
               <div class="form-group">
                 <!-- First Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.firstName" required/>
+                  <input :disabled="!!isDisabled" id="simple-input" v-model="contact.firstName" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- Last Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.lastName" required/>
+                  <input :disabled="!!isDisabled" id="simple-input" v-model="contact.lastName" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.email" required/>
+                  <input :disabled="!!isDisabled" id="simple-input" v-model="contact.email" required/>
                   <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
               </div>
@@ -299,10 +310,10 @@
         <input v-if="displayMode=='ADD'" id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
 
         <div class="va-row" v-if="displayMode=='EDIT'">
-          <div class="flex md6">
+          <div v-if="!isDisabled" class="flex md6">
             <input id="updateContact" class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
           </div>
-          <div class="flex md6">
+          <div v-if="!isDisabled" class="flex md6">
             <input id="deleteContact" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRecord()" />
           </div>
         </div>
@@ -435,6 +446,7 @@ export default {
 
   data () {
     return {
+      isDisabled: false,
       editId: '',
       displayMode: '',
       trykeModalTitle: '',
