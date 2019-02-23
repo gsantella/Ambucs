@@ -1,5 +1,10 @@
 <template>
   <div class="form-elements">
+    <vuestic-checkbox
+      :label="$t('Enable Edit Mode')"
+      v-model="isDisabled"
+    />
+
     <div class="va-row">
 
 <!-- START OF MAIN FORM -->
@@ -7,49 +12,58 @@
       <div class="flex md6">
         <vuestic-widget :headerText="'Edit Awardee' | translate">
 
-          <input
-  type="checkbox"
-  v-model="isDisabled"
-  >
           <form>
                 <fieldset>
                   <div class="form-group">
 
-                    <!-- First Name -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.firstName" required/>
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                    <!-- First Name View Mode-->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.firstName" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
-                    <!-- Took this out :disable was making input box display weird
-                    <div class="input-group">
-                      <input :disabled="true" id="simple-input" v-model="awardee.firstName" required />
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
-                    -->
 
-                    <!-- Last Name222222222 -->
-                    <div class="input-group">
-                      <input :disabled="!!isDisabled" id="simple-input" v-model="awardee.lastName" />
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                    <!-- First Name -->
+                    <div v-if="isDisabled" class="input-group">
+                     <input id="simple-input" v-model="awardee.firstName" required/>
+                     <label abel class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                    </div>
+
+                    <!-- Last Name View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.lastName" readonly/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                     </div>
 
                     <!-- Last Name -->
-                    <div class="input-group">
-                      <input disabled id="simple-input" v-model="awardee.lastName" inpu/>
+                    <div v-if="isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.lastName"/>
                       <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                     </div>
+
                   </div>
 
                   <div class="form-group">
 
+                    <!-- Phone Number View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.phone" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Phone Number</label><i class="bar"></i>
+                    </div>
+
                     <!-- Phone Number -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.phone" required/>
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
+                    <!-- Birth Date View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.dateOfBirth" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Birth Date</label><i class="bar"></i>
+                    </div>
+
                     <!-- Birth Date -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <vuestic-date-picker
                         id="date-picker-custom-date-format"
                         :config="{altInput: true, altFormat: 'F j, Y'}"
@@ -59,11 +73,16 @@
                         Birth Date
                       </label>
                       <i class="bar"></i>
+                    </div>
 
+                    <!-- Last Contacted Date View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.lastContacted" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Last Contacted</label><i class="bar"></i>
                     </div>
 
                     <!-- Last Contacted -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <vuestic-date-picker
                         id="date-picker-custom-date-format"
                         :config="{altInput: true, altFormat: 'F j, Y'}"
@@ -79,16 +98,30 @@
                   </div>
 
                   <div class="form-group with-icon-left">
+
+                    <!-- Street 1 View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.address1" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Street 1</label><i class="bar"></i>
+                    </div>
+
                     <!-- Street 1 -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.address1" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
 
                   <div class="form-group with-icon-left">
+
+                    <!-- Street 2 View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.address2" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Street 2</label><i class="bar"></i>
+                    </div>
+
                     <!-- Street 2 -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.address2" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
@@ -96,27 +129,54 @@
 
                   <div class="form-group with-icon-right">
 
+                    <!-- City View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.city" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">City</label><i class="bar"></i>
+                    </div>
+
                     <!-- City -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.city" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
+
+                    <!-- State View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.state" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">State</label><i class="bar"></i>
+                    </div>
+
                     <!-- State -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.state" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
+
+                    <!-- Zip View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.zip" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
+                    </div>
+
                     <!-- Zip -->
-                    <div class="input-group">
+                    <div v-if="isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.zip" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
                   </div>
 
-                   <!-- Notes -->
                   <div class="form-group">
-                    <div class="input-group">
+
+                    <!-- Notes View Mode -->
+                    <div v-if="!isDisabled" class="input-group">
+                      <input id="simple-input" v-model="awardee.notes" readonly required/>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+                    </div>
+
+                     <!-- Notes -->
+                    <div v-if="isDisabled" class="input-group">
                       <textarea type="text" id="simple-textarea" v-model="awardee.notes"
                                 required></textarea>
                       <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
@@ -138,7 +198,7 @@
 
 <!-- CONTACTS TABLE -->
 
-      <button v-if="!isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
@@ -167,7 +227,7 @@
 
 <!-- START OF TRYKES TABLE -->
 
-      <button v-if="!isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
@@ -201,13 +261,13 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex md3 justify--center">
-        <button v-if="!isDisabled" class="btn btn-primary" @click="updateRecord()" >
+        <button v-if="isDisabled" class="btn btn-primary" @click="updateRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
       <div
         class="flex md3 justify--center">
-        <button v-if="!isDisabled" class="btn btn-danger" @click="deleteRecord()">
+        <button v-if="isDisabled" class="btn btn-danger" @click="deleteRecord()">
           {{'Delete' | translate}}
         </button>
       </div>

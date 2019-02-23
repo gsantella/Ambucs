@@ -1,7 +1,7 @@
 <template>
   <div class="filters-page">
     <div class="row">
-      <div class="col-md-12">
+      <div v-if="hasAddPermission" class="col-md-12">
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
             <button class="btn btn-primary" @click="newAwardee()" >
@@ -104,6 +104,8 @@ export default {
   },
   data () {
     return {
+      hasEditPermission: true,
+      hasAddPermission: true,
       id: '',
       firstName: '',
       lastName: '',
@@ -122,8 +124,8 @@ export default {
     },
     clickList (item) {
       // If Authenticated or has admin permission show edit awardee else only show view
-      var x = 1 // set as this to commit changes
-      if (x === 0) {
+
+      if (this.hasEditPermission) {
         router.push({ name: 'edit-awardee', params: { id: item.id } })
       } else {
         router.push({ name: 'view-awardee', params: { id: item.id } })
