@@ -10,7 +10,7 @@
 <!-- START OF MAIN FORM -->
 
       <div class="flex md6">
-        <vuestic-widget :headerText="'Edit Awardee' | translate">
+        <vuestic-widget :headerText=" HeaderText | translate">
 
           <form>
                 <fieldset>
@@ -285,59 +285,122 @@
           <form>
             <fieldset>
               <div class="form-group">
+
+                <!-- First Name View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.firstName" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                </div>
+
                 <!-- First Name -->
-                <div class="input-group">
-                  <input :disabled="!!isDisabled" id="simple-input" v-model="contact.firstName" required/>
+                <div v-if="isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.firstName" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
+                <!-- Last Name View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.lastName" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                </div>
+
                 <!-- Last Name -->
-                <div class="input-group">
-                  <input :disabled="!!isDisabled" id="simple-input" v-model="contact.lastName" required/>
+                <div v-if="isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.lastName" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
+
               <div class="form-group">
+
+                <!-- Email View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.email" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Email</label><i class="bar"></i>
+                </div>
+
                 <!-- Email -->
-                <div class="input-group">
-                  <input :disabled="!!isDisabled" id="simple-input" v-model="contact.email" required/>
+                <div v-if="isDisabled" class="input-group">
+                  <input  id="simple-input" v-model="contact.email" required/>
                   <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
               </div>
+
               <div class="form-group">
+
+                <!-- Phone1 View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.phone1" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
+                </div>
+
                 <!-- Phone 1 -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.phone1" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
+                <!-- Phone2 View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.phone2" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
+                </div>
+
                 <!-- Phone 2 -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.phone2" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
+
+                <!-- Type View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.contactType" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Type</label><i class="bar"></i>
+                </div>
+
                 <!-- Type -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.contactType" required/>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
               </div>
+
               <div class="form-group">
+
+                <!-- Street1 View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.address1" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
+                </div>
+
                 <!-- Street1 -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.address1" required/>
                   <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                 </div>
+
+                <!-- Street2 View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.address2" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
+                </div>
+
                 <!-- Street2 -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.address2" required/>
                   <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                 </div>
 
+                <!-- City View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.addressCity" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">City</label><i class="bar"></i>
+                </div>
+
                 <!-- City -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.addressCity" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
@@ -345,21 +408,42 @@
               </div>
 
               <div class="form-group">
+
+                <!-- State View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.addressState" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">State</label><i class="bar"></i>
+                </div>
+
                 <!-- State -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.addressState" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
+
+                <!-- Zip View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.addressZip" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
+                </div>
+
                 <!-- Zip -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.addressZip" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
 
               <div class="form-group">
+
+                <!-- Notes View Mode-->
+                <div v-if="!isDisabled" class="input-group">
+                  <input id="simple-input" v-model="contact.notes" readonly required/>
+                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+                </div>
+
                 <!-- Notes -->
-                <div class="input-group">
+                <div v-if="isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.notes" required/>
                   <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
                 </div>
@@ -367,13 +451,16 @@
 
             </fieldset>
           </form>
-        <input v-if="displayMode=='ADD'" id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
+
+          <div v-if="isDisabled">
+            <input v-if="displayMode=='ADD'" id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
+          </div>
 
         <div class="va-row" v-if="displayMode=='EDIT'">
-          <div v-if="!isDisabled" class="flex md6">
+          <div v-if="isDisabled" class="flex md6">
             <input id="updateContact" class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
           </div>
-          <div v-if="!isDisabled" class="flex md6">
+          <div v-if="isDisabled" class="flex md6">
             <input id="deleteContact" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRecord()" />
           </div>
         </div>
@@ -392,16 +479,30 @@
       <div>
 
         <div class="form-group">
+
+          <!-- Model View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.model" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Model</label><i class="bar"></i>
+          </div>
+
           <!-- Model -->
-          <div class="input-group">
+          <div v-if="isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.model" required/>
             <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
         </div>
 
         <div class="form-group">
+
+          <!-- Date Awarded View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.dateAwarded" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Date Awarded</label><i class="bar"></i>
+          </div>
+
           <!-- Date Awarded -->
-          <div class="input-group">
+          <div v-if="isDisabled" class="input-group">
             <vuestic-date-picker
               id="date-picker-custom-date-format"
               :config="{altInput: true, altFormat: 'F j, Y'}"
@@ -413,8 +514,14 @@
             <i class="bar"></i>
           </div>
 
+          <!-- Date Recieved View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.dateReceived" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Date Recieved</label><i class="bar"></i>
+          </div>
+
           <!-- Date Recieved -->
-          <div class="input-group">
+          <div v-if="isDisabled" class="input-group">
             <vuestic-date-picker
               id="date-picker-custom-date-format"
               :config="{altInput: true, altFormat: 'F j, Y'}"
@@ -428,34 +535,56 @@
         </div>
 
         <div class="form-group">
+
+          <!-- Funded By View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.fundedBy" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
+          </div>
+
           <!-- Funded By -->
-          <div class="input-group">
+          <div v-if="isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.fundedBy" required/>
             <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
+          <!-- Location Awarded View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.locationAwarded" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
+          </div>
+
           <!-- Location Awarded -->
-          <div class="input-group">
+          <div v-if="isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.locationAwarded" required/>
             <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
           </div>
         </div>
 
         <div class="form-group">
+
+          <!-- Notes View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.notes" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+          </div>
+
           <!-- Notes -->
-          <div class="input-group">
+          <div v-if="isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.notes" required/>
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
         </div>
 
-        <input v-if="displayMode=='ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
+        <div v-if="isDisabled">
+          <input v-if="displayMode=='ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
+        </div>
 
         <div v-if="displayMode=='EDIT'" class="va-row">
-          <div class="flex md6">
+          <div v-if="isDisabled" class="flex md6">
             <input id="updateTryke" class="styleBtn" type="submit" value="Update" @click="updateTrykeRecord()" />
           </div>
-          <div class="flex md6">
+          <div v-if="isDisabled" class="flex md6">
             <input id="deleteTryke" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
           </div>
         </div>
@@ -498,6 +627,14 @@ export default {
       })
       return newObj
       // return this.awardee;
+    },
+
+    HeaderText () {
+      if (this.isDisabled) {
+        return 'Edit Awardee'
+      } else {
+        return 'View Awardee'
+      }
     }
 
   },
