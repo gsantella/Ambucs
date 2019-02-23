@@ -123,7 +123,7 @@ export default {
     clickList (item) {
       // If Authenticated or has admin permission show edit awardee else only show view
       var x = 1 // set as this to commit changes
-      if (x === 1) {
+      if (x === 0) {
         router.push({ name: 'edit-awardee', params: { id: item.id } })
       } else {
         router.push({ name: 'view-awardee', params: { id: item.id } })
@@ -157,7 +157,6 @@ export default {
         .then(response => response.json())
         .then(json => {
           this.itemList = json
-          console.log(this.itemList)
         })
     } catch (e) {
       swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')

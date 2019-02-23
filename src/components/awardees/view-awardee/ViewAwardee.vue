@@ -5,7 +5,7 @@
 <!-- START OF MAIN FORM -->
 
       <div class="flex md6">
-        <vuestic-widget :headerText="'Edit Awardee' | translate">
+        <vuestic-widget :headerText="'View Awardee' | translate">
           <form>
                 <fieldset>
                   <div class="form-group">
