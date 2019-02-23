@@ -46,12 +46,6 @@ export default new Router({
           component: lazyLoading('auth/login/Login'),
         },
         {
-          name: 'signup',
-          path: 'signup',
-          // component: require('../components/auth/signup/Signup.vue'),
-          component: lazyLoading('auth/signup/Signup'),
-        },
-        {
           name: 'account',
           path: 'account',
           // component: require('../components/auth/account/Account.vue'),

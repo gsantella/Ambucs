@@ -7,7 +7,6 @@
     "email": "Email",
     "login": "Login",
     "password": "Password",
-    "signUp": "Sign Up",
     "termsOfUse": "Terms of Use.",
     "welcome": "Welcome!"
   },
@@ -180,7 +179,6 @@
     "modals": "Modals",
     "notifications": "Notifications",
     "progressBars": "Progress Bars",
-    "signUp": "Sign up",
     "tables": "Tables",
     "tags": "Tags",
     "typography": "Typography",

@@ -7,7 +7,6 @@
     "email": "Email",
     "login": "Iniciar sesión",
     "password": "Contraseña",
-    "signUp": "Registrar",
     "termsOfUse": "Los terminos de uso",
     "welcome": "Bienvenido!"
   },
@@ -155,7 +154,6 @@
     "modals": "Modals",
     "notifications": "Notificaciones",
     "progressBars": "Barras de Progreso",
-    "signUp": "Registrar",
     "tables": "Tablas",
     "typography": "Tipografía",
     "uiElements": "Elementos UI"

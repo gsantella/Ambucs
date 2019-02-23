@@ -20,13 +20,10 @@
           <i class="bar"/>
         </div>
       </div>
-      <div class="d-flex align--center justify--space-between">
+      <div align="center">
         <button class="btn btn-primary" type="submit">
           {{ $t('Update') }}
         </button>
-        <router-link class='link flex-center pl-2 text-center' :to="{name: 'signup'}">
-          {{ $t('Cancel') }}
-        </router-link>
       </div>
     </form>
   </div>
