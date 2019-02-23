@@ -31,6 +31,10 @@ export const breadcrumbs = {
           displayName: 'View Awardees',
         },
         {
+          name: 'view-awardee',
+          displayName: 'View Awardee',
+        },
+        {
           name: 'add-awardee',
           displayName: 'Add Awardee',
         },

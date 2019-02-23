@@ -105,6 +105,12 @@ export default new Router({
               component: lazyLoading('awardees/view-awardees/ViewAwardees'),
             },
             {
+              name: 'view-awardee',
+              path: 'view-awardee',
+              // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
+              component: lazyLoading('awardees/view-awardee/ViewAwardee'),
+            },
+            {
               name: 'add-awardee',
               path: 'add-awardee',
               // component: require('../components/awardees/add-awardee/AddAwardee.vue'),
