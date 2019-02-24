@@ -1,10 +1,18 @@
 <template>
   <div class="form-elements">
-    <vuestic-checkbox
-      :label="$t('Enable Edit Mode')"
-      v-model="isDisabled"
-    />
-
+    <div class="va-row">
+      <div class="flex md6">
+      <vuestic-checkbox
+        :label="$t('Enable Edit Mode')"
+        v-model="isDisabled"
+      />
+      </div>
+      <div class="flex md6">
+      <button @click="printAwardee()" style="float:right" class="btn btn-primary btn-micro">
+        {{'Print' | translate}}
+      </button>
+      </div>
+    </div>
     <div class="va-row">
 
 <!-- START OF MAIN FORM -->
@@ -946,6 +954,12 @@ export default {
         this.trykeModalTitle = 'Edit Tryke'
         this.$refs.mediumModal.open()
       }
+    },
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    printAwardee () {
+      router.push({ name: 'print-awardee', params: { id: this.$route.params.id } })
     }
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////

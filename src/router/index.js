@@ -117,8 +117,8 @@ export default new Router({
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
             },
             {
-              name: 'view-awardee',
-              path: 'view-awardee',
+              name: 'print-awardee',
+              path: 'print-awardee',
               // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
               component: lazyLoading('awardees/view-awardees/ViewAwardee'),
             }
