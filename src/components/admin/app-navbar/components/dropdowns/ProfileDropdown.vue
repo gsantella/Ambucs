@@ -34,7 +34,7 @@ export default {
       type: Array,
       default: () => [
         {
-          name: 'Account',
+          name: 'Account54545',
           redirectTo: 'account',
         },
         {
@@ -55,10 +55,9 @@ export default {
 
   &__avatar-container {
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    /*width: 50px;
+    height: 50px;*/
     background-color: white;
-    border-radius: 50%;
     border: 2px solid $lighter-gray;
     overflow: hidden;
 

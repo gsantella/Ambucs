@@ -11,13 +11,17 @@
     <language-dropdown class="col nav-item"/>
     -->
     <profile-dropdown class="col nav-item">
-      <img src="https://i.imgur.com/nfa5itq.png"/>
+      {{ user.email }}
     </profile-dropdown>
   </vuestic-navbar>
 
 </template>
 
 <script>
+// import CognitoConfig from '../Cognito.config'
+// Amplify.configure(CognitoConfig)
+import { Auth } from 'aws-amplify'
+
 import VuesticIconVuestic
   from '../../../vuestic-theme/vuestic-components/vuestic-icon/VuesticIconVuestic'
 import VuesticNavbar
@@ -31,7 +35,14 @@ import MessageDropdown from './components/dropdowns/MessageDropdown'
 
 export default {
   name: 'app-navbar',
-
+  data () {
+    return {
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
   components: {
     VuesticIconVuestic,
     VuesticNavbar,
@@ -57,5 +68,11 @@ export default {
       },
     },
   },
+  created () {
+    Auth.currentAuthenticatedUser()
+    // .then(data => console.log(data))
+      .then((data) => { this.user.email = data.attributes.email })
+      .catch(err => console.log(err))
+  }
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div class="login">
     <h2>{{ $t('auth.welcome') }}</h2>
-    <form method="post" action="/auth/login" name="login">
+    <form name="login" @submit.prevent="handleSubmit">
       <div class="form-group">
         <div class="input-group">
-          <input type="text" id="email" required="required"/>
+          <input type="email" id="email" required="required" v-model="user.email" />
           <label class="control-label" for="email">
             {{ $t('auth.email') }}
           </label>
@@ -13,7 +13,7 @@
       </div>
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required"/>
+          <input type="password" id="password" required="required" v-model="user.password" />
           <label class="control-label" for="password">
             {{ $t('auth.password') }}
           </label>
@@ -27,12 +27,44 @@
       </div>
     </form>
   </div>
+
 </template>
 
 <script>
+import router from '../../../router'
+import CognitoConfig from '../Cognito.config'
+import Amplify, { Auth } from 'aws-amplify'
+Amplify.configure(CognitoConfig)
+
 export default {
+
   name: 'login',
+  data () {
+    return {
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    handleSubmit () {
+      Auth.signIn(this.user.email, this.user.password).then(() => {
+        router.push({ name: 'view-awardees' })
+      }).catch((response) => {
+        if (response.message) {
+          console.log(response.message)
+        }
+      })
+    }
+  },
+  created () {
+    Auth.signOut()
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
 }
+
 </script>
 
 <style lang="scss">
