@@ -34,7 +34,7 @@ export default {
       type: Array,
       default: () => [
         {
-          name: 'Account54545',
+          name: 'Account',
           redirectTo: 'account',
         },
         {

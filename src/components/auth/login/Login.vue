@@ -44,10 +44,26 @@ export default {
       user: {
         email: '',
         password: ''
-      }
+      },
+      toastText: 'Authentication failed, username or password does not exist',
+      toastDuration: 2500,
+      toastIcon: 'fa-times',
+      toastPosition: 'bottom-left',
+      isToastFullWidth: false,
     }
   },
   methods: {
+    launchToast (msg) {
+      this.showToast(
+        this.toastText = msg,
+        {
+          icon: this.toastIcon,
+          position: this.toastPosition,
+          duration: this.toastDuration,
+          fullWidth: this.isToastFullWidth,
+        },
+      )
+    },
     handleSubmit () {
       Auth.signIn(this.user.email, this.user.password).then(() => {
         router.push({ name: 'view-awardees' })
@@ -55,6 +71,7 @@ export default {
         if (response.message) {
           console.log(response.message)
         }
+        this.launchToast(response.message)
       })
     }
   },

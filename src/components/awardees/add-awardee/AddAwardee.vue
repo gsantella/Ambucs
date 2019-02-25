@@ -442,6 +442,8 @@ export default {
         dateOfBirth: '',
         lastContacted: '',
         notes: '',
+        trykes: [],
+        contacts: []
       },
       trykes: [],
       contacts: []
@@ -566,14 +568,14 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
+      this.awardee.contacts = this.contacts
+      this.awardee.trykes = this.trykes
+
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'POST',
           body: JSON.stringify(this.awardee)
-        }).then(response => response.json())
-          .then(json => {
-
-          })
+        })
         swal('Added', 'The record has been added.', 'success')
         setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
       } catch (e) {

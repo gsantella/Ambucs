@@ -2,7 +2,7 @@
   <vuestic-navbar>
     <header-selector slot="selector" :isOpen.sync="valueProxy"/>
     <span slot="logo">
-      Ambucs
+      AMBUCS
     </span>
 
     <!--
@@ -10,9 +10,13 @@
     <notification-dropdown class="col nav-item"/>
     <language-dropdown class="col nav-item"/>
     -->
-    <profile-dropdown class="col nav-item">
+    <profile-dropdown v-if="user.email !== ''" class="col nav-item">
       {{ user.email }}
     </profile-dropdown>
+    <profile-dropdown v-if="user.email === ''" class="col nav-item">
+      Not Authenticated
+    </profile-dropdown>
+
   </vuestic-navbar>
 
 </template>
