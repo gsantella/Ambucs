@@ -71,7 +71,7 @@ export default {
   created () {
     Auth.currentAuthenticatedUser()
     // .then(data => console.log(data))
-      .then((data) => { this.user.email = data.attributes.email })
+      .then((data) => { this.user = data.attributes })
       .catch(err => console.log(err))
   }
 }
