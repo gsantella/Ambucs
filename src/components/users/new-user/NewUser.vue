@@ -10,25 +10,20 @@
 
                   <div class="form-group">
 
-                    <!-- First Name -->
+                    <!-- Email -->
                     <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                      <input id="simple-input" type="email" required v-model="user.username" />
+                      <label class="control-label" for="simple-input" >Email</label><i class="bar"></i>
                     </div>
 
-                    <!-- Last Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                    </div>
                   </div>
 
                   <div class="form-group">
 
-                    <!-- Email -->
+                    <!-- Password -->
                     <div class="input-group">
-                      <input id="simple-input" type="email" required/>
-                      <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
+                      <input id="simple-input" required v-model="user.password" />
+                      <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
                     </div>
 
                   </div>
@@ -37,7 +32,7 @@
 
                     <!-- User Role -->
                     <div class="input-group">
-                      <input id="simple-input" required/>
+                      <input id="simple-input" required v-model="user.role"/>
                       <label class="control-label" for="simple-input">User Role</label><i class="bar"></i>
                     </div>
                   </div>
@@ -68,6 +63,8 @@
 </template>
 
 <script>
+import { Auth } from 'aws-amplify'
+
 import router from '../../../router'
 import VuesticWidget
   from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
@@ -82,9 +79,24 @@ export default {
   components: {
     VuesticWidget, FilterBar, SpringSpinner, VuesticSimpleSelect
   },
+  data () {
+    return {
+      user: {
+        username: '',
+        password: '',
+        role: ''
+      }
+    }
+  },
   methods: {
     addUser () {
-
+      Auth.signUp({
+        'username': this.user.username,
+        'password': this.user.password,
+        'attributes': {
+          'custom:role': this.user.role
+        }
+      })
     },
     cancelUser () {
       if (confirm('Are you sure you want to cancel?')) {

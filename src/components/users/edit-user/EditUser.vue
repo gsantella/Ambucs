@@ -10,24 +10,9 @@
 
                   <div class="form-group">
 
-                    <!-- First Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-
                     <!-- Email -->
                     <div class="input-group">
-                      <input id="simple-input" type="email" required/>
+                      <input id="simple-input" type="email" required v-model="user.username"/>
                       <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                     </div>
 
@@ -35,11 +20,22 @@
 
                   <div class="form-group">
 
-                    <!-- User Role -->
+                    <!-- First Name -->
                     <div class="input-group">
-                      <input id="simple-input" required/>
-                      <label class="control-label" for="simple-input">User Role</label><i class="bar"></i>
+                      <input id="simple-input" required v-model="user.code"/>
+                      <label class="control-label" for="simple-input">Code</label><i class="bar"></i>
                     </div>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <!-- Last Name -->
+                    <div class="input-group">
+                      <input id="simple-input" required v-model="user.password"/>
+                      <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
+                    </div>
+
                   </div>
 
                 </fieldset>
@@ -53,8 +49,8 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-primary" @click="addUser()" >
-          {{'Save' | translate}}
+        <button class="btn btn-primary" @click="resetUser()" >
+          {{'Reset' | translate}}
         </button>
       </div>
       <div
@@ -68,6 +64,8 @@
 </template>
 
 <script>
+import { Auth } from 'aws-amplify'
+
 import router from '../../../router'
 import VuesticWidget
   from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
@@ -82,9 +80,21 @@ export default {
   components: {
     VuesticWidget, FilterBar, SpringSpinner, VuesticSimpleSelect
   },
+  data () {
+    return {
+      user: {
+        username: '',
+        code: '',
+        password: '',
+        role: ''
+      }
+    }
+  },
   methods: {
-    addUser () {
-
+    resetUser () {
+      Auth.forgotPasswordSubmit(this.user.username, this.user.code, this.user.password)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     },
     deleteUser () {
       if (confirm('Are you sure you want to delete this user?')) {
