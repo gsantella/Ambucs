@@ -61,8 +61,23 @@ export default new Router({
       ],
     },
     {
+      path: '/print',
+      component: EmptyParentComponent,
+      children: [
+        {
+          name: 'print-awardee',
+          path: 'print-awardee',
+          // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
+          component: lazyLoading('awardees/view-awardees/ViewAwardee'),
+          meta: {
+            requiresAuth: true,
+          }
+        }
+      ]
+    },
+    {
       name: 'Admin',
-      path: '/',
+      path: '/admin',
       component: AppLayout,
       children: [
         {
@@ -136,15 +151,6 @@ export default new Router({
               path: 'edit-awardee',
               // component: require('../components/awardees/edit-awardee/EditAwardee.vue'),
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
-              meta: {
-                requiresAuth: true,
-              }
-            },
-            {
-              name: 'print-awardee',
-              path: 'print-awardee',
-              // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
-              component: lazyLoading('awardees/view-awardees/ViewAwardee'),
               meta: {
                 requiresAuth: true,
               }

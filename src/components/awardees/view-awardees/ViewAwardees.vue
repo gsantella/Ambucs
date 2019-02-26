@@ -83,6 +83,17 @@
         </table>
       </div>
     </vuestic-widget>
+    <!--
+    <vuestic-data-table
+      :tableData="tableData"
+      :tableFields="tableFields"
+      :itemsPerPage="itemsPerPage"
+      :defaultPerPage="defaultTablePerPage"
+      :sortFunctions="sortFunctions"
+      :apiMode="apiMode"
+      :paginationPath="paginationPath"
+    />
+    -->
   </div>
 </template>
 
@@ -96,6 +107,9 @@ import VuesticSimpleSelect
   from '../../../vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import { SpringSpinner } from 'epic-spinners'
 import { cityList, itemList } from './filtersData'
+// import FieldsDef from './fields-definition'
+// import TableData from './TableData'
+
 import swal from 'sweetalert'
 export default {
   name: 'ViewAwardees',
@@ -104,6 +118,22 @@ export default {
   },
   data () {
     return {
+      /*
+      tableData: TableData,
+      apiMode: false,
+      tableFields: FieldsDef.tableFields,
+      itemsPerPage: [
+        {
+          value: 5,
+        },
+        {
+          value: 6,
+        },
+      ],
+      sortFunctions: FieldsDef.sortFunctions,
+      paginationPath: '',
+      defaultTablePerPage: 6,
+      */
       hasEditPermission: true,
       hasAddPermission: true,
       id: '',
@@ -150,6 +180,7 @@ export default {
         filteredItemsLocal = filteredItemsLocal.filter(item => item.city.toUpperCase()
           .search(this.city.toUpperCase()) !== -1)
       }
+
       return filteredItemsLocal
     }
   },
