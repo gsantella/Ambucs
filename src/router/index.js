@@ -62,7 +62,7 @@ export default new Router({
     },
     {
       name: 'Admin',
-      path: '/admin',
+      path: '/',
       component: AppLayout,
       children: [
         {
