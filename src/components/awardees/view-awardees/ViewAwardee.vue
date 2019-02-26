@@ -47,9 +47,9 @@
           <td>{{ awardee.lastContacted }}</td>
           <td>{{ awardee.address1 }}</td>
           <td>{{ awardee.address2 }}</td>
-          <td>{{ awardee.City }}</td>
-          <td>{{ awardee.State }}</td>
-          <td>{{ awardee.Zip }}</td>
+          <td>{{ awardee.city }}</td>
+          <td>{{ awardee.state }}</td>
+          <td>{{ awardee.zip }}</td>
           <td>{{ awardee.Phone }}</td>
           <td>{{ awardee.notes }}</td>
         </tr>
