@@ -409,6 +409,7 @@ export default {
       show: true,
       objectToPass: null,
       contact: {
+        awardeeId: '',
         firstName: '',
         lastName: '',
         email: '',
@@ -423,6 +424,7 @@ export default {
         contactType: ''
       },
       tryke: {
+        awardeeId: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
@@ -575,7 +577,16 @@ export default {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'POST',
           body: JSON.stringify(this.awardee)
-        })
+        }).then(response => response.json())
+          .then(json => {
+            this.contacts.forEach(element => {
+              element.awardeeId = json.Attributes.id
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact`, {
+                method: 'POST',
+                body: JSON.stringify(element)
+              })
+            })
+          })
         swal('Added', 'The record has been added.', 'success')
         setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
       } catch (e) {
