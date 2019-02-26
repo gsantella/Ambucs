@@ -1,10 +1,9 @@
 <template>
   <div>
 
-    <button @click="print()"  class="btn btn-primary btn-micro">
-      {{'Print This' | translate}}
-    </button>
-    <!-- <a href="javascript:window.print()">Print This</a> -->
+      <button style="margin:5px 5px" @click="print()"  class="btn btn-primary btn-micro" >
+        {{'Print This' | translate}}
+      </button>
 
     <div class="va-row">
       <div class="flex md3"></div>
@@ -17,11 +16,87 @@
       <div class="flex md3"></div>
     </div>
 
+    <div class="va-row">
+      <div class="flex md12">
+        <vuestic-widget style="margin-top:15px" :headerText=" 'Awardee Record' | translate">
+          <fieldset>
+            <div class="form-group">
+              <div class="input-group">
+                {{awardee.firstName}}
+                <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+              </div>
+
+              <!-- Last Name -->
+              <div class="input-group">
+                {{awardee.lastName}}
+                <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+              </div>
+            </div>
+             <div class="form-group">
+              <!-- First Name -->
+              <div class="input-group">
+                {{ awardee.dateOfBirth }}
+                <label class="control-label" for="simple-input">Birth Date</label><i class="bar"></i>
+              </div>
+
+              <!-- Last Name -->
+              <div class="input-group">
+                {{ awardee.lastContacted }}
+                <label class="control-label" for="simple-input">Last Contacted</label><i class="bar"></i>
+              </div>
+            </div>
+             <div class="form-group">
+              <!-- First Name -->
+              <div class="input-group">
+                {{ awardee.address1 }}
+                <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
+              </div>
+
+              <!-- Last Name -->
+              <div class="input-group">
+                {{ awardee.address2 }}
+                <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
+              </div>
+            </div>
+             <div class="form-group">
+              <!-- First Name -->
+              <div class="input-group">
+                {{ awardee.city }}
+                <label class="control-label" for="simple-input">City</label><i class="bar"></i>
+              </div>
+
+              <!-- Last Name -->
+              <div class="input-group">
+                {{ awardee.state }}
+                <label class="control-label" for="simple-input">State</label><i class="bar"></i>
+              </div>
+            </div>
+             <div class="form-group">
+              <!-- First Name -->
+              <div class="input-group">
+                {{ awardee.zip }}
+                <label class="control-label" for="simple-input">Zip</label><i class="bar"></i>
+              </div>
+
+              <!-- Last Name -->
+              <div class="input-group">
+                {{ awardee.phone }}
+                <label class="control-label" for="simple-input">Phone</label><i class="bar"></i>
+              </div>
+            </div>
+             <div class="form-group">
+              <!-- First Name -->
+              <div class="input-group">
+                {{ awardee.notes }}
+                <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+              </div>
+            </div>
+          </fieldset>
+        </vuestic-widget>
+      </div>
+
+    </div>
     <!--
-    <h1>{{ awardee }}</h1>
-    <h2>{{ contacts }}</h2>
-    <h2>{{ trykes }}</h2>
-    -->
     <vuestic-widget style="margin-top:15px" :headerText=" 'Awardee Record' | translate">
      <table class="table table-striped first-td-padding">
       <thead>
@@ -56,7 +131,7 @@
       </tbody>
     </table>
     </vuestic-widget>
-
+  -->
     <vuestic-widget :headerText=" 'Awardee Contacts' | translate">
       <table class="table table-striped first-td-padding">
         <thead>
