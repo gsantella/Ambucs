@@ -1,7 +1,7 @@
 <template>
   <div class="filters-page">
     <div class="row">
-      <div v-if="User.userRole === 'writter'" class="col-md-12">
+      <div v-if="User.userRole === 'writter'" class="col-md-12"> <!--FIX TO BOOLEAN CHECK -->
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
             <button class="btn btn-primary" @click="newAwardee()" >

@@ -1,8 +1,18 @@
 <template>
   <div class="form-elements">
+
     <div class="va-row">
       <div class="flex md12">
-
+          <div style="float:right"
+          class="flex sm6 lg6 xl3 justify--center">
+            <button class="btn btn-primary btn-micro" @click="resetPassword()" >
+              {{'Reset Password' | translate}}
+            </button>
+          </div>
+      </div>
+    </div>
+    <div class="va-row">
+      <div class="flex md12">
         <vuestic-widget :headerText="'Edit User' | translate">
           <form>
 
@@ -37,13 +47,13 @@
                   <div class="flex md3">
                     <vuestic-checkbox
                       :label="$t('Write Awardee Permission')"
-                      v-model="writeAwardeePermission"
+                      v-model="user.writeAwardeePermission"
                     />
                   </div>
                   <div class="flex md3">
                     <vuestic-checkbox
                       :label="$t('Write User Permission')"
-                      v-model="writeUserPermission"
+                      v-model="user.writeUserPermission"
                     />
                   </div>
                 </div>
@@ -60,8 +70,8 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex sm6 lg6 xl3 justify--center">
-        <button class="btn btn-primary" @click="resetUser()" >
-          {{'Reset' | translate}}
+        <button class="btn btn-primary" @click="updateUser()" >
+          {{'Update' | translate}}
         </button>
       </div>
       <div
@@ -97,12 +107,25 @@ export default {
         username: '',
         code: '',
         password: '',
-        role: ''
+        writeUserPermission: false,
+        writeAwardeePermission: false
       }
     }
   },
   methods: {
-    resetUser () {
+    updateUser () {
+      /*
+      Auth.Update({
+        'username': this.user.username,
+        'password': this.user.password,
+        'attributes': {
+          'custom:writeUserPermission': this.user.writeUserPermission,
+          'custom:writeAwardeePermission': this.user.writeAwardeePermission
+        }
+      })
+      */
+    },
+    resetPassword () {
       Auth.forgotPasswordSubmit(this.user.username, this.user.code, this.user.password)
         .then(data => console.log(data))
         .catch(err => console.log(err))

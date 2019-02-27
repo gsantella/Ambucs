@@ -25,13 +25,13 @@
                   <div class="flex md3">
                     <vuestic-checkbox
                       :label="$t('Write Awardee Permission')"
-                      v-model="writeAwardeePermission"
+                      v-model="user.writeAwardeePermission"
                     />
                   </div>
                   <div class="flex md3">
                     <vuestic-checkbox
                       :label="$t('Write User Permission')"
-                      v-model="writeUserPermission"
+                      v-model="user.writeUserPermission"
                     />
                   </div>
                 </div>
@@ -83,10 +83,11 @@ export default {
     return {
       user: {
         username: '',
-        password: ''
+        password: '',
+        writeUserPermission: false,
+        writeAwardeePermission: false
       },
-      writeUserPermission: false,
-      writeAwardeePermission: false
+
     }
   },
   computed: {
@@ -98,8 +99,8 @@ export default {
         'username': this.user.username,
         'password': this.user.password,
         'attributes': {
-          'custom:writeUserPermission': this.writeUserPermission,
-          'custom:writeAwardeePermission': this.writeAwardeePermission
+          'custom:writeUserPermission': this.user.writeUserPermission,
+          'custom:writeAwardeePermission': this.user.writeAwardeePermission
         }
       })
     },
