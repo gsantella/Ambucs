@@ -66,6 +66,7 @@ export default {
     },
     handleSubmit () {
       Auth.signIn(this.user.email, this.user.password).then(() => {
+        this.$store.commit('setUser', this.user)
         router.push({ name: 'view-awardees' })
       }).catch((response) => {
         if (response.message) {
@@ -79,6 +80,9 @@ export default {
     Auth.signOut()
       .then(data => console.log(data))
       .catch(err => console.log(err))
+    this.user.email = ''
+    this.user.password = ''
+    this.$store.commit('setUser', this.user)
   }
 }
 
