@@ -21,7 +21,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
+          <tr v-for="item in users" :key="item.id" v-on:click="clickList(item)">
             <td>{{ item.displayName }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.userRole }}</td>
@@ -39,6 +39,11 @@ import router from '../../../router'
 
 export default {
   name: 'ViewUsers',
+  data () {
+    return {
+      user: []
+    }
+  },
   components: {
   },
 
@@ -49,6 +54,9 @@ export default {
     addUser () {
       router.push({ name: 'new-user' })
     }
+  },
+  created: {
+
   }
 }
 </script>

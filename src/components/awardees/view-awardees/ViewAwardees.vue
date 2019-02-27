@@ -1,7 +1,7 @@
 <template>
   <div class="filters-page">
     <div class="row">
-      <div v-if="hasAddPermission" class="col-md-12">
+      <div v-if="User.userRole === 'writer'" class="col-md-12">
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
             <button class="btn btn-primary" @click="newAwardee()" >
@@ -134,8 +134,7 @@ export default {
       paginationPath: '',
       defaultTablePerPage: 6,
       */
-      hasEditPermission: true,
-      hasAddPermission: true,
+      User: this.$store.getters.User,
       id: '',
       firstName: '',
       lastName: '',
@@ -154,8 +153,8 @@ export default {
     },
     clickList (item) {
       // If Authenticated or has admin permission show edit awardee else only show view
-
-      if (this.hasEditPermission) {
+      console.log(this.User)
+      if (this.User.userRole === 'writer') {
         router.push({ name: 'edit-awardee', params: { id: item.id } })
       } else {
         router.push({ name: 'view-awardee', params: { id: item.id } })

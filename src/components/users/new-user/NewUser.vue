@@ -22,7 +22,7 @@
 
                     <!-- Password -->
                     <div class="input-group">
-                      <input id="simple-input" required v-model="user.password" />
+                      <input id="simple-input" type="password" required v-model="user.password" />
                       <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
                     </div>
 

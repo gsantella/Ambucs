@@ -42,8 +42,9 @@ export default {
   data () {
     return {
       user: {
-        email: '',
-        password: ''
+        email: 'test',
+        password: 'test2',
+        userRole: 'writer'
       }
     }
   },
@@ -75,8 +76,12 @@ export default {
   created () {
     Auth.currentAuthenticatedUser()
     // .then(data => console.log(data))
-      .then((data) => { this.user = data.attributes })
+      .then((data) => {
+        this.user = data.attributes
+        this.$store.commit('setUser', this.user)
+      })
       .catch(err => console.log(err))
+    this.$store.commit('setUser', this.user)
   }
 }
 </script>
