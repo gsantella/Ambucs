@@ -2,7 +2,7 @@
   <vuestic-navbar>
     <header-selector slot="selector" :isOpen.sync="valueProxy"/>
     <span slot="logo">
-      AMBUCS
+      <img style="width:110px;heigh:65px" src="@/assets/icons/logo.png"/>
     </span>
 
     <!--

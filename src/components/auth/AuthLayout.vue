@@ -2,7 +2,7 @@
   <div class="auth-layout">
     <div class="nav d-lg-none">
       <router-link :to="{path: '/'}">
-        Ambucs
+       <img href="@/assets/icons/logo.png"/>
       </router-link>
     </div>
     <div class="main va-row">
@@ -15,7 +15,7 @@
         <div class="flex-center">
           <div class="auth-layout__auth-wallpaper__cross-line"/>
           <router-link align="center" style="font-size:5rem" class="auth-layout__auth-wallpaper__logo" :to="{path: '/'}">
-            <span align="center">Ambucs</span>
+            <span align="center"><img src="@/assets/icons/logo.png"/></span>
           </router-link>
         </div>
       </div>
