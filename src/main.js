@@ -22,7 +22,15 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
-  next()
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.User.email !== '' && store.getters.User.password !== '') {
+      next()
+      return
+    }
+    next('/auth/login')
+  } else {
+    next()
+  }
 })
 
 router.afterEach((to, from) => {

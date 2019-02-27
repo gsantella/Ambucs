@@ -81,6 +81,7 @@ export default {
         this.$store.commit('setUser', this.user)
       })
       .catch(err => console.log(err))
+    this.$store.commit('setUser', this.user)
   }
 }
 </script>

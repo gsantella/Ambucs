@@ -32,7 +32,7 @@
 
                     <!-- User Role -->
                     <div class="input-group">
-                      <input id="simple-input" required v-model="user.role"/>
+                      <input id="simple-input" required v-model="user.userRole"/>
                       <label class="control-label" for="simple-input">User Role</label><i class="bar"></i>
                     </div>
                   </div>
@@ -84,7 +84,7 @@ export default {
       user: {
         username: '',
         password: '',
-        role: ''
+        userRole: ''
       }
     }
   },
@@ -94,7 +94,7 @@ export default {
         'username': this.user.username,
         'password': this.user.password,
         'attributes': {
-          'custom:role': this.user.role
+          'custom:role': this.user.userRole
         }
       })
     },
