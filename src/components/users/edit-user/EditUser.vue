@@ -15,17 +15,11 @@
                       <input id="simple-input" type="email" required v-model="user.username"/>
                       <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                     </div>
-
-                  </div>
-
-                  <div class="form-group">
-
-                    <!-- First Name -->
+                      <!-- First Name -->
                     <div class="input-group">
                       <input id="simple-input" required v-model="user.code"/>
                       <label class="control-label" for="simple-input">Code</label><i class="bar"></i>
                     </div>
-
                   </div>
 
                   <div class="form-group">
@@ -37,6 +31,23 @@
                     </div>
 
                   </div>
+
+                  <div class="form-group">
+                <div class="va-row">
+                  <div class="flex md3">
+                    <vuestic-checkbox
+                      :label="$t('Write Awardee Permission')"
+                      v-model="writeAwardeePermission"
+                    />
+                  </div>
+                  <div class="flex md3">
+                    <vuestic-checkbox
+                      :label="$t('Write User Permission')"
+                      v-model="writeUserPermission"
+                    />
+                  </div>
+                </div>
+              </div>
 
                 </fieldset>
 
