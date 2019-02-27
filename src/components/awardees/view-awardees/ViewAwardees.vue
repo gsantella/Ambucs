@@ -1,7 +1,7 @@
 <template>
   <div class="filters-page">
     <div class="row">
-      <div v-if="User.userRole === 'writer'" class="col-md-12">
+      <div v-if="User.userRole === 'writter'" class="col-md-12">
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
             <button class="btn btn-primary" @click="newAwardee()" >
@@ -153,7 +153,7 @@ export default {
     },
     clickList (item) {
       // If Authenticated or has admin permission show edit awardee else only show view
-      if (this.User.userRole === 'writer') {
+      if (this.User.userRole === 'writter') {
         router.push({ name: 'edit-awardee', params: { id: item.id } })
       } else {
         router.push({ name: 'view-awardee', params: { id: item.id } })
