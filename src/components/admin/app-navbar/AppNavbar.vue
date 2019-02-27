@@ -42,9 +42,9 @@ export default {
   data () {
     return {
       user: {
-        email: 'test',
-        password: 'test2',
-        userRole: 'writer'
+        email: '',
+        password: '',
+        userRole: ''
       }
     }
   },
@@ -81,7 +81,6 @@ export default {
         this.$store.commit('setUser', this.user)
       })
       .catch(err => console.log(err))
-    this.$store.commit('setUser', this.user)
   }
 }
 </script>

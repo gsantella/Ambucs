@@ -153,7 +153,6 @@ export default {
     },
     clickList (item) {
       // If Authenticated or has admin permission show edit awardee else only show view
-      console.log(this.User)
       if (this.User.userRole === 'writer') {
         router.push({ name: 'edit-awardee', params: { id: item.id } })
       } else {

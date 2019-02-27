@@ -443,9 +443,7 @@ export default {
         zip: '',
         dateOfBirth: '',
         lastContacted: '',
-        notes: '',
-        trykes: [],
-        contacts: []
+        notes: ''
       },
       trykes: [],
       contacts: []
@@ -582,6 +580,13 @@ export default {
             this.contacts.forEach(element => {
               element.awardeeId = json.Attributes.id
               fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact`, {
+                method: 'POST',
+                body: JSON.stringify(element)
+              })
+            })
+            this.trykes.forEach(element => {
+              element.awardeeId = json.Attributes.id
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke`, {
                 method: 'POST',
                 body: JSON.stringify(element)
               })
