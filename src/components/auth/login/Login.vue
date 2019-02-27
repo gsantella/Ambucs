@@ -43,8 +43,10 @@ export default {
     return {
       user: {
         email: '',
-        password: ''
+        password: '',
+        userRole: ''
       },
+
       toastText: 'Authentication failed, username or password does not exist',
       toastDuration: 2500,
       toastIcon: 'fa-times',
@@ -66,7 +68,14 @@ export default {
     },
     handleSubmit () {
       Auth.signIn(this.user.email, this.user.password).then(() => {
-        this.$store.commit('setUser', this.user)
+        Auth.currentAuthenticatedUser()
+          .then((data) => {
+            this.user.email = data.attributes.email
+            this.user.password = data.attributes.sub
+            this.user.userRole = data.attributes['custom:role']
+            this.$store.commit('setUser', this.user)
+          })
+          .catch(err => console.log(err))
         router.push({ name: 'view-awardees' })
       }).catch((response) => {
         if (response.message) {

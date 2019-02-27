@@ -93,6 +93,7 @@ export default new Router({
               meta: {
                 requiresAuth: true,
               }
+              // add permission check for view
             },
             {
               name: 'new-user',
@@ -102,6 +103,7 @@ export default new Router({
               meta: {
                 requiresAuth: true,
               }
+              // add permission check for add
             },
             {
               name: 'edit-user',
@@ -111,6 +113,7 @@ export default new Router({
               meta: {
                 requiresAuth: true,
               }
+              // add permission check for edit
             }
           ]
         },
@@ -145,6 +148,7 @@ export default new Router({
               meta: {
                 requiresAuth: true,
               }
+              // add permission check for add
             },
             {
               name: 'edit-awardee',
@@ -154,6 +158,7 @@ export default new Router({
               meta: {
                 requiresAuth: true,
               }
+              // add permission check for edit
             }
           ]
         },
