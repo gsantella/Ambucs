@@ -10,21 +10,49 @@
           </div>
       </div>
     </div>
+        <vuestic-widget headerText="Search">
+      <div class="row">
+        <div class="col-md-12">
+          <div slot="body">
+
+            <div class="row filters-page__filter-bar-container">
+              <filter-bar
+                v-model="email"
+                class="filters-page__filter-bar"
+                label="Email"
+              />
+            </div>
+          </div>
+          <div class="filters-page__tags">
+            <vuestic-tag
+              v-if="email"
+              :name="`Email: ${ email }`"
+              removable
+              @remove="email = ''"
+            />
+            <span
+              v-if="this.email"
+              class="filters-page__clear-all-text"
+              @click="clearAll"
+            >
+              Clear all filters
+            </span>
+          </div>
+        </div>
+      </div>
+    </vuestic-widget>
+
     <vuestic-widget>
       <div class="table-responsive">
         <table class="table table-striped first-td-padding">
           <thead>
           <tr>
-            <td class="filters-page__table-heading">Display Name</td>
             <td class="filters-page__table-heading">Email</td>
-            <td class="filters-page__table-heading">User Role</td>
           </tr>
           </thead>
           <tbody>
           <tr v-for="item in users" :key="item.id" v-on:click="clickList(item)">
-            <td>{{ item.displayName }}</td>
             <td>{{ item.email }}</td>
-            <td>{{ item.userRole }}</td>
           </tr>
           </tbody>
         </table>
@@ -35,19 +63,27 @@
 </template>
 
 <script>
-import router from '../../../router'
+import router from '@/router'
+import VuesticWidget
+  from '@/vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
+import FilterBar
+  from '@/vuestic-theme/vuestic-components/vuestic-datatable/datatable-components/FilterBar.vue'
+import VuesticSimpleSelect
+  from '@/vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 
 export default {
   name: 'ViewUsers',
   data () {
     return {
-      user: []
+      users: [],
+      email: '',
     }
-  },
-  components: {
   },
 
   methods: {
+    clearAll () {
+      this.email = ''
+    },
     clickList (user) {
       router.push({ name: 'edit-user', params: { id: user.id } })
     },
@@ -57,7 +93,10 @@ export default {
   },
   created: {
 
-  }
+  },
+  components: {
+    VuesticWidget, FilterBar, VuesticSimpleSelect
+  },
 }
 </script>
 

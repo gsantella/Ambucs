@@ -5,41 +5,41 @@
 
         <vuestic-widget :headerText="'Add User' | translate">
           <form>
+            <fieldset>
+              <div class="form-group">
 
-                <fieldset>
+                <!-- Email -->
+                <div class="input-group">
+                  <input id="simple-input" type="email" required v-model="user.username" />
+                  <label class="control-label" for="simple-input" >Email</label><i class="bar"></i>
+                </div>
 
-                  <div class="form-group">
-
-                    <!-- Email -->
-                    <div class="input-group">
-                      <input id="simple-input" type="email" required v-model="user.username" />
-                      <label class="control-label" for="simple-input" >Email</label><i class="bar"></i>
-                    </div>
-
+                <!-- Password -->
+                <div class="input-group">
+                  <input id="simple-input" type="password" required v-model="user.password" />
+                  <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="va-row">
+                  <div class="flex md3">
+                    <vuestic-checkbox
+                      :label="$t('Write Awardee Permission')"
+                      v-model="writeAwardeePermission"
+                    />
                   </div>
-
-                  <div class="form-group">
-
-                    <!-- Password -->
-                    <div class="input-group">
-                      <input id="simple-input" type="password" required v-model="user.password" />
-                      <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
-                    </div>
-
+                  <div class="flex md3">
+                    <vuestic-checkbox
+                      :label="$t('Write User Permission')"
+                      v-model="writeUserPermission"
+                    />
                   </div>
+                </div>
+              </div>
 
-                  <div class="form-group">
+            </fieldset>
 
-                    <!-- User Role -->
-                    <div class="input-group">
-                      <input id="simple-input" required v-model="user.userRole"/>
-                      <label class="control-label" for="simple-input">User Role</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                </fieldset>
-
-          </form>
+        </form>
         </vuestic-widget>
 
       </div>
@@ -83,10 +83,14 @@ export default {
     return {
       user: {
         username: '',
-        password: '',
-        userRole: ''
-      }
+        password: ''
+      },
+      writeUserPermission: false,
+      writeAwardeePermission: false
     }
+  },
+  computed: {
+
   },
   methods: {
     addUser () {
@@ -94,7 +98,8 @@ export default {
         'username': this.user.username,
         'password': this.user.password,
         'attributes': {
-          'custom:role': this.user.userRole
+          'custom:writeUserPermission': this.writeUserPermission,
+          'custom:writeAwardeePermission': this.writeAwardeePermission
         }
       })
     },
