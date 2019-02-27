@@ -568,9 +568,6 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
-      this.awardee.contacts = this.contacts
-      this.awardee.trykes = this.trykes
-
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'POST',
