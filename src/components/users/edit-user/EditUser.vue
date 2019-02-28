@@ -18,14 +18,6 @@
 
                 <fieldset>
                   <div class="form-group">
-                    <!-- Display Name -->
-                    <div class="input-group">
-                      <input id="simple-input" type="email" required v-model="user.displayName"/>
-                      <label class="control-label" for="simple-input">Display Name</label><i class="bar"></i>
-                    </div>
-                  </div>
-                  <div class="form-group">
-
                     <!-- Email -->
                     <div class="input-group">
                       <input id="simple-input" type="email" required v-model="user.email"/>
@@ -112,8 +104,8 @@ export default {
         'email': this.user.email,
         'password': this.user.password,
         'attributes': {
-          'custom:writeUserPermission': this.user.writeUserPermission,
-          'custom:writeAwardeePermission': this.user.writeAwardeePermission
+          'custom:writeUserPerm2': this.user.writeUserPermission,
+          'custom:writeAwardeePerm2': this.user.writeAwardeePermission
         }
       })
       */

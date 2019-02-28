@@ -8,8 +8,8 @@
               <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
-                  <input id="simple-input" type="email" required v-model="user.email" />
-                  <label class="control-label" for="simple-input" >Email</label><i class="bar"></i>
+                  <input id="simple-input1" type="email" required v-model="user.email" />
+                  <label class="control-label" for="simple-input1" >Email</label><i class="bar"></i>
                 </div>
 
                 <!-- Password -->
@@ -82,8 +82,8 @@ export default {
       user: {
         email: '',
         password: '',
-        userPermissionNumber: 0,
-        awardeePermissionNumber: 0
+        userPermission: '',
+        awardeePermission: ''
       },
       writeUserPermission: false,
       writeAwardeePermission: false,
@@ -94,20 +94,20 @@ export default {
   },
   methods: {
     addUser () {
-      if (this.writeUserPermission) {
-        this.user.userPermissionNumber = 1
-      }
       if (this.writeAwardeePermission) {
-        this.user.awardeePermissionNumber = 1
+        this.user.awardeePermission = 'true'
       }
-      console.log(this.user)
+      if (this.writeUserPermission) {
+        this.user.userPermission = 'true'
+      }
       Auth.signUp({
         'username': this.user.email,
         'password': this.user.password,
         'attributes': {
-          'custom:writeUserPermission': this.user.userPermissionNumber,
-          'custom:writeAwardeePermission': this.user.awardeePermissionNumber
+          'custom:writeUserPerm2': this.user.userPermission,
+          'custom:writeAwardeePerm2': this.user.awardeePermission
         }
+
       })
 
       swal('Added', 'The User has been added.', 'success')

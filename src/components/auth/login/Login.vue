@@ -43,7 +43,6 @@ export default {
       user: {
         email: '',
         password: '',
-        userRole: '',
         writeUserPermission: '',
         writeAwardeePermission: ''
       },
@@ -73,17 +72,12 @@ export default {
           .then((data) => {
             this.user.email = data.attributes.email
             this.user.password = data.attributes.sub
-            this.user.userRole = data.attributes['custom:role']
-            /*
-             this.user.email = data.attributes.email
-             this.user.password = data.attributes.sub
-             this.user.writeUserPermission = data.attributes['custom:writeUserPermission']
-             this.user.writeAwardeePermission = data.attributes['custom:writeAwardeePermission']
-            */
-
+            this.user.writeUserPermission = data.attributes['custom:writeUserPerm2']
+            this.user.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
             this.$store.commit('setUser', this.user)
           })
           .catch(err => console.log(err))
+        console.log(this.user)
         this.$router.push({ name: 'view-awardees' })
       }).catch((response) => {
         if (response.message) {
