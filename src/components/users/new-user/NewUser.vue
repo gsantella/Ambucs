@@ -2,15 +2,20 @@
   <div class="form-elements">
     <div class="va-row">
       <div class="flex md12">
-
         <vuestic-widget :headerText="'Add User' | translate">
           <form>
             <fieldset>
               <div class="form-group">
-
+                <!-- Display Name -->
+                <div class="input-group">
+                  <input id="simple-input" type="text" required v-model="user.displayName" />
+                  <label class="control-label" for="simple-input" >Display Name</label><i class="bar"></i>
+                </div>
+              </div>
+              <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
-                  <input id="simple-input" type="email" required v-model="user.username" />
+                  <input id="simple-input" type="email" required v-model="user.email" />
                   <label class="control-label" for="simple-input" >Email</label><i class="bar"></i>
                 </div>
 
@@ -73,6 +78,7 @@ import FilterBar
 import VuesticSimpleSelect
   from '../../../vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import { SpringSpinner } from 'epic-spinners'
+import swal from 'sweetalert'
 
 export default {
   name: 'NewUser',
@@ -82,12 +88,12 @@ export default {
   data () {
     return {
       user: {
-        username: '',
+        displayName: '',
+        email: '',
         password: '',
         writeUserPermission: false,
         writeAwardeePermission: false
       },
-
     }
   },
   computed: {
@@ -96,7 +102,8 @@ export default {
   methods: {
     addUser () {
       Auth.signUp({
-        'username': this.user.username,
+        'displayName': '',
+        'email': this.user.email,
         'password': this.user.password,
         'attributes': {
           'custom:writeUserPermission': this.user.writeUserPermission,
@@ -105,9 +112,21 @@ export default {
       })
     },
     cancelUser () {
-      if (confirm('Are you sure you want to cancel?')) {
-        router.push({ name: 'view-users' })
-      }
+      swal({
+        title: 'Are you sure you want to cancel this user?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            swal('Deleted', 'The user has been deleted.', 'success')
+            router.push({ name: 'view-users' })
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the user.', 'warning')
+          }
+        })
     }
   }
 }

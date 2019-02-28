@@ -17,32 +17,24 @@
           <form>
 
                 <fieldset>
-
+                  <div class="form-group">
+                    <!-- Display Name -->
+                    <div class="input-group">
+                      <input id="simple-input" type="email" required v-model="user.displayName"/>
+                      <label class="control-label" for="simple-input">Display Name</label><i class="bar"></i>
+                    </div>
+                  </div>
                   <div class="form-group">
 
                     <!-- Email -->
                     <div class="input-group">
-                      <input id="simple-input" type="email" required v-model="user.username"/>
+                      <input id="simple-input" type="email" required v-model="user.email"/>
                       <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                     </div>
-                      <!-- First Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required v-model="user.code"/>
-                      <label class="control-label" for="simple-input">Code</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-
-                    <!-- Last Name -->
-                    <div class="input-group">
-                      <input id="simple-input" required v-model="user.password"/>
-                      <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
-                    </div>
 
                   </div>
 
-                  <div class="form-group">
+              <div class="form-group">
                 <div class="va-row">
                   <div class="flex md3">
                     <vuestic-checkbox
@@ -104,7 +96,8 @@ export default {
   data () {
     return {
       user: {
-        username: '',
+        displayName: '',
+        email: '',
         code: '',
         password: '',
         writeUserPermission: false,
@@ -116,7 +109,8 @@ export default {
     updateUser () {
       /*
       Auth.Update({
-        'username': this.user.username,
+        'displayName': this.user.displayName,
+        'email': this.user.email,
         'password': this.user.password,
         'attributes': {
           'custom:writeUserPermission': this.user.writeUserPermission,

@@ -33,7 +33,7 @@ export default new Router({
     ...demoRoutes,
     {
       path: '*',
-      redirect: { name: 'view-awardees' },
+      redirect: { name: 'login' },
     },
     {
       path: '/auth',
@@ -92,6 +92,7 @@ export default new Router({
               component: lazyLoading('users/view-users/ViewUsers'),
               meta: {
                 requiresAuth: true,
+                requiresAdmin: true
               }
               // add permission check for view
             },
@@ -102,6 +103,7 @@ export default new Router({
               component: lazyLoading('users/new-user/NewUser'),
               meta: {
                 requiresAuth: true,
+                requiresAdmin: true
               }
               // add permission check for add
             },
@@ -112,6 +114,7 @@ export default new Router({
               component: lazyLoading('users/edit-user/EditUser'),
               meta: {
                 requiresAuth: true,
+                requiresAdmin: true
               }
               // add permission check for edit
             }
@@ -147,6 +150,7 @@ export default new Router({
               component: lazyLoading('awardees/add-awardee/AddAwardee'),
               meta: {
                 requiresAuth: true,
+                requiresAdmin: true
               }
               // add permission check for add
             },
@@ -157,6 +161,7 @@ export default new Router({
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
               meta: {
                 requiresAuth: true,
+                requiresAdmin: true
               }
               // add permission check for edit
             }

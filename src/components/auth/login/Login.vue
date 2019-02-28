@@ -44,7 +44,9 @@ export default {
       user: {
         email: '',
         password: '',
-        userRole: ''
+        userRole: '',
+        writeUserPermission: '',
+        writeAwardeePermission: ''
       },
 
       toastText: 'Authentication failed, username or password does not exist',
@@ -73,6 +75,13 @@ export default {
             this.user.email = data.attributes.email
             this.user.password = data.attributes.sub
             this.user.userRole = data.attributes['custom:role']
+            /*
+             this.user.email = data.attributes.email
+             this.user.password = data.attributes.sub
+             this.user.writeUserPermission = data.attributes['custom:writeUserPermission']
+             this.user.writeAwardeePermission = data.attributes['custom:writeAwardeePermission']
+            */
+
             this.$store.commit('setUser', this.user)
           })
           .catch(err => console.log(err))

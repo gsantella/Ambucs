@@ -10,8 +10,8 @@
           <span>Search</span>
         </span>
       </sidebar-link>
-
-      <sidebar-link
+      <div v-if="User.userRole === 'writter'">
+        <sidebar-link
         :to="{ name: 'view-users' }">
         <span slot="title">
           <span
@@ -19,7 +19,19 @@
           <span>Users</span>
         </span>
       </sidebar-link>
-
+      </div>
+      <!--
+        <div v-if="User.writeAwardeePermission">
+        <sidebar-link
+        :to="{ name: 'view-users' }">
+        <span slot="title">
+          <span
+            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
+          <span>Users</span>
+        </span>
+      </sidebar-link>
+      </div>
+       -->
     </template>
   </vuestic-sidebar>
 </template>
@@ -44,6 +56,11 @@ export default {
       required: true,
     },
   },
+  data () {
+    return {
+      User: this.$store.getters.User,
+    }
+  }
 }
 
 </script>

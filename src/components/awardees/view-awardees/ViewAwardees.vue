@@ -1,7 +1,7 @@
 <template>
   <div class="filters-page">
     <div class="row">
-      <div v-if="User.userRole === 'writter'" class="col-md-12"> <!--FIX TO BOOLEAN CHECK -->
+      <div v-if="User.userRole === 'writter'" class="col-md-12">
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
             <button class="btn btn-primary" @click="newAwardee()" >
@@ -9,6 +9,16 @@
             </button>
           </div>
       </div>
+      <!--
+      <div v-if="User.writeAwardeePermission" class="col-md-12">
+          <div style="margin-bottom:15px;float:right"
+          class="flex sm6 lg6 xl3 justify--center">
+            <button class="btn btn-primary" @click="newAwardee()" >
+              {{'New Awardee' | translate}}
+            </button>
+          </div>
+      </div>
+       -->
     </div>
     <vuestic-widget headerText="Search">
       <div class="row">
@@ -128,6 +138,13 @@ export default {
       } else {
         router.push({ name: 'view-awardee', params: { id: item.id } })
       }
+      /*
+      if (this.User.writeAwardeePermission) {
+        router.push({ name: 'edit-awardee', params: { id: item.id } })
+      } else {
+        router.push({ name: 'view-awardee', params: { id: item.id } })
+      }
+      */
     },
     newAwardee () {
       router.push({ name: 'add-awardee' })
