@@ -199,7 +199,6 @@
 </style>
 
 <script>
-import router from '../../../router'
 import swal from 'sweetalert'
 
 export default {
@@ -233,7 +232,7 @@ export default {
         })
     } catch (e) {
       swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-      router.push({ name: 'view-awardee' })
+      this.$router.push({ name: 'view-awardee' })
     }
   },
   methods: {

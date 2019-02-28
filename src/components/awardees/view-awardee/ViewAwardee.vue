@@ -318,7 +318,6 @@
 </template>
 
 <script>
-import router from '../../../router'
 import swal from 'sweetalert'
 
 export default {
@@ -442,7 +441,7 @@ export default {
     })
     if (this.$route.params.id == null) {
       swal('Error', 'That is not a valid user.', 'error')
-      router.push({ name: 'view-awardees' })
+      this.$router.push({ name: 'view-awardees' })
     } else {
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
@@ -462,7 +461,7 @@ export default {
           })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-        router.push({ name: 'view-awardees' })
+        this.$router.push({ name: 'view-awardees' })
       }
     }
   },

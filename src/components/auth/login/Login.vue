@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import router from '../../../router'
 import CognitoConfig from '../Cognito.config'
 import Amplify, { Auth } from 'aws-amplify'
 Amplify.configure(CognitoConfig)
@@ -85,7 +84,7 @@ export default {
             this.$store.commit('setUser', this.user)
           })
           .catch(err => console.log(err))
-        router.push({ name: 'view-awardees' })
+        this.$router.push({ name: 'view-awardees' })
       }).catch((response) => {
         if (response.message) {
           console.log(response.message)

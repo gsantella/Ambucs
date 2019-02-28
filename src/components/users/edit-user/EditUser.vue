@@ -79,7 +79,6 @@
 <script>
 import { Auth } from 'aws-amplify'
 
-import router from '../../../router'
 import VuesticWidget
   from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
 import FilterBar
@@ -126,7 +125,7 @@ export default {
     },
     deleteUser () {
       if (confirm('Are you sure you want to delete this user?')) {
-        router.push({ name: 'view-users' })
+        this.$router.push({ name: 'view-users' })
       }
     }
   }

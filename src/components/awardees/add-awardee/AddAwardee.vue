@@ -384,7 +384,6 @@
 </template>
 
 <script>
-import router from '../../../router'
 import swal from 'sweetalert'
 
 export default {
@@ -590,7 +589,7 @@ export default {
             })
           })
         swal('Added', 'The record has been added.', 'success')
-        setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
+        setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
       } catch (e) {
         swal('Error', 'There was an issue trying to add this record,please try again later.', 'error')
       }
@@ -611,7 +610,7 @@ export default {
           if (willDelete) {
             try {
               swal('Deleted', 'The record has been deleted.', 'success')
-              router.push({ name: 'view-awardees' })
+              this.$router.push({ name: 'view-awardees' })
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }

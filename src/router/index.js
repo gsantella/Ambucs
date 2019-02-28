@@ -59,6 +59,7 @@ export default new Router({
           redirect: { name: 'login' },
         },
       ],
+      // default: true
     },
     {
       path: '/print',
@@ -92,7 +93,7 @@ export default new Router({
               component: lazyLoading('users/view-users/ViewUsers'),
               meta: {
                 requiresAuth: true,
-                requiresAdmin: true
+                requiresWriteUser: true
               }
               // add permission check for view
             },
@@ -103,7 +104,7 @@ export default new Router({
               component: lazyLoading('users/new-user/NewUser'),
               meta: {
                 requiresAuth: true,
-                requiresAdmin: true
+                requiresWriteUser: true
               }
               // add permission check for add
             },
@@ -114,7 +115,7 @@ export default new Router({
               component: lazyLoading('users/edit-user/EditUser'),
               meta: {
                 requiresAuth: true,
-                requiresAdmin: true
+                requiresWriteUser: true
               }
               // add permission check for edit
             }
@@ -150,7 +151,7 @@ export default new Router({
               component: lazyLoading('awardees/add-awardee/AddAwardee'),
               meta: {
                 requiresAuth: true,
-                requiresAdmin: true
+                requiresWriteAwardee: true
               }
               // add permission check for add
             },
@@ -161,7 +162,7 @@ export default new Router({
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
               meta: {
                 requiresAuth: true,
-                requiresAdmin: true
+                requiresWriteAwardee: true
               }
               // add permission check for edit
             }

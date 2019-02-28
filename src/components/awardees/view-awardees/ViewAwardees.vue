@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import router from '../../../router'
 import VuesticWidget
   from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
 import FilterBar
@@ -134,9 +133,9 @@ export default {
     },
     clickList (item) {
       if (this.User.userRole === 'writter') {
-        router.push({ name: 'edit-awardee', params: { id: item.id } })
+        this.$router.push({ name: 'edit-awardee', params: { id: item.id } })
       } else {
-        router.push({ name: 'view-awardee', params: { id: item.id } })
+        this.$router.push({ name: 'view-awardee', params: { id: item.id } })
       }
       /*
       if (this.User.writeAwardeePermission) {
@@ -147,7 +146,7 @@ export default {
       */
     },
     newAwardee () {
-      router.push({ name: 'add-awardee' })
+      this.$router.push({ name: 'add-awardee' })
     }
   },
   computed: {

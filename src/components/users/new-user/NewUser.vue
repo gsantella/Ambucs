@@ -6,13 +6,6 @@
           <form>
             <fieldset>
               <div class="form-group">
-                <!-- Display Name -->
-                <div class="input-group">
-                  <input id="simple-input" type="text" required v-model="user.displayName" />
-                  <label class="control-label" for="simple-input" >Display Name</label><i class="bar"></i>
-                </div>
-              </div>
-              <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
                   <input id="simple-input" type="email" required v-model="user.email" />
@@ -30,13 +23,13 @@
                   <div class="flex md3">
                     <vuestic-checkbox
                       :label="$t('Write Awardee Permission')"
-                      v-model="user.writeAwardeePermission"
+                      v-model="writeAwardeePermission"
                     />
                   </div>
                   <div class="flex md3">
                     <vuestic-checkbox
                       :label="$t('Write User Permission')"
-                      v-model="user.writeUserPermission"
+                      v-model="writeUserPermission"
                     />
                   </div>
                 </div>
@@ -70,7 +63,6 @@
 <script>
 import { Auth } from 'aws-amplify'
 
-import router from '../../../router'
 import VuesticWidget
   from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
 import FilterBar
@@ -88,12 +80,13 @@ export default {
   data () {
     return {
       user: {
-        displayName: '',
         email: '',
         password: '',
-        writeUserPermission: false,
-        writeAwardeePermission: false
+        userPermissionNumber: 0,
+        awardeePermissionNumber: 0
       },
+      writeUserPermission: false,
+      writeAwardeePermission: false,
     }
   },
   computed: {
@@ -101,15 +94,24 @@ export default {
   },
   methods: {
     addUser () {
+      if (this.writeUserPermission) {
+        this.user.userPermissionNumber = 1
+      }
+      if (this.writeAwardeePermission) {
+        this.user.awardeePermissionNumber = 1
+      }
+      console.log(this.user)
       Auth.signUp({
-        'displayName': '',
-        'email': this.user.email,
+        'username': this.user.email,
         'password': this.user.password,
         'attributes': {
-          'custom:writeUserPermission': this.user.writeUserPermission,
-          'custom:writeAwardeePermission': this.user.writeAwardeePermission
+          'custom:writeUserPermission': this.user.userPermissionNumber,
+          'custom:writeAwardeePermission': this.user.awardeePermissionNumber
         }
       })
+
+      swal('Added', 'The User has been added.', 'success')
+      setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
     },
     cancelUser () {
       swal({
@@ -122,7 +124,7 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             swal('Deleted', 'The user has been deleted.', 'success')
-            router.push({ name: 'view-users' })
+            this.$router.push({ name: 'view-users' })
           } else {
             swal('Cancelled', 'You have chosen not to delete the user.', 'warning')
           }

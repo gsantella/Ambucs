@@ -608,7 +608,6 @@
 </template>
 
 <script>
-import router from '../../../router'
 import swal from 'sweetalert'
 
 export default {
@@ -708,7 +707,7 @@ export default {
           body: JSON.stringify(this.awardee)
         }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
 
-        setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
+        setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
       } catch (e) {
         swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
       }
@@ -746,7 +745,7 @@ export default {
 
               // fetch delete all contacts the above is a hack but it works
               // fetch delete all trykes
-              setTimeout(() => router.push({ name: 'view-awardees' }), 2500)
+              setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }
@@ -959,7 +958,7 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     printAwardee () {
-      router.push({ name: 'print-awardee', params: { id: this.$route.params.id } })
+      this.$router.push({ name: 'print-awardee', params: { id: this.$route.params.id } })
     }
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -974,7 +973,7 @@ export default {
     })
     if (this.$route.params.id == null) {
       swal('Error', 'That is not a valid user.', 'error')
-      router.push({ name: 'view-awardees' })
+      this.$router.push({ name: 'view-awardees' })
     } else {
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
@@ -994,7 +993,7 @@ export default {
           })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-        router.push({ name: 'view-awardees' })
+        this.$router.push({ name: 'view-awardees' })
       }
     }
   },

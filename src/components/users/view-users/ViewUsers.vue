@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import router from '@/router'
 import VuesticWidget
   from '@/vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
 import FilterBar
@@ -85,10 +84,10 @@ export default {
       this.email = ''
     },
     clickList (user) {
-      router.push({ name: 'edit-user', params: { id: user.id } })
+      this.$router.push({ name: 'edit-user', params: { id: user.id } })
     },
     addUser () {
-      router.push({ name: 'new-user' })
+      this.$router.push({ name: 'new-user' })
     }
   },
   created: {
