@@ -24,6 +24,20 @@ router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.User.email !== '' && store.getters.User.password !== '') {
+      if (to.matched.some(record => record.meta.requiresWriteUser)) {
+        if (store.getters.User.writeUserPerm2) {
+          next()
+          return
+        }
+        next('/#/awardees/view-awardees')
+      }
+      if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
+        if (store.getters.User.writeAwardeePerm2) {
+          next()
+          return
+        }
+        next('/#/awardees/view-awardees')
+      }
       next()
       return
     }
