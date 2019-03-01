@@ -81,37 +81,47 @@ export default {
     return {
       user: {
         email: '',
-        password: '',
-        userPermission: '',
-        awardeePermission: ''
+        password: ''
       },
       writeUserPermission: false,
       writeAwardeePermission: false,
+      hasFailed: '',
     }
   },
   computed: {
-
+    awardeePerm () {
+      if (this.writeAwardeePermission) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
+    userPerm () {
+      if (this.writeUserPermission) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    }
   },
   methods: {
     addUser () {
-      if (this.writeAwardeePermission) {
-        this.user.awardeePermission = 'true'
-      }
-      if (this.writeUserPermission) {
-        this.user.userPermission = 'true'
-      }
       Auth.signUp({
         'username': this.user.email,
         'password': this.user.password,
         'attributes': {
-          'custom:writeUserPerm2': this.user.userPermission,
-          'custom:writeAwardeePerm2': this.user.awardeePermission
-        }
-
+          'custom:writeUserPerm2': this.awardeePerm,
+          'custom:writeAwardeePerm2': this.userPerm
+        },
+      }).catch((err) => {
+        this.hasFailed = err
+        swal('Error', err.message, 'error')
       })
 
-      swal('Added', 'The User has been added.', 'success')
-      setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
+      if (this.hasFailed !== '') {
+        swal('Added', 'The User has been added.', 'success')
+        setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
+      }
     },
     cancelUser () {
       swal({
