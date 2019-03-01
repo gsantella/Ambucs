@@ -14,7 +14,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: { name: 'login' },
+      redirect: { name: 'view-awardees' },
     },
     {
       path: '/auth',
