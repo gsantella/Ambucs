@@ -5,15 +5,10 @@
       <img style="width:110px;heigh:65px" src="@/assets/icons/logo.png"/>
     </span>
 
-    <!--
-    <message-dropdown class="col nav-item"/>
-    <notification-dropdown class="col nav-item"/>
-    <language-dropdown class="col nav-item"/>
-    -->
-    <profile-dropdown v-if="user.email !== ''" class="col nav-item">
-      {{ user.email }}
+    <profile-dropdown v-if="User.email !== ''" class="col nav-item">
+      {{ User.email }}
     </profile-dropdown>
-    <profile-dropdown v-if="user.email === ''" class="col nav-item">
+    <profile-dropdown v-if="User.email === ''" class="col nav-item">
       Not Authenticated
     </profile-dropdown>
 
@@ -22,10 +17,6 @@
 </template>
 
 <script>
-// import CognitoConfig from '../Cognito.config'
-// Amplify.configure(CognitoConfig)
-import { Auth } from 'aws-amplify'
-
 import VuesticIconVuestic
   from '../../../vuestic-theme/vuestic-components/vuestic-icon/VuesticIconVuestic'
 import VuesticNavbar
@@ -41,11 +32,7 @@ export default {
   name: 'app-navbar',
   data () {
     return {
-      user: {
-        email: '',
-        password: '',
-        userRole: ''
-      }
+      User: this.$store.getters.User,
     }
   },
   components: {
@@ -72,14 +59,6 @@ export default {
         this.$emit('toggle-menu', opened)
       },
     },
-  },
-  created () {
-    Auth.currentAuthenticatedUser()
-    // .then(data => console.log(data))
-      .then((data) => {
-        this.user = data.attributes
-      })
-      .catch(err => console.log(err))
   }
 }
 </script>
