@@ -6,31 +6,12 @@ import lazyLoading from './lazyLoading'
 
 Vue.use(Router)
 
-const demoRoutes = []
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
-  const VueBook = require('vue-book')
-
-  demoRoutes.push(
-    VueBook.createRoute({
-      requireContext: require.context('./..', true, /.demo.vue$/),
-      path: '/demo',
-    }),
-    VueBook.createRoute({
-      requireContext: require.context('./../components', true, /.vue$/),
-      path: '/presentation',
-    }),
-  )
-
-  Vue.use(VueBook.VueBookComponents)
-}
-
 const EmptyParentComponent = {
   template: '<router-view></router-view>',
 }
 
 export default new Router({
   routes: [
-    ...demoRoutes,
     {
       path: '*',
       redirect: { name: 'login' },
@@ -42,7 +23,6 @@ export default new Router({
         {
           name: 'login',
           path: 'login',
-          // component: require('../components/auth/login/Login.vue'),
           component: lazyLoading('auth/login/Login'),
         },
         {
@@ -51,7 +31,6 @@ export default new Router({
           meta: {
             requiresAuth: true
           },
-          // component: require('../components/auth/account/Account.vue'),
           component: lazyLoading('auth/account/Account'),
         },
         {
@@ -68,7 +47,6 @@ export default new Router({
         {
           name: 'print-awardee',
           path: 'print-awardee',
-          // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
           component: lazyLoading('awardees/view-awardees/ViewAwardee'),
           meta: {
             requiresAuth: true,
@@ -89,7 +67,6 @@ export default new Router({
             {
               name: 'view-users',
               path: 'view-users',
-              // component: require('../components/users/view-users/ViewUsers.vue'),
               component: lazyLoading('users/view-users/ViewUsers'),
               meta: {
                 requiresAuth: true,
@@ -100,7 +77,6 @@ export default new Router({
             {
               name: 'new-user',
               path: 'new-user',
-              // component: require('../components/users/new-user/NewUser.vue'),
               component: lazyLoading('users/new-user/NewUser'),
               meta: {
                 requiresAuth: true,
@@ -111,7 +87,6 @@ export default new Router({
             {
               name: 'edit-user',
               path: 'edit-user',
-              // component: require('../components/users/edit-user/EditUser.vue'),
               component: lazyLoading('users/edit-user/EditUser'),
               meta: {
                 requiresAuth: true,
@@ -129,7 +104,6 @@ export default new Router({
             {
               name: 'view-awardees',
               path: 'view-awardees',
-              // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
               component: lazyLoading('awardees/view-awardees/ViewAwardees'),
               meta: {
                 requiresAuth: true,
@@ -138,7 +112,6 @@ export default new Router({
             {
               name: 'view-awardee',
               path: 'view-awardee',
-              // component: require('../components/awardees/view-awardees/ViewAwardees.vue'),
               component: lazyLoading('awardees/view-awardee/ViewAwardee'),
               meta: {
                 requiresAuth: true,
@@ -147,7 +120,6 @@ export default new Router({
             {
               name: 'add-awardee',
               path: 'add-awardee',
-              // component: require('../components/awardees/add-awardee/AddAwardee.vue'),
               component: lazyLoading('awardees/add-awardee/AddAwardee'),
               meta: {
                 requiresAuth: true,
@@ -158,7 +130,6 @@ export default new Router({
             {
               name: 'edit-awardee',
               path: 'edit-awardee',
-              // component: require('../components/awardees/edit-awardee/EditAwardee.vue'),
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
               meta: {
                 requiresAuth: true,
