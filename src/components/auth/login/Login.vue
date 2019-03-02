@@ -74,10 +74,11 @@ export default {
             this.user.password = data.attributes.sub
             this.user.writeUserPermission = data.attributes['custom:writeUserPerm2']
             this.user.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
-            this.$store.commit('setUser', this.user)
+            // this.$store.commit('setUser', this.user)
+            localStorage.setItem('setUser', JSON.stringify(this.user))
+            this.$router.push({ name: 'view-awardees' })
           })
           .catch(err => console.log(err))
-        this.$router.push({ name: 'view-awardees' })
       }).catch((response) => {
         this.launchToast(response.message)
       })
@@ -85,11 +86,12 @@ export default {
   },
   created () {
     Auth.signOut()
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
     this.user.email = ''
     this.user.password = ''
-    this.$store.commit('setUser', this.user)
+    this.user.writeUserPermission = false
+    this.user.writeAwardeePermission = false
+    // this.$store.commit('setUser', this.user)
+    localStorage.setItem('setUser', JSON.stringify(this.user))
   }
 }
 

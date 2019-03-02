@@ -46,7 +46,8 @@ export default {
   },
   data () {
     return {
-      User: this.$store.getters.User,
+      // User: this.$store.getters.User,
+      User: JSON.parse(localStorage.getItem('setUser'))
     }
   }
 }

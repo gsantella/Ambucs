@@ -21,18 +21,19 @@ Vue.use(VuesticPlugin)
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
+  var User = JSON.parse(localStorage.getItem('setUser'))
   store.commit('setLoading', true)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.User.email !== '' && store.getters.User.password !== '') {
+    if (User.email !== '' && User.password !== '') {
       if (to.matched.some(record => record.meta.requiresWriteUser)) {
-        if (store.getters.User.writeUserPerm2) {
+        if (User.writeUserPerm2) {
           next()
           return
         }
         next('/')
       }
       if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
-        if (store.getters.User.writeAwardeePerm2) {
+        if (User.writeAwardeePerm2) {
           next()
           return
         }

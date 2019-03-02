@@ -32,7 +32,8 @@ export default {
   name: 'app-navbar',
   data () {
     return {
-      User: this.$store.getters.User,
+      // User: this.$store.getters.User,
+      User: JSON.parse(localStorage.getItem('setUser'))
     }
   },
   components: {
