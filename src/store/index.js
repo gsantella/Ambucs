@@ -14,7 +14,12 @@ const store = new Vuex.Store({
     app,
   },
   state: {
-    User: {}
+    User: {
+      email: '',
+      password: '',
+      writeUserPermission: '',
+      writeAwardeePermission: ''
+    }
   },
   mutations: {
     setUser (state, User) {

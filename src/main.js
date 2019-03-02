@@ -23,7 +23,7 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.User.email !== '' && store.getters.User.password !== '' && store.getters.User !== undefined) {
+    if (store.getters.User.email !== '' && store.getters.User.password !== '') {
       if (to.matched.some(record => record.meta.requiresWriteUser)) {
         if (store.getters.User.writeUserPerm2) {
           next()
