@@ -55,15 +55,16 @@ export default {
 
   &__avatar-container {
     display: inline-block;
-    /*width: 50px;
-    height: 50px;*/
+    width: 50px;
+    height: 50px;
     background-color: white;
     border: 2px solid $lighter-gray;
     overflow: hidden;
-
+    border-radius: 50%;
     img {
-      height: 100%;
-      width: 100%;
+      margin-left:3px;
+      height: 85%;
+      width: 85%;
     }
   }
 }

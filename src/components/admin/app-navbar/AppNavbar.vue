@@ -5,8 +5,9 @@
       <img style="width:110px;heigh:65px" src="@/assets/icons/logo.png"/>
     </span>
 
-    <profile-dropdown v-if="User.email !== ''" class="col nav-item">
-      {{ User.email }}
+    <profile-dropdown v-if="User.email !== ''"  class="col nav-item">
+      <img src="@/assets/images/profilelogo.png"/>
+      <!--{{ User.email }}-->
     </profile-dropdown>
     <profile-dropdown v-if="User.email === ''" class="col nav-item">
       Not Authenticated
