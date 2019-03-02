@@ -26,14 +26,14 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (User.email !== '' && User.password !== '') {
       if (to.matched.some(record => record.meta.requiresWriteUser)) {
-        if (User.writeUserPerm2) {
+        if (User.writeUserPermission) {
           next()
           return
         }
         next('/')
       }
       if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
-        if (User.writeAwardeePerm2) {
+        if (User.writeAwardeePermission) {
           next()
           return
         }
