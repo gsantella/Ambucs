@@ -46,7 +46,7 @@ export default {
         writeUserPermission: '',
         writeAwardeePermission: ''
       },
-
+      userSession: '',
       toastText: 'Authentication failed, username or password does not exist',
       toastDuration: 2500,
       toastIcon: 'fa-times',
@@ -76,6 +76,14 @@ export default {
             this.user.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
             // this.$store.commit('setUser', this.user)
             localStorage.setItem('setUser', JSON.stringify(this.user))
+            this.userSession = setTimeout(() => {
+              this.user.email = ''
+              this.user.password = ''
+              this.user.writeUserPermission = false
+              this.user.writeAwardeePermission = false
+              localStorage.setItem('setUser', JSON.stringify(this.user))
+              this.$router.push({ name: 'login' })
+            }, 1800000) // 1,800,000
             this.$router.push({ name: 'view-awardees' })
           })
           .catch(err => console.log(err))
@@ -92,6 +100,7 @@ export default {
     this.user.writeAwardeePermission = false
     // this.$store.commit('setUser', this.user)
     localStorage.setItem('setUser', JSON.stringify(this.user))
+    clearTimeout(this.userSession)
   }
 }
 
