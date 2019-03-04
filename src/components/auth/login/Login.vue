@@ -101,6 +101,8 @@ export default {
     // this.$store.commit('setUser', this.user)
     localStorage.setItem('setUser', JSON.stringify(this.user))
     clearTimeout(this.userSession)
+    localStorage.removeItem('awardee-id')
+    localStorage.removeItem('user-id')
   }
 }
 

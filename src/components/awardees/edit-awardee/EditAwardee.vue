@@ -971,22 +971,23 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    if (this.$route.params.id == null) {
+    var awardeeId = localStorage.getItem('awardee-id')
+    if (awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
     } else {
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
           .then(response => response.json())
           .then(json => {
             this.contacts = json.Items
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items

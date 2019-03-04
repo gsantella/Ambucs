@@ -85,6 +85,7 @@ export default {
     },
     clickList (user) {
       this.$router.push({ name: 'edit-user', params: { id: user.id } })
+      localStorage.setItem('user-id', user.id)
     },
     addUser () {
       this.$router.push({ name: 'new-user' })

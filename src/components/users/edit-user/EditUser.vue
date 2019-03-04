@@ -120,6 +120,9 @@ export default {
         this.$router.push({ name: 'view-users' })
       }
     }
+  },
+  created () {
+    // var userId = localStorage.getItem('user-id')
   }
 }
 </script>

@@ -125,8 +125,10 @@ export default {
     clickList (item) {
       if (this.User.writeAwardeePermission) {
         this.$router.push({ name: 'edit-awardee', params: { id: item.id } })
+        localStorage.setItem('awardee-id', item.id)
       } else {
         this.$router.push({ name: 'view-awardee', params: { id: item.id } })
+        localStorage.setItem('awardee-id', item.id)
       }
     },
     newAwardee () {
