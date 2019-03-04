@@ -19,6 +19,13 @@ Vue.use(VuesticPlugin)
 
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
+var user = {
+  email: '',
+  password: '',
+  writeUserPermission: '',
+  writeAwardeePermission: ''
+}
+localStorage.setItem('setUser', JSON.stringify(user))
 
 router.beforeEach((to, from, next) => {
   var User = JSON.parse(localStorage.getItem('setUser'))
