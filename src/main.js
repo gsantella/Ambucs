@@ -19,35 +19,30 @@ Vue.use(VuesticPlugin)
 
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
-var user = {
-  email: '',
-  password: '',
-  writeUserPermission: '',
-  writeAwardeePermission: ''
-}
-localStorage.setItem('setUser', JSON.stringify(user))
 
 router.beforeEach((to, from, next) => {
   var User = JSON.parse(localStorage.getItem('setUser'))
   store.commit('setLoading', true)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (User.email !== '' && User.password !== '') {
-      if (to.matched.some(record => record.meta.requiresWriteUser)) {
-        if (User.writeUserPermission) {
-          next()
-          return
+    if (User !== null) {
+      if (User.email !== '' && User.password !== '') {
+        if (to.matched.some(record => record.meta.requiresWriteUser)) {
+          if (User.writeUserPermission) {
+            next()
+            return
+          }
+          next('/')
         }
-        next('/')
-      }
-      if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
-        if (User.writeAwardeePermission) {
-          next()
-          return
+        if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
+          if (User.writeAwardeePermission) {
+            next()
+            return
+          }
+          next('/')
         }
-        next('/')
+        next()
+        return
       }
-      next()
-      return
     }
     next('/auth/login')
   } else {

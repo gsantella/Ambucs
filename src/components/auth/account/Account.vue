@@ -20,10 +20,17 @@
           <i class="bar"/>
         </div>
       </div>
-      <div align="center">
-        <button class="btn btn-primary" type="submit">
-          {{ $t('Update') }}
-        </button>
+      <div class="va-row">
+        <div class="flex md6" align="center">
+          <button class="btn btn-primary btn-micro" type="submit">
+            {{ $t('Update') }}
+          </button>
+        </div>
+        <div class="flex md6" align="center">
+          <button class="btn btn-danger btn-micro">
+            {{ $t('Delete')}}
+          </button>
+        </div>
       </div>
     </form>
   </div>
