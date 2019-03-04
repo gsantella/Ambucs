@@ -7,6 +7,7 @@
       v-model="isShown"
       position="bottom"
     >
+      <span style="color:white;padding:35px">{{User.email}}</span>
       <div
         v-for="option in options"
         :key="option.name"
@@ -27,6 +28,7 @@ export default {
   data () {
     return {
       isShown: false,
+      User: JSON.parse(localStorage.getItem('setUser'))
     }
   },
   props: {

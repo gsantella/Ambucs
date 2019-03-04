@@ -83,7 +83,7 @@ export default {
               this.user.writeAwardeePermission = false
               localStorage.setItem('setUser', JSON.stringify(this.user))
               this.$router.push({ name: 'login' })
-            }, 1800000) // 1,800,000
+            }, 1800000) // 30min
             this.$router.push({ name: 'view-awardees' })
           })
           .catch(err => console.log(err))
