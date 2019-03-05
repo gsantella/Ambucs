@@ -7,7 +7,7 @@
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
-          <span>Search</span>
+          <span>Awardees</span>
         </span>
       </sidebar-link>
         <div v-if="User.writeAwardeePermission">
