@@ -6,7 +6,8 @@
     </span>
 
     <profile-dropdown v-if="User.email !== ''"  class="col nav-item">
-      <img src="@/assets/images/profilelogo.png"/>
+
+      <span style="margin-right:5px;font-size:47px" class="fa fa-user-circle-o"></span>
       <!--{{ User.email }}-->
     </profile-dropdown>
     <profile-dropdown v-if="User.email === ''" class="col nav-item">
