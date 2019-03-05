@@ -74,7 +74,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
+          <tr v-for="item in orderedItems" :key="item.id" v-on:click="clickList(item)">
             <td>{{ item.firstName }}</td>
             <td>{{ item.lastName }}</td>
             <td>{{ item.city }}</td>
@@ -95,6 +95,7 @@ import VuesticSimpleSelect
   from '../../../vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import { SpringSpinner } from 'epic-spinners'
 import { cityList, itemList } from './filtersData'
+import _ from 'lodash'
 
 import swal from 'sweetalert'
 export default {
@@ -152,6 +153,9 @@ export default {
       }
 
       return filteredItemsLocal
+    },
+    orderedItems: function () {
+      return _.orderBy(this.itemList, 'timestampCreated')
     }
   },
   created () {

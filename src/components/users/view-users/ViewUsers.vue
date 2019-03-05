@@ -51,8 +51,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in users" :key="item.id" v-on:click="clickList(item)">
-            <td>{{ item.email }}</td>
+          <tr v-for="user in users" :key="user.id" v-on:click="clickList(item)">
+            <td>{{user.Attributes[4].Value}} </td>
           </tr>
           </tbody>
         </table>
@@ -69,13 +69,29 @@ import FilterBar
   from '@/vuestic-theme/vuestic-components/vuestic-datatable/datatable-components/FilterBar.vue'
 import VuesticSimpleSelect
   from '@/vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
+import swal from 'sweetalert'
 
 export default {
   name: 'ViewUsers',
   data () {
     return {
-      users: [],
+      users: [
+        {
+          Attributes: [
+            {
+              Name: '',
+              Value: ''
+            }
+          ],
+          Enabled: '',
+          UserCreateDate: '',
+          UserLastModifiedDate: '',
+          UserStatus: '',
+          Username: ''
+        }
+      ],
       email: '',
+      count: 0
     }
   },
 
@@ -91,8 +107,18 @@ export default {
       this.$router.push({ name: 'new-user' })
     }
   },
-  created: {
-
+  created () {
+    try {
+      fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
+        .then(response => response.json())
+        .then(json => {
+          this.users = json.Users
+          console.log(this.users[1].Attributes[4].Value)
+          console.log(this.users)
+        })
+    } catch (e) {
+      swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
+    }
   },
   components: {
     VuesticWidget, FilterBar, VuesticSimpleSelect
