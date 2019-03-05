@@ -99,7 +99,6 @@ export default {
         .then(response => response.json())
         .then(json => {
           this.users = json.Users
-          console.log(this.users)
         })
     } catch (e) {
       swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')

@@ -23,7 +23,6 @@
                       <input id="simple-input" type="email" required v-model="user.email"/>
                       <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                     </div>
-
                   </div>
 
               <div class="form-group">
@@ -38,6 +37,20 @@
                     <vuestic-checkbox
                       :label="$t('Write User Permission')"
                       v-model="user.writeUserPermission"
+                    />
+                  </div>
+                  <div class="flex md3">
+                    <vuestic-checkbox
+                      readonly
+                      :label="$t('Account Enabled')"
+                      v-model="user.enabled"
+                    />
+                  </div>
+                   <div class="flex md3">
+                    <vuestic-checkbox
+                      readonly
+                      :label="$t('Account Confirmed ')"
+                      v-model="user.userStatus"
                     />
                   </div>
                 </div>
@@ -78,6 +91,7 @@ import FilterBar
 import VuesticSimpleSelect
   from '../../../vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import { SpringSpinner } from 'epic-spinners'
+import swal from 'sweetalert'
 
 export default {
   name: 'EditUser',
@@ -87,12 +101,13 @@ export default {
   data () {
     return {
       user: {
-        displayName: '',
+        uuid: '',
         email: '',
-        code: '',
         password: '',
         writeUserPermission: false,
-        writeAwardeePermission: false
+        writeAwardeePermission: false,
+        enabled: '',
+        userStatus: ''
       }
     }
   },
@@ -116,13 +131,48 @@ export default {
         .catch(err => console.log(err))
     },
     deleteUser () {
-      if (confirm('Are you sure you want to delete this user?')) {
-        this.$router.push({ name: 'view-users' })
-      }
+      swal({
+        title: 'Are you sure you want to delete this record?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user/${this.user.uuid}`, {
+                method: 'DELETE'
+              }).then(swal('Deleted', 'The User has been deleted.', 'success'))
+              setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
+            } catch (e) {
+              swal('Error', "I'm sorry there was an issue trying to delete that user,please try again later.", 'error')
+            }
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the user.', 'warning')
+          }
+        })
     }
   },
   created () {
-
+    this.user.email = this.$route.params.user.Attributes[4].Value
+    if (this.$route.params.user.Attributes[3].Value === 'true') {
+      this.user.writeUserPermission = true
+    } else {
+      this.user.writeUserPermission = false
+    }
+    if (this.$route.params.user.Attributes[1].Value === 'true') {
+      this.user.writeAwardeePermission = true
+    } else {
+      this.user.writeAwardeePermission = false
+    }
+    if (this.$route.params.user.UserStatus === 'CONFIRMED') {
+      this.user.userStatus = true
+    } else {
+      this.user.userStatus = false
+    }
+    this.user.enabled = this.$route.params.user.Enabled
+    this.user.uuid = this.$route.params.user.Username
   }
 }
 </script>
