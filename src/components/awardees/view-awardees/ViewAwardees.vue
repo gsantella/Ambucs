@@ -74,7 +74,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in orderedItems" :key="item.id" v-on:click="clickList(item)">
+          <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
             <td>{{ item.firstName }}</td>
             <td>{{ item.lastName }}</td>
             <td>{{ item.city }}</td>
@@ -136,24 +136,15 @@ export default {
   },
   computed: {
     filteredItems () {
-      let filteredItemsLocal = this.itemList
+      let filteredItemsLocal = this.orderedItems
       if (this.firstName) {
         filteredItemsLocal = filteredItemsLocal.filter(item => item.firstName.toUpperCase()
           .search(this.firstName.toUpperCase()) !== -1)
       }
-      if (this.lastName) {
-        filteredItemsLocal = filteredItemsLocal.filter(item => item.lastName.toUpperCase()
-          .search(this.lastName.toUpperCase()) !== -1)
-      }
-      if (this.city) {
-        filteredItemsLocal = filteredItemsLocal.filter(item => item.city.toUpperCase()
-          .search(this.city.toUpperCase()) !== -1)
-      }
-
       return filteredItemsLocal
     },
     orderedItems: function () {
-      return _.orderBy(this.itemList, 'timestampCreated')
+      return _.orderBy(this.itemList, 'timestampCreated', ['desc'])
     }
   },
   created () {
@@ -162,6 +153,7 @@ export default {
         .then(response => response.json())
         .then(json => {
           this.itemList = json
+          console.log(json)
         })
     } catch (e) {
       swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
