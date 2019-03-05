@@ -51,8 +51,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in users" :key="user.id" v-on:click="clickList(item)">
-            <td>{{user.Attributes[4].Value}} </td>
+          <tr v-for="user in users" :key="user.id" v-on:click="clickList(user)">
+            <td>{{user.Attributes[4].Value}}</td>
           </tr>
           </tbody>
         </table>
@@ -75,21 +75,7 @@ export default {
   name: 'ViewUsers',
   data () {
     return {
-      users: [
-        {
-          Attributes: [
-            {
-              Name: '',
-              Value: ''
-            }
-          ],
-          Enabled: '',
-          UserCreateDate: '',
-          UserLastModifiedDate: '',
-          UserStatus: '',
-          Username: ''
-        }
-      ],
+      users: [],
       email: '',
       count: 0
     }
@@ -100,7 +86,7 @@ export default {
       this.email = ''
     },
     clickList (user) {
-      this.$router.push({ name: 'edit-user', params: { id: user.id } })
+      this.$router.push({ name: 'edit-user', params: { user: user } })
       localStorage.setItem('user-id', user.id)
     },
     addUser () {
@@ -113,7 +99,6 @@ export default {
         .then(response => response.json())
         .then(json => {
           this.users = json.Users
-          console.log(this.users[1].Attributes[4].Value)
           console.log(this.users)
         })
     } catch (e) {

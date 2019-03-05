@@ -122,7 +122,7 @@ export default {
     }
   },
   created () {
-    // var userId = localStorage.getItem('user-id')
+
   }
 }
 </script>
