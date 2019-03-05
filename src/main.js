@@ -31,14 +31,18 @@ router.beforeEach((to, from, next) => {
             next()
             return
           }
-          next('/')
+          store.commit('setLoading', false)
+          next('/admin/awardees/view-awardees')
+          return
         }
         if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
           if (User.writeAwardeePermission) {
             next()
             return
           }
-          next('/')
+          store.commit('setLoading', false)
+          next('/admin/awardees/view-awardees')
+          return
         }
         next()
         return
