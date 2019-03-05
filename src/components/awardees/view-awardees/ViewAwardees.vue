@@ -17,12 +17,12 @@
 
             <div class="row filters-page__filter-bar-container">
               <filter-bar
-                v-model="name"
+                v-model="firstName"
                 class="filters-page__filter-bar"
                 label="First Name"
               />
               <filter-bar
-                v-model="email"
+                v-model="lastName"
                 class="filters-page__filter-bar"
                 label="Last Name"
               />
@@ -35,16 +35,16 @@
           </div>
           <div class="filters-page__tags">
             <vuestic-tag
-              v-if="name"
-              :name="`Name: ${ name }`"
+              v-if="firstName"
+              :name="`First Name: ${ firstName }`"
               removable
-              @remove="name = ''"
+              @remove="firstName = ''"
             />
             <vuestic-tag
-              v-if="email"
-              :name="`Email: ${ email }`"
+              v-if="lastName"
+              :name="`Last Name: ${ lastName }`"
               removable
-              @remove="email = ''"
+              @remove="lastName = ''"
             />
             <vuestic-tag
               v-if="city"
@@ -53,7 +53,7 @@
               @remove="city = ''"
             />
             <span
-              v-if="this.city || this.name || this.email"
+              v-if="this.city || this.firstName || this.lastName"
               class="filters-page__clear-all-text"
               @click="clearAll"
             >
@@ -110,8 +110,6 @@ export default {
       id: '',
       firstName: '',
       lastName: '',
-      name: '',
-      email: '',
       city: '',
       cityList: cityList,
       itemList: itemList,
@@ -119,8 +117,8 @@ export default {
   },
   methods: {
     clearAll () {
-      this.name = ''
-      this.email = ''
+      this.firstName = ''
+      this.lastName = ''
       this.city = ''
     },
     clickList (item) {
@@ -139,13 +137,13 @@ export default {
   computed: {
     filteredItems () {
       let filteredItemsLocal = this.itemList
-      if (this.name) {
+      if (this.firstName) {
         filteredItemsLocal = filteredItemsLocal.filter(item => item.firstName.toUpperCase()
-          .search(this.name.toUpperCase()) !== -1)
+          .search(this.firstName.toUpperCase()) !== -1)
       }
-      if (this.email) {
+      if (this.lastName) {
         filteredItemsLocal = filteredItemsLocal.filter(item => item.lastName.toUpperCase()
-          .search(this.email.toUpperCase()) !== -1)
+          .search(this.lastName.toUpperCase()) !== -1)
       }
       if (this.city) {
         filteredItemsLocal = filteredItemsLocal.filter(item => item.city.toUpperCase()

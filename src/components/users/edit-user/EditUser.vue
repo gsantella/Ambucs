@@ -41,17 +41,17 @@
                   </div>
                   <div  class="flex md3">
                     <vuestic-checkbox
-                      readonly
-                      :label="$t('Account Enabled(ReadOnly)')"
-                      v-model="user.enabled"
+                    :label="$t('Account Enabled')"
+                    :disabled="true"
+                    v-model="user.enabled"
                     />
                   </div>
                    <div class="flex md3">
                     <vuestic-checkbox
-                      readonly
-                      :label="$t('Account Confirmed(ReadOnly) ')"
-                      v-model="user.userStatus"
-                    />
+                    :label="$t('Account Confirmed')"
+                    :disabled="true"
+                    v-model="user.userStatus"
+                  />
                   </div>
                 </div>
               </div>
