@@ -120,6 +120,7 @@ export default {
 
       if (this.hasFailed !== '') {
         swal('Added', 'The User has been added.', 'success')
+        this.$store.commit('setLoading', true)
         setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
       }
     },

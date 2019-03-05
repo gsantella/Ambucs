@@ -602,6 +602,7 @@ export default {
               })
             })
           swal('Added', 'The record has been added.', 'success')
+          this.$store.commit('setLoading', true)
           setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
         } catch (e) {
           swal('Error', 'There was an issue trying to add this record,please try again later.', 'error')

@@ -723,7 +723,7 @@ export default {
             method: 'PATCH',
             body: JSON.stringify(this.awardee)
           }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
-
+          this.$store.commit('setLoading', true)
           setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
         } catch (e) {
           swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
@@ -765,6 +765,7 @@ export default {
 
               // fetch delete all contacts the above is a hack but it works
               // fetch delete all trykes
+              this.$store.commit('setLoading', true)
               setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')

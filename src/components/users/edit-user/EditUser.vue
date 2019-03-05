@@ -123,6 +123,7 @@ export default {
           'custom:writeAwardeePerm2': this.user.writeAwardeePermission
         }
       })
+      this.$store.commit('setLoading', true)
       */
     },
     resetPassword () {
@@ -144,6 +145,7 @@ export default {
               fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user/${this.user.uuid}`, {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The User has been deleted.', 'success'))
+              this.$store.commit('setLoading', true)
               setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that user,please try again later.", 'error')
