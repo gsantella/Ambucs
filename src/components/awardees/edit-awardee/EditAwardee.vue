@@ -32,7 +32,7 @@
 
                     <!-- First Name -->
                     <div v-if="isDisabled" class="input-group">
-                     <input id="simple-input" v-model="awardee.firstName" required/>
+                     <input id="simple-input" v-model="awardee.firstName" maxlength="65" required/>
                      <label abel class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
 
@@ -44,7 +44,7 @@
 
                     <!-- Last Name -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.lastName"/>
+                      <input id="simple-input" maxlength="65" v-model="awardee.lastName"/>
                       <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                     </div>
 
@@ -60,7 +60,7 @@
 
                     <!-- Phone Number -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" required/>
+                      <input id="simple-input" v-model="awardee.phone" type="number" required/>
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
@@ -115,7 +115,7 @@
 
                     <!-- Street 1 -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address1" required/>
+                      <input id="simple-input" v-model="awardee.address1" maxlength="55" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
@@ -130,7 +130,7 @@
 
                     <!-- Street 2 -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address2" required/>
+                      <input id="simple-input" v-model="awardee.address2" maxlength="55" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
                   </div>
@@ -145,7 +145,7 @@
 
                     <!-- City -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.city" required/>
+                      <input id="simple-input" v-model="awardee.city" maxlength="55" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
 
@@ -157,7 +157,7 @@
 
                     <!-- State -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.state" required/>
+                      <input id="simple-input" v-model="awardee.state" maxlength="55" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
 
@@ -169,7 +169,7 @@
 
                     <!-- Zip -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" required/>
+                      <input id="simple-input" v-model="awardee.zip" type="number" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -296,13 +296,13 @@
 
                 <!-- First Name View Mode-->
                 <div v-if="!isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.firstName" readonly required/>
+                  <input id="simple-input" v-model="contact.firstName"  readonly required/>
                   <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- First Name -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.firstName" required/>
+                  <input id="simple-input" v-model="contact.firstName" maxlength="65" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
@@ -314,7 +314,7 @@
 
                 <!-- Last Name -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.lastName" required/>
+                  <input id="simple-input" v-model="contact.lastName" maxlength="65" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
@@ -329,7 +329,7 @@
 
                 <!-- Email -->
                 <div v-if="isDisabled" class="input-group">
-                  <input  id="simple-input" v-model="contact.email" required/>
+                  <input  id="simple-input" v-model="contact.email" maxlength="65" required/>
                   <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
               </div>
@@ -344,7 +344,7 @@
 
                 <!-- Phone 1 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone1" required/>
+                  <input id="simple-input" v-model="contact.phone1"  type="number" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
@@ -356,7 +356,7 @@
 
                 <!-- Phone 2 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone2" required/>
+                  <input id="simple-input" v-model="contact.phone2"  type="number" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
@@ -370,7 +370,7 @@
 
                 <!-- Type -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.contactType" required/>
+                  <input id="simple-input" v-model="contact.contactType" maxlength="20" required/>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
               </div>
@@ -385,7 +385,7 @@
 
                 <!-- Street1 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.address1" required/>
+                  <input id="simple-input" v-model="contact.address1" maxlength="55" required/>
                   <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                 </div>
 
@@ -397,7 +397,7 @@
 
                 <!-- Street2 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.address2" required/>
+                  <input id="simple-input" v-model="contact.address2" maxlength="55" required/>
                   <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                 </div>
 
@@ -409,7 +409,7 @@
 
                 <!-- City -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressCity" required/>
+                  <input id="simple-input" v-model="contact.addressCity" maxlength="55" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
@@ -425,7 +425,7 @@
 
                 <!-- State -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressState" required/>
+                  <input id="simple-input" v-model="contact.addressState" maxlength="55" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
 
@@ -437,7 +437,7 @@
 
                 <!-- Zip -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressZip" required/>
+                  <input id="simple-input" v-model="contact.addressZip"  type="number" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
@@ -496,7 +496,7 @@
 
           <!-- Model -->
           <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.model" required/>
+            <input id="simple-input" v-model="tryke.model" maxlength="65" required/>
             <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
         </div>
@@ -552,7 +552,7 @@
 
           <!-- Funded By -->
           <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.fundedBy" required/>
+            <input id="simple-input" v-model="tryke.fundedBy" maxlength="75" required/>
             <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
@@ -564,7 +564,7 @@
 
           <!-- Location Awarded -->
           <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.locationAwarded" required/>
+            <input id="simple-input" v-model="tryke.locationAwarded" maxlength="55" required/>
             <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
           </div>
         </div>
@@ -696,20 +696,40 @@ export default {
       this[field] = ''
     },
 
+    checkIfAwardeeIsValid (obj) {
+      var isValid = false
+      for (var key in obj) {
+        if (key !== 'dateCreated' && key !== 'id' && key !== 'timestampCreated') {
+          if (obj[key] === null || obj[key] === '') {
+            isValid = false
+          } else {
+            isValid = true
+            break
+          }
+        }
+      }
+      return isValid
+    },
+
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
-      try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          method: 'PATCH',
-          body: JSON.stringify(this.awardee)
-        }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
+      if (this.checkIfAwardeeIsValid(this.awardee)) {
+        console.log(this.awardee)
+        try {
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            method: 'PATCH',
+            body: JSON.stringify(this.awardee)
+          }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
 
-        setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
-      } catch (e) {
-        swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
+          setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+        } catch (e) {
+          swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
+        }
+      } else {
+        swal('Error', 'Entire Awardee cannot be blank.', 'error')
       }
     },
 
@@ -1007,3 +1027,11 @@ export default {
 }
 
 </script>
+
+<style>
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
