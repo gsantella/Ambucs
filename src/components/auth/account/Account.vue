@@ -38,6 +38,7 @@
 
 <script>
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'Account',
@@ -47,6 +48,20 @@ export default {
       confirmPassword: '',
       User: JSON.parse(localStorage.getItem('setUser'))
     }
+  },
+  created () {
+    Auth.currentAuthenticatedUser()
+      .catch(function (err) {
+        var user = {
+          email: '',
+          password: '',
+          writeUserPermission: false,
+          writeAwardeePermission: false
+        }
+        localStorage.setItem('setUser', JSON.stringify(user))
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
   },
   methods: {
     cancelUser () {

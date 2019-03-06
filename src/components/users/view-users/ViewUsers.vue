@@ -51,7 +51,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in users" :key="user.id" v-on:click="clickList(user)">
+          <tr v-for="user in filteredItems" :key="user.id" v-on:click="clickList(user)">
             <td>{{user.Attributes[4].Value}}</td>
           </tr>
           </tbody>
@@ -81,7 +81,16 @@ export default {
       count: 0,
     }
   },
-
+  computed: {
+    filteredItems () {
+      let filteredItemsLocal = this.users
+      if (this.email) {
+        filteredItemsLocal = filteredItemsLocal.filter(item => item.email.toUpperCase()
+          .search(this.email.toUpperCase()) !== -1)
+      }
+      return filteredItemsLocal
+    },
+  },
   methods: {
     clearAll () {
       this.email = ''
@@ -103,6 +112,13 @@ export default {
             this.users = json.Users
           })
       }).catch(function (err) {
+        var user = {
+          email: '',
+          password: '',
+          writeUserPermission: false,
+          writeAwardeePermission: false
+        }
+        localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
         this.$router.push({ name: 'login' })
       })

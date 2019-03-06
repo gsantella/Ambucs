@@ -80,6 +80,13 @@ export default {
   created () {
     Auth.currentAuthenticatedUser()
       .catch(function (err) {
+        var user = {
+          email: '',
+          password: '',
+          writeUserPermission: false,
+          writeAwardeePermission: false
+        }
+        localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
         this.$router.push({ name: 'login' })
       })
@@ -92,7 +99,6 @@ export default {
       },
       writeUserPermission: false,
       writeAwardeePermission: false,
-      hasFailed: '',
     }
   },
   computed: {
@@ -120,16 +126,14 @@ export default {
           'custom:writeUserPerm2': this.awardeePerm,
           'custom:writeAwardeePerm2': this.userPerm
         },
-      }).catch((err) => {
-        this.hasFailed = err
-        swal('Error', err.message, 'error')
-      })
-
-      if (this.hasFailed !== '') {
+      }).then(() => {
         swal('Added', 'The User has been added.', 'success')
         this.$store.commit('setLoading', true)
         setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
-      }
+      })
+        .catch((err) => {
+          swal('Error', err.message, 'error')
+        })
     },
     cancelUser () {
       swal({
