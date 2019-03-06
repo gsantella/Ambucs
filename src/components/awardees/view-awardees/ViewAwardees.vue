@@ -149,6 +149,7 @@ export default {
     }
   },
   created () {
+    let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
         try {
@@ -169,7 +170,7 @@ export default {
         }
         localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
-        this.$router.push({ name: 'Login' })
+        self.$router.push({ name: 'login' })
       })
   }
 }

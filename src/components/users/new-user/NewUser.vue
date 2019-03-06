@@ -78,6 +78,7 @@ export default {
     VuesticWidget, FilterBar, SpringSpinner, VuesticSimpleSelect
   },
   created () {
+    let self = this
     Auth.currentAuthenticatedUser()
       .catch(function (err) {
         var user = {
@@ -88,7 +89,7 @@ export default {
         }
         localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
-        this.$router.push({ name: 'login' })
+        self.$router.push({ name: 'login' })
       })
   },
   data () {

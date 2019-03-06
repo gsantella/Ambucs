@@ -104,6 +104,7 @@ export default {
     }
   },
   created () {
+    let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
@@ -120,7 +121,7 @@ export default {
         }
         localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
-        this.$router.push({ name: 'login' })
+        self.$router.push({ name: 'login' })
       })
   },
   components: {

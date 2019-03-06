@@ -215,6 +215,7 @@ export default {
   },
 
   created () {
+    let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
         var awardeeId = localStorage.getItem('awardee-id')
@@ -240,7 +241,7 @@ export default {
               })
           } catch (e) {
             swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-            this.$router.push({ name: 'view-awardees' })
+            self.$router.push({ name: 'view-awardees' })
           }
         }
       }).catch(function (err) {

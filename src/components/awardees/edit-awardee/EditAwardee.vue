@@ -717,7 +717,6 @@ export default {
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
       if (this.checkIfAwardeeIsValid(this.awardee)) {
-        console.log(this.awardee)
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -990,6 +989,7 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
+    let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
         this.$nextTick(() => {
@@ -1030,7 +1030,7 @@ export default {
         }
         localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
-        this.$router.push({ name: 'login' })
+        self.$router.push({ name: 'login' })
       })
   },
 

@@ -70,7 +70,6 @@ export default {
       Auth.signIn(this.user.email, this.user.password).then(() => {
         Auth.currentAuthenticatedUser()
           .then((data) => {
-            console.log(data)
             this.user.email = data.attributes.email
             this.user.password = data.attributes.sub
             this.user.writeUserPermission = data.attributes['custom:writeUserPerm2']
