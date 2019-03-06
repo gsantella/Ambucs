@@ -385,6 +385,7 @@
 
 <script>
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'AddAwardee',
@@ -641,7 +642,11 @@ export default {
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
-
+    Auth.currentAuthenticatedUser()
+      .catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
   },
 
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

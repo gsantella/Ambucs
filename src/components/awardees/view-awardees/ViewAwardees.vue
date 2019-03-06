@@ -96,8 +96,9 @@ import VuesticSimpleSelect
 import { SpringSpinner } from 'epic-spinners'
 import { cityList, itemList } from './filtersData'
 import _ from 'lodash'
-
+import { Auth } from 'aws-amplify'
 import swal from 'sweetalert'
+
 export default {
   name: 'ViewAwardees',
   components: {
@@ -112,7 +113,7 @@ export default {
       lastName: '',
       city: '',
       cityList: cityList,
-      itemList: itemList,
+      itemList: itemList
     }
   },
   methods: {
@@ -148,16 +149,21 @@ export default {
     }
   },
   created () {
-    try {
-      fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
-        .then(response => response.json())
-        .then(json => {
-          this.itemList = json
-          console.log(json)
-        })
-    } catch (e) {
-      swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
-    }
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
+        try {
+          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
+            .then(response => response.json())
+            .then(json => {
+              this.itemList = json
+            })
+        } catch (e) {
+          swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
+        }
+      }).catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
   }
 }
 </script>

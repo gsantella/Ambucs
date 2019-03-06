@@ -77,6 +77,13 @@ export default {
   components: {
     VuesticWidget, FilterBar, SpringSpinner, VuesticSimpleSelect
   },
+  created () {
+    Auth.currentAuthenticatedUser()
+      .catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
+  },
   data () {
     return {
       user: {

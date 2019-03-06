@@ -70,6 +70,7 @@ import FilterBar
 import VuesticSimpleSelect
   from '@/vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'ViewUsers',
@@ -77,7 +78,7 @@ export default {
     return {
       users: [],
       email: '',
-      count: 0
+      count: 0,
     }
   },
 
@@ -94,15 +95,17 @@ export default {
     }
   },
   created () {
-    try {
-      fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
-        .then(response => response.json())
-        .then(json => {
-          this.users = json.Users
-        })
-    } catch (e) {
-      swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
-    }
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
+          .then(response => response.json())
+          .then(json => {
+            this.users = json.Users
+          })
+      }).catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
   },
   components: {
     VuesticWidget, FilterBar, VuesticSimpleSelect

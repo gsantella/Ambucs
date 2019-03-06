@@ -289,7 +289,7 @@
           <!-- Funded By -->
           <div class="input-group">
             <input id="simple-input" v-model="tryke.fundedBy" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
+            <label style="font-size:0.6rem;#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
           <!-- Location Awarded -->
@@ -319,6 +319,7 @@
 
 <script>
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'EditAwardee',
@@ -385,7 +386,7 @@ export default {
       },
       awardee: {},
       contacts: [],
-      trykes: []
+      trykes: [],
     }
   },
 
@@ -436,34 +437,40 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
-    this.$nextTick(() => {
-      this.$validator.validateAll()
-    })
-    if (this.$route.params.id == null) {
-      swal('Error', 'That is not a valid user.', 'error')
-      this.$router.push({ name: 'view-awardees' })
-    } else {
-      try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-          .then(response => response.json())
-          .then(json => {
-            this.awardee = json.Item
-          })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
-          .then(response => response.json())
-          .then(json => {
-            this.contacts = json.Items
-          })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
-          .then(response => response.json())
-          .then(json => {
-            this.trykes = json.Items
-          })
-      } catch (e) {
-        swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-        this.$router.push({ name: 'view-awardees' })
-      }
-    }
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
+        this.$nextTick(() => {
+          this.$validator.validateAll()
+        })
+        if (this.$route.params.id == null) {
+          swal('Error', 'That is not a valid user.', 'error')
+          this.$router.push({ name: 'view-awardees' })
+        } else {
+          try {
+            fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+              .then(response => response.json())
+              .then(json => {
+                this.awardee = json.Item
+              })
+            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
+              .then(response => response.json())
+              .then(json => {
+                this.contacts = json.Items
+              })
+            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
+              .then(response => response.json())
+              .then(json => {
+                this.trykes = json.Items
+              })
+          } catch (e) {
+            swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
+            this.$router.push({ name: 'view-awardees' })
+          }
+        }
+      }).catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////

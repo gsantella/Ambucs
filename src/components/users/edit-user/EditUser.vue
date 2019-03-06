@@ -108,7 +108,7 @@ export default {
         writeAwardeePermission: false,
         enabled: '',
         userStatus: ''
-      }
+      },
     }
   },
   methods: {
@@ -157,24 +157,30 @@ export default {
     }
   },
   created () {
-    this.user.email = this.$route.params.user.Attributes[4].Value
-    if (this.$route.params.user.Attributes[3].Value === 'true') {
-      this.user.writeUserPermission = true
-    } else {
-      this.user.writeUserPermission = false
-    }
-    if (this.$route.params.user.Attributes[1].Value === 'true') {
-      this.user.writeAwardeePermission = true
-    } else {
-      this.user.writeAwardeePermission = false
-    }
-    if (this.$route.params.user.UserStatus === 'CONFIRMED') {
-      this.user.userStatus = true
-    } else {
-      this.user.userStatus = false
-    }
-    this.user.enabled = this.$route.params.user.Enabled
-    this.user.uuid = this.$route.params.user.Username
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
+        this.user.email = this.$route.params.user.Attributes[4].Value
+        if (this.$route.params.user.Attributes[3].Value === 'true') {
+          this.user.writeUserPermission = true
+        } else {
+          this.user.writeUserPermission = false
+        }
+        if (this.$route.params.user.Attributes[1].Value === 'true') {
+          this.user.writeAwardeePermission = true
+        } else {
+          this.user.writeAwardeePermission = false
+        }
+        if (this.$route.params.user.UserStatus === 'CONFIRMED') {
+          this.user.userStatus = true
+        } else {
+          this.user.userStatus = false
+        }
+        this.user.enabled = this.$route.params.user.Enabled
+        this.user.uuid = this.$route.params.user.Username
+      }).catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        this.$router.push({ name: 'login' })
+      })
   }
 }
 </script>
