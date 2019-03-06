@@ -157,6 +157,10 @@ export default {
     }
   },
   created () {
+    window.addEventListener('beforeunload', function (e) {
+      e.preventDefault()
+      e.returnValue = ''
+    })
     let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
