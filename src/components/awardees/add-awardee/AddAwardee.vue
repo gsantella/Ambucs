@@ -28,7 +28,7 @@
 
                 <!-- Phone Number -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="awardee.phone" type="number" maxlength="14" required/>
+                  <input id="simple-input" v-model="awardee.phone" maxlength="14" required/>
                   <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                 </div>
 
@@ -92,7 +92,7 @@
                     </div>
                     <!-- Zip -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" type="number" required/>
+                      <input id="simple-input" v-model="awardee.zip" maxlength="10" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -223,13 +223,13 @@
               <div class="form-group">
                 <!-- Phone 1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.phone1" type="number" maxlength="14" required/>
+                  <input id="simple-input" v-model="contact.phone1" maxlength="14" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
                 <!-- Phone 2 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.phone2" type="number" maxlength="14" required/>
+                  <input id="simple-input" v-model="contact.phone2" maxlength="14" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
@@ -267,7 +267,7 @@
                 </div>
                 <!-- Zip -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.addressZip" type="number" maxlength="10" required/>
+                  <input id="simple-input" v-model="contact.addressZip"  maxlength="10" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
@@ -580,6 +580,8 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
+      console.log(this.awardee)
+      /*
       if (this.checkIfAwardeeIsValid(this.awardee)) {
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
@@ -602,6 +604,7 @@ export default {
                 })
               })
             })
+
           swal('Added', 'The record has been added.', 'success')
           this.$store.commit('setLoading', true)
           setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
@@ -611,6 +614,7 @@ export default {
       } else {
         swal('Error', 'Entire awardee cannot be blank', 'error')
       }
+      */
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

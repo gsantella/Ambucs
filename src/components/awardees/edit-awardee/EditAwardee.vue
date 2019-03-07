@@ -60,7 +60,7 @@
 
                     <!-- Phone Number -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" type="number" required/>
+                      <input id="simple-input" v-model="awardee.phone" maxlength="14"  required/>
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
@@ -169,7 +169,7 @@
 
                     <!-- Zip -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" type="number" required/>
+                      <input id="simple-input" v-model="awardee.zip" maxlength="10" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -344,7 +344,7 @@
 
                 <!-- Phone 1 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone1"  type="number" required/>
+                  <input id="simple-input" v-model="contact.phone1"  maxlength="14" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
@@ -356,7 +356,7 @@
 
                 <!-- Phone 2 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone2"  type="number" required/>
+                  <input id="simple-input" v-model="contact.phone2"  maxlength="14" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
@@ -437,7 +437,7 @@
 
                 <!-- Zip -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressZip"  type="number" required/>
+                  <input id="simple-input" v-model="contact.addressZip"  maxlength="10" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
@@ -1010,6 +1010,7 @@ export default {
               .then(json => {
                 this.awardee = json.Item
               })
+
             fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
               .then(response => response.json())
               .then(json => {
