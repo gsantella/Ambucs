@@ -5,10 +5,7 @@
       <img style="width:110px;heigh:65px" src="@/assets/icons/logo.png"/>
     </span>
 
-    <profile-dropdown v-if="User.email !== ''"  class="col nav-item">
-      <span style="margin-right:5px;font-size:47px" class="fa fa-user-circle-o"></span>
-    </profile-dropdown>
-    <profile-dropdown v-if="User.email === ''" class="col nav-item">
+    <profile-dropdown v-if="User.email !== null"  class="col nav-item">
       <span style="margin-right:5px;font-size:47px" class="fa fa-user-circle-o"></span>
     </profile-dropdown>
 
@@ -27,14 +24,34 @@ import LanguageDropdown from './components/dropdowns/LanguageDropdown'
 import ProfileDropdown from './components/dropdowns/ProfileDropdown'
 import NotificationDropdown from './components/dropdowns/NotificationDropdown'
 import MessageDropdown from './components/dropdowns/MessageDropdown'
+import { Auth } from 'aws-amplify'
+import swal from 'sweetalert'
 
 export default {
   name: 'app-navbar',
   data () {
     return {
       // User: this.$store.getters.User,
-      User: JSON.parse(localStorage.getItem('setUser'))
+      User: {
+        email: '',
+        password: '',
+        writeAwardeePermission: false,
+        writeUserPermission: false
+      }
     }
+  },
+  created () {
+    let self = this
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
+        this.User.email = data.attributes['email']
+        this.User.password = data.attributes['sub']
+        this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
+        this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
+      }).catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        self.$router.push({ name: 'login' })
+      })
   },
   components: {
     VuesticIconVuestic,

@@ -10,7 +10,7 @@
           <span>Awardees</span>
         </span>
       </sidebar-link>
-        <div v-if="User.writeAwardeePermission">
+        <div v-if="User.writeUserPermission">
         <sidebar-link
         :to="{ name: 'view-users' }">
         <span slot="title">
@@ -30,6 +30,8 @@ import VuesticSidebar
   from '../../../vuestic-theme/vuestic-components/vuestic-sidebar/VuesticSidebar'
 import SidebarLink from './components/SidebarLink'
 import SidebarLinkGroup from './components/SidebarLinkGroup'
+import { Auth } from 'aws-amplify'
+import swal from 'sweetalert'
 
 export default {
   name: 'app-sidebar',
@@ -46,10 +48,28 @@ export default {
   },
   data () {
     return {
-      // User: this.$store.getters.User,
-      User: JSON.parse(localStorage.getItem('setUser'))
+      RawUser: {},
+      User: {
+        email: '',
+        password: '',
+        writeAwardeePermission: false,
+        writeUserPermission: false
+      }
     }
-  }
+  },
+  created () {
+    let self = this
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
+        this.User.email = data.attributes['email']
+        this.User.password = data.attributes['sub']
+        this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
+        this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
+      }).catch(function (err) {
+        swal('Not Authenticated', err, 'error')
+        self.$router.push({ name: 'login' })
+      })
+  },
 }
 
 </script>

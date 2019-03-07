@@ -106,8 +106,12 @@ export default {
   },
   data () {
     return {
-      // User: this.$store.getters.User,
-      User: JSON.parse(localStorage.getItem('setUser')),
+      User: {
+        email: '',
+        password: '',
+        writeAwardeePermission: false,
+        writeUserPermission: false,
+      },
       id: '',
       firstName: '',
       lastName: '',
@@ -152,6 +156,10 @@ export default {
     let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
+        this.User.email = data.attributes['email']
+        this.User.password = data.attributes['sub']
+        this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
+        this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
             .then(response => response.json())
@@ -162,13 +170,6 @@ export default {
           swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
         }
       }).catch(function (err) {
-        var user = {
-          email: '',
-          password: '',
-          writeUserPermission: false,
-          writeAwardeePermission: false
-        }
-        localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
         self.$router.push({ name: 'login' })
       })

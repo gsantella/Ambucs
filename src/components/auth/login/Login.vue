@@ -69,16 +69,7 @@ export default {
     handleSubmit () {
       Auth.signIn(this.user.email, this.user.password).then(() => {
         Auth.currentAuthenticatedUser()
-          .then((data) => {
-            this.user.email = data.attributes.email
-            this.user.password = data.attributes.sub
-            this.user.writeUserPermission = data.attributes['custom:writeUserPerm2']
-            this.user.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
-            // this.$store.commit('setUser', this.user)
-            localStorage.setItem('setUser', JSON.stringify(this.user))
-            this.$router.push({ name: 'view-awardees' })
-          })
-          .catch(err => console.log(err))
+        setTimeout(() => this.$router.push({ name: 'view-awardees' }), 1000)
       }).catch((response) => {
         this.launchToast(response.message)
       })
@@ -90,9 +81,6 @@ export default {
     this.user.password = ''
     this.user.writeUserPermission = false
     this.user.writeAwardeePermission = false
-    // this.$store.commit('setUser', this.user)
-    localStorage.setItem('setUser', JSON.stringify(this.user))
-    clearTimeout(this.userSession)
     localStorage.removeItem('awardee-id')
     localStorage.removeItem('user-id')
   }

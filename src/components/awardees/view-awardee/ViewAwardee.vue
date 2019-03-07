@@ -469,13 +469,6 @@ export default {
           }
         }
       }).catch(function (err) {
-        var user = {
-          email: '',
-          password: '',
-          writeUserPermission: false,
-          writeAwardeePermission: false
-        }
-        localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
         self.$router.push({ name: 'login' })
       })

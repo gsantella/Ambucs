@@ -183,13 +183,6 @@ export default {
         this.user.enabled = this.$route.params.user.Enabled
         this.user.uuid = this.$route.params.user.Username
       }).catch(function (err) {
-        var user = {
-          email: '',
-          password: '',
-          writeUserPermission: false,
-          writeAwardeePermission: false
-        }
-        localStorage.setItem('setUser', JSON.stringify(user))
         swal('Not Authenticated', err, 'error')
         self.$router.push({ name: 'login' })
       })

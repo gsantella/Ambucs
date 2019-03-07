@@ -11,9 +11,8 @@ import store from './store'
 import router from './router'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
-// import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
-// Vue.use(axios)
 Vue.use(router)
 Vue.use(VuesticPlugin)
 
@@ -21,13 +20,12 @@ Vue.use(VuesticPlugin)
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
-  var User = JSON.parse(localStorage.getItem('setUser'))
   store.commit('setLoading', true)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (User !== null) {
-      if (User.email !== '' && User.password !== '') {
+    Auth.currentAuthenticatedUser()
+      .then((data) => {
         if (to.matched.some(record => record.meta.requiresWriteUser)) {
-          if (User.writeUserPermission) {
+          if (data.attributes['custom:writeUserPerm2']) {
             next()
             return
           }
@@ -35,8 +33,9 @@ router.beforeEach((to, from, next) => {
           next('/admin/awardees/view-awardees')
           return
         }
+
         if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
-          if (User.writeAwardeePermission) {
+          if (data.attributes['custom:writeAwardeePerm2']) {
             next()
             return
           }
@@ -44,11 +43,11 @@ router.beforeEach((to, from, next) => {
           next('/admin/awardees/view-awardees')
           return
         }
+
         next()
-        return
-      }
-    }
-    next('/auth/login')
+      }).catch(() => {
+        next('/auth/login')
+      })
   } else {
     next()
   }
