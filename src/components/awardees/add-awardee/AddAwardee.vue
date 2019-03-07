@@ -580,8 +580,6 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
-      console.log(this.awardee)
-      /*
       if (this.checkIfAwardeeIsValid(this.awardee)) {
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
@@ -614,7 +612,6 @@ export default {
       } else {
         swal('Error', 'Entire awardee cannot be blank', 'error')
       }
-      */
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
