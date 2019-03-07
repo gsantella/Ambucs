@@ -72,6 +72,7 @@ export default {
         setTimeout(() => this.$router.push({ name: 'view-awardees' }), 1000)
       }).catch((response) => {
         this.launchToast(response.message)
+        this.user.password = ''
       })
     }
   },
