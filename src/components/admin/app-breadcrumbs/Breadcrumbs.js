@@ -5,6 +5,24 @@ export const breadcrumbs = {
   },
   routes: [
     {
+      name: 'view-chapters',
+      displayName: 'Chapters',
+      children: [
+        {
+          name: 'view-chapters',
+          displayName: 'View Chapters',
+        },
+        {
+          name: 'new-chapter',
+          displayName: 'New Chapter',
+        },
+        {
+          name: 'edit-chapter',
+          displayName: 'Edit Chapter',
+        },
+      ],
+    },
+    {
       name: 'view-users',
       displayName: 'Users',
       children: [

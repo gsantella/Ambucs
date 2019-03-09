@@ -24,6 +24,16 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     Auth.currentAuthenticatedUser()
       .then((data) => {
+        if (to.matched.some(record => record.meta.requiresWriteChapter)) {
+          if (data.attributes['custom:writeChapterPerm2']) {
+            next()
+            return
+          }
+          store.commit('setLoading', false)
+          next('/admin/awardees/view-awardees')
+          return
+        }
+
         if (to.matched.some(record => record.meta.requiresWriteUser)) {
           if (data.attributes['custom:writeUserPerm2']) {
             next()

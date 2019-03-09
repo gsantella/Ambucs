@@ -10,13 +10,23 @@
           <span>Recipients</span>
         </span>
       </sidebar-link>
-        <div v-if="User.writeUserPermission">
+      <div v-if="User.writeUserPermission">
         <sidebar-link
         :to="{ name: 'view-users' }">
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
           <span>Users</span>
+        </span>
+      </sidebar-link>
+      </div>
+      <div v-if="User.writeChapterPermission">
+        <sidebar-link
+        :to="{ name: 'view-chapters' }">
+        <span slot="title">
+          <span
+            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
+          <span>Chapters</span>
         </span>
       </sidebar-link>
       </div>

@@ -43,7 +43,7 @@ export default new Router({
           redirect: { name: 'login' },
         },
       ],
-      // default: true
+      default: true
     },
     {
       path: '/print',
@@ -64,6 +64,40 @@ export default new Router({
       path: '/admin',
       component: AppLayout,
       children: [
+        {
+          name: 'chapters',
+          path: 'chapters',
+          component: EmptyParentComponent,
+          children: [
+            {
+              name: 'view-chapters',
+              path: 'view-chapters',
+              component: lazyLoading('chapters/view-chapters/ViewChapters'),
+              meta: {
+                requiresAuth: true,
+                requiresWriteChapter: true
+              }
+            },
+            {
+              name: 'new-chapter',
+              path: 'new-chapter',
+              component: lazyLoading('chapters/new-chapter/NewChapter'),
+              meta: {
+                requiresAuth: true,
+                requiresWriteChapter: true
+              }
+            },
+            {
+              name: 'edit-chapter',
+              path: 'edit-chapter',
+              component: lazyLoading('chapters/edit-chapter/EditChapter'),
+              meta: {
+                requiresAuth: true,
+                requiresWriteChapter: true
+              }
+            }
+          ]
+        },
         {
           name: 'users',
           path: 'users',
