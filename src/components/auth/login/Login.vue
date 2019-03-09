@@ -4,7 +4,7 @@
     <form name="login" @submit.prevent="handleSubmit">
       <div class="form-group">
         <div class="input-group">
-          <input type="email" id="email" required="required" v-model="user.email" />
+          <input type="email" id="email" v-model="user.email" />
           <label class="control-label" for="email">
             {{ $t('auth.email') }}
           </label>
@@ -13,17 +13,24 @@
       </div>
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required" v-model="user.password" />
+          <input type="password" id="password" v-model="user.password" />
           <label class="control-label" for="password">
             {{ $t('auth.password') }}
           </label>
           <i class="bar"/>
         </div>
       </div>
-      <div  align="center">
-        <button class="btn btn-primary" type="submit">
-          {{ $t('auth.login') }}
-        </button>
+      <div class="va-row">
+        <div class="flex md4">
+          <button class="btn btn-primary btn-micro" type="submit">
+            {{ $t('auth.login') }}
+          </button>
+        </div>
+        <div class="flex md8" >
+          <button class="btn btn-danger btn-micro" style="float:right" @click="forgotPassword()">
+            {{ $t('Forgot Password') }}
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -55,6 +62,9 @@ export default {
     }
   },
   methods: {
+    forgotPassword () {
+      this.$router.push({ name: 'forgot-password' })
+    },
     launchToast (msg) {
       this.showToast(
         this.toastText = msg,
