@@ -264,6 +264,13 @@
       <div>
 
         <div class="form-group">
+
+          <!-- Order # -->
+          <div class="input-group">
+            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Order Num</label><i class="bar"></i>
+          </div>
+
           <!-- Model -->
           <div class="input-group">
             <input id="simple-input" v-model="tryke.model" readonly required/>
@@ -376,6 +383,7 @@ export default {
       },
       tryke: {
         id: '',
+        orderNum: '',
         awardeeId: '',
         model: '',
         dateAwarded: '',
@@ -419,6 +427,7 @@ export default {
         this.$refs.largeModal.open()
       } else {
         this.tryke.id = item.trykeId
+        this.tryke.orderNum = item.orderNum
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived

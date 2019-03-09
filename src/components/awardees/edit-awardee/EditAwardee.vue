@@ -488,6 +488,18 @@
 
         <div class="form-group">
 
+          <!-- Order # View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+          </div>
+
+          <!-- Order #  -->
+          <div v-if="isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
+            <label class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+          </div>
+
           <!-- Model View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.model" readonly required/>
@@ -675,6 +687,7 @@ export default {
       },
       tryke: {
         id: '',
+        orderNum: '',
         awardeeId: '',
         model: '',
         dateAwarded: '',
@@ -763,8 +776,6 @@ export default {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 
-              // fetch delete all contacts the above is a hack but it works
-              // fetch delete all trykes
               this.$store.commit('setLoading', true)
               setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {

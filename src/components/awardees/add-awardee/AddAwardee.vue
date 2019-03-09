@@ -306,6 +306,13 @@
       <div>
 
         <div class="form-group">
+
+          <!-- Order # -->
+          <div class="input-group">
+            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
+            <label class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+          </div>
+
           <!-- Model -->
           <div class="input-group">
             <input id="simple-input" v-model="tryke.model" maxlength="65" required/>
@@ -425,6 +432,7 @@ export default {
       },
       tryke: {
         awardeeId: '',
+        orderNum: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
@@ -565,6 +573,7 @@ export default {
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
+        this.tryke.orderNum = item.orderNum
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived
