@@ -75,9 +75,9 @@
           </thead>
           <tbody>
           <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
-            <td class="pointer">{{ item.firstName }}</td>
-            <td class="pointer">{{ item.lastName }}</td>
-            <td class="pointer">{{ item.city }}</td>
+            <td>{{ item.firstName }}</td>
+            <td>{{ item.lastName }}</td>
+            <td>{{ item.city }}</td>
           </tr>
           </tbody>
         </table>
@@ -178,7 +178,9 @@ export default {
 </script>
 
 <style lang="scss">
-.pointer {cursor: pointer;}
+tr td {
+  cursor: pointer;
+}
 
 .filters-page {
   &__tags {
