@@ -8,13 +8,13 @@
               <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
-                  <input id="simple-input1" type="email" required v-model="user.email" />
+                  <input id="simple-input1" type="email" required v-model="user.email" autocomplete="off"/>
                   <label class="control-label" for="simple-input1" >Email</label><i class="bar"></i>
                 </div>
 
                 <!-- Password -->
                 <div class="input-group">
-                  <input id="simple-input" type="password" required v-model="user.password" />
+                  <input id="simple-input" type="password" required v-model="user.password" autocomplete="off" />
                   <label class="control-label" for="simple-input">Password</label><i class="bar"></i>
                 </div>
               </div>
