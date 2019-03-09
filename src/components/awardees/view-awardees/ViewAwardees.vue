@@ -75,9 +75,9 @@
           </thead>
           <tbody>
           <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
-            <td>{{ item.firstName }}</td>
-            <td>{{ item.lastName }}</td>
-            <td>{{ item.city }}</td>
+            <td class="pointer">{{ item.firstName }}</td>
+            <td class="pointer">{{ item.lastName }}</td>
+            <td class="pointer">{{ item.city }}</td>
           </tr>
           </tbody>
         </table>
@@ -178,6 +178,8 @@ export default {
 </script>
 
 <style lang="scss">
+.pointer {cursor: pointer;}
+
 .filters-page {
   &__tags {
     display: flex;
@@ -202,5 +204,6 @@ export default {
     color: $vue-green;
     margin-top: 0.3rem;
   }
+
 }
 </style>

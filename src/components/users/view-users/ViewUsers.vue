@@ -52,7 +52,7 @@
           </thead>
           <tbody>
           <tr v-for="user in filteredItems" :key="user.id" v-on:click="clickList(user)">
-            <td>{{user.Attributes[4].Value}}</td>
+            <td class="pointer">{{user.Attributes[4].Value}}</td>
           </tr>
           </tbody>
         </table>
