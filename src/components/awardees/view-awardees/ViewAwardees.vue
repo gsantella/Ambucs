@@ -5,7 +5,7 @@
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
             <button class="btn btn-primary" @click="newAwardee()" >
-              {{'New Awardee' | translate}}
+              {{'New Recipient' | translate}}
             </button>
           </div>
       </div>

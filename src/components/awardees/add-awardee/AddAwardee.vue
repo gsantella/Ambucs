@@ -6,7 +6,7 @@
 
       <div class="flex md6">
 
-        <vuestic-widget :headerText="'Add Awardee' | translate">
+        <vuestic-widget :headerText="'Add Recipient' | translate">
           <form>
             <fieldset>
 

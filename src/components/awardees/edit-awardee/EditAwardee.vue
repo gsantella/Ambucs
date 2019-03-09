@@ -651,9 +651,9 @@ export default {
 
     HeaderText () {
       if (this.isDisabled) {
-        return 'Edit Awardee'
+        return 'Edit Recipient'
       } else {
-        return 'View Awardee'
+        return 'View Recipient'
       }
     }
 
