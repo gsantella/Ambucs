@@ -22,13 +22,13 @@
                 <div class="va-row">
                   <div class="flex md3">
                     <vuestic-checkbox
-                      :label="$t('Write Awardee Permission')"
+                      :label="$t('Add/Edit Recipient Permission')"
                       v-model="writeAwardeePermission"
                     />
                   </div>
                   <div class="flex md3">
                     <vuestic-checkbox
-                      :label="$t('Write User Permission')"
+                      :label="$t('Add/Edit User Permission')"
                       v-model="writeUserPermission"
                     />
                   </div>
