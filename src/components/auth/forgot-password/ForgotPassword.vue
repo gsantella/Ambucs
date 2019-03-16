@@ -23,13 +23,28 @@
           </button>
         </div>
       </div>
+      <div class="va-row">
+        <input type="code" id="code" v-model="code" />
+            <label class="control-label" for="code">
+              Code
+            </label>
+        <input type="password" id="password" v-model="password" />
+            <label class="control-label" for="password">
+              Password
+            </label>
+        <button class="btn btn-danger btn-micro"  style="float:right" @click="resetPassword()">
+            Reset Password
+          </button>
+      </div>
     </form>
   </div>
 
 </template>
 
 <script>
-// import Amplify, { Auth } from 'aws-amplify'
+import CognitoConfig from '../Cognito.config'
+import Amplify, { Auth } from 'aws-amplify'
+Amplify.configure(CognitoConfig)
 
 export default {
 
@@ -37,6 +52,8 @@ export default {
   data () {
     return {
       email: '',
+      code: '',
+      password: '',
       userSession: '',
       toastText: '',
       toastDuration: 2500,
@@ -58,10 +75,17 @@ export default {
       )
     },
     handleSubmit () {
-
+      Auth.forgotPassword(this.email)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     },
     cancel () {
       this.$router.push({ name: 'login' })
+    },
+    resetPassword () {
+      Auth.forgotPasswordSubmit(this.email, this.code, this.password)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
   },
   created () {
