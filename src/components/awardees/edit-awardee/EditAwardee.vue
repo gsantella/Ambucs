@@ -32,7 +32,7 @@
 
                     <!-- First Name -->
                     <div v-if="isDisabled" class="input-group">
-                     <input id="simple-input" v-model="awardee.firstName" maxlength="65" required/>
+                     <input id="simple-input" v-model="awardee.firstName" required/>
                      <label abel class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
 
@@ -44,7 +44,7 @@
 
                     <!-- Last Name -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" maxlength="65" v-model="awardee.lastName"/>
+                      <input id="simple-input" v-model="awardee.lastName"/>
                       <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                     </div>
 
@@ -60,7 +60,7 @@
 
                     <!-- Phone Number -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" maxlength="14"  required/>
+                      <input id="simple-input" v-model="awardee.phone" required/>
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
@@ -115,7 +115,7 @@
 
                     <!-- Street 1 -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address1" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.address1" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
@@ -130,7 +130,7 @@
 
                     <!-- Street 2 -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address2" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.address2" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
                   </div>
@@ -139,37 +139,37 @@
 
                     <!-- City View Mode -->
                     <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.city" readonly required/>
+                      <input id="simple-input" v-model="awardee.addressCity" readonly required/>
                       <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
 
                     <!-- City -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.city" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.addressCity" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
 
                     <!-- State View Mode -->
                     <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.state" readonly required/>
+                      <input id="simple-input" v-model="awardee.addressState" readonly required/>
                       <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
 
                     <!-- State -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.state" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.addressState" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
 
                     <!-- Zip View Mode -->
                     <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" readonly required/>
+                      <input id="simple-input" v-model="awardee.addressZip" readonly required/>
                       <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
                     </div>
 
                     <!-- Zip -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" maxlength="10" required/>
+                      <input id="simple-input" v-model="awardee.addressZip" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -296,13 +296,13 @@
 
                 <!-- First Name View Mode-->
                 <div v-if="!isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.firstName"  readonly required/>
+                  <input id="simple-input" v-model="contact.firstName" readonly required/>
                   <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- First Name -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.firstName" maxlength="65" required/>
+                  <input id="simple-input" v-model="contact.firstName" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
@@ -314,7 +314,7 @@
 
                 <!-- Last Name -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.lastName" maxlength="65" required/>
+                  <input id="simple-input" v-model="contact.lastName" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
@@ -329,7 +329,7 @@
 
                 <!-- Email -->
                 <div v-if="isDisabled" class="input-group">
-                  <input  id="simple-input" v-model="contact.email" maxlength="65" required/>
+                  <input  id="simple-input" v-model="contact.email" required/>
                   <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
               </div>
@@ -344,7 +344,7 @@
 
                 <!-- Phone 1 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone1"  maxlength="14" required/>
+                  <input id="simple-input" v-model="contact.phone1" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
@@ -356,7 +356,7 @@
 
                 <!-- Phone 2 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone2"  maxlength="14" required/>
+                  <input id="simple-input" v-model="contact.phone2" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
@@ -370,7 +370,7 @@
 
                 <!-- Type -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.contactType" maxlength="20" required/>
+                  <input id="simple-input" v-model="contact.contactType" required/>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
               </div>
@@ -385,7 +385,7 @@
 
                 <!-- Street1 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.address1" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.address1" required/>
                   <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                 </div>
 
@@ -397,7 +397,7 @@
 
                 <!-- Street2 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.address2" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.address2" required/>
                   <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                 </div>
 
@@ -409,7 +409,7 @@
 
                 <!-- City -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressCity" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.addressCity" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
@@ -425,7 +425,7 @@
 
                 <!-- State -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressState" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.addressState" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
 
@@ -437,7 +437,7 @@
 
                 <!-- Zip -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressZip"  maxlength="10" required/>
+                  <input id="simple-input" v-model="contact.addressZip" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
@@ -488,18 +488,6 @@
 
         <div class="form-group">
 
-          <!-- Order # View Mode-->
-          <div v-if="!isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
-          </div>
-
-          <!-- Order #  -->
-          <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
-            <label class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
-          </div>
-
           <!-- Model View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.model" readonly required/>
@@ -508,7 +496,7 @@
 
           <!-- Model -->
           <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.model" maxlength="65" required/>
+            <input id="simple-input" v-model="tryke.model" required/>
             <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
         </div>
@@ -564,7 +552,7 @@
 
           <!-- Funded By -->
           <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.fundedBy" maxlength="75" required/>
+            <input id="simple-input" v-model="tryke.fundedBy" required/>
             <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
@@ -576,7 +564,7 @@
 
           <!-- Location Awarded -->
           <div v-if="isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.locationAwarded" maxlength="55" required/>
+            <input id="simple-input" v-model="tryke.locationAwarded" required/>
             <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
           </div>
         </div>
@@ -621,7 +609,6 @@
 
 <script>
 import swal from 'sweetalert'
-import { Auth } from 'aws-amplify'
 
 export default {
   name: 'EditAwardee',
@@ -651,9 +638,9 @@ export default {
 
     HeaderText () {
       if (this.isDisabled) {
-        return 'Edit Recipient'
+        return 'Edit Awardee'
       } else {
-        return 'View Recipient'
+        return 'View Awardee'
       }
     }
 
@@ -687,7 +674,6 @@ export default {
       },
       tryke: {
         id: '',
-        orderNum: '',
         awardeeId: '',
         model: '',
         dateAwarded: '',
@@ -710,39 +696,20 @@ export default {
       this[field] = ''
     },
 
-    checkIfAwardeeIsValid (obj) {
-      var isValid = false
-      for (var key in obj) {
-        if (key !== 'dateCreated' && key !== 'id' && key !== 'timestampCreated') {
-          if (obj[key] === null || obj[key] === '') {
-            isValid = false
-          } else {
-            isValid = true
-            break
-          }
-        }
-      }
-      return isValid
-    },
-
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
-      if (this.checkIfAwardeeIsValid(this.awardee)) {
-        try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
-            headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            method: 'PATCH',
-            body: JSON.stringify(this.awardee)
-          }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
-          this.$store.commit('setLoading', true)
-          setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
-        } catch (e) {
-          swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
-        }
-      } else {
-        swal('Error', 'Entire Awardee cannot be blank.', 'error')
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id, {
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          method: 'PATCH',
+          body: JSON.stringify(this.awardee)
+        }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
+
+        // setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+      } catch (e) {
+        swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
       }
     },
 
@@ -776,8 +743,9 @@ export default {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 
-              this.$store.commit('setLoading', true)
-              setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+              // fetch delete all contacts the above is a hack but it works
+              // fetch delete all trykes
+              // setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }
@@ -990,7 +958,7 @@ export default {
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     printAwardee () {
-      this.$router.push({ name: 'print-awardee', params: { id: this.$route.params.id } })
+      // this.$router.push({ name: 'print-awardee', params: { id: this.$route.params.id } })
     }
 
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1000,47 +968,34 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
-    window.addEventListener('beforeunload', function (e) {
-      e.preventDefault()
-      e.returnValue = ''
+    this.$nextTick(() => {
+      this.$validator.validateAll()
     })
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        this.$nextTick(() => {
-          this.$validator.validateAll()
-        })
-        var awardeeId = localStorage.getItem('awardee-id')
-        if (awardeeId === null) {
-          swal('Error', 'That is not a valid user.', 'error')
-          this.$router.push({ name: 'view-awardees' })
-        } else {
-          try {
-            fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
-              .then(response => response.json())
-              .then(json => {
-                this.awardee = json.Item
-              })
-
-            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
-              .then(response => response.json())
-              .then(json => {
-                this.contacts = json.Items
-              })
-            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
-              .then(response => response.json())
-              .then(json => {
-                this.trykes = json.Items
-              })
-          } catch (e) {
-            swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-            this.$router.push({ name: 'view-awardees' })
-          }
-        }
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
-        self.$router.push({ name: 'login' })
-      })
+    if (this.$route.params.id == null) {
+      swal('Error', 'That is not a valid user.', 'error')
+      // this.$router.push({ name: 'view-awardees' })
+    } else {
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+          .then(response => response.json())
+          .then(json => {
+            this.awardee = json.Item
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
+          .then(response => response.json())
+          .then(json => {
+            this.contacts = json.Items
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
+          .then(response => response.json())
+          .then(json => {
+            this.trykes = json.Items
+          })
+      } catch (e) {
+        swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
+        // this.$router.push({ name: 'view-awardees' })
+      }
+    }
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1051,11 +1006,3 @@ export default {
 }
 
 </script>
-
-<style>
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-</style>
