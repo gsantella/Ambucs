@@ -80,7 +80,7 @@
           {{'Update' | translate}}
         </button>
       </div>
-      <div
+      <div v-if="sessionUser.email !== user.email"
         class="flex sm6 lg6 xl3 justify--center">
         <button class="btn btn-danger" @click="deleteUser()">
           {{'Delete' | translate}}
@@ -119,6 +119,9 @@ export default {
         enabled: '',
         userStatus: ''
       },
+      sessionUser: {
+        email: ''
+      }
     }
   },
   methods: {
@@ -174,6 +177,7 @@ export default {
     let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
+        this.sessionUser.email = data.attributes.email
         this.user.email = this.$route.params.user.Attributes[5].Value
         if (this.$route.params.user.Attributes[4].Value === 'true') {
           this.user.writeUserPermission = true
