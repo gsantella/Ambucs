@@ -63,7 +63,8 @@ export default {
         email: '',
         password: '',
         writeAwardeePermission: false,
-        writeUserPermission: false
+        writeUserPermission: false,
+        writeChapterPermission: false
       }
     }
   },
@@ -75,6 +76,7 @@ export default {
         this.User.password = data.attributes['sub']
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
+        this.User.writeChapterPermission = data.attributes['custom:writeChapterPerm2']
       }).catch(function (err) {
         swal('Not Authenticated', err, 'error')
         self.$router.push({ name: 'login' })

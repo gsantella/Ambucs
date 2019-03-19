@@ -39,24 +39,33 @@
                       v-model="user.writeUserPermission"
                     />
                   </div>
-                  <div  class="flex md3">
+                  <div class="flex md3">
                     <vuestic-checkbox
-                    :label="$t('Account Enabled')"
-                    :disabled="true"
-                    v-model="user.enabled"
+                      :label="$t('Add/Edit Chapters Permission')"
+                      v-model="user.writeChapterPermission"
                     />
-                  </div>
-                   <div class="flex md3">
-                    <vuestic-checkbox
-                    :label="$t('Account Confirmed')"
-                    :disabled="true"
-                    v-model="user.userStatus"
-                  />
                   </div>
                 </div>
               </div>
-
-                </fieldset>
+              <div class="form-group">
+                <div class="va-row">
+                  <div  class="flex md3">
+                      <vuestic-checkbox
+                      :label="$t('Account Enabled')"
+                      :disabled="true"
+                      v-model="user.enabled"
+                      />
+                    </div>
+                    <div class="flex md3">
+                      <vuestic-checkbox
+                      :label="$t('Account Confirmed')"
+                      :disabled="true"
+                      v-model="user.userStatus"
+                    />
+                  </div>
+                </div>
+              </div>
+              </fieldset>
 
           </form>
         </vuestic-widget>
@@ -106,6 +115,7 @@ export default {
         password: '',
         writeUserPermission: false,
         writeAwardeePermission: false,
+        writeChapterPermission: false,
         enabled: '',
         userStatus: ''
       },
@@ -133,7 +143,7 @@ export default {
     },
     deleteUser () {
       swal({
-        title: 'Are you sure you want to delete this record?',
+        title: 'Are you sure you want to delete this User?',
         text: 'Once deleted, you will not be able to recover this file.',
         icon: 'warning',
         buttons: true,
@@ -164,8 +174,8 @@ export default {
     let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
-        this.user.email = this.$route.params.user.Attributes[4].Value
-        if (this.$route.params.user.Attributes[3].Value === 'true') {
+        this.user.email = this.$route.params.user.Attributes[5].Value
+        if (this.$route.params.user.Attributes[4].Value === 'true') {
           this.user.writeUserPermission = true
         } else {
           this.user.writeUserPermission = false
@@ -174,6 +184,11 @@ export default {
           this.user.writeAwardeePermission = true
         } else {
           this.user.writeAwardeePermission = false
+        }
+        if (this.$route.params.user.Attributes[3].Value === 'true') {
+          this.user.writeChapterPermission = true
+        } else {
+          this.user.writeChapterPermission = false
         }
         if (this.$route.params.user.UserStatus === 'CONFIRMED') {
           this.user.userStatus = true

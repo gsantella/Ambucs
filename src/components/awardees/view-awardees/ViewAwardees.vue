@@ -111,6 +111,7 @@ export default {
         password: '',
         writeAwardeePermission: false,
         writeUserPermission: false,
+        writeChapterPermission: false
       },
       id: '',
       firstName: '',
@@ -160,6 +161,7 @@ export default {
         this.User.password = data.attributes['sub']
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
+        this.User.writeChapterPermission = data.attributes['custom:writeChapterPerm2']
         try {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
             .then(response => response.json())

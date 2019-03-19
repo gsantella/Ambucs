@@ -32,6 +32,12 @@
                       v-model="writeUserPermission"
                     />
                   </div>
+                  <div class="flex md3">
+                    <vuestic-checkbox
+                      :label="$t('Add/Edit Chapters Permission')"
+                      v-model="writeChapterPermission"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -97,6 +103,7 @@ export default {
       },
       writeUserPermission: false,
       writeAwardeePermission: false,
+      writeChapterPermission: false
     }
   },
   computed: {
@@ -113,6 +120,13 @@ export default {
       } else {
         return 'false'
       }
+    },
+    chapterPerm () {
+      if (this.writeChapterPermission) {
+        return 'true'
+      } else {
+        return 'false'
+      }
     }
   },
   methods: {
@@ -122,7 +136,8 @@ export default {
         'password': this.user.password,
         'attributes': {
           'custom:writeUserPerm2': this.awardeePerm,
-          'custom:writeAwardeePerm2': this.userPerm
+          'custom:writeAwardeePerm2': this.userPerm,
+          'custom:writeChapterPerm2': this.chapterPerm
         },
       }).then(() => {
         swal('Added', 'The User has been added.', 'success')
