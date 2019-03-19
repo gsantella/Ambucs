@@ -135,10 +135,17 @@
           </thead>
           <tbody>
             <tr v-for="(item,index) in contacts" :key="item.id" @click="displayModal(item,index,1)">
-              <td>{{item.contactType}}</td>
-              <td>{{item.firstName}}</td>
-              <td>{{item.lastName}}</td>
-              <td>{{item.phone1}}</td>
+
+              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.contactType}}</td>
+              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.firstName}}</td>
+              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.lastName}}</td>
+              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.phone1}}</td>
+
+              <td v-if="!item.IsPrimary">{{item.contactType}}</td>
+              <td v-if="!item.IsPrimary">{{item.firstName}}</td>
+              <td v-if="!item.IsPrimary">{{item.lastName}}</td>
+              <td v-if="!item.IsPrimary">{{item.phone1}}</td>
+
             </tr>
           </tbody>
       </table>
@@ -163,10 +170,15 @@
           </thead>
           <tbody>
             <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
-                <td>{{item.model}}</td>
-                <td>{{item.dateAwarded}}</td>
-                <td>{{item.dateReceived}}</td>
-                <td>{{item.fundedBy}}</td>
+                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.model}}</td>
+                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.dateAwarded}}</td>
+                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.dateReceived}}</td>
+                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.fundedBy}}</td>
+
+                <td v-if="!item.IsPrimary">{{item.model}}</td>
+                <td v-if="!item.IsPrimary">{{item.dateAwarded}}</td>
+                <td v-if="!item.IsPrimary">{{item.dateReceived}}</td>
+                <td v-if="!item.IsPrimary">{{item.fundedBy}}</td>
             </tr>
           </tbody>
       </table>
@@ -280,6 +292,16 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <!-- Make Is Primary -->
+                <div class="flex md6">
+                    <vuestic-checkbox
+                      :label="$t('Set Primary Contact')"
+                      v-model="contact.IsPrimary"
+                    />
+                </div>
+              </div>
+
             </fieldset>
           </form>
 
@@ -370,6 +392,16 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <!-- Make Is Primary -->
+          <div class="flex md6">
+              <vuestic-checkbox
+                :label="$t('Set Primary Tryke')"
+                v-model="tryke.IsPrimary"
+              />
+          </div>
+        </div>
+
         <input v-if="displayMode == 'ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
 
         <div v-if="displayMode == 'EDIT'" class="va-row">
@@ -403,6 +435,22 @@ export default {
 
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
 
+    IsTrykePrimary () {
+      if (this.tryke.IsPrimary) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
+
+    IsContactPrimary () {
+      if (this.contact.IsPrimary) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
+
   },
 
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -428,7 +476,8 @@ export default {
         addressState: '',
         addressZip: '',
         notes: '',
-        contactType: ''
+        contactType: '',
+        IsPrimary: false
       },
       tryke: {
         awardeeId: '',
@@ -438,7 +487,8 @@ export default {
         dateReceived: '',
         fundedBy: '',
         locationAwarded: '',
-        notes: ''
+        notes: '',
+        IsPrimary: false
       },
       awardee: {
         firstName: '',
@@ -483,7 +533,11 @@ export default {
     // Loop through this.contact object and reset all items to null string
     addNewContactRow () {
       for (var key in this.contact) {
-        this.contact[key] = ''
+        if (key === 'IsPrimary') {
+          this.contact[key] = false
+        } else {
+          this.contact[key] = ''
+        }
       }
 
       this.displayMode = 'ADD'
@@ -520,8 +574,13 @@ export default {
     // Loop through this.tryke object and reset all items to null string
     addNewTrykeRow () {
       for (var key in this.tryke) {
-        this.tryke[key] = ''
+        if (key === 'IsPrimary') {
+          this.tryke[key] = false
+        } else {
+          this.tryke[key] = ''
+        }
       }
+
       this.displayMode = 'ADD'
       this.trykeModalTitle = 'Add Tryke'
       this.$refs.mediumModal.open()
@@ -569,7 +628,8 @@ export default {
         this.contact.address1 = item.address1
         this.contact.address2 = item.address2
         this.contact.addressZip = item.addressZip
-        this.contacts.notes = item.notes
+        this.contact.notes = item.notes
+        this.contact.IsPrimary = item.IsPrimary
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
@@ -580,6 +640,7 @@ export default {
         this.tryke.fundedBy = item.fundedBy
         this.tryke.locationAwarded = item.locationAwarded
         this.tryke.notes = item.notes
+        this.tryke.IsPrimary = item.IsPrimary
         this.trykeModalTitle = 'Edit Tryke'
         this.$refs.mediumModal.open()
       }
