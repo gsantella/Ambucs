@@ -457,6 +457,16 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <!-- Make Is Primary -->
+                <div class="flex md6">
+                    <vuestic-checkbox
+                      :label="$t('Set Primary Tryke')"
+                      v-model="contact.IsPrimary"
+                    />
+                </div>
+              </div>
+
             </fieldset>
           </form>
 
@@ -584,6 +594,16 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <!-- Make Is Primary -->
+          <div class="flex md6">
+              <vuestic-checkbox
+                :label="$t('Set Primary Tryke')"
+                v-model="tryke.IsPrimary"
+              />
+          </div>
+        </div>
+
         <div v-if="isDisabled">
           <input v-if="displayMode=='ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
         </div>
@@ -642,7 +662,23 @@ export default {
       } else {
         return 'View Awardee'
       }
-    }
+    },
+
+    IsTrykePrimary () {
+      if (this.tryke.IsPrimary) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
+
+    IsContactPrimary () {
+      if (this.contact.IsPrimary) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
 
   },
 
@@ -670,7 +706,8 @@ export default {
         addressState: '',
         addressZip: '',
         notes: '',
-        contactType: ''
+        contactType: '',
+        IsPrimary: false
       },
       tryke: {
         id: '',
@@ -680,7 +717,8 @@ export default {
         dateReceived: '',
         fundedBy: '',
         locationAwarded: '',
-        notes: ''
+        notes: '',
+        IsPrimary: false
       },
       awardee: {},
       contacts: [],
@@ -760,7 +798,11 @@ export default {
     // Loop through this.contact object and reset all items to null string
     addNewContactRecord () {
       for (var key in this.contact) {
-        this.contact[key] = ''
+        if (key === 'IsPrimary') {
+          this.contact[key] = false
+        } else {
+          this.contact[key] = ''
+        }
       }
 
       this.displayMode = 'ADD'
@@ -843,7 +885,11 @@ export default {
     // Loop through this.tryke object and reset all items to null string
     addNewTrykeRecord () {
       for (var key in this.tryke) {
-        this.tryke[key] = ''
+        if (key === 'IsPrimary') {
+          this.tryke[key] = false
+        } else {
+          this.tryke[key] = ''
+        }
       }
       this.displayMode = 'ADD'
       this.trykeModalTitle = 'Add Tryke'
@@ -940,6 +986,7 @@ export default {
         this.contact.address2 = item.address2
         this.contact.addressZip = item.addressZip
         this.contact.notes = item.notes
+        this.contact.IsPrimary = item.IsPrimary
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
@@ -950,6 +997,7 @@ export default {
         this.tryke.fundedBy = item.fundedBy
         this.tryke.locationAwarded = item.locationAwarded
         this.tryke.notes = item.notes
+        this.tryke.IsPrimary = item.IsPrimary
         this.trykeModalTitle = 'Edit Tryke'
         this.$refs.mediumModal.open()
       }
