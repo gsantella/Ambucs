@@ -28,7 +28,7 @@
 
                 <!-- Phone Number -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="awardee.phone" maxlength="14" required/>
+                  <input id="simple-input" v-model="awardee.phone" type="number" required/>
                   <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                 </div>
 
@@ -92,7 +92,7 @@
                     </div>
                     <!-- Zip -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" maxlength="10" required/>
+                      <input id="simple-input" v-model="awardee.zip" type="number" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -223,13 +223,13 @@
               <div class="form-group">
                 <!-- Phone 1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.phone1" maxlength="14" required/>
+                  <input id="simple-input" v-model="contact.phone1" type="number" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
                 <!-- Phone 2 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.phone2" maxlength="14" required/>
+                  <input id="simple-input" v-model="contact.phone2" type="number" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
@@ -267,7 +267,7 @@
                 </div>
                 <!-- Zip -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.addressZip"  maxlength="10" required/>
+                  <input id="simple-input" v-model="contact.addressZip"  type="number" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
