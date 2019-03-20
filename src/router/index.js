@@ -31,6 +31,11 @@ export default new Router({
           component: lazyLoading('auth/forgot-password/ForgotPassword'),
         },
         {
+          name: 'reset-password',
+          path: 'reset-password',
+          component: lazyLoading('auth/reset-password/ResetPassword'),
+        },
+        {
           name: 'account',
           path: 'account',
           meta: {

@@ -1,17 +1,34 @@
 <template>
   <div class="login">
     <h2>{{ $t('Reset Password') }}</h2>
-    <form name="login" @submit.prevent="handleSubmit()">
-      <div class="form-group">
+    <form name="login" @submit.prevent="resetPassword()">
+        <div class="form-group">
+            <div class="input-group">
+            <input type="email" id="email" required="required" readonly v-model="email" />
+            <label class="control-label" for="email">
+                {{ $t('auth.email') }}
+            </label>
+            <i class="bar"/>
+            </div>
+        </div>
+       <div class="form-group">
         <div class="input-group">
-          <input type="email" id="email" required="required" v-model="email" />
-          <label class="control-label" for="email">
-            {{ $t('auth.email') }}
+          <input type="text" id="code" required="required" v-model="code" />
+          <label class="control-label" for="code">
+            {{ $t('Code') }}
           </label>
           <i class="bar"/>
         </div>
       </div>
-
+       <div class="form-group">
+        <div class="input-group">
+          <input type="password" id="password" required="required" v-model="password" />
+          <label class="control-label" for="password">
+            {{ $t('Password') }}
+          </label>
+          <i class="bar"/>
+        </div>
+      </div>
       <div class="va-row">
         <div class="flex md4">
           <button class="btn btn-primary btn-micro" type="submit">
@@ -32,6 +49,7 @@
 <script>
 import CognitoConfig from '../Cognito.config'
 import Amplify, { Auth } from 'aws-amplify'
+import swal from 'sweetalert'
 Amplify.configure(CognitoConfig)
 
 export default {
@@ -62,18 +80,18 @@ export default {
         },
       )
     },
-    handleSubmit () {
-      Auth.forgotPassword(this.email)
-        .then(this.$router.push({ name: 'reset-password', params: { email: this.email } }))
-        .catch(err => console.log(err))
-    },
     cancel () {
       this.$router.push({ name: 'login' })
     },
-
+    resetPassword () {
+      Auth.forgotPasswordSubmit(this.email, this.code, this.password)
+        .then(swal('Success', 'Password Reset Successfully', 'success'))
+        .then(this.$router.push({ name: 'login' }))
+        .catch(err => swal('Error', err, 'error'))
+    }
   },
   created () {
-
+    this.email = this.$route.params.email
   }
 }
 
