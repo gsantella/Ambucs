@@ -1,39 +1,41 @@
 <template>
-  <div style="width:75%" class="login">
-    <h2>Edit Account</h2>
-    <form>
+  <div class="login">
+    <h2>{{ $t('Reset Password') }}</h2>
+    <form name="login" @submit.prevent="updateUser()">
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password2" v-model="newPassword" required="required"/>
-          <label class="control-label" for="password2">
+          <input type="password" id="oldPassword" required="required" v-model="oldPassword" />
+          <label class="control-label" for="oldPassword">
+            {{ $t('Old Password') }}
+          </label>
+          <i class="bar"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <input type="password" id="newPassword" required="required" v-model="newPassword" />
+          <label class="control-label" for="newPassword">
             {{ $t('New Password') }}
           </label>
           <i class="bar"/>
         </div>
       </div>
-      <div class="form-group">
-        <div class="input-group">
-          <input type="password" id="password3" v-model="confirmPassword" required="required"/>
-          <label class="control-label" for="password3">
-            {{ $t('Confirm New Password') }}
-          </label>
-          <i class="bar"/>
-        </div>
-      </div>
+
       <div class="va-row">
-        <div class="flex md3" align="center">
-          <button class="btn btn-primary btn-micro" @click="updateUser()">
-            {{ $t('Update') }}
+        <div class="flex md4">
+          <button class="btn btn-primary btn-micro" type="submit">
+            {{ $t('Reset') }}
           </button>
         </div>
-        <div class="flex md3" align="center">
-          <button class="btn btn-danger btn-micro" @click="cancelUser()">
-            {{ $t('Cancel')}}
+        <div class="flex md8">
+          <button class="btn btn-danger btn-micro"  style="float:right" @click="cancelUser()">
+            {{ $t('Cancel') }}
           </button>
         </div>
       </div>
     </form>
   </div>
+
 </template>
 
 <script>
@@ -45,13 +47,14 @@ export default {
   data () {
     return {
       newPassword: '',
-      confirmPassword: '',
+      oldPassword: '',
       RawData: {},
       User: {
         email: '',
         password: '',
         writeAwardeePermission: '',
         writeUserPermission: '',
+        writeChapterPermission: '',
       }
     }
   },
@@ -63,6 +66,7 @@ export default {
         this.User.password = data.attributes['sub']
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
+        this.User.writeChapterPermission = data.attributes['custom:writeChapterPerm2']
       }).catch(function (err) {
         swal('Not Authenticated', err, 'error')
         self.$router.push({ name: 'login' })
@@ -86,11 +90,10 @@ export default {
         })
     },
     updateUser () {
-      if (this.newPassword === this.confirmPassword) {
-        // Post to AWS
-      } else {
-        swal('Error', 'Passwords do not match.', 'warning')
-      }
+      Auth.changePassword(this.User, this.oldPassword, this.newPassword)
+        .then(swal('Success', 'Password Update', 'success'))
+        .then(this.$router.push({ name: 'view-awardees' }))
+        .catch(err => console.log(err))
     }
   },
 }
