@@ -19,6 +19,13 @@
                 </div>
               </div>
               <div class="form-group">
+                <!-- Chapter -->
+                <vuestic-simple-select style="width:100%;margin-bottom:-5%"
+                    :label="'Chapter' | translate"
+                    v-model="chapters"
+                  />
+              </div>
+              <div class="form-group">
                 <div class="va-row">
                   <div class="flex md3">
                     <vuestic-checkbox
@@ -99,8 +106,10 @@ export default {
     return {
       user: {
         email: '',
-        password: ''
+        password: '',
+        chapter: ''
       },
+      chapters: '',
       writeUserPermission: false,
       writeAwardeePermission: false,
       writeChapterPermission: false

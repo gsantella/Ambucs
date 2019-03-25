@@ -141,7 +141,7 @@
               <td v-if="item.IsPrimary" style="background-color:yellow">{{item.lastName}}</td>
               <td v-if="item.IsPrimary" style="background-color:yellow">{{item.phone1}}</td>
 
-              <td v-if="!item.IsPrimary">{{item.contactType}}</td>
+              <td v-if="!item.IsPrimary">{{item.contactType.description}}</td>
               <td v-if="!item.IsPrimary">{{item.firstName}}</td>
               <td v-if="!item.IsPrimary">{{item.lastName}}</td>
               <td v-if="!item.IsPrimary">{{item.phone1}}</td>
@@ -246,11 +246,14 @@
                 </div>
               </div>
               <div class="form-group">
-                <!-- Type -->
-                <div class="input-group">
-                  <input id="simple-input" v-model="contact.contactType" maxlength="20" required/>
-                  <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
-                </div>
+                <!-- TYPE -->
+                <vuestic-simple-select style="width:100%;margin-bottom:-5%"
+                    :label="'Type' | translate"
+                    v-model="contact.contactType"
+                    option-key="description"
+                    v-bind:options="typeOptions"
+                  />
+
               </div>
               <div class="form-group">
                 <!-- Street 1 -->
@@ -457,6 +460,20 @@ export default {
 
   data () {
     return {
+      typeOptions: [
+        {
+          id: 1,
+          description: 'Parent',
+        },
+        {
+          id: 2,
+          description: 'Gurdian',
+        },
+        {
+          id: 3,
+          description: 'Therapist',
+        },
+      ],
       displayMode: '',
       trykeModalTitle: '',
       contactModalTitle: '',
@@ -616,13 +633,14 @@ export default {
     displayModal (item, index, id) {
       this.editId = index
       this.displayMode = 'EDIT'
+      console.log(item.contactType)
       if (id === 1) {
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
         this.contact.email = item.email
         this.contact.phone1 = item.phone1
         this.contact.phone2 = item.phone2
-        this.contact.contactType = item.contactType
+        this.contact.contactType = item.contactType.description
         this.contact.addressCity = item.addressCity
         this.contact.addressState = item.addressState
         this.contact.address1 = item.address1

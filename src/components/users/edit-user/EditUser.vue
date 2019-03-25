@@ -16,14 +16,21 @@
         <vuestic-widget :headerText="'Edit User' | translate">
           <form>
 
-                <fieldset>
-                  <div class="form-group">
-                    <!-- Email -->
-                    <div class="input-group">
-                      <input id="simple-input" type="email" required v-model="user.email" autocomplete="off"/>
-                      <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
-                    </div>
+              <fieldset>
+                <div class="form-group">
+                  <!-- Email -->
+                  <div class="input-group">
+                    <input id="simple-input" type="email" required v-model="user.email" autocomplete="off"/>
+                    <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                   </div>
+                </div>
+                <div class="form-group">
+                  <!-- Chapter -->
+                  <vuestic-simple-select style="width:100%;margin-bottom:-5%"
+                      :label="'Chapter' | translate"
+                      v-model="chapters"
+                    />
+                </div>
 
               <div class="form-group">
                 <div class="va-row">
@@ -117,8 +124,10 @@ export default {
         writeAwardeePermission: false,
         writeChapterPermission: false,
         enabled: '',
-        userStatus: ''
+        userStatus: '',
+        chapter: ''
       },
+      chapters: '',
       sessionUser: {
         email: ''
       }
