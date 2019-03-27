@@ -6,20 +6,20 @@
 
       <div class="flex md6">
 
-        <vuestic-widget :headerText="'Add Recipient' | translate">
+        <vuestic-widget :headerText="'Add Awardee' | translate">
           <form>
             <fieldset>
 
               <div class="form-group">
                 <!-- First Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="awardee.firstName" maxlength="65" required/>
+                  <input id="simple-input" v-model="awardee.firstName" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- Last Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="awardee.lastName" maxlength="65" required/>
+                  <input id="simple-input" v-model="awardee.lastName" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
@@ -28,7 +28,7 @@
 
                 <!-- Phone Number -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="awardee.phone" type="number" required/>
+                  <input id="simple-input" v-model="awardee.phone" required/>
                   <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                 </div>
 
@@ -65,7 +65,7 @@
 
                     <!-- Street 1 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address1" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.address1" required/>
                       <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
                   </div>
@@ -73,7 +73,7 @@
                   <div class="form-group with-icon-left">
                     <!-- Street 2 -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address2" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.address2" required/>
                       <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
                   </div>
@@ -82,17 +82,17 @@
 
                     <!-- City -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.city" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.addressCity" required/>
                       <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
                     <!-- State -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.state" maxlength="55" required/>
+                      <input id="simple-input" v-model="awardee.addressState" required/>
                       <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
                     <!-- Zip -->
                     <div class="input-group">
-                      <input id="simple-input" v-model="awardee.zip" type="number" required/>
+                      <input id="simple-input" v-model="awardee.addressZip" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -135,17 +135,10 @@
           </thead>
           <tbody>
             <tr v-for="(item,index) in contacts" :key="item.id" @click="displayModal(item,index,1)">
-
-              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.contactType}}</td>
-              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.firstName}}</td>
-              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.lastName}}</td>
-              <td v-if="item.IsPrimary" style="background-color:yellow">{{item.phone1}}</td>
-
-              <td v-if="!item.IsPrimary">{{item.contactType.description}}</td>
-              <td v-if="!item.IsPrimary">{{item.firstName}}</td>
-              <td v-if="!item.IsPrimary">{{item.lastName}}</td>
-              <td v-if="!item.IsPrimary">{{item.phone1}}</td>
-
+              <td>{{item.contactType}}</td>
+              <td>{{item.firstName}}</td>
+              <td>{{item.lastName}}</td>
+              <td>{{item.phone1}}</td>
             </tr>
           </tbody>
       </table>
@@ -170,15 +163,10 @@
           </thead>
           <tbody>
             <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
-                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.model}}</td>
-                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.dateAwarded}}</td>
-                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.dateReceived}}</td>
-                <td v-if="item.IsPrimary" style="background-color:yellow">{{item.fundedBy}}</td>
-
-                <td v-if="!item.IsPrimary">{{item.model}}</td>
-                <td v-if="!item.IsPrimary">{{item.dateAwarded}}</td>
-                <td v-if="!item.IsPrimary">{{item.dateReceived}}</td>
-                <td v-if="!item.IsPrimary">{{item.fundedBy}}</td>
+                <td>{{item.model}}</td>
+                <td>{{item.dateAwarded}}</td>
+                <td>{{item.dateReceived}}</td>
+                <td>{{item.fundedBy}}</td>
             </tr>
           </tbody>
       </table>
@@ -215,60 +203,57 @@
               <div class="form-group">
                 <!-- First Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.firstName" maxlength="65" required/>
+                  <input id="simple-input" v-model="contact.firstName" required/>
                   <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- Last Name -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.lastName" maxlength="65" required/>
+                  <input id="simple-input" v-model="contact.lastName" required/>
                   <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Email -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.email" maxlength="65" required/>
+                  <input id="simple-input" v-model="contact.email" required/>
                   <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
                 <!-- Phone 1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.phone1" type="number" required/>
+                  <input id="simple-input" v-model="contact.phone1" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
                 <!-- Phone 2 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.phone2" type="number" required/>
+                  <input id="simple-input" v-model="contact.phone2" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
               <div class="form-group">
-                <!-- TYPE -->
-                <vuestic-simple-select style="width:100%;margin-bottom:-5%"
-                    :label="'Type' | translate"
-                    v-model="contact.contactType"
-                    option-key="description"
-                    v-bind:options="typeOptions"
-                  />
-
+                <!-- Type -->
+                <div class="input-group">
+                  <input id="simple-input" v-model="contact.contactType" required/>
+                  <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
+                </div>
               </div>
               <div class="form-group">
                 <!-- Street 1 -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.address1" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.address1" required/>
                   <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                 </div>
                 <!-- Street 2-->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.address2" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.address2" required/>
                   <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                 </div>
                 <!-- City -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.addressCity" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.addressCity" required/>
                   <label class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
@@ -277,12 +262,12 @@
               <div class="form-group">
                 <!-- State -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.addressState" maxlength="55" required/>
+                  <input id="simple-input" v-model="contact.addressState" required/>
                   <label class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
                 <!-- Zip -->
                 <div class="input-group">
-                  <input id="simple-input" v-model="contact.addressZip"  type="number" required/>
+                  <input id="simple-input" v-model="contact.addressZip" required/>
                   <label class="control-label" for="simple-input">Zip Code</label><i class="bar"></i>
                 </div>
               </div>
@@ -292,16 +277,6 @@
                 <div class="input-group">
                   <input id="simple-input" v-model="contact.notes" required/>
                   <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <!-- Make Is Primary -->
-                <div class="flex md6">
-                    <vuestic-checkbox
-                      :label="$t('Set Primary Contact')"
-                      v-model="contact.IsPrimary"
-                    />
                 </div>
               </div>
 
@@ -331,16 +306,9 @@
       <div>
 
         <div class="form-group">
-
-          <!-- Order # -->
-          <div class="input-group">
-            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
-            <label class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
-          </div>
-
           <!-- Model -->
           <div class="input-group">
-            <input id="simple-input" v-model="tryke.model" maxlength="65" required/>
+            <input id="simple-input" v-model="tryke.model" required/>
             <label class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
         </div>
@@ -376,13 +344,13 @@
         <div class="form-group">
           <!-- Funded By -->
           <div class="input-group">
-            <input id="simple-input" v-model="tryke.fundedBy" maxlength="75" required/>
+            <input id="simple-input" v-model="tryke.fundedBy" required/>
             <label class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
           <!-- Location Awarded -->
           <div class="input-group">
-            <input id="simple-input" v-model="tryke.locationAwarded" maxlength="55" required/>
+            <input id="simple-input" v-model="tryke.locationAwarded" required/>
             <label class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
           </div>
         </div>
@@ -392,16 +360,6 @@
           <div class="input-group">
             <input id="simple-input" v-model="tryke.notes" required/>
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <!-- Make Is Primary -->
-          <div class="flex md6">
-              <vuestic-checkbox
-                :label="$t('Set Primary Tryke')"
-                v-model="tryke.IsPrimary"
-              />
           </div>
         </div>
 
@@ -427,7 +385,6 @@
 
 <script>
 import swal from 'sweetalert'
-import { Auth } from 'aws-amplify'
 
 export default {
   name: 'AddAwardee',
@@ -438,42 +395,12 @@ export default {
 
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
 
-    IsTrykePrimary () {
-      if (this.tryke.IsPrimary) {
-        return 'true'
-      } else {
-        return 'false'
-      }
-    },
-
-    IsContactPrimary () {
-      if (this.contact.IsPrimary) {
-        return 'true'
-      } else {
-        return 'false'
-      }
-    },
-
   },
 
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   data () {
     return {
-      typeOptions: [
-        {
-          id: 1,
-          description: 'Parent',
-        },
-        {
-          id: 2,
-          description: 'Gurdian',
-        },
-        {
-          id: 3,
-          description: 'Therapist',
-        },
-      ],
       displayMode: '',
       trykeModalTitle: '',
       contactModalTitle: '',
@@ -493,19 +420,16 @@ export default {
         addressState: '',
         addressZip: '',
         notes: '',
-        contactType: '',
-        IsPrimary: false
+        contactType: ''
       },
       tryke: {
         awardeeId: '',
-        orderNum: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
         fundedBy: '',
         locationAwarded: '',
-        notes: '',
-        IsPrimary: false
+        notes: ''
       },
       awardee: {
         firstName: '',
@@ -513,9 +437,9 @@ export default {
         address1: '',
         address2: '',
         phone: '',
-        city: '',
-        state: '',
-        zip: '',
+        addressCity: '',
+        addressState: '',
+        addressZip: '',
         dateOfBirth: '',
         lastContacted: '',
         notes: ''
@@ -533,28 +457,12 @@ export default {
       this[field] = ''
     },
 
-    checkIfAwardeeIsValid (obj) {
-      var isValid = false
-      for (var key in obj) {
-        if (obj[key] === null || obj[key] === '') {
-          isValid = false
-        } else {
-          isValid = true
-          break
-        }
-      }
-      return isValid
-    },
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Loop through this.contact object and reset all items to null string
     addNewContactRow () {
       for (var key in this.contact) {
-        if (key === 'IsPrimary') {
-          this.contact[key] = false
-        } else {
-          this.contact[key] = ''
-        }
+        this.contact[key] = ''
       }
 
       this.displayMode = 'ADD'
@@ -591,13 +499,8 @@ export default {
     // Loop through this.tryke object and reset all items to null string
     addNewTrykeRow () {
       for (var key in this.tryke) {
-        if (key === 'IsPrimary') {
-          this.tryke[key] = false
-        } else {
-          this.tryke[key] = ''
-        }
+        this.tryke[key] = ''
       }
-
       this.displayMode = 'ADD'
       this.trykeModalTitle = 'Add Tryke'
       this.$refs.mediumModal.open()
@@ -633,32 +536,28 @@ export default {
     displayModal (item, index, id) {
       this.editId = index
       this.displayMode = 'EDIT'
-      console.log(item.contactType)
       if (id === 1) {
         this.contact.firstName = item.firstName
         this.contact.lastName = item.lastName
         this.contact.email = item.email
         this.contact.phone1 = item.phone1
         this.contact.phone2 = item.phone2
-        this.contact.contactType = item.contactType.description
+        this.contact.contactType = item.contactType
         this.contact.addressCity = item.addressCity
         this.contact.addressState = item.addressState
         this.contact.address1 = item.address1
         this.contact.address2 = item.address2
         this.contact.addressZip = item.addressZip
-        this.contact.notes = item.notes
-        this.contact.IsPrimary = item.IsPrimary
+        this.contacts.notes = item.notes
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
       } else {
-        this.tryke.orderNum = item.orderNum
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived
         this.tryke.fundedBy = item.fundedBy
         this.tryke.locationAwarded = item.locationAwarded
         this.tryke.notes = item.notes
-        this.tryke.IsPrimary = item.IsPrimary
         this.trykeModalTitle = 'Edit Tryke'
         this.$refs.mediumModal.open()
       }
@@ -668,37 +567,31 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
-      if (this.checkIfAwardeeIsValid(this.awardee)) {
-        try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
-            method: 'POST',
-            body: JSON.stringify(this.awardee)
-          }).then(response => response.json())
-            .then(json => {
-              this.contacts.forEach(element => {
-                element.awardeeId = json.Attributes.id
-                fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact`, {
-                  method: 'POST',
-                  body: JSON.stringify(element)
-                })
-              })
-              this.trykes.forEach(element => {
-                element.awardeeId = json.Attributes.id
-                fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke`, {
-                  method: 'POST',
-                  body: JSON.stringify(element)
-                })
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
+          method: 'POST',
+          body: JSON.stringify(this.awardee)
+        }).then(response => response.json())
+          .then(json => {
+            this.contacts.forEach(element => {
+              element.awardeeId = json.Attributes.id
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact`, {
+                method: 'POST',
+                body: JSON.stringify(element)
               })
             })
-
-          swal('Added', 'The record has been added.', 'success')
-          this.$store.commit('setLoading', true)
-          setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
-        } catch (e) {
-          swal('Error', 'There was an issue trying to add this record,please try again later.', 'error')
-        }
-      } else {
-        swal('Error', 'Entire awardee cannot be blank', 'error')
+            this.trykes.forEach(element => {
+              element.awardeeId = json.Attributes.id
+              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke`, {
+                method: 'POST',
+                body: JSON.stringify(element)
+              })
+            })
+          })
+        swal('Added', 'The record has been added.', 'success')
+        // setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+      } catch (e) {
+        swal('Error', 'There was an issue trying to add this record,please try again later.', 'error')
       }
     },
 
@@ -717,7 +610,7 @@ export default {
           if (willDelete) {
             try {
               swal('Deleted', 'The record has been deleted.', 'success')
-              this.$router.push({ name: 'view-awardees' })
+              // this.$router.push({ name: 'view-awardees' })
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }
@@ -731,17 +624,7 @@ export default {
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
-    window.addEventListener('beforeunload', function (e) {
-      e.preventDefault()
-      e.returnValue = ''
-    })
 
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .catch(function (err) {
-        swal('Not Authenticated', err, 'error')
-        self.$router.push({ name: 'login' })
-      })
   },
 
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -754,12 +637,6 @@ export default {
 </script>
 
 <style>
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 
 .loader {
   border: 16px solid #f3f3f3;

@@ -903,7 +903,7 @@ export default {
       this.tryke.awardeeId = this.awardee.id
 
       try {
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke/${this.tryke.id}`, {
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke`, {
           method: 'POST',
           body: JSON.stringify(this.tryke)
         }).then(swal('Added', 'The tryke has been added.', 'success'))
@@ -952,7 +952,7 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/tryke' + this.tryke.id, {
+              fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke/' + this.tryke.id, {
                 method: 'DELETE',
               }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
               this.trykes.splice(this.editId, 1)

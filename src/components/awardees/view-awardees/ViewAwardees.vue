@@ -77,7 +77,7 @@
           <tr v-for="item in filteredItems" :key="item.id" v-on:click="clickList(item)">
             <td>{{ item.firstName }}</td>
             <td>{{ item.lastName }}</td>
-            <td>{{ item.city }}</td>
+            <td>{{ item.addressCity }}</td>
           </tr>
           </tbody>
         </table>
