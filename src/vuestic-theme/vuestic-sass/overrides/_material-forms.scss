@@ -208,7 +208,7 @@ fieldset {
 
   .control-label {
     position: absolute;
-    top: -0.8rem;
+    top: -1.5rem;
     /*top: ($mf-font-size / 4); GUIDO*/ 
     left: 0;
     max-width: 100%;
@@ -218,9 +218,10 @@ fieldset {
     pointer-events: none;
     padding-left: $mf-spacer;
     z-index: 1;
-    color: red; //$mf-label-color;
+    color: black; //red; //$mf-label-color;
     font-size: $mf-font-size;
-    font-weight: normal;
+    font-weight: bold;
+    text-transform: uppercase;
     transition: all $mf-transition-speed ease;
   }
 
@@ -279,8 +280,8 @@ fieldset {
 
     ~ .control-label {
       /*font-size: $mf-active-font-size;*/
-      color: aqua; //$mf-focus-color;
-      font-weight: 600;
+      color: black;//aqua; //$mf-focus-color;
+      font-weight: bold;
       text-transform: uppercase;
       top: $mf-active-top;
       left: 0;
