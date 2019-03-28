@@ -8,7 +8,7 @@
       />
       </div>
       <div class="flex md6">
-      <button @click="printAwardee()" style="float:right" class="btn btn-primary btn-micro">
+      <button @click="printAwardee()" style="float:right" class="btn-primary">
         {{'Print' | translate}}
       </button>
       </div>
@@ -206,17 +206,17 @@
 
 <!-- CONTACTS TABLE -->
 
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn-primary" @click="addNewContactRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
-              <td class="">Type</td>
-              <td class="filters-page__table-heading">First Name</td>
-              <td class="filters-page__table-heading">Last Name</td>
-              <td class="filters-page__table-heading">Phone Number</td>
+              <td>Type</td>
+              <td>First</td>
+              <td>Last</td>
+              <td>Phone Number</td>
             </tr>
           </thead>
           <tbody>
@@ -235,17 +235,17 @@
 
 <!-- START OF TRYKES TABLE -->
 
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn-primary" @click="addNewTrykeRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
-              <td class="filters-page__table-heading">Model</td>
-              <td class="filters-page__table-heading">Date Awarded</td>
-              <td class="filters-page__table-heading">Date Recieved</td>
-              <td class="filters-page__table-heading">Funded By</td>
+              <td>Model</td>
+              <td>Awarded</td>
+              <td>Recieved</td>
+              <td>Funded By</td>
             </tr>
           </thead>
           <tbody>
@@ -269,13 +269,13 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex md3 justify--center">
-        <button v-if="isDisabled" class="btn btn-primary" @click="updateRecord()" >
+        <button v-if="isDisabled" class="btn-primary" @click="updateRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
       <div
         class="flex md3 justify--center">
-        <button v-if="isDisabled" class="btn btn-danger" @click="deleteRecord()">
+        <button v-if="isDisabled" class="btn-danger" @click="deleteRecord()">
           {{'Delete' | translate}}
         </button>
       </div>
@@ -461,7 +461,7 @@
                 <!-- Make Is Primary -->
                 <div class="flex md6">
                     <vuestic-checkbox
-                      :label="$t('Set Primary Tryke')"
+                      :label="'Set Primary Contact'"
                       v-model="contact.IsPrimary"
                     />
                 </div>
@@ -625,6 +625,7 @@
     </div>
 
   </div>
+
 </template>
 
 <script>

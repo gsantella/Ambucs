@@ -1,5 +1,6 @@
 <template>
   <div class="filters-page">
+
     <div class="row">
       <div v-if="User.writeAwardeePermission" class="col-md-12">
           <div style="margin-bottom:15px;float:right"
@@ -10,10 +11,13 @@
           </div>
       </div>
     </div>
-    <vuestic-widget headerText="Search">
+
+    <!--<vuestic-widget headerText="Search">
       <div class="row">
         <div class="col-md-12">
           <div slot="body">
+
+                <h2>Example heading!!!!!!!!!!!!!!!!!!!!!!<b-badge>New</b-badge></h2>
 
             <div class="row filters-page__filter-bar-container">
               <filter-bar
@@ -83,6 +87,66 @@
         </table>
       </div>
     </vuestic-widget>
+    -->
+
+    <b-container fluid>
+
+    <b-row>
+      <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
+        <b-input-group>
+          <input v-model="filter" placeholder="Type to Search" />
+        </b-input-group>
+      </b-form-group>
+    </b-row>
+
+    <b-table striped hover :items="filteredItems" :fields="fields" primary-key="id"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :sort-direction="sortDirection"
+      @filtered="onFiltered"
+      @row-clicked="clickList"
+    >
+      <template slot="show_details" slot-scope="row">
+        <b-button size="sm" @click="row.toggleDetails">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+        </b-button>
+      </template>
+
+      <template slot="row-details" slot-scope="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Notes:</b></b-col>
+            <b-col>{{ row.item.notes }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
+            <b-col>{{ row.item.isActive }}</b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
+
+    </b-table>
+
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-pagination
+          :total-rows="totalRows"
+          :per-page="perPage"
+          v-model="currentPage"
+          class="my-0"
+        />
+      </b-col>
+    </b-row>
+
+    <b-table striped hover :items="filteredItems" primary-key="id" />
+
+    </b-container>
   </div>
 </template>
 
@@ -118,7 +182,31 @@ export default {
       lastName: '',
       city: '',
       cityList: cityList,
-      itemList: itemList
+      itemList: itemList,
+      fields: {
+        firstName: {
+          label: 'First Name',
+          sortable: true
+        },
+        lastName: {
+          label: 'Last Name',
+          sortable: true
+        },
+        city: {
+          label: 'City',
+          sortable: true
+        },
+        show_details: {
+
+        }
+      },
+      currentPage: 1,
+      perPage: 5,
+      totalRows: null,
+      sortBy: null,
+      sortDesc: false,
+      sortDirection: 'asc',
+      filter: null,
     }
   },
   methods: {
@@ -138,6 +226,16 @@ export default {
     },
     newAwardee () {
       this.$router.push({ name: 'add-awardee' })
+    },
+    onFiltered (filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
+    },
+    myRowClickHandler (record, index) {
+      // 'record' will be the row data from items
+      // `index` will be the visible row number (available in the v-model 'shownItems')
+      console.log(record) // This will be the item data for the row
     }
   },
   computed: {
@@ -167,6 +265,7 @@ export default {
             .then(response => response.json())
             .then(json => {
               this.itemList = json
+              this.totalRows = json.length
             })
         } catch (e) {
           swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')

@@ -12,9 +12,11 @@ import router from './router'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
 import { Auth } from 'aws-amplify'
+import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(router)
 Vue.use(VuesticPlugin)
+Vue.use(BootstrapVue)
 
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })

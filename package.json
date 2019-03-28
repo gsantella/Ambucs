@@ -23,6 +23,7 @@
     "aws-amplify-vue": "^0.2.5",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0",
+    "bootstrap-vue": "^2.0.0-rc.15",
     "chart.js": "^2.6.0",
     "detect-browser": "^4.1.0",
     "element-resize-detector": "^1.1.12",
