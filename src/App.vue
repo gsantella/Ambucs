@@ -14,6 +14,8 @@ export default {
 @import "sass/main";
 
 body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2em;
   height: 100%;
   #app {
     height: 100%;

@@ -213,7 +213,7 @@
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
-              <td class="filters-page__table-heading">Type</td>
+              <td class="">Type</td>
               <td class="filters-page__table-heading">First Name</td>
               <td class="filters-page__table-heading">Last Name</td>
               <td class="filters-page__table-heading">Phone Number</td>

@@ -19,13 +19,13 @@ $mf-fieldset-margin: 0 0 $mf-gap * 2 !default;
 $mf-checkbox-gap: $mf-font-size * 2 !default;
 $mf-checkbox-top: 0 !default;
 $mf-radio-margin: $mf-font-size / -4 !default;
-$mf-icon-gutter: 1.375rem;
+$mf-icon-gutter: 0rem;
 $mf-icon-top: 0.4375rem;
 
 // Colors
 $mf-input-color: $body-color !default;
 $mf-border-color: #999 !default;
-$mf-label-color: lighten($mf-border-color, 10%) !default;
+$mf-label-color: lighten(black, 50%) !default; //darken($mf-border-color, 10%) !default;
 $mf-active-color: darken($mf-border-color, 10%) !default;
 $mf-focus-color: $brand-primary !default;
 $mf-error-color: $brand-danger !default;
@@ -218,7 +218,7 @@ fieldset {
     pointer-events: none;
     padding-left: $mf-spacer;
     z-index: 1;
-    color: $mf-label-color;
+    color: red; //$mf-label-color;
     font-size: $mf-font-size;
     font-weight: normal;
     transition: all $mf-transition-speed ease;
@@ -247,7 +247,7 @@ fieldset {
     display: block;
     background: none;
     padding: $mf-spacer $mf-spacer ($mf-spacer / 2);
-    font-size: $mf-font-size;
+    /*font-size: $mf-font-size;*/
     border-width: 0;
     border-color: transparent;
     line-height: 1.9;
@@ -278,8 +278,8 @@ fieldset {
     color: $mf-input-color;
 
     ~ .control-label {
-      font-size: $mf-active-font-size;
-      color: $mf-focus-color;
+      /*font-size: $mf-active-font-size;*/
+      color: aqua; //$mf-focus-color;
       font-weight: 600;
       text-transform: uppercase;
       top: $mf-active-top;
@@ -311,9 +311,8 @@ fieldset {
   .legend.legend,
   &.form-group .control-label.control-label {
     // Prevent !importantRule
-    color: $mf-focus-color;
     font-size: 0.6rem;
-    color: #4ae387;
+    color: blue;// #4ae387;
     font-weight: 600;
     text-transform: uppercase;
     top: -0.6rem;
