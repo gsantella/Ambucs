@@ -258,9 +258,38 @@
           </tbody>
       </table>
 
-    </div>
-
 <!-- END OF TRYKES TABLE -->
+
+      <br style="margin-bottom:2%"/>
+
+<!-- UPLOADS TABLE -->
+
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn-primary" @click="addNewContactRecord()">
+        {{'Add' | translate}}
+      </button>
+      <vuestic-widget headerText="Uploads" style="margin-bottom:5px" />
+      <table class="table table-striped first-td-padding">
+          <thead>
+            <tr>
+              <td>Id</td>
+              <td>Name</td>
+              <td>Description</td>
+              <td>Link</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in uploads" :key="item.id" @click="displayModal(item,index,1)">
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.link }}</td>
+            </tr>
+          </tbody>
+      </table>
+
+<!-- END OF UPLOADS TABLE -->
+
+    </div>
 
 <!-- END OF TABLES RIGHT SIDE -->
 
@@ -743,7 +772,12 @@ export default {
       },
       awardee: {},
       contacts: [],
-      trykes: []
+      trykes: [],
+      uploads: [
+        { id: 1, name: 'file1', description: 'stuff', link: 'link here' },
+        { id: 2, name: 'file2', description: 'stuff', link: 'link here' },
+        { id: 3, name: 'file3', description: 'stuff', link: 'link here' },
+      ]
     }
   },
 
