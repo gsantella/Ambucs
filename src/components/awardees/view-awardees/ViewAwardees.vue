@@ -264,6 +264,7 @@ export default {
           fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
             .then(response => response.json())
             .then(json => {
+              console.log(json)
               this.itemList = json
               this.totalRows = json.length
             })

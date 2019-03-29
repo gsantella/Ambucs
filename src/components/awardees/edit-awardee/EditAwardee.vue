@@ -458,8 +458,18 @@
               </div>
 
               <div class="form-group">
+
+                <!-- Make Is Primary View Mode -->
+                <div v-if="!isDisabled" class="flex md6">
+                    <vuestic-checkbox
+                      :label="'Set Primary Contact'"
+                      v-model="contact.IsPrimary"
+                      readonly
+                    />
+                </div>
+
                 <!-- Make Is Primary -->
-                <div class="flex md6">
+                <div v-if="isDisabled" class="flex md6">
                     <vuestic-checkbox
                       :label="'Set Primary Contact'"
                       v-model="contact.IsPrimary"
@@ -595,8 +605,18 @@
         </div>
 
         <div class="form-group">
+
+          <!-- Make Is Primary View Mode -->
+          <div v-if="!isDisabled" class="flex md6">
+              <vuestic-checkbox
+                :label="$t('Set Primary Tryke')"
+                v-model="tryke.IsPrimary"
+                readonly
+              />
+          </div>
+
           <!-- Make Is Primary -->
-          <div class="flex md6">
+          <div v-if="isDisabled" class="flex md6">
               <vuestic-checkbox
                 :label="$t('Set Primary Tryke')"
                 v-model="tryke.IsPrimary"
@@ -782,8 +802,6 @@ export default {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 
-              // fetch delete all contacts the above is a hack but it works
-              // fetch delete all trykes
               // setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')

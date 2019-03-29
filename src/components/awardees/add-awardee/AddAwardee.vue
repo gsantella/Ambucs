@@ -280,6 +280,16 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <!-- Make Is Primary -->
+                <div class="flex md6">
+                    <vuestic-checkbox
+                      :label="$t('Set Primary Contact')"
+                      v-model="contact.IsPrimary"
+                    />
+                </div>
+              </div>
+
             </fieldset>
           </form>
 
@@ -363,6 +373,16 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <!-- Make Is Primary -->
+          <div class="flex md6">
+              <vuestic-checkbox
+                :label="$t('Set Primary Tryke')"
+                v-model="tryke.IsPrimary"
+              />
+          </div>
+        </div>
+
         <input v-if="displayMode == 'ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToArray()" />
 
         <div v-if="displayMode == 'EDIT'" class="va-row">
@@ -395,6 +415,21 @@ export default {
 
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
 
+    IsTrykePrimary () {
+      if (this.tryke.IsPrimary) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
+
+    IsContactPrimary () {
+      if (this.contact.IsPrimary) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    },
   },
 
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -420,7 +455,8 @@ export default {
         addressState: '',
         addressZip: '',
         notes: '',
-        contactType: ''
+        contactType: '',
+        IsPrimary: false
       },
       tryke: {
         awardeeId: '',
@@ -429,7 +465,8 @@ export default {
         dateReceived: '',
         fundedBy: '',
         locationAwarded: '',
-        notes: ''
+        notes: '',
+        IsPrimary: false
       },
       awardee: {
         firstName: '',
