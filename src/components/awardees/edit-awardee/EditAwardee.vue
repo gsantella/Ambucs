@@ -220,11 +220,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in contacts" :key="item.id" @click="displayModal(item,index,1)">
-              <td>{{ item.contactType }}</td>
-              <td>{{ item.firstName }}</td>
-              <td>{{ item.lastName }}</td>
-              <td>{{ item.phone1 }}</td>
+            <tr v-for="(item,index) in orderedByPrimaryContacts" :key="item.id" @click="displayModal(item,index,1)">
+                <td>{{ item.contactType }}</td>
+                <td>{{ item.firstName }}</td>
+                <td>{{ item.lastName }}</td>
+                <td>{{ item.phone1 }}</td>
             </tr>
           </tbody>
       </table>
@@ -249,7 +249,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
+            <tr v-for="(item,index) in orderedByPrimaryTrykes" :key="item.id" @click="displayModal(item,index,2)">
               <td>{{ item.model }}</td>
               <td>{{ item.dateAwarded }}</td>
               <td>{{ item.dateReceived }}</td>
@@ -650,7 +650,7 @@
 
 <script>
 import swal from 'sweetalert'
-
+import _ from 'lodash'
 export default {
   name: 'EditAwardee',
 
@@ -701,6 +701,13 @@ export default {
       }
     },
 
+    orderedByPrimaryContacts: function () {
+      return _.orderBy(this.contacts, 'IsPrimary', ['desc'])
+    },
+
+    orderedByPrimaryTrykes: function () {
+      return _.orderBy(this.trykes, 'IsPrimary', ['desc'])
+    }
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
