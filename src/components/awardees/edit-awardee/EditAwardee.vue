@@ -673,6 +673,22 @@
 
     </div>
 
+    <div class="hello">
+      <h1>S3 Uploader Test</h1>
+
+      <div v-if="!image">
+        <h2>Select an image</h2>
+        <input type="file" @change="onFileChange">
+      </div>
+      <div v-else>
+        <img :src="image" />
+        <button v-if="!uploadURL" @click="removeImage">Remove image</button>
+        <button v-if="!uploadURL" @click="uploadImage">Upload image</button>
+      </div>
+      <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
+      <a :href="uploadURL">{{ uploadURL }}</a>
+    </div>
+
   </div>
 
 </template>
@@ -680,6 +696,10 @@
 <script>
 import swal from 'sweetalert'
 import _ from 'lodash'
+import axios from 'axios'
+
+const MAX_IMAGE_SIZE = 1000000
+
 export default {
   name: 'EditAwardee',
 
@@ -784,13 +804,66 @@ export default {
         { id: 1, name: 'file1', description: 'stuff', link: 'link here' },
         { id: 2, name: 'file2', description: 'stuff', link: 'link here' },
         { id: 3, name: 'file3', description: 'stuff', link: 'link here' },
-      ]
+      ],
+      image: '',
+      uploadURL: ''
     }
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
+
+    onFileChange (e) {
+      let files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.createImage(files[0])
+    },
+    createImage (file) {
+      // var image = new Image()
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        console.log('length: ', e.target.result.includes('data:image/jpeg'))
+        if (!e.target.result.includes('data:image/jpeg')) {
+          return alert('Wrong file type - JPG only.')
+        }
+        if (e.target.result.length > MAX_IMAGE_SIZE) {
+          return alert('Image is loo large - 1Mb maximum')
+        }
+        this.image = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    removeImage: function (e) {
+      console.log('Remove clicked')
+      this.image = ''
+    },
+    uploadImage: async function (e) {
+      console.log('Upload clicked')
+      // Get the presigned URL
+      const response = await axios({
+        method: 'GET',
+        url: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id + '/upload'
+      })
+      console.log('Response: ', response.data)
+      console.log('Uploading: ', this.image)
+      let binary = atob(this.image.split(',')[1])
+      let array = []
+      for (var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i))
+      }
+      let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
+      let data = JSON.parse(response.data.body)
+      console.log(data)
+      console.log('Uploading to: ', data.uploadURL)
+      const result = await fetch(data.uploadURL, {
+        method: 'PUT',
+        body: blobData
+      })
+      console.log('Result: ', result)
+      // Final URL for the user doesn't need the query string params
+      this.uploadURL = data.uploadURL.split('?')[0]
+    },
 
     clear (field) {
       this[field] = ''
