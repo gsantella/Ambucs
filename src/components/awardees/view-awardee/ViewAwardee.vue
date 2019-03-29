@@ -247,6 +247,17 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <!-- Make Is Primary View Mode -->
+                <div class="flex md6">
+                    <vuestic-checkbox
+                      :label="$t('Set Primary Contact')"
+                      v-model="contact.IsPrimary"
+                      readonly
+                    />
+                </div>
+              </div>
+
             </fieldset>
           </form>
 
@@ -311,6 +322,17 @@
           <div class="input-group">
             <input id="simple-input" v-model="tryke.notes" readonly required/>
             <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- Make Is Primary View Mode -->
+          <div class="flex md6">
+              <vuestic-checkbox
+                :label="$t('Set Primary Tryke')"
+                v-model="tryke.IsPrimary"
+                readonly
+              />
           </div>
         </div>
 
@@ -379,7 +401,8 @@ export default {
         addressState: '',
         addressZip: '',
         notes: '',
-        contactType: ''
+        contactType: '',
+        IsPrimary: false
       },
       tryke: {
         id: '',
@@ -390,7 +413,8 @@ export default {
         dateReceived: '',
         fundedBy: '',
         locationAwarded: '',
-        notes: ''
+        notes: '',
+        IsPrimary: false
       },
       awardee: {},
       contacts: [],
