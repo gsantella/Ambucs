@@ -158,6 +158,7 @@
     :filter="filter"
     :current-page="currentPage"
     :per-page="perPage"
+    @row-clicked="clickList"
     />
 
     <b-row>
