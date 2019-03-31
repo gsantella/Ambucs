@@ -8,7 +8,7 @@
       />
       </div>
       <div class="flex md6">
-      <button @click="printAwardee()" style="float:right" class="btn-primary">
+      <button @click="printAwardee()" style="float:right" class="btn btn-primary btn-micro">
         {{'Print' | translate}}
       </button>
       </div>
@@ -60,7 +60,7 @@
 
                     <!-- Phone Number -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" type="number" required/>
+                      <input id="simple-input" v-model="awardee.phone" type="text" required/>
                       <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
                     </div>
 
@@ -169,7 +169,7 @@
 
                     <!-- Zip -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressZip" type="number" required/>
+                      <input id="simple-input" v-model="awardee.addressZip" type="text" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -206,7 +206,7 @@
 
 <!-- CONTACTS TABLE -->
 
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn-primary" @click="addNewContactRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
@@ -235,7 +235,7 @@
 
 <!-- START OF TRYKES TABLE -->
 
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn-primary" @click="addNewTrykeRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
@@ -266,7 +266,7 @@
 
 <!-- UPLOADS TABLE -->
 
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn-primary" @click="addNewContactRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
         {{'Add' | translate}}
       </button>
       <vuestic-widget headerText="Uploads" style="margin-bottom:5px" />
@@ -300,13 +300,13 @@
     <div class="va-row btn-margin-row">
       <div
         class="flex md3 justify--center">
-        <button v-if="isDisabled" class="btn-primary" @click="updateRecord()" >
+        <button v-if="isDisabled" class="btn btn-primary" @click="updateRecord()" >
           {{'Save' | translate}}
         </button>
       </div>
       <div
         class="flex md3 justify--center">
-        <button v-if="isDisabled" class="btn-danger" @click="deleteRecord()">
+        <button v-if="isDisabled" class="btn btn-danger" @click="deleteRecord()">
           {{'Delete' | translate}}
         </button>
       </div>
@@ -375,7 +375,7 @@
 
                 <!-- Phone 1 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone1"  type="number" required/>
+                  <input id="simple-input" v-model="contact.phone1"  type="text" required/>
                   <label class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
@@ -387,7 +387,7 @@
 
                 <!-- Phone 2 -->
                 <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.phone2" type="number" required/>
+                  <input id="simple-input" v-model="contact.phone2" type="text" required/>
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
@@ -402,7 +402,7 @@
 
                 <!-- Type -->
                 <div v-if="isDisabled">
-                  <b-form-select v-model="contact.contactType" class="mb-3" required>
+                  <b-form-select v-model="contact.contactType" class="mb-3" style="width:100%" required>
                     <option :value="null">Please select an option</option>
                     <option value="Parent">Parent</option>
                     <option value="Guardian">Guardian</option>
@@ -703,8 +703,8 @@
       </div>
       <div v-else>
         <img :src="image" />
-        <button v-if="!uploadURL" @click="removeImage">Remove image</button>
-        <button v-if="!uploadURL" @click="uploadImage">Upload image</button>
+        <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
+        <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
       </div>
       <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
       <a :href="uploadURL">{{ uploadURL }}</a>
@@ -751,9 +751,9 @@ export default {
 
     HeaderText () {
       if (this.isDisabled) {
-        return 'Edit Awardee'
+        return 'Edit Recipient'
       } else {
-        return 'View Awardee'
+        return 'View Recipient'
       }
     },
 
