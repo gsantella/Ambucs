@@ -90,7 +90,7 @@
     -->
 
     <b-container fluid>
-
+      <!--
     <b-row>
       <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
         <b-input-group>
@@ -145,6 +145,31 @@
     </b-row>
 
     <b-table striped hover :items="filteredItems" primary-key="id" />
+    -->
+
+    <b-input-group>
+      <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+    </b-input-group>
+
+    <b-table striped hover
+    :items="filteredItems"
+    :fields="fields"
+    @filtered="onFiltered"
+    :filter="filter"
+    :current-page="currentPage"
+    :per-page="perPage"
+    />
+
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-pagination
+          :total-rows="totalRows"
+          :per-page="perPage"
+          v-model="currentPage"
+          class="my-0"
+        />
+      </b-col>
+    </b-row>
 
     </b-container>
   </div>
@@ -183,23 +208,11 @@ export default {
       city: '',
       cityList: cityList,
       itemList: itemList,
-      fields: {
-        firstName: {
-          label: 'First Name',
-          sortable: true
-        },
-        lastName: {
-          label: 'Last Name',
-          sortable: true
-        },
-        city: {
-          label: 'City',
-          sortable: true
-        },
-        show_details: {
-
-        }
-      },
+      fields: [
+        { key: 'firstName', label: 'First Name', sortable: true },
+        { key: 'lastName', label: 'Last Name', sortable: true },
+        { key: 'city', label: 'City', sortable: true }
+      ],
       currentPage: 1,
       perPage: 5,
       totalRows: null,
