@@ -775,12 +775,12 @@ export default {
 
     orderedByPrimaryContacts: function () {
       return this.contacts
-      // return _.orderBy(this.contacts, 'IsPrimary', ['desc'])
+      // return this.contacts.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
     },
 
     orderedByPrimaryTrykes: function () {
       return this.trykes
-      // return _.orderBy(this.trykes, 'IsPrimary', ['desc'])
+      // return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
     }
   },
 
@@ -839,7 +839,6 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
-
     onFileChange (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
