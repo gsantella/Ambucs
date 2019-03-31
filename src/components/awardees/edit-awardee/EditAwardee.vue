@@ -718,7 +718,7 @@
 
 <script>
 import swal from 'sweetalert'
-import _ from 'lodash'
+// import _ from 'lodash'
 import axios from 'axios'
 
 const MAX_IMAGE_SIZE = 1000000
@@ -774,11 +774,13 @@ export default {
     },
 
     orderedByPrimaryContacts: function () {
-      return _.orderBy(this.contacts, 'IsPrimary', ['desc'])
+      return this.contacts
+      // return _.orderBy(this.contacts, 'IsPrimary', ['desc'])
     },
 
     orderedByPrimaryTrykes: function () {
-      return _.orderBy(this.trykes, 'IsPrimary', ['desc'])
+      return this.trykes
+      // return _.orderBy(this.trykes, 'IsPrimary', ['desc'])
     }
   },
 
@@ -1026,7 +1028,7 @@ export default {
               fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/${this.contact.id}`, {
                 method: 'DELETE',
               }).then(swal('Deleted', 'The contact has been deleted.', 'success'))
-              this.contacts.splice(this.editId, 1) // this is using index we need to change to contact id
+              this.contacts.splice(this.editId, 1)
               this.$refs.largeModal.cancel()
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that contact,please try again later.", 'error')
