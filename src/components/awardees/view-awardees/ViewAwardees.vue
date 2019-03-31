@@ -212,7 +212,7 @@ export default {
       fields: [
         { key: 'firstName', label: 'First Name', sortable: true },
         { key: 'lastName', label: 'Last Name', sortable: true },
-        { key: 'city', label: 'City', sortable: true }
+        { key: 'addressCity', label: 'City', sortable: true }
       ],
       currentPage: 1,
       perPage: 5,

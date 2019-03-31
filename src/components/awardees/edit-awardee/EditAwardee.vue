@@ -169,7 +169,7 @@
 
                     <!-- Zip -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressZip" type="text" required/>
+                      <input id="simple-input" v-model="awardee.addressZip" type="number" required/>
                       <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
                     </div>
 
@@ -774,13 +774,13 @@ export default {
     },
 
     orderedByPrimaryContacts: function () {
-      //return this.contacts
-       return this.contacts.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
+      return this.contacts
+      // return this.contacts.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
     },
 
     orderedByPrimaryTrykes: function () {
-      //return this.trykes
-       return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
+      return this.trykes
+      // return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
     }
   },
 
@@ -905,7 +905,7 @@ export default {
           body: JSON.stringify(this.awardee)
         }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
 
-        // setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+        setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
       } catch (e) {
         swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
       }
@@ -941,7 +941,7 @@ export default {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 
-              // setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+              setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }
