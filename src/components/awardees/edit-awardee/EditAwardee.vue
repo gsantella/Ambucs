@@ -242,6 +242,7 @@
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
+              <td>Order Num</td>
               <td>Model</td>
               <td>Awarded</td>
               <td>Recieved</td>
@@ -250,6 +251,7 @@
           </thead>
           <tbody>
             <tr v-for="(item,index) in orderedByPrimaryTrykes" :key="item.id" @click="displayModal(item,index,2)">
+              <td>{{ item.orderNumber }}</td>
               <td>{{ item.model }}</td>
               <td>{{ item.dateAwarded }}</td>
               <td>{{ item.dateReceived }}</td>
@@ -532,8 +534,23 @@
       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
+
       <div slot="title">{{ trykeModalTitle | translate}}</div>
-      <div>
+
+        <div class="form-group">
+
+           <!-- OrderNumber View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.orderNumber" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+          </div>
+
+          <!-- OrderNumber -->
+          <div v-if="isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.orderNumber" required/>
+            <label class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+          </div>
+        </div>
 
         <div class="form-group">
 
@@ -666,14 +683,11 @@
           </div>
         </div>
 
-      </div>
     </vuestic-modal>
 
 <!-- END OF TRYKES MODAL -->
 
-    </div>
-
-    <div class="hello">
+      <div class="hello">
       <h1>S3 Uploader Test</h1>
 
       <div v-if="!image">
@@ -687,6 +701,8 @@
       </div>
       <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
       <a :href="uploadURL">{{ uploadURL }}</a>
+    </div>
+
     </div>
 
   </div>
@@ -789,6 +805,7 @@ export default {
       tryke: {
         id: '',
         awardeeId: '',
+        orderNumber: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
@@ -1124,6 +1141,7 @@ export default {
         this.$refs.largeModal.open()
       } else {
         this.tryke.id = item.trykeId
+        this.tryke.orderNumber = item.orderNumber
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived

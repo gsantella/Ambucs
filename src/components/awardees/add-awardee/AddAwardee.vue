@@ -154,6 +154,7 @@
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
+              <td class="filters-page__table-heading">Order Num</td>
               <td class="filters-page__table-heading">Model</td>
               <td class="filters-page__table-heading">Date Awarded</td>
               <td class="filters-page__table-heading">Date Recieved</td>
@@ -163,6 +164,7 @@
           </thead>
           <tbody>
             <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
+                <td>{{item.orderNumber}}</td>
                 <td>{{item.model}}</td>
                 <td>{{item.dateAwarded}}</td>
                 <td>{{item.dateReceived}}</td>
@@ -316,6 +318,14 @@
       <div>
 
         <div class="form-group">
+          <!-- Order Number -->
+          <div class="input-group">
+            <input id="simple-input" v-model="tryke.orderNumber" required/>
+            <label class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
           <!-- Model -->
           <div class="input-group">
             <input id="simple-input" v-model="tryke.model" required/>
@@ -460,6 +470,7 @@ export default {
       },
       tryke: {
         awardeeId: '',
+        orderNumber: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
