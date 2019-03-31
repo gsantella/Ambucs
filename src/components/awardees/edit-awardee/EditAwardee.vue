@@ -391,6 +391,7 @@
                   <label class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
               </div>
+
               <div class="form-group">
 
                 <!-- Type View Mode-->
@@ -400,10 +401,16 @@
                 </div>
 
                 <!-- Type -->
-                <div v-if="isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.contactType" required/>
+                <div v-if="isDisabled">
+                  <b-form-select v-model="contact.contactType" class="mb-3" required>
+                    <option :value="null">Please select an option</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Guardian">Guardian</option>
+                    <option value="Therapist">Therapist</option>
+                  </b-form-select>
                   <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
+
               </div>
 
               <div class="form-group">
