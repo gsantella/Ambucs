@@ -25,11 +25,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <!-- Chapter -->
-                  <vuestic-simple-select style="width:100%;margin-bottom:-5%"
-                      :label="'Chapter' | translate"
-                      v-model="chapters"
-                    />
+                  <!-- Type -->
+                  <b-form-select v-model="user.chapter" class="mb-3" style="width:100%" required>
+                    <option :value="null">Please select a chapter</option>
+                    <option v-for="chapter in chapters" :key="chapter.id" value="{{chapter}}">{{chapter}}</option>
+                  </b-form-select>
+                  <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
 
               <div class="form-group">
