@@ -774,13 +774,19 @@ export default {
     },
 
     orderedByPrimaryContacts: function () {
-      //return this.contacts
-       return this.contacts.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
+      // return this.contacts
+      /*eslint-disable */
+      //suppress all warnings between comments
+      return this.contacts.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0)) // eslint-disable-line no-use-before-define
+      /* eslint-enable */
     },
 
     orderedByPrimaryTrykes: function () {
-      //return this.trykes
-      return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0))
+      // return this.trykes
+      /*eslint-disable */
+      //suppress all warnings between comments
+      return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0)) // eslint-disable-line no-use-before-define
+       /* eslint-enable */
     }
   },
 
