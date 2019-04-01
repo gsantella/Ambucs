@@ -274,13 +274,11 @@
           <thead>
             <tr>
               <td>Description</td>
-              <td>Action</td>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item,index) in documents" :key="item.documentId" @click="displayModal(item,index,3)">
               <td>{{ item.notes }}</td>
-              <td><button @click="deleteUpload(item)">Delete</button></td>
             </tr>
           </tbody>
       </table>
@@ -691,7 +689,7 @@
 <!-- END OF TRYKES MODAL -->
 
 <!-- START OF DOCUMENTS MODAL -->
-       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="staticModal" v-bind:small="true"
+       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="smallModal" v-bind:small="true"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
 
@@ -711,7 +709,7 @@
           </div>
         </div>
 
-        <div class="hello">
+        <div v-if="document.url === null" class="hello">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
@@ -725,6 +723,12 @@
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
+
+        <div v-if="document.url !== null">
+          <button class="btn btn-primary btn-micro" @click="updateUpload()">Update</button>
+          <button class="btn btn-danger btn-micro" @click="deleteUpload()">Delete</button>
+        </div>
+
     </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->
@@ -851,6 +855,7 @@ export default {
       },
       document: {
         awardeeId: '',
+        documentId: '',
         url: '',
         notes: ''
       },
@@ -866,18 +871,20 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
-    deleteUpload (item) {
-      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${item.documentId}`, {
+    deleteUpload () {
+      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${this.document.documentId}`, {
         method: 'DELETE',
       })
       this.documents.splice(this.editId, 1)
+      this.$refs.smallModal.close()
     },
-    updateUpload (item) {
-      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${item.documentId}`, {
+    updateUpload () {
+      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${this.document.documentId}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         method: 'PATCH',
         body: JSON.stringify(this.document.notes)
       })
+      this.$refs.smallModal.close()
     },
     onFileChange (e) {
       let files = e.target.files || e.dataTransfer.files
@@ -888,7 +895,6 @@ export default {
       // var image = new Image()
       let reader = new FileReader()
       reader.onload = (e) => {
-        console.log('length: ', e.target.result.includes('data:image/jpeg'))
         if (!e.target.result.includes('data:image/jpeg')) {
           return alert('Wrong file type - JPG only.')
         }
@@ -900,18 +906,14 @@ export default {
       reader.readAsDataURL(file)
     },
     removeImage: function (e) {
-      console.log('Remove clicked')
       this.image = ''
     },
     uploadImage: async function (e) {
-      console.log('Upload clicked')
       // Get the presigned URL
       const response = await axios({
         method: 'GET',
         url: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id + '/upload'
       })
-      console.log('Response: ', response.data)
-      console.log('Uploading: ', this.image)
       let binary = atob(this.image.split(',')[1])
       let array = []
       for (var i = 0; i < binary.length; i++) {
@@ -919,13 +921,10 @@ export default {
       }
       let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
       let data = JSON.parse(response.data.body)
-      console.log(data)
-      console.log('Uploading to: ', data.uploadURL)
-      const result = await fetch(data.uploadURL, {
+      await fetch(data.uploadURL, {
         method: 'PUT',
         body: blobData
       })
-      console.log('Result: ', result)
       // Final URL for the user doesn't need the query string params
       this.uploadURL = data.uploadURL.split('?')[0]
 
@@ -945,7 +944,6 @@ export default {
           .then(response => response.json())
           .then(json => {
             this.documents.push(Object.assign({}, json.Attributes))
-            console.log(json)
           })
         this.$refs.largeModal.cancel()
       } catch (e) {
@@ -967,7 +965,7 @@ export default {
       }
       this.displayMode = 'ADD'
       this.documentModalTitle = 'Add Document'
-      this.$refs.staticModal.open()
+      this.$refs.smallModal.open()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1243,7 +1241,11 @@ export default {
         this.$refs.mediumModal.open()
       } else {
         // window.open(item.url, '_blank')
-        this.$refs.staticModal.open()
+        this.$refs.smallModal.open()
+        this.document.awardeeId = item.awardeeId
+        this.document.documentId = item.documentId
+        this.document.url = item.url
+        this.document.notes = item.notes
       }
     },
 
@@ -1287,7 +1289,6 @@ export default {
           .then(response => response.json())
           .then(json => {
             this.documents = json.Items
-            console.log(json.Items)
           })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
