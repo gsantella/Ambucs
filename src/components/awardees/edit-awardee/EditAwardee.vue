@@ -514,7 +514,7 @@
           </form>
 
           <div v-if="isDisabled">
-            <input v-if="displayMode=='ADD'" id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
+            <button v-if="displayMode=='ADD'" id="addContact" class="btn btn-primary btn-micro" @click="addContactToAwardeeObject()" >Add</button>
           </div>
 
         <div class="va-row" v-if="displayMode=='EDIT'">
@@ -673,7 +673,7 @@
         </div>
 
         <div v-if="isDisabled">
-          <input v-if="displayMode=='ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
+          <button v-if="displayMode=='ADD'" id="addTryke" class="btn btn-primary btn-micro" @click="addTrykeToAwardeeObject()" >Add</button>
         </div>
 
         <div v-if="displayMode=='EDIT'" class="va-row">
@@ -690,12 +690,13 @@
 <!-- END OF TRYKES MODAL -->
 
 <!-- START OF DOCUMENTS MODAL -->
-       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="smallModal" v-bind:small="true"
+<vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="smallModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
 
-      <div slot="title">Upload Document</div>
-       <div class="form-group">
+        <div slot="title">Upload Document</div>
+
+        <div class="form-group">
 
            <!-- Notes View Mode-->
           <div v-if="!isDisabled" class="input-group">
@@ -710,27 +711,19 @@
           </div>
         </div>
 
-        <div v-if="document.url === null" class="hello">
+        <div class="hello">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
           </div>
           <div v-else>
             <img :src="image" />
-            <br/>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
           </div>
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
-
-        <div v-if="document.url !== null && isDisabled">
-          <a style="color:black">{{document.url}}</a>
-          <button class="btn btn-primary btn-micro" @click="updateUpload()">Update</button>
-          <button class="btn btn-danger btn-micro" @click="deleteUpload()">Delete</button>
-        </div>
-        <a v-if="document.url !== null && !isDisabled" style="color:black">{{document.url}}</a>
 
     </vuestic-modal>
 
