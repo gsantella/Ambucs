@@ -513,7 +513,7 @@
           </form>
 
           <div v-if="isDisabled">
-            <input v-if="displayMode=='ADD'" id="addContact" class="styleBtn" type="submit" value="Add" @click="addContactToAwardeeObject()" />
+            <button v-if="displayMode=='ADD'" id="addContact" class="btn btn-primary btn-micro" @click="addContactToAwardeeObject()" >Add</button>
           </div>
 
         <div class="va-row" v-if="displayMode=='EDIT'">
@@ -672,7 +672,7 @@
         </div>
 
         <div v-if="isDisabled">
-          <input v-if="displayMode=='ADD'" id="addTryke" class="styleBtn" type="submit" value="Add" @click="addTrykeToAwardeeObject()" />
+          <button v-if="displayMode=='ADD'" id="addTryke" class="btn btn-primary btn-micro" @click="addTrykeToAwardeeObject()" >Add</button>
         </div>
 
         <div v-if="displayMode=='EDIT'" class="va-row">
