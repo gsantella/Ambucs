@@ -274,11 +274,13 @@
           <thead>
             <tr>
               <td>Description</td>
+              <td>Action</td>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item,index) in documents" :key="item.documentId" @click="displayModal(item,index,3)">
               <td>{{ item.notes }}</td>
+              <td><button @click="deleteUpload(item)">Delete</button></td>
             </tr>
           </tbody>
       </table>
@@ -518,10 +520,10 @@
 
         <div class="va-row" v-if="displayMode=='EDIT'">
           <div v-if="isDisabled" class="flex md6">
-            <input id="updateContact" class="styleBtn" type="submit" value="Save" @click="updateContactRecord()" />
+            <button id="updateContact" class="btn btn-primary" @click="updateContactRecord()" >Add</button>
           </div>
           <div v-if="isDisabled" class="flex md6">
-            <input id="deleteContact" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteContactRecord()" />
+            <button id="deleteContact" class="btn btn-danger" @click="deleteContactRecord()" >Delete</button>
           </div>
         </div>
 
@@ -677,10 +679,10 @@
 
         <div v-if="displayMode=='EDIT'" class="va-row">
           <div v-if="isDisabled" class="flex md6">
-            <input id="updateTryke" class="styleBtn" type="submit" value="Update" @click="updateTrykeRecord()" />
+            <button id="updateTryke" class="btn btn-primary" @click="updateTrykeRecord()" >Update</button>
           </div>
           <div v-if="isDisabled" class="flex md6">
-            <input id="deleteTryke" class="styleBtn" style="background-color:red" type="submit" value="Delete" @click="deleteTrykeRecord()" />
+            <button id="deleteTryke" class="btn btn-danger" @click="deleteTrykeRecord()" >Delete</button>
           </div>
         </div>
 
@@ -689,14 +691,12 @@
 <!-- END OF TRYKES MODAL -->
 
 <!-- START OF DOCUMENTS MODAL -->
-
-      <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
+       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="staticModal" v-bind:small="true"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
 
-        <div slot="title">Upload Document</div>
-
-        <div class="form-group">
+      <div slot="title">Upload Document</div>
+       <div class="form-group">
 
            <!-- Notes View Mode-->
           <div v-if="!isDisabled" class="input-group">
@@ -718,13 +718,13 @@
           </div>
           <div v-else>
             <img :src="image" />
+            <br/>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
           </div>
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
-
     </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->
@@ -866,6 +866,19 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
+    deleteUpload (item) {
+      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${item.documentId}`, {
+        method: 'DELETE',
+      })
+      this.documents.splice(this.editId, 1)
+    },
+    updateUpload (item) {
+      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${item.documentId}`, {
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        method: 'PATCH',
+        body: JSON.stringify(this.document.notes)
+      })
+    },
     onFileChange (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
@@ -954,7 +967,7 @@ export default {
       }
       this.displayMode = 'ADD'
       this.documentModalTitle = 'Add Document'
-      this.$refs.mediumModal.open()
+      this.$refs.staticModal.open()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -996,6 +1009,12 @@ export default {
 
               this.trykes.forEach(element => {
                 fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke/${element.id}`, {
+                  method: 'DELETE',
+                })
+              })
+
+              this.documents.forEach(element => {
+                fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${element.documentId}`, {
                   method: 'DELETE',
                 })
               })
@@ -1223,7 +1242,8 @@ export default {
         this.trykeModalTitle = 'Edit Tryke'
         this.$refs.mediumModal.open()
       } else {
-        window.open(item.url, '_blank')
+        // window.open(item.url, '_blank')
+        this.$refs.staticModal.open()
       }
     },
 
@@ -1267,6 +1287,7 @@ export default {
           .then(response => response.json())
           .then(json => {
             this.documents = json.Items
+            console.log(json.Items)
           })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
