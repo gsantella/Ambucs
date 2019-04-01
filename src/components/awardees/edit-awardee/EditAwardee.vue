@@ -689,12 +689,13 @@
 <!-- END OF TRYKES MODAL -->
 
 <!-- START OF DOCUMENTS MODAL -->
-       <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="smallModal" v-bind:small="true"
+<vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="smallModal"
                    :okText="'modal.confirm' | translate"
                    :cancelText="'modal.cancel' | translate">
 
-      <div slot="title">Upload Document</div>
-       <div class="form-group">
+        <div slot="title">Upload Document</div>
+
+        <div class="form-group">
 
            <!-- Notes View Mode-->
           <div v-if="!isDisabled" class="input-group">
@@ -716,7 +717,6 @@
           </div>
           <div v-else>
             <img :src="image" />
-            <br/>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
           </div>
