@@ -266,25 +266,19 @@
 
 <!-- UPLOADS TABLE -->
 
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
+      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewDocumentRecord()">
         {{'Add' | translate}}
       </button>
-      <vuestic-widget headerText="Uploads" style="margin-bottom:5px" />
+      <vuestic-widget headerText="Documents" style="margin-bottom:5px" />
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
-              <td>Id</td>
-              <td>Name</td>
               <td>Description</td>
-              <td>Link</td>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in uploads" :key="item.id" @click="displayModal(item,index,1)">
-              <td>{{ item.id }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.description }}</td>
-              <td>{{ item.link }}</td>
+            <tr v-for="(item,index) in documents" :key="item.documentId" @click="displayModal(item,index,3)">
+              <td>{{ item.notes }}</td>
             </tr>
           </tbody>
       </table>
@@ -694,21 +688,46 @@
 
 <!-- END OF TRYKES MODAL -->
 
-      <div class="hello">
-      <h1>S3 Uploader Test</h1>
+<!-- START OF DOCUMENTS MODAL -->
 
-      <div v-if="!image">
-        <h2>Select an image</h2>
-        <input type="file" @change="onFileChange">
-      </div>
-      <div v-else>
-        <img :src="image" />
-        <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
-        <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
-      </div>
-      <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
-      <a :href="uploadURL">{{ uploadURL }}</a>
-    </div>
+      <vuestic-modal v-bind:noButtons="true" :show.sync="show" ref="mediumModal"
+                   :okText="'modal.confirm' | translate"
+                   :cancelText="'modal.cancel' | translate">
+
+        <div slot="title">Upload Document</div>
+
+        <div class="form-group">
+
+           <!-- Notes View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="document.notes" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+          </div>
+
+          <!-- Notes -->
+          <div v-if="isDisabled" class="input-group">
+            <input id="simple-input" v-model="document.notes" required/>
+            <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+          </div>
+        </div>
+
+        <div class="hello">
+          <div v-if="!image">
+            <h2>Select an image</h2>
+            <input type="file" @change="onFileChange">
+          </div>
+          <div v-else>
+            <img :src="image" />
+            <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
+            <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
+          </div>
+          <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
+          <a :href="uploadURL">{{ uploadURL }}</a>
+        </div>
+
+    </vuestic-modal>
+
+<!-- END OF DOCUMENTS MODAL -->
 
     </div>
 
@@ -799,6 +818,7 @@ export default {
       displayMode: '',
       trykeModalTitle: '',
       contactModalTitle: '',
+      documentModalTitle: '',
       show: false,
       contact: {
         id: '',
@@ -829,14 +849,15 @@ export default {
         notes: '',
         IsPrimary: false
       },
+      document: {
+        awardeeId: '',
+        url: '',
+        notes: ''
+      },
       awardee: {},
       contacts: [],
       trykes: [],
-      uploads: [
-        { id: 1, name: 'file1', description: 'stuff', link: 'link here' },
-        { id: 2, name: 'file2', description: 'stuff', link: 'link here' },
-        { id: 3, name: 'file3', description: 'stuff', link: 'link here' },
-      ],
+      documents: [],
       image: '',
       uploadURL: ''
     }
@@ -894,10 +915,46 @@ export default {
       console.log('Result: ', result)
       // Final URL for the user doesn't need the query string params
       this.uploadURL = data.uploadURL.split('?')[0]
+
+      // const result = await axios({
+      //  method: 'POST',
+      //  url: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document'
+      // })
+
+      this.document.awardeeId = this.awardee.id
+      this.document.url = this.uploadURL
+
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document', {
+          method: 'POST',
+          body: JSON.stringify(this.document)
+        }).then(swal('Added', 'The document has been added.', 'success'))
+          .then(response => response.json())
+          .then(json => {
+            this.documents.push(Object.assign({}, json.Attributes))
+            console.log(json)
+          })
+        this.$refs.largeModal.cancel()
+      } catch (e) {
+        swal('Error', 'There was an error adding that document, please try again.', 'error')
+      }
     },
 
     clear (field) {
       this[field] = ''
+    },
+
+    addNewDocumentRecord () {
+      for (var key in this.document) {
+        if (key === 'IsPrimary') {
+          this.document[key] = false
+        } else {
+          this.document[key] = ''
+        }
+      }
+      this.displayMode = 'ADD'
+      this.documentModalTitle = 'Add Document'
+      this.$refs.mediumModal.open()
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1153,7 +1210,7 @@ export default {
         this.contact.IsPrimary = item.IsPrimary
         this.contactModalTitle = 'Edit Contact'
         this.$refs.largeModal.open()
-      } else {
+      } else if (id === 2) {
         this.tryke.id = item.trykeId
         this.tryke.orderNumber = item.orderNumber
         this.tryke.model = item.model
@@ -1165,6 +1222,8 @@ export default {
         this.tryke.IsPrimary = item.IsPrimary
         this.trykeModalTitle = 'Edit Tryke'
         this.$refs.mediumModal.open()
+      } else {
+        window.open(item.url, '_blank')
       }
     },
 
@@ -1203,6 +1262,11 @@ export default {
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/documents`)
+          .then(response => response.json())
+          .then(json => {
+            this.documents = json.Items
           })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
