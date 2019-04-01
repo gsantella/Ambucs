@@ -709,7 +709,7 @@
           </div>
         </div>
 
-        <div v-if="document.url === null" class="hello">
+        <div class="hello">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
@@ -723,13 +723,6 @@
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
-
-        <div v-if="document.url !== null && isDisabled">
-          <a style="color:black">{{document.url}}</a>
-          <button class="btn btn-primary btn-micro" @click="updateUpload()">Update</button>
-          <button class="btn btn-danger btn-micro" @click="deleteUpload()">Delete</button>
-        </div>
-        <a v-if="document.url !== null && !isDisabled" style="color:black">{{document.url}}</a>
 
     </vuestic-modal>
 
