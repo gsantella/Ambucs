@@ -34,13 +34,14 @@
 
                 <!-- Birth Date -->
                 <div class="input-group">
-                  <vuestic-date-picker
+                  <input id="simple-input" v-model="awardee.dateOfBirth" required/>
+                  <!--<vuestic-date-picker
                     id="date-picker-custom-date-format"
                     :config="{altInput: true, altFormat: 'F j, Y'}"
                     v-model="awardee.dateOfBirth"
-                  />
-                  <label class="control-label" for="date-picker-custom-date-format">
-                    Birth Date
+                  />-->
+                  <label class="control-label" for="simple">
+                    Age at Application
                   </label>
                   <i class="bar"></i>
 

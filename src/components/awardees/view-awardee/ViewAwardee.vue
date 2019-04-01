@@ -5,7 +5,7 @@
 <!-- START OF MAIN FORM -->
 
       <div class="flex md6">
-        <vuestic-widget :headerText="'View Recipient' | translate">
+        <vuestic-widget :headerText="'View Awardee' | translate">
           <form>
                 <fieldset>
                   <div class="form-group">
@@ -34,7 +34,7 @@
                     <!-- Birth Date -->
                     <div class="input-group">
                       <input id="simple-input" v-model="awardee.dateOfBirth" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Birth Date</label><i class="bar"></i>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Age at Application</label><i class="bar"></i>
                     </div>
 
                     <!-- Last Contacted Date -->
@@ -247,17 +247,6 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <!-- Make Is Primary View Mode -->
-                <div class="flex md6">
-                    <vuestic-checkbox
-                      :label="$t('Set Primary Contact')"
-                      v-model="contact.IsPrimary"
-                      readonly
-                    />
-                </div>
-              </div>
-
             </fieldset>
           </form>
 
@@ -275,13 +264,6 @@
       <div>
 
         <div class="form-group">
-
-          <!-- Order # -->
-          <div class="input-group">
-            <input id="simple-input" v-model="tryke.orderNum" maxlength="150" required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Order Num</label><i class="bar"></i>
-          </div>
-
           <!-- Model -->
           <div class="input-group">
             <input id="simple-input" v-model="tryke.model" readonly required/>
@@ -307,7 +289,7 @@
           <!-- Funded By -->
           <div class="input-group">
             <input id="simple-input" v-model="tryke.fundedBy" readonly required/>
-            <label style="font-size:0.6rem;#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
           <!-- Location Awarded -->
@@ -325,17 +307,6 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <!-- Make Is Primary View Mode -->
-          <div class="flex md6">
-              <vuestic-checkbox
-                :label="$t('Set Primary Tryke')"
-                v-model="tryke.IsPrimary"
-                readonly
-              />
-          </div>
-        </div>
-
       </div>
     </vuestic-modal>
 
@@ -348,7 +319,6 @@
 
 <script>
 import swal from 'sweetalert'
-import { Auth } from 'aws-amplify'
 
 export default {
   name: 'EditAwardee',
@@ -401,24 +371,21 @@ export default {
         addressState: '',
         addressZip: '',
         notes: '',
-        contactType: '',
-        IsPrimary: false
+        contactType: ''
       },
       tryke: {
         id: '',
-        orderNum: '',
         awardeeId: '',
         model: '',
         dateAwarded: '',
         dateReceived: '',
         fundedBy: '',
         locationAwarded: '',
-        notes: '',
-        IsPrimary: false
+        notes: ''
       },
       awardee: {},
       contacts: [],
-      trykes: [],
+      trykes: []
     }
   },
 
@@ -451,7 +418,6 @@ export default {
         this.$refs.largeModal.open()
       } else {
         this.tryke.id = item.trykeId
-        this.tryke.orderNum = item.orderNum
         this.tryke.model = item.model
         this.tryke.dateAwarded = item.dateAwarded
         this.tryke.dateReceived = item.dateReceived
@@ -470,41 +436,34 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   created () {
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        this.$nextTick(() => {
-          this.$validator.validateAll()
-        })
-        if (this.$route.params.id == null) {
-          swal('Error', 'That is not a valid user.', 'error')
-          this.$router.push({ name: 'view-awardees' })
-        } else {
-          try {
-            fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
-              .then(response => response.json())
-              .then(json => {
-                this.awardee = json.Item
-              })
-            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
-              .then(response => response.json())
-              .then(json => {
-                this.contacts = json.Items
-              })
-            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
-              .then(response => response.json())
-              .then(json => {
-                this.trykes = json.Items
-              })
-          } catch (e) {
-            swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-            this.$router.push({ name: 'view-awardees' })
-          }
-        }
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
-        self.$router.push({ name: 'login' })
-      })
+    this.$nextTick(() => {
+      this.$validator.validateAll()
+    })
+    if (this.$route.params.id == null) {
+      swal('Error', 'That is not a valid user.', 'error')
+      // this.$router.push({ name: 'view-awardees' })
+    } else {
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+          .then(response => response.json())
+          .then(json => {
+            this.awardee = json.Item
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
+          .then(response => response.json())
+          .then(json => {
+            this.contacts = json.Items
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
+          .then(response => response.json())
+          .then(json => {
+            this.trykes = json.Items
+          })
+      } catch (e) {
+        swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
+        // this.$router.push({ name: 'view-awardees' })
+      }
+    }
   },
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////

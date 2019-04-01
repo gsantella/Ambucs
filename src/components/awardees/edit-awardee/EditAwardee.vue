@@ -67,18 +67,19 @@
                     <!-- Birth Date View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.dateOfBirth" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Birth Date</label><i class="bar"></i>
+                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Age at Application</label><i class="bar"></i>
                     </div>
 
                     <!-- Birth Date -->
                     <div v-if="isDisabled" class="input-group">
-                      <vuestic-date-picker
+                      <input id="simple-input" v-model="awardee.dateOfBirth" required />
+                      <!--<vuestic-date-picker
                         id="date-picker-custom-date-format"
                         :config="{altInput: true, altFormat: 'F j, Y'}"
                         v-model="awardee.dateOfBirth"
-                      />
-                      <label class="control-label" for="date-picker-custom-date-format">
-                        Birth Date
+                      />-->
+                      <label class="control-label" for="simple-input">
+                        Age at Application
                       </label>
                       <i class="bar"></i>
                     </div>
