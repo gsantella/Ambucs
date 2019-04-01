@@ -710,7 +710,7 @@
           </div>
         </div>
 
-        <div class="hello">
+        <div class="hello" id="imageDiv">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
@@ -723,7 +723,7 @@
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
-
+        <a id="imageLink" style="display:none;color:black">{{document.url}}</a>
     </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->
@@ -890,7 +890,7 @@ export default {
       // var image = new Image()
       let reader = new FileReader()
       reader.onload = (e) => {
-        if (!e.target.result.includes('data:image/jpeg') || !e.target.result.includes('application/pdf')) {
+        if (!e.target.result.includes('data:image/jpeg') && !e.target.result.includes('application/pdf')) {
           return alert('Wrong file type - JPG or PDF only.')
         }
         if (e.target.result.length > MAX_IMAGE_SIZE) {
@@ -1237,6 +1237,8 @@ export default {
       } else {
         // window.open(item.url, '_blank')
         this.$refs.smallModal.open()
+        document.getElementById('imageLink').style.display = 'block'
+        document.getElementById('imageDiv').style.display = 'none'
         this.document.awardeeId = item.awardeeId
         this.document.documentId = item.documentId
         this.document.url = item.url
