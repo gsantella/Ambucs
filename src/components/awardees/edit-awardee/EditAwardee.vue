@@ -746,7 +746,7 @@ import swal from 'sweetalert'
 // import _ from 'lodash'
 import axios from 'axios'
 
-const MAX_IMAGE_SIZE = 1000000
+const MAX_IMAGE_SIZE = 5000000
 
 export default {
   name: 'EditAwardee',
@@ -897,11 +897,11 @@ export default {
       // var image = new Image()
       let reader = new FileReader()
       reader.onload = (e) => {
-        if (!e.target.result.includes('data:image/jpeg')) {
-          return alert('Wrong file type - JPG only.')
+        if (!e.target.result.includes('data:image/jpeg') || !e.target.result.includes('application/pdf')) {
+          return alert('Wrong file type - JPG or PDF only.')
         }
         if (e.target.result.length > MAX_IMAGE_SIZE) {
-          return alert('Image is loo large - 1Mb maximum')
+          return alert('Image is loo large - 5MB maximum')
         }
         this.image = e.target.result
       }
