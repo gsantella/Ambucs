@@ -724,10 +724,12 @@
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
 
-        <div v-if="document.url !== null">
+        <div v-if="document.url !== null && isDisabled">
+          <a style="color:black">{{document.url}}</a>
           <button class="btn btn-primary btn-micro" @click="updateUpload()">Update</button>
           <button class="btn btn-danger btn-micro" @click="deleteUpload()">Delete</button>
         </div>
+        <a v-if="document.url !== null && !isDisabled" style="color:black">{{document.url}}</a>
 
     </vuestic-modal>
 
