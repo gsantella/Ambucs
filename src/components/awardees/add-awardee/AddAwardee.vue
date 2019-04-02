@@ -94,7 +94,7 @@
                     <!-- Zip -->
                     <div class="input-group">
                       <input id="simple-input" v-model="awardee.addressZip" required/>
-                      <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
+                      <label class="control-label" for="simple-input">Zip</label><i class="bar"></i>
                     </div>
 
                   </div>

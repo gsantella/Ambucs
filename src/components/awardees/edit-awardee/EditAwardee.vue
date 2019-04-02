@@ -27,7 +27,7 @@
                     <!-- First Name View Mode-->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.firstName" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                     </div>
 
                     <!-- First Name -->
@@ -39,7 +39,7 @@
                     <!-- Last Name View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.lastName" readonly/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                     </div>
 
                     <!-- Last Name -->
@@ -55,7 +55,7 @@
                     <!-- Phone Number View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.phone" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Phone Number</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Phone Number</label><i class="bar"></i>
                     </div>
 
                     <!-- Phone Number -->
@@ -67,7 +67,7 @@
                     <!-- Birth Date View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.dateOfBirth" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Age at Application</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Age at Application</label><i class="bar"></i>
                     </div>
 
                     <!-- Birth Date -->
@@ -87,7 +87,7 @@
                     <!-- Last Contacted Date View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.lastContacted" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Last Contacted</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Last Contacted</label><i class="bar"></i>
                     </div>
 
                     <!-- Last Contacted -->
@@ -111,7 +111,7 @@
                     <!-- Street 1 View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.address1" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Street 1</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                     </div>
 
                     <!-- Street 1 -->
@@ -126,7 +126,7 @@
                     <!-- Street 2 View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.address2" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Street 2</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                     </div>
 
                     <!-- Street 2 -->
@@ -141,7 +141,7 @@
                     <!-- City View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.addressCity" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">City</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">City</label><i class="bar"></i>
                     </div>
 
                     <!-- City -->
@@ -153,7 +153,7 @@
                     <!-- State View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.addressState" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">State</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">State</label><i class="bar"></i>
                     </div>
 
                     <!-- State -->
@@ -165,13 +165,13 @@
                     <!-- Zip View Mode -->
                     <div v-if="!isDisabled" class="input-group">
                       <input id="simple-input" v-model="awardee.addressZip" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
+                      <label style="" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
                     </div>
 
                     <!-- Zip -->
                     <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressZip" type="number" required/>
-                      <label class="control-label" for="simple-input">Zipcode</label><i class="bar"></i>
+                      <input id="simple-input" v-model="awardee.addressZip" required/>
+                      <label class="control-label" for="simple-input">Zip</label><i class="bar"></i>
                     </div>
 
                   </div>
@@ -180,8 +180,8 @@
 
                     <!-- Notes View Mode -->
                     <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.notes" readonly required/>
-                      <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+                      <textarea id="simple-input" v-model="awardee.notes" readonly required/>
+                      <label style="" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
                     </div>
 
                      <!-- Notes -->
@@ -323,7 +323,7 @@
                 <!-- First Name View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.firstName" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
                 </div>
 
                 <!-- First Name -->
@@ -335,7 +335,7 @@
                 <!-- Last Name View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.lastName" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
                 </div>
 
                 <!-- Last Name -->
@@ -350,7 +350,7 @@
                 <!-- Email View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.email" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Email</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Email</label><i class="bar"></i>
                 </div>
 
                 <!-- Email -->
@@ -365,7 +365,7 @@
                 <!-- Phone1 View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.phone1" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Phone 1</label><i class="bar"></i>
                 </div>
 
                 <!-- Phone 1 -->
@@ -377,7 +377,7 @@
                 <!-- Phone2 View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.phone2" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Phone 2</label><i class="bar"></i>
                 </div>
 
                 <!-- Phone 2 -->
@@ -392,7 +392,7 @@
                 <!-- Type View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.contactType" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Type</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Type</label><i class="bar"></i>
                 </div>
 
                 <!-- Type -->
@@ -413,7 +413,7 @@
                 <!-- Street1 View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.address1" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
                 </div>
 
                 <!-- Street1 -->
@@ -425,7 +425,7 @@
                 <!-- Street2 View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.address2" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
                 </div>
 
                 <!-- Street2 -->
@@ -437,7 +437,7 @@
                 <!-- City View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.addressCity" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">City</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
                 <!-- City -->
@@ -453,7 +453,7 @@
                 <!-- State View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.addressState" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">State</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">State</label><i class="bar"></i>
                 </div>
 
                 <!-- State -->
@@ -465,7 +465,7 @@
                 <!-- Zip View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.addressZip" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
                 </div>
 
                 <!-- Zip -->
@@ -480,7 +480,7 @@
                 <!-- Notes View Mode-->
                 <div v-if="!isDisabled" class="input-group">
                   <input id="simple-input" v-model="contact.notes" readonly required/>
-                  <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+                  <label style="" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
                 </div>
 
                 <!-- Notes -->
