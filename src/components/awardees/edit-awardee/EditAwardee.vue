@@ -726,6 +726,14 @@
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
         <a id="imageLink" v-bind:href="document.url" target="_blank" style="display:none;color:black">{{document.url}}</a>
+        <div class="row"  style="margin-top:10px" v-if="isDisabled">
+          <div class="col-md-3">
+            <button id="btnUpdate" style="display:none" class="btn btn-primary btn-micro" @click="updateUpload">Update</button>
+          </div>
+          <div class="col-md-3">
+            <button id="btnDelete" style="display:none" class="btn btn-danger btn-micro" @click="deleteUpload">Delete</button>
+          </div>
+        </div>
       </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->
@@ -961,6 +969,8 @@ export default {
         }
       }
       document.getElementById('imageDiv').style.display = 'block'
+      document.getElementById('btnUpdate').style.display = 'none'
+      document.getElementById('btnDelete').style.display = 'none'
       this.displayMode = 'ADD'
       this.documentModalTitle = 'Add Document'
       this.$refs.smallModal.open()
@@ -1242,6 +1252,8 @@ export default {
         this.$refs.smallModal.open()
         document.getElementById('imageLink').style.display = 'block'
         document.getElementById('imageDiv').style.display = 'none'
+        document.getElementById('btnUpdate').style.display = 'block'
+        document.getElementById('btnDelete').style.display = 'block'
         this.document.awardeeId = item.awardeeId
         this.document.documentId = item.documentId
         this.document.url = item.url
