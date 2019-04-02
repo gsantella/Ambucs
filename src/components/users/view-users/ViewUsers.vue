@@ -10,54 +10,34 @@
           </div>
       </div>
     </div>
-        <vuestic-widget headerText="Search">
-      <div class="row">
-        <div class="col-md-12">
-          <div slot="body">
+          <b-container fluid>
 
-            <div class="row filters-page__filter-bar-container">
-              <filter-bar
-                v-model="email"
-                class="filters-page__filter-bar"
-                label="Email"
-              />
-            </div>
-          </div>
-          <div class="filters-page__tags">
-            <vuestic-tag
-              v-if="email"
-              :name="`Email: ${ email }`"
-              removable
-              @remove="email = ''"
-            />
-            <span
-              v-if="this.email"
-              class="filters-page__clear-all-text"
-              @click="clearAll"
-            >
-              Clear all filters
-            </span>
-          </div>
-        </div>
-      </div>
-    </vuestic-widget>
+    <b-input-group>
+      <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+    </b-input-group>
 
-    <vuestic-widget>
-      <div class="table-responsive">
-        <table class="table table-striped first-td-padding">
-          <thead>
-          <tr>
-            <td class="filters-page__table-heading">Email</td>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="user in filteredItems" :key="user.id" v-on:click="clickList(user)">
-            <td>{{user.Attributes[5].Value}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </vuestic-widget>
+    <b-table striped hover
+    :items="filteredItems"
+    :fields="fields"
+    @filtered="onFiltered"
+    :filter="filter"
+    :current-page="currentPage"
+    :per-page="perPage"
+    @row-clicked="clickList"
+    />
+
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-pagination
+          :total-rows="totalRows"
+          :per-page="perPage"
+          v-model="currentPage"
+          class="my-0"
+        />
+      </b-col>
+    </b-row>
+
+    </b-container>
 
   </div>
 </template>
@@ -79,6 +59,13 @@ export default {
       users: [],
       email: '',
       count: 0,
+      fields: [
+        { key: 'Attributes[5].Value', label: 'Email', sortable: true }
+      ],
+      currentPage: 1,
+      perPage: 5,
+      totalRows: null,
+      filter: null,
     }
   },
   computed: {
@@ -94,6 +81,10 @@ export default {
   methods: {
     clearAll () {
       this.email = ''
+    },
+    onFiltered (filteredItems) {
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
     },
     clickList (user) {
       this.$router.push({ name: 'edit-user', params: { user: user } })
@@ -111,6 +102,9 @@ export default {
           .then(response => response.json())
           .then(json => {
             this.users = json.Users
+            this.totalRows = json.length
+            console.log('test')
+            console.log(json.Users)
           })
       }).catch(function (err) {
         swal('Not Authenticated', err, 'error')
