@@ -2,10 +2,13 @@
   <div class="filters-page">
 
     <div class="row">
-      <div v-if="User.writeAwardeePermission" class="col-md-12">
+      <div class="col-md-4">
+        <button class="btn btn-primary btn-micro" @click="csvExport">Export</button>
+      </div>
+      <div v-if="User.writeAwardeePermission" class="col-md-8">
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
-            <button class="btn btn-primary" @click="newAwardee()" >
+            <button class="btn btn-primary btn-micro" @click="newAwardee()" >
               {{'New Recipient' | translate}}
             </button>
           </div>
@@ -91,6 +94,21 @@ export default {
     }
   },
   methods: {
+    csvExport () {
+      let csvContent = 'data:text/csv;charset=utf-8,'
+      csvContent += [
+        Object.keys(this.itemList[0]).join(';'),
+        ...this.itemList.map(item => Object.values(item).join(';'))
+      ]
+        .join('\n')
+        .replace(/(^\[)|(\]$)/gm, '')
+
+      const data = encodeURI(csvContent)
+      const link = document.createElement('a')
+      link.setAttribute('href', data)
+      link.setAttribute('download', 'export.csv')
+      link.click()
+    },
     clearAll () {
       this.firstName = ''
       this.lastName = ''
