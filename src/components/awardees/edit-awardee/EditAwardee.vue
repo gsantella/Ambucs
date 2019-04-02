@@ -245,8 +245,8 @@
             <tr>
               <td>Order Num</td>
               <td>Model</td>
-              <td>Awarded</td>
-              <td>Recieved</td>
+              <td>Date of Application</td>
+              <td>Date Awarded</td>
               <td>Funded By</td>
             </tr>
           </thead>
@@ -254,8 +254,8 @@
             <tr v-for="(item,index) in orderedByPrimaryTrykes" :key="item.id" @click="displayModal(item,index,2)">
               <td>{{ item.orderNumber }}</td>
               <td>{{ item.model }}</td>
-              <td>{{ item.dateAwarded }}</td>
               <td>{{ item.dateReceived }}</td>
+              <td>{{ item.dateAwarded }}</td>
               <td>{{ item.fundedBy }}</td>
             </tr>
           </tbody>
