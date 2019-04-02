@@ -544,7 +544,7 @@
            <!-- OrderNumber View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.orderNumber" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Order Number</label><i class="bar"></i>
           </div>
 
           <!-- OrderNumber -->
@@ -559,7 +559,7 @@
           <!-- Model View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.model" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Model</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Model</label><i class="bar"></i>
           </div>
 
           <!-- Model -->
@@ -574,7 +574,7 @@
           <!-- Date of Application View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.dateReceived" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Date of Application</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Date of Application</label><i class="bar"></i>
           </div>
 
           <!-- Date of Application -->
@@ -593,7 +593,7 @@
           <!-- Date Awarded View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.dateAwarded" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Date Awarded</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Date Awarded</label><i class="bar"></i>
           </div>
 
           <!-- Date Awarded -->
@@ -616,7 +616,7 @@
           <!-- Funded By View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.fundedBy" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Funded By</label><i class="bar"></i>
           </div>
 
           <!-- Funded By -->
@@ -628,7 +628,7 @@
           <!-- Location Awarded View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.locationAwarded" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Location Awarded</label><i class="bar"></i>
           </div>
 
           <!-- Location Awarded -->
@@ -643,7 +643,7 @@
           <!-- Notes View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.notes" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
 
           <!-- Notes -->
@@ -702,7 +702,7 @@
            <!-- Notes View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="document.notes" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+            <label style="" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
 
           <!-- Notes -->
@@ -725,15 +725,25 @@
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
-        <a id="imageLink" v-bind:href="document.url" target="_blank" style="display:none;color:black">{{document.url}}</a>
-        <div class="row"  style="margin-top:10px" v-if="isDisabled">
-          <div class="col-md-3">
-            <button id="btnUpdate" style="display:none" class="btn btn-primary btn-micro" @click="updateUpload">Update</button>
+
+        <div class="form-group">
+
+          <div class="input-group">
+            <a id="imageLink" v-bind:href="document.url" target="_blank" style="display:none;color:black">{{document.url}}</a>
+            <label class="control-label" for="imageLink">Link</label><i class="bar"></i>
           </div>
-          <div class="col-md-3">
-            <button id="btnDelete" style="display:none" class="btn btn-danger btn-micro" @click="deleteUpload">Delete</button>
-          </div>
+
         </div>
+
+          <div class="row"  style="margin-top:10px" v-if="isDisabled">
+            <div class="col-md-3">
+              <button id="btnUpdate" style="display:none" class="btn btn-primary btn-micro" @click="updateUpload">Update</button>
+            </div>
+            <div class="col-md-3">
+              <button id="btnDelete" style="display:none" class="btn btn-danger btn-micro" @click="deleteUpload">Delete</button>
+            </div>
+          </div>
+
       </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->

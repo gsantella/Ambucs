@@ -5,6 +5,10 @@
         {{'Print This' | translate}}
       </button>
 
+      <button style="margin:5px 5px" @click="returnToAwardee()"  class="btn btn-primary btn-micro" >
+        {{'Return' | translate}}
+      </button>
+
     <div class="va-row">
       <div class="flex md3"></div>
       <div class="flex md3">
@@ -252,6 +256,9 @@ export default {
   methods: {
     print () {
       window.print()
+    },
+    returnToAwardee () {
+      this.$router.push({ name: 'edit-awardee', params: { id: this.$route.params.id } })
     }
   }
 
