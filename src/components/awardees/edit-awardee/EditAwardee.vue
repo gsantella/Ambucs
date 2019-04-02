@@ -571,6 +571,25 @@
 
         <div class="form-group">
 
+          <!-- Date of Application View Mode-->
+          <div v-if="!isDisabled" class="input-group">
+            <input id="simple-input" v-model="tryke.dateReceived" readonly required/>
+            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Date of Application</label><i class="bar"></i>
+          </div>
+
+          <!-- Date of Application -->
+          <div v-if="isDisabled" class="input-group">
+            <vuestic-date-picker
+              id="date-picker-custom-date-format"
+              :config="{altInput: true, altFormat: 'F j, Y'}"
+              v-model="tryke.dateReceived"
+            />
+            <label class="control-label" for="date-picker-custom-date-format">
+              Date of Application
+            </label>
+            <i class="bar"></i>
+          </div>
+
           <!-- Date Awarded View Mode-->
           <div v-if="!isDisabled" class="input-group">
             <input id="simple-input" v-model="tryke.dateAwarded" readonly required/>
@@ -590,24 +609,6 @@
             <i class="bar"></i>
           </div>
 
-          <!-- Date Recieved View Mode-->
-          <div v-if="!isDisabled" class="input-group">
-            <input id="simple-input" v-model="tryke.dateReceived" readonly required/>
-            <label style="font-size:0.6rem;color:#4ae387;font-weight:600;text-transform:uppercase;top:-0.6rem;left:0" class="control-label" for="simple-input">Date Recieved</label><i class="bar"></i>
-          </div>
-
-          <!-- Date Recieved -->
-          <div v-if="isDisabled" class="input-group">
-            <vuestic-date-picker
-              id="date-picker-custom-date-format"
-              :config="{altInput: true, altFormat: 'F j, Y'}"
-              v-model="tryke.dateReceived"
-            />
-            <label class="control-label" for="date-picker-custom-date-format">
-              Date Recieved
-            </label>
-            <i class="bar"></i>
-          </div>
         </div>
 
         <div class="form-group">

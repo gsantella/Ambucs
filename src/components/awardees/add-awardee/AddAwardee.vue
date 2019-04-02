@@ -157,8 +157,8 @@
             <tr>
               <td class="filters-page__table-heading">Order Num</td>
               <td class="filters-page__table-heading">Model</td>
+              <td class="filters-page__table-heading">Date of Application</td>
               <td class="filters-page__table-heading">Date Awarded</td>
-              <td class="filters-page__table-heading">Date Recieved</td>
               <td class="filters-page__table-heading">Funded By</td>
 
             </tr>
@@ -167,8 +167,8 @@
             <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
                 <td>{{item.orderNumber}}</td>
                 <td>{{item.model}}</td>
-                <td>{{item.dateAwarded}}</td>
                 <td>{{item.dateReceived}}</td>
+                <td>{{item.dateAwarded}}</td>
                 <td>{{item.fundedBy}}</td>
             </tr>
           </tbody>
@@ -335,6 +335,19 @@
         </div>
 
         <div class="form-group">
+           <!-- Date of Application -->
+          <div class="input-group">
+            <vuestic-date-picker
+              id="date-picker-custom-date-format"
+              :config="{altInput: true, altFormat: 'F j, Y'}"
+              v-model="tryke.dateReceived"
+            />
+            <label class="control-label" for="date-picker-custom-date-format">
+              Date of Application
+            </label>
+            <i class="bar"></i>
+          </div>
+
           <!-- Date Awarded -->
           <div class="input-group">
             <vuestic-date-picker
@@ -348,18 +361,6 @@
             <i class="bar"></i>
           </div>
 
-          <!-- Date Recieved -->
-          <div class="input-group">
-            <vuestic-date-picker
-              id="date-picker-custom-date-format"
-              :config="{altInput: true, altFormat: 'F j, Y'}"
-              v-model="tryke.dateReceived"
-            />
-            <label class="control-label" for="date-picker-custom-date-format">
-              Date Recieved
-            </label>
-            <i class="bar"></i>
-          </div>
         </div>
 
         <div class="form-group">
