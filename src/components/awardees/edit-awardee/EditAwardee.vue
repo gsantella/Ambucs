@@ -718,7 +718,7 @@
             <input type="file" @change="onFileChange">
           </div>
           <div v-else>
-            <img :src="image" />
+            <img :src="image" style="width: 100%" />
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="removeImage">Remove image</button>
             <button class="btn btn-primary btn-micro" v-if="!uploadURL" @click="uploadImage">Upload image</button>
           </div>
