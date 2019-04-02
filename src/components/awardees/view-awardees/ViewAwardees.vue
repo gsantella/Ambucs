@@ -85,7 +85,7 @@ export default {
         { key: 'addressCity', label: 'City', sortable: true }
       ],
       currentPage: 1,
-      perPage: 5,
+      perPage: 20,
       totalRows: null,
       sortBy: null,
       sortDesc: false,
