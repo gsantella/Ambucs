@@ -22,12 +22,12 @@
       </div>
       <div class="va-row">
         <div class="flex md4">
-          <button class="btn btn-primary btn-micro" type="submit">
+          <button class="btn btn-primary btn-micro" style="font-size:13px" type="submit">
             {{ $t('auth.login') }}
           </button>
         </div>
         <div class="flex md8" >
-          <button class="btn btn-danger btn-micro" style="float:right" @click="forgotPassword()">
+          <button class="btn btn-danger btn-micro" style="float:right;font-size:13px" @click="forgotPassword()">
             {{ $t('Forgot Password') }}
           </button>
         </div>
