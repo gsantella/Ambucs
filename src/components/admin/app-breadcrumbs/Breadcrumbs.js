@@ -42,27 +42,27 @@ export const breadcrumbs = {
     },
     {
       name: 'view-awardees',
-      displayName: 'Awardees',
+      displayName: 'Recipients',
       children: [
         {
           name: 'view-awardees',
-          displayName: 'View Awardees',
+          displayName: 'View Recipients',
         },
         {
           name: 'view-awardee',
-          displayName: 'View Awardee',
+          displayName: 'View Recipient',
         },
         {
           name: 'add-awardee',
-          displayName: 'Add Awardee',
+          displayName: 'Add Recipient',
         },
         {
           name: 'edit-awardee',
-          displayName: 'Edit Awardee',
+          displayName: 'Edit Recipient',
         },
         {
           name: 'print-awardee',
-          displayName: 'Print Awardee',
+          displayName: 'Print Recipient',
         },
       ],
     }
