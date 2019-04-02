@@ -725,7 +725,7 @@
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
         <a id="imageLink" style="display:none;color:black">{{document.url}}</a>
-    </vuestic-modal>
+      </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->
 
@@ -959,6 +959,7 @@ export default {
           this.document[key] = ''
         }
       }
+      document.getElementById('imageDiv').style.display = 'block'
       this.displayMode = 'ADD'
       this.documentModalTitle = 'Add Document'
       this.$refs.smallModal.open()
