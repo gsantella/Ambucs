@@ -725,7 +725,7 @@
           <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
-        <a id="imageLink" style="display:none;color:black">{{document.url}}</a>
+        <a id="imageLink" v-bind:href="document.url" target="_blank" style="display:none;color:black">{{document.url}}</a>
       </vuestic-modal>
 
 <!-- END OF DOCUMENTS MODAL -->
