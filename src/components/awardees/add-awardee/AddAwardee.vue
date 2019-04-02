@@ -155,11 +155,11 @@
       <table class="table table-striped first-td-padding">
           <thead>
             <tr>
-              <td class="filters-page__table-heading">Order Num</td>
-              <td class="filters-page__table-heading">Model</td>
-              <td class="filters-page__table-heading">Date of Application</td>
-              <td class="filters-page__table-heading">Date Awarded</td>
-              <td class="filters-page__table-heading">Funded By</td>
+              <td>Order Num</td>
+              <td>Model</td>
+              <td>Date of Application</td>
+              <td>Date Awarded</td>
+              <td>Funded By</td>
 
             </tr>
           </thead>

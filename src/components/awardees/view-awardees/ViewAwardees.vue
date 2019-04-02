@@ -18,7 +18,7 @@
     <b-container fluid>
 
     <b-input-group>
-      <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+      <b-form-input v-model="filter" placeholder="Type to Search" style="padding: 25px; font-size: 1.2em; border: 1px solid"></b-form-input>
     </b-input-group>
 
     <b-table striped hover
