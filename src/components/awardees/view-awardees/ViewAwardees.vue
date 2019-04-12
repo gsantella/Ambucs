@@ -6,9 +6,8 @@
         <button class="btn btn-primary btn-micro" @click="csvExport">Export</button>
       </div>
       <div v-if="User.writeAwardeePermission" class="col-md-8">
-          <div style="margin-bottom:15px;float:right"
-          class="flex sm6 lg6 xl3 justify--center">
-            <button class="btn btn-primary btn-micro" @click="newAwardee()" >
+          <div style="margin-bottom:15px;float:right">
+            <button class="btn btn-primary btn-micro" style="text-align:center" @click="newAwardee()" >
               {{'New Recipient' | translate}}
             </button>
           </div>
@@ -106,7 +105,7 @@ export default {
       const data = encodeURI(csvContent)
       const link = document.createElement('a')
       link.setAttribute('href', data)
-      link.setAttribute('download', 'export.csv')
+      link.setAttribute('download', 'Ambucs-Database-Export.csv')
       link.click()
     },
     clearAll () {
