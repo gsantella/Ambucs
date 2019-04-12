@@ -1259,11 +1259,14 @@ export default {
         this.$refs.mediumModal.open()
       } else {
         // window.open(item.url, '_blank')
+
         this.$refs.smallModal.open()
         document.getElementById('imageLink').style.display = 'block'
         document.getElementById('imageDiv').style.display = 'none'
-        document.getElementById('btnUpdate').style.display = 'block'
-        document.getElementById('btnDelete').style.display = 'block'
+        if (this.isDisabled) {
+          document.getElementById('btnUpdate').style.display = 'block'
+          document.getElementById('btnDelete').style.display = 'block'
+        }
         this.document.awardeeId = item.awardeeId
         this.document.documentId = item.documentId
         this.document.url = item.url
