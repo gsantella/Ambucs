@@ -24,14 +24,6 @@
                     <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                   </div>
                 </div>
-                <div class="form-group">
-                  <!-- Type -->
-                  <b-form-select v-model="user.chapter" class="mb-3" style="width:100%" required>
-                    <option :value="null">Please select a chapter</option>
-                    <option v-for="chapter in chapters" :key="chapter.id" v-bind="chapter">{{chapter}}</option>
-                  </b-form-select>
-                  <label class="control-label" for="simple-input">Type</label><i class="bar"></i>
-                </div>
 
               <div class="form-group">
                 <div class="va-row">
@@ -45,12 +37,6 @@
                     <vuestic-checkbox
                       :label="$t('Add/Edit User Permission')"
                       v-model="user.writeUserPermission"
-                    />
-                  </div>
-                  <div class="flex md3">
-                    <vuestic-checkbox
-                      :label="$t('Add/Edit Chapters Permission')"
-                      v-model="user.writeChapterPermission"
                     />
                   </div>
                 </div>
@@ -128,7 +114,6 @@ export default {
         userStatus: '',
         chapter: ''
       },
-      chapters: '',
       sessionUser: {
         email: ''
       }

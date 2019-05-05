@@ -20,16 +20,6 @@
         </span>
       </sidebar-link>
       </div>
-      <div v-if="User.writeChapterPermission">
-        <sidebar-link
-        :to="{ name: 'view-chapters' }">
-        <span slot="title">
-          <span
-            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
-          <span>Chapters</span>
-        </span>
-      </sidebar-link>
-      </div>
     </template>
   </vuestic-sidebar>
 </template>
