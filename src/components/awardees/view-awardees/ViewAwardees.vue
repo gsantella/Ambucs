@@ -55,7 +55,6 @@ import VuesticSimpleSelect
 import { SpringSpinner } from 'epic-spinners'
 import { cityList, itemList } from './filtersData'
 import _ from 'lodash'
-import { Auth } from 'aws-amplify'
 import swal from 'sweetalert'
 
 export default {
@@ -114,13 +113,8 @@ export default {
       this.city = ''
     },
     clickList (item) {
-      if (this.User.writeAwardeePermission) {
-        this.$router.push({ name: 'edit-awardee', params: { id: item.id } })
-        localStorage.setItem('awardee-id', item.id)
-      } else {
-        this.$router.push({ name: 'view-awardee', params: { id: item.id } })
-        localStorage.setItem('awardee-id', item.id)
-      }
+      this.$router.push({ name: 'edit-awardee', params: { id: item.id } })
+      localStorage.setItem('awardee-id', item.id)
     },
     newAwardee () {
       this.$router.push({ name: 'add-awardee' })
@@ -151,28 +145,25 @@ export default {
   },
   created () {
     let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        this.User.email = data.attributes['email']
-        this.User.password = data.attributes['sub']
-        this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
-        this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
-        this.User.writeChapterPermission = data.attributes['custom:writeChapterPerm2']
-        try {
-          fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
-            .then(response => response.json())
-            .then(json => {
-              console.log(json)
-              this.itemList = json
-              this.totalRows = json.length
-            })
-        } catch (e) {
-          swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
-        }
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
-        self.$router.push({ name: 'login' })
-      })
+    if (sessionStorage.getItem('email') !== null) {
+      this.User.email = sessionStorage.getItem('email')
+      this.User.password = sessionStorage.getItem('pass')
+      this.User.writeAwardeePermission = sessionStorage.getItem('awardeePerm')
+      this.User.writeUserPermission = sessionStorage.getItem('userPerm')
+      this.User.writeChapterPermission = sessionStorage.getItem('chapterPerm')
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
+          .then(response => response.json())
+          .then(json => {
+            this.itemList = json
+            this.totalRows = json.length
+          })
+      } catch (e) {
+        swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
+      }
+    } else {
+      self.$router.push({ name: 'login' })
+    }
   }
 }
 </script>

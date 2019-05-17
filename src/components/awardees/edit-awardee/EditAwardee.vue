@@ -3,6 +3,7 @@
     <div class="va-row">
       <div class="flex md6">
       <vuestic-checkbox
+        v-if="hideCheckbox"
         :label="$t('Enable Edit Mode')"
         v-model="isDisabled"
       />
@@ -879,7 +880,15 @@ export default {
       trykes: [],
       documents: [],
       image: '',
-      uploadURL: ''
+      uploadURL: '',
+      User: {
+        email: '',
+        password: '',
+        writeUserPermission: false,
+        writeAwardeePermission: false,
+        writeChapterPermission: false
+      },
+      hideCheckBox: false,
     }
   },
 
@@ -1292,8 +1301,17 @@ export default {
     })
     if (this.$route.params.id == null) {
       swal('Error', 'That is not a valid user.', 'error')
-      // this.$router.push({ name: 'view-awardees' })
+      this.$router.push({ name: 'view-awardees' })
     } else {
+      this.User.email = sessionStorage.getItem('email')
+      this.User.password = sessionStorage.getItem('pass')
+      this.User.writeAwardeePermission = sessionStorage.getItem('awardeePerm')
+      this.User.writeUserPermission = sessionStorage.getItem('userPerm')
+      this.User.writeChapterPermission = sessionStorage.getItem('chapterPerm')
+      if (!this.User.writeUserPermission) {
+        this.isDisabled = true
+        this.hideCheckbox = true
+      }
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
           .then(response => response.json())
@@ -1317,7 +1335,7 @@ export default {
           })
       } catch (e) {
         swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-        // this.$router.push({ name: 'view-awardees' })
+        this.$router.push({ name: 'view-awardees' })
       }
     }
   },

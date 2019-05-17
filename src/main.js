@@ -11,7 +11,6 @@ import store from './store'
 import router from './router'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
-import { Auth } from 'aws-amplify'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(router)
@@ -24,42 +23,41 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        if (to.matched.some(record => record.meta.requiresWriteChapter)) {
-          if (data.attributes['custom:writeChapterPerm2']) {
-            next()
-            return
-          }
-          store.commit('setLoading', false)
-          next('/admin/awardees/view-awardees')
-          return
-        }
+    let userPerm = sessionStorage.getItem('userPerm')
+    let awardeeWritePerm = sessionStorage.getItem('awardeePerm')
+    let chapterPerm = sessionStorage.getItem('chapterPerm')
 
-        if (to.matched.some(record => record.meta.requiresWriteUser)) {
-          if (data.attributes['custom:writeUserPerm2']) {
-            next()
-            return
-          }
-          store.commit('setLoading', false)
-          next('/admin/awardees/view-awardees')
-          return
-        }
-
-        if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
-          if (data.attributes['custom:writeAwardeePerm2']) {
-            next()
-            return
-          }
-          store.commit('setLoading', false)
-          next('/admin/awardees/view-awardees')
-          return
-        }
-
+    if (to.matched.some(record => record.meta.requiresWriteChapter)) {
+      if (chapterPerm) {
         next()
-      }).catch(() => {
-        next('/auth/login')
-      })
+        return
+      }
+      store.commit('setLoading', false)
+      next('/admin/awardees/view-awardees')
+      return
+    }
+
+    if (to.matched.some(record => record.meta.requiresWriteUser)) {
+      if (userPerm) {
+        next()
+        return
+      }
+      store.commit('setLoading', false)
+      next('/admin/awardees/view-awardees')
+      return
+    }
+
+    if (to.matched.some(record => record.meta.requiresWriteAwardee)) {
+      if (awardeeWritePerm) {
+        next()
+        return
+      }
+      store.commit('setLoading', false)
+      next('/admin/awardees/view-awardees')
+      return
+    }
+
+    next()
   } else {
     next()
   }

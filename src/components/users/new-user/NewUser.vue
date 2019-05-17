@@ -85,8 +85,8 @@ export default {
     })
     let self = this
     Auth.currentAuthenticatedUser()
-      .catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      .catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   },

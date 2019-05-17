@@ -25,7 +25,6 @@ import ProfileDropdown from './components/dropdowns/ProfileDropdown'
 import NotificationDropdown from './components/dropdowns/NotificationDropdown'
 import MessageDropdown from './components/dropdowns/MessageDropdown'
 import { Auth } from 'aws-amplify'
-import swal from 'sweetalert'
 
 export default {
   name: 'app-navbar',
@@ -48,8 +47,8 @@ export default {
         this.User.password = data.attributes['sub']
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   },

@@ -222,7 +222,7 @@ export default {
     let self = this
     Auth.currentAuthenticatedUser()
       .then((data) => {
-        var awardeeId = localStorage.getItem('awardee-id')
+        let awardeeId = localStorage.getItem('awardee-id')
         if (awardeeId === null) {
           swal('Error', 'That is not a valid user.', 'error')
           this.$router.push({ name: 'view-awardees' })
@@ -248,8 +248,8 @@ export default {
             self.$router.push({ name: 'view-awardees' })
           }
         }
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         this.$router.push({ name: 'login' })
       })
   },

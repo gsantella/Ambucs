@@ -49,7 +49,6 @@ import FilterBar
   from '@/vuestic-theme/vuestic-components/vuestic-datatable/datatable-components/FilterBar.vue'
 import VuesticSimpleSelect
   from '@/vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
-import swal from 'sweetalert'
 import { Auth } from 'aws-amplify'
 
 export default {
@@ -106,8 +105,8 @@ export default {
             console.log('test')
             console.log(json.Users)
           })
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   },

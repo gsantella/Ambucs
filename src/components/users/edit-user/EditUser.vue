@@ -3,16 +3,6 @@
 
     <div class="va-row">
       <div class="flex md12">
-          <div style="float:right"
-          class="flex sm6 lg6 xl3 justify--center">
-            <button class="btn btn-primary btn-micro" @click="resetPassword()" >
-              {{'Reset Password' | translate}}
-            </button>
-          </div>
-      </div>
-    </div>
-    <div class="va-row">
-      <div class="flex md12">
         <vuestic-widget :headerText="'Edit User' | translate">
           <form>
 
@@ -131,13 +121,7 @@ export default {
           'custom:writeAwardeePerm2': this.user.writeAwardeePermission
         }
       })
-      this.$store.commit('setLoading', true)
       */
-    },
-    resetPassword () {
-      Auth.forgotPasswordSubmit(this.user.username, this.user.code, this.user.password)
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
     },
     deleteUser () {
       swal({
@@ -196,8 +180,8 @@ export default {
         }
         this.user.enabled = this.$route.params.user.Enabled
         this.user.uuid = this.$route.params.user.Username
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   }

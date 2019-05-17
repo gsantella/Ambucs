@@ -78,7 +78,23 @@ export default {
     },
     handleSubmit () {
       Auth.signIn(this.user.email, this.user.password).then(() => {
-        Auth.currentAuthenticatedUser()
+        Auth.currentAuthenticatedUser({
+          bypassCache: false
+        }).then((user) => {
+          let awardeePerm = user.attributes['custom:writeAwardeePerm2']
+          let chapterPerm = user.attributes['custom:writeChapterPerm2']
+          let userPerm = user.attributes['custom:writeUserPerm2']
+          let email = user.attributes['email']
+          let pass = user.attributes['sub']
+
+          sessionStorage.setItem('email', email)
+          sessionStorage.setItem('awardeePerm', awardeePerm)
+          sessionStorage.setItem('chapterPerm', chapterPerm)
+          sessionStorage.setItem('userPerm', userPerm)
+          sessionStorage.setItem('pass', pass)
+        })
+          .catch(err => console.log(err))
+
         setTimeout(() => this.$router.push({ name: 'view-awardees' }), 1000)
       }).catch((response) => {
         this.launchToast(response.message)
@@ -92,8 +108,11 @@ export default {
     this.user.password = ''
     this.user.writeUserPermission = false
     this.user.writeAwardeePermission = false
-    localStorage.removeItem('awardee-id')
-    localStorage.removeItem('user-id')
+    sessionStorage.removeItem('email')
+    sessionStorage.removeItem('awardeePerm')
+    sessionStorage.removeItem('chapterPerm')
+    sessionStorage.removeItem('userPerm')
+    sessionStorage.removeItem('pass')
   }
 }
 

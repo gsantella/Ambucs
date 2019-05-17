@@ -67,8 +67,8 @@ export default {
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
         this.User.writeChapterPermission = data.attributes['custom:writeChapterPerm2']
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   },
@@ -90,10 +90,18 @@ export default {
         })
     },
     updateUser () {
-      Auth.changePassword(this.User, this.oldPassword, this.newPassword)
-        .then(swal('Success', 'Password Update', 'success'))
-        .then(this.$router.push({ name: 'view-awardees' }))
-        .catch(err => console.log(err))
+      Auth.currentAuthenticatedUser()
+        .then(user => {
+          Auth.changePassword(user, this.oldPassword, this.newPassword).then(() => {
+            swal('Success', 'Password Updated', 'success')
+          }).then(() => {
+            this.$router.push({ name: 'view-awardees' })
+          }).catch((err) => {
+            console.log(err)
+          })
+        }).catch((err) => {
+          console.log(err)
+        })
     }
   },
 }

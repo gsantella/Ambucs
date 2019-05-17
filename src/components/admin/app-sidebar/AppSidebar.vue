@@ -31,7 +31,6 @@ import VuesticSidebar
 import SidebarLink from './components/SidebarLink'
 import SidebarLinkGroup from './components/SidebarLinkGroup'
 import { Auth } from 'aws-amplify'
-import swal from 'sweetalert'
 
 export default {
   name: 'app-sidebar',
@@ -67,8 +66,8 @@ export default {
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
         this.User.writeChapterPermission = data.attributes['custom:writeChapterPerm2']
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   },

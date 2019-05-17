@@ -24,7 +24,6 @@
 
 <script>
 import { Auth } from 'aws-amplify'
-import swal from 'sweetalert'
 
 export default {
   name: 'profile-section',
@@ -48,8 +47,8 @@ export default {
         this.User.password = data.attributes['sub']
         this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
         this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
-      }).catch(function (err) {
-        swal('Not Authenticated', err, 'error')
+      }).catch((err) => {
+        console.log(err)
         self.$router.push({ name: 'login' })
       })
   },
