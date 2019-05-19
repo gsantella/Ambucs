@@ -87,14 +87,12 @@ export default {
           let email = user.attributes['email']
           let pass = user.attributes['sub']
 
-          sessionStorage.setItem('email', email)
-          sessionStorage.setItem('awardeePerm', awardeePerm)
-          sessionStorage.setItem('chapterPerm', chapterPerm)
-          sessionStorage.setItem('userPerm', userPerm)
-          sessionStorage.setItem('pass', pass)
-        })
-          .catch(err => console.log(err))
-
+          localStorage.setItem('email', email)
+          localStorage.setItem('awardeePerm', awardeePerm)
+          localStorage.setItem('chapterPerm', chapterPerm)
+          localStorage.setItem('userPerm', userPerm)
+          localStorage.setItem('pass', pass)
+        }).catch(err => console.log(err))
         setTimeout(() => this.$router.push({ name: 'view-awardees' }), 1000)
       }).catch((response) => {
         this.launchToast(response.message)
@@ -103,16 +101,9 @@ export default {
     }
   },
   created () {
-    Auth.signOut()
-    this.user.email = ''
-    this.user.password = ''
-    this.user.writeUserPermission = false
-    this.user.writeAwardeePermission = false
-    sessionStorage.removeItem('email')
-    sessionStorage.removeItem('awardeePerm')
-    sessionStorage.removeItem('chapterPerm')
-    sessionStorage.removeItem('userPerm')
-    sessionStorage.removeItem('pass')
+    if (localStorage.getItem('email') !== null) {
+      this.$router.push({ name: 'view-awardees' })
+    }
   }
 }
 

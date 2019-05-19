@@ -144,25 +144,20 @@ export default {
     }
   },
   created () {
-    let self = this
-    if (sessionStorage.getItem('email') !== null) {
-      this.User.email = sessionStorage.getItem('email')
-      this.User.password = sessionStorage.getItem('pass')
-      this.User.writeAwardeePermission = sessionStorage.getItem('awardeePerm')
-      this.User.writeUserPermission = sessionStorage.getItem('userPerm')
-      this.User.writeChapterPermission = sessionStorage.getItem('chapterPerm')
-      try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
-          .then(response => response.json())
-          .then(json => {
-            this.itemList = json
-            this.totalRows = json.length
-          })
-      } catch (e) {
-        swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
-      }
-    } else {
-      self.$router.push({ name: 'login' })
+    this.User.email = localStorage.getItem('email')
+    this.User.password = localStorage.getItem('pass')
+    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
+    this.User.writeUserPermission = localStorage.getItem('userPerm')
+    this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
+    try {
+      fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
+        .then(response => response.json())
+        .then(json => {
+          this.itemList = json
+          this.totalRows = json.length
+        })
+    } catch (e) {
+      swal('error', "I'm sorry there was an issue getting awardees,please try again.", 'error')
     }
   }
 }

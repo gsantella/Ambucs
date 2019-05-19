@@ -10,7 +10,7 @@
                 <div class="form-group">
                   <!-- Email -->
                   <div class="input-group">
-                    <input id="simple-input" type="email" required v-model="user.email" autocomplete="off"/>
+                    <input id="simple-input" type="email" required v-model="user.email" autocomplete="off" readonly/>
                     <label class="control-label" for="simple-input">Email</label><i class="bar"></i>
                   </div>
                 </div>
@@ -104,6 +104,7 @@ export default {
         userStatus: '',
         chapter: ''
       },
+      passedUser: {},
       sessionUser: {
         email: ''
       }
@@ -111,17 +112,10 @@ export default {
   },
   methods: {
     updateUser () {
-      /*
-      Auth.Update({
-        'displayName': this.user.displayName,
-        'email': this.user.email,
-        'password': this.user.password,
-        'attributes': {
-          'custom:writeUserPerm2': this.user.writeUserPermission,
-          'custom:writeAwardeePerm2': this.user.writeAwardeePermission
-        }
+      Auth.updateUserAttributes(this.passedUser, {
+        'custom:writeUserPerm2': this.user.writeUserPermission.toString(),
+        'custom:writeAwardeePerm2': this.user.writeAwardeePermission.toString()
       })
-      */
     },
     deleteUser () {
       swal({
@@ -153,37 +147,15 @@ export default {
       e.preventDefault()
       e.returnValue = ''
     })
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        this.sessionUser.email = data.attributes.email
-        this.user.email = this.$route.params.user.Attributes[5].Value
-        if (this.$route.params.user.Attributes[4].Value === 'true') {
-          this.user.writeUserPermission = true
-        } else {
-          this.user.writeUserPermission = false
-        }
-        if (this.$route.params.user.Attributes[1].Value === 'true') {
-          this.user.writeAwardeePermission = true
-        } else {
-          this.user.writeAwardeePermission = false
-        }
-        if (this.$route.params.user.Attributes[3].Value === 'true') {
-          this.user.writeChapterPermission = true
-        } else {
-          this.user.writeChapterPermission = false
-        }
-        if (this.$route.params.user.UserStatus === 'CONFIRMED') {
-          this.user.userStatus = true
-        } else {
-          this.user.userStatus = false
-        }
-        this.user.enabled = this.$route.params.user.Enabled
-        this.user.uuid = this.$route.params.user.Username
-      }).catch((err) => {
-        console.log(err)
-        self.$router.push({ name: 'login' })
-      })
+    this.passedUser = this.$route.params.user
+    this.sessionUser.email = this.$route.params.user.email
+    this.user.email = this.$route.params.user.Attributes[5].Value
+    this.user.writeUserPermission = this.$route.params.user.Attributes[4].Value === 'true'
+    this.user.writeAwardeePermission = this.$route.params.user.Attributes[1].Value === 'true'
+    this.user.writeChapterPermission = this.$route.params.user.Attributes[3].Value === 'true'
+    this.user.userStatus = this.$route.params.user.UserStatus === 'CONFIRMED'
+    this.user.enabled = this.$route.params.user.Enabled
+    this.user.uuid = this.$route.params.user.Username
   }
 }
 </script>
