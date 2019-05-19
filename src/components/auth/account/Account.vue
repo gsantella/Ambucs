@@ -22,12 +22,12 @@
       </div>
 
       <div class="va-row">
-        <div class="flex md4">
+        <div class="flex md6">
           <button class="btn btn-primary btn-micro" type="submit">
             {{ $t('Reset') }}
           </button>
         </div>
-        <div class="flex md8">
+        <div class="flex md6">
           <button class="btn btn-danger btn-micro"  style="float:right" @click="cancelUser()">
             {{ $t('Cancel') }}
           </button>

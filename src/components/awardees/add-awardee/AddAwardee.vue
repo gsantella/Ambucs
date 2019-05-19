@@ -440,12 +440,6 @@
 
         <div class="form-group">
 
-           <!-- Notes View Mode-->
-          <div  class="input-group">
-            <input id="simple-input" v-model="document.notes" readonly required/>
-            <label style="" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
-          </div>
-
           <!-- Notes -->
           <div  class="input-group">
             <input id="simple-input" v-model="document.notes" required/>
