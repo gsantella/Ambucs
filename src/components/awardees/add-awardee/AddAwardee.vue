@@ -2,122 +2,12 @@
   <div class="form-elements">
     <div class="va-row">
 
-<!-- START OF VUESTIC WIDGET FOR FORM INPUTS -->
-
       <div class="flex md6">
 
-        <vuestic-widget :headerText="'Add Recipient' | translate">
-          <form>
-            <fieldset>
-
-              <div class="form-group">
-                <!-- First Name -->
-                <div class="input-group">
-                  <input id="simple-input" v-model="awardee.firstName" required/>
-                  <label class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                </div>
-
-                <!-- Last Name -->
-                <div class="input-group">
-                  <input id="simple-input" v-model="awardee.lastName" required/>
-                  <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                </div>
-              </div>
-
-              <div class="form-group">
-
-                <!-- Phone Number -->
-                <div class="input-group">
-                  <input id="simple-input" v-model="awardee.phone" required/>
-                  <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
-                </div>
-
-                <!-- Birth Date -->
-                <div class="input-group">
-                  <input id="simple-input" v-model="awardee.dateOfBirth" required/>
-                  <!--<vuestic-date-picker
-                    id="date-picker-custom-date-format"
-                    :config="{altInput: true, altFormat: 'F j, Y'}"
-                    v-model="awardee.dateOfBirth"
-                  />-->
-                  <label class="control-label" for="simple">
-                    Age at Application
-                  </label>
-                  <i class="bar"></i>
-
-                </div>
-
-                <!-- Last Contacted -->
-                <div class="input-group">
-                  <vuestic-date-picker
-                    id="date-picker-custom-date-format"
-                    :config="{altInput: true, altFormat: 'F j, Y'}"
-                    v-model="awardee.lastContacted"
-                  />
-                  <label class="control-label" for="date-picker-custom-date-format">
-                    Last Contacted
-                  </label>
-                  <i class="bar"></i>
-
-                </div>
-              </div>
-
-                  <div class="form-group with-icon-left">
-
-                    <!-- Street 1 -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address1" required/>
-                      <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group with-icon-left">
-                    <!-- Street 2 -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.address2" required/>
-                      <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group with-icon-right">
-
-                    <!-- City -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.addressCity" required/>
-                      <label class="control-label" for="simple-input">City</label><i class="bar"></i>
-                    </div>
-                    <!-- State -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.addressState" required/>
-                      <label class="control-label" for="simple-input">State</label><i class="bar"></i>
-                    </div>
-                    <!-- Zip -->
-                    <div class="input-group">
-                      <input id="simple-input" v-model="awardee.addressZip" required/>
-                      <label class="control-label" for="simple-input">Zip</label><i class="bar"></i>
-                    </div>
-
-                  </div>
-
-                   <!-- Notes -->
-                  <div class="form-group">
-                    <div class="input-group">
-                      <textarea type="text" v-model="awardee.notes" id="simple-textarea"
-                                required></textarea>
-                      <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                </fieldset>
-
-          </form>
-        </vuestic-widget>
+        <AwardeeInput @updateAwardeObject="updateAwardee"/>
 
       </div>
 
-<!-- END OF VUESTIC WIDGET FOR FORM INPUTS -->
-
-<!-- START OF RIGHT SIDE FLEX MD6-->
     <div class="flex md6">
 
 <!-- START OF CONTACTS TABLE-->
@@ -491,7 +381,7 @@
 <script>
 import swal from 'sweetalert'
 import axios from 'axios'
-
+import AwardeeInput from './AwardeeInput'
 const MAX_IMAGE_SIZE = 5000000
 
 export default {
@@ -588,6 +478,9 @@ export default {
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
+    updateAwardee (awardee) {
+      this.awardee = awardee
+    },
     deleteUpload () {
       fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${this.document.documentId}`, {
         method: 'DELETE',
@@ -812,6 +705,8 @@ export default {
 
     // Attemps to make a POST request to AWS sending up this.awardee to add
     addRecord () {
+      console.log(this.awardee)
+      /*
       try {
         fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
           method: 'POST',
@@ -838,6 +733,7 @@ export default {
       } catch (e) {
         swal('Error', 'There was an issue trying to add this record,please try again later.', 'error')
       }
+      */
     },
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -875,7 +771,7 @@ export default {
   /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   components: {
-
+    AwardeeInput
   }
 }
 
