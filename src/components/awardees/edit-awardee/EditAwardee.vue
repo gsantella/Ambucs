@@ -3,7 +3,7 @@
     <div class="va-row">
       <div class="flex md6">
       <vuestic-checkbox
-        v-if="hideCheckbox"
+        v-if="showCheckBox"
         :label="$t('Enable Edit Mode')"
         v-model="isDisabled"
       />
@@ -767,6 +767,69 @@ export default {
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  data () {
+    return {
+      isDisabled: false,
+      editId: '',
+      displayMode: '',
+      trykeModalTitle: '',
+      contactModalTitle: '',
+      documentModalTitle: '',
+      show: false,
+      contact: {
+        id: '',
+        awardeeId: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone1: '',
+        phone2: '',
+        address1: '',
+        address2: '',
+        addressCity: '',
+        addressState: '',
+        addressZip: '',
+        notes: '',
+        contactType: '',
+        IsPrimary: false
+      },
+      tryke: {
+        id: '',
+        awardeeId: '',
+        orderNumber: '',
+        model: '',
+        dateAwarded: '',
+        dateReceived: '',
+        fundedBy: '',
+        locationAwarded: '',
+        notes: '',
+        IsPrimary: false
+      },
+      document: {
+        awardeeId: '',
+        documentId: '',
+        url: '',
+        notes: ''
+      },
+      awardee: {},
+      contacts: [],
+      trykes: [],
+      documents: [],
+      image: '',
+      uploadURL: '',
+      User: {
+        email: '',
+        password: '',
+        writeUserPermission: false,
+        writeAwardeePermission: false,
+        writeChapterPermission: false
+      },
+      showCheckBox: true,
+    }
+  },
+
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   computed: {
 
     datePickerDisabled: () => [date => !(date.getDate() % 5)],
@@ -826,69 +889,6 @@ export default {
       //suppress all warnings between comments
       return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0)) // eslint-disable-line no-use-before-define
        /* eslint-enable */
-    }
-  },
-
-  /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  data () {
-    return {
-      isDisabled: false,
-      editId: '',
-      displayMode: '',
-      trykeModalTitle: '',
-      contactModalTitle: '',
-      documentModalTitle: '',
-      show: false,
-      contact: {
-        id: '',
-        awardeeId: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone1: '',
-        phone2: '',
-        address1: '',
-        address2: '',
-        addressCity: '',
-        addressState: '',
-        addressZip: '',
-        notes: '',
-        contactType: '',
-        IsPrimary: false
-      },
-      tryke: {
-        id: '',
-        awardeeId: '',
-        orderNumber: '',
-        model: '',
-        dateAwarded: '',
-        dateReceived: '',
-        fundedBy: '',
-        locationAwarded: '',
-        notes: '',
-        IsPrimary: false
-      },
-      document: {
-        awardeeId: '',
-        documentId: '',
-        url: '',
-        notes: ''
-      },
-      awardee: {},
-      contacts: [],
-      trykes: [],
-      documents: [],
-      image: '',
-      uploadURL: '',
-      User: {
-        email: '',
-        password: '',
-        writeUserPermission: false,
-        writeAwardeePermission: false,
-        writeChapterPermission: false
-      },
-      hideCheckBox: false,
     }
   },
 
@@ -1299,7 +1299,8 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    if (localStorage.getItem('awardee-id') === null) {
+    let awardeeId = localStorage.getItem('awardee-id')
+    if (awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
     } else {
@@ -1308,26 +1309,26 @@ export default {
       this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
       this.User.writeUserPermission = localStorage.getItem('userPerm')
       this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
-      if (!this.User.writeAwardeePermission) {
-        this.hideCheckbox = true
+      if (this.User.writeAwardeePermission !== 'true') {
+        this.showCheckBox = false
       }
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id)
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/contacts`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
           .then(response => response.json())
           .then(json => {
             this.contacts = json.Items
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/trykes`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.$route.params.id}/documents`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/documents`)
           .then(response => response.json())
           .then(json => {
             this.documents = json.Items
