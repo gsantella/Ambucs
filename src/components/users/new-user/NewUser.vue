@@ -83,12 +83,6 @@ export default {
       e.preventDefault()
       e.returnValue = ''
     })
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .catch((err) => {
-        console.log(err)
-        self.$router.push({ name: 'login' })
-      })
   },
   data () {
     return {

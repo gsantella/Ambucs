@@ -24,7 +24,6 @@ import LanguageDropdown from './components/dropdowns/LanguageDropdown'
 import ProfileDropdown from './components/dropdowns/ProfileDropdown'
 import NotificationDropdown from './components/dropdowns/NotificationDropdown'
 import MessageDropdown from './components/dropdowns/MessageDropdown'
-import { Auth } from 'aws-amplify'
 
 export default {
   name: 'app-navbar',
@@ -40,17 +39,11 @@ export default {
     }
   },
   created () {
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        this.User.email = data.attributes['email']
-        this.User.password = data.attributes['sub']
-        this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
-        this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
-      }).catch((err) => {
-        console.log(err)
-        self.$router.push({ name: 'login' })
-      })
+    this.User.email = localStorage.getItem('email')
+    this.User.password = localStorage.getItem('pass')
+    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
+    this.User.writeUserPermission = localStorage.getItem('userPerm')
+    this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
   },
   components: {
     VuesticIconVuestic,

@@ -204,11 +204,10 @@
 
 <script>
 import swal from 'sweetalert'
-import { Auth } from 'aws-amplify'
 
 export default {
 
-  name: 'ViewAwardee',
+  name: 'PrintAwardee',
 
   data () {
     return {
@@ -219,39 +218,32 @@ export default {
   },
 
   created () {
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        let awardeeId = localStorage.getItem('awardee-id')
-        if (awardeeId === null) {
-          swal('Error', 'That is not a valid user.', 'error')
-          this.$router.push({ name: 'view-awardees' })
-        } else {
-          try {
-            fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
-              .then(response => response.json())
-              .then(json => {
-                this.awardee = json.Item
-              })
-            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
-              .then(response => response.json())
-              .then(json => {
-                this.contacts = json.Items
-              })
-            fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
-              .then(response => response.json())
-              .then(json => {
-                this.trykes = json.Items
-              })
-          } catch (e) {
-            swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
-            self.$router.push({ name: 'view-awardees' })
-          }
-        }
-      }).catch((err) => {
-        console.log(err)
-        this.$router.push({ name: 'login' })
-      })
+    let awardeeId = localStorage.getItem('awardee-id')
+    if (awardeeId === null) {
+      swal('Error', 'That is not a valid user.', 'error')
+      this.$router.push({ name: 'view-awardees' })
+    } else {
+      try {
+        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
+          .then(response => response.json())
+          .then(json => {
+            this.awardee = json.Item
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
+          .then(response => response.json())
+          .then(json => {
+            this.contacts = json.Items
+          })
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
+          .then(response => response.json())
+          .then(json => {
+            this.trykes = json.Items
+          })
+      } catch (e) {
+        swal('Error', "I'm sorry we could not get that user for you please try again.", 'error')
+        self.$router.push({ name: 'view-awardees' })
+      }
+    }
   },
   methods: {
     print () {

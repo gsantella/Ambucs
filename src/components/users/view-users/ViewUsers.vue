@@ -49,7 +49,6 @@ import FilterBar
   from '@/vuestic-theme/vuestic-components/vuestic-datatable/datatable-components/FilterBar.vue'
 import VuesticSimpleSelect
   from '@/vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
-import { Auth } from 'aws-amplify'
 
 export default {
   name: 'ViewUsers',
@@ -94,20 +93,11 @@ export default {
     }
   },
   created () {
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
-          .then(response => response.json())
-          .then(json => {
-            this.users = json.Users
-            this.totalRows = json.length
-            console.log('test')
-            console.log(json.Users)
-          })
-      }).catch((err) => {
-        console.log(err)
-        self.$router.push({ name: 'login' })
+    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
+      .then(response => response.json())
+      .then(json => {
+        this.users = json.Users
+        this.totalRows = json.length
       })
   },
   components: {

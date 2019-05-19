@@ -14,7 +14,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: { name: 'view-awardees' },
+      redirect: { name: 'login' },
     },
     {
       path: '/auth',
@@ -57,7 +57,7 @@ export default new Router({
         {
           name: 'print-awardee',
           path: 'print-awardee',
-          component: lazyLoading('awardees/view-awardees/ViewAwardee'),
+          component: lazyLoading('awardees/view-awardees/PrintAwardee'),
           meta: {
             requiresAuth: true,
           }
@@ -112,14 +112,6 @@ export default new Router({
               name: 'view-awardees',
               path: 'view-awardees',
               component: lazyLoading('awardees/view-awardees/ViewAwardees'),
-              meta: {
-                requiresAuth: true,
-              }
-            },
-            {
-              name: 'view-awardee',
-              path: 'view-awardee',
-              component: lazyLoading('awardees/view-awardee/ViewAwardee'),
               meta: {
                 requiresAuth: true,
               }

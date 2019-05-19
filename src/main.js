@@ -22,10 +22,11 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    let userPerm = sessionStorage.getItem('userPerm')
-    let awardeeWritePerm = sessionStorage.getItem('awardeePerm')
-    let chapterPerm = sessionStorage.getItem('chapterPerm')
+    let userPerm = localStorage.getItem('userPerm')
+    let awardeeWritePerm = localStorage.getItem('awardeePerm')
+    let chapterPerm = localStorage.getItem('chapterPerm')
 
     if (to.matched.some(record => record.meta.requiresWriteChapter)) {
       if (chapterPerm) {

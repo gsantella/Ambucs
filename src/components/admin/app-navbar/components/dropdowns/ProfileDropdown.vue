@@ -13,11 +13,12 @@
         :key="option.name"
         class="dropdown-item plain-link-item"
       >
-        <router-link :to="{name: option.redirectTo}" class="plain-link"
+        <router-link :to="{name: option.redirectTo}" style="color:white" class="plain-link"
                      href="#">
           {{ $t(`${option.name}`) }}
         </router-link>
       </div>
+      <a class="dropdown-item plain-link-item" @click="logout">Logout</a>
     </vuestic-dropdown>
   </div>
 </template>
@@ -39,18 +40,23 @@ export default {
       }
     }
   },
+  methods: {
+    logout () {
+      Auth.signOut()
+      localStorage.removeItem('email')
+      localStorage.removeItem('awardeePerm')
+      localStorage.removeItem('chapterPerm')
+      localStorage.removeItem('userPerm')
+      localStorage.removeItem('pass')
+      this.$router.push({ name: 'login' })
+    }
+  },
   created () {
-    let self = this
-    Auth.currentAuthenticatedUser()
-      .then((data) => {
-        this.User.email = data.attributes['email']
-        this.User.password = data.attributes['sub']
-        this.User.writeAwardeePermission = data.attributes['custom:writeAwardeePerm2']
-        this.User.writeUserPermission = data.attributes['custom:writeUserPerm2']
-      }).catch((err) => {
-        console.log(err)
-        self.$router.push({ name: 'login' })
-      })
+    this.User.email = localStorage.getItem('email')
+    this.User.password = localStorage.getItem('pass')
+    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
+    this.User.writeUserPermission = localStorage.getItem('userPerm')
+    this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
   },
   props: {
     options: {
@@ -59,11 +65,7 @@ export default {
         {
           name: 'Account',
           redirectTo: 'account',
-        },
-        {
-          name: 'Logout',
-          redirectTo: 'login',
-        },
+        }
       ],
     },
   },
