@@ -131,7 +131,6 @@ export default new Router({
               component: lazyLoading('awardees/edit-awardee/EditAwardee'),
               meta: {
                 requiresAuth: true,
-                requiresWriteAwardee: true
               }
             }
           ]

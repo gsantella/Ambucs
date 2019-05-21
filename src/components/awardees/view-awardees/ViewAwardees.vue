@@ -1,7 +1,7 @@
 <template>
   <div class="filters-page">
 
-    <div class="row">
+    <div class="row" style="margin-bottom:10px">
       <div class="col-md-4">
         <download-csv
             class = "btn btn-default btn-micro"
@@ -118,8 +118,8 @@ export default {
       this.city = ''
     },
     clickList (item) {
+      sessionStorage.setItem('awardee-id', item.id)
       this.$router.push({ name: 'edit-awardee', params: { id: item.id } })
-      localStorage.setItem('awardee-id', item.id)
     },
     newAwardee () {
       this.$router.push({ name: 'add-awardee' })
@@ -151,9 +151,9 @@ export default {
   created () {
     this.User.email = localStorage.getItem('email')
     this.User.password = localStorage.getItem('pass')
-    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
-    this.User.writeUserPermission = localStorage.getItem('userPerm')
-    this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
+    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
+    this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
+    this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
     try {
       fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
         .then(response => response.json())

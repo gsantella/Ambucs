@@ -147,18 +147,22 @@ export default {
       e.preventDefault()
       e.returnValue = ''
     })
-    let user = localStorage.getItem('user')
+    let user = sessionStorage.getItem('user')
     user = JSON.parse(user)
-    console.log(user)
-    this.passedUser = user
-    this.sessionUser.email = user.email
-    this.user.email = user.Attributes[5].Value
-    this.user.writeUserPermission = user.Attributes[4].Value === 'true'
-    this.user.writeAwardeePermission = user.Attributes[1].Value === 'true'
-    this.user.writeChapterPermission = user.Attributes[3].Value === 'true'
-    this.user.userStatus = user.UserStatus === 'CONFIRMED'
-    this.user.enabled = user.Enabled
-    this.user.uuid = user.Username
+    if (user === null) {
+      swal('Error', 'That is not a valid user.', 'error')
+      this.$router.push({ name: 'view-users' })
+    } else {
+      this.passedUser = user
+      this.sessionUser.email = user.email
+      this.user.email = user.Attributes[5].Value
+      this.user.writeUserPermission = user.Attributes[4].Value === 'true'
+      this.user.writeAwardeePermission = user.Attributes[1].Value === 'true'
+      this.user.writeChapterPermission = user.Attributes[3].Value === 'true'
+      this.user.userStatus = user.UserStatus === 'CONFIRMED'
+      this.user.enabled = user.Enabled
+      this.user.uuid = user.Username
+    }
   }
 }
 </script>

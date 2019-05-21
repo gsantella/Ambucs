@@ -1,7 +1,6 @@
 <template>
   <vuestic-sidebar :hidden="isOpen">
     <template slot="menu">
-
       <sidebar-link
         :to="{ name: 'view-awardees' }">
         <span slot="title">
@@ -59,9 +58,9 @@ export default {
   created () {
     this.User.email = localStorage.getItem('email')
     this.User.password = localStorage.getItem('pass')
-    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
-    this.User.writeUserPermission = localStorage.getItem('userPerm')
-    this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
+    this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
+    this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
+    this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
   },
 }
 

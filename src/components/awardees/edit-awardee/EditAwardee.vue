@@ -1299,16 +1299,16 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    let awardeeId = localStorage.getItem('awardee-id')
+    let awardeeId = sessionStorage.getItem('awardee-id')
     if (awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
     } else {
       this.User.email = localStorage.getItem('email')
       this.User.password = localStorage.getItem('pass')
-      this.User.writeAwardeePermission = localStorage.getItem('awardeePerm')
-      this.User.writeUserPermission = localStorage.getItem('userPerm')
-      this.User.writeChapterPermission = localStorage.getItem('chapterPerm')
+      this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
+      this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
+      this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
       if (this.User.writeAwardeePermission !== 'true') {
         this.showCheckBox = false
       }

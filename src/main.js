@@ -27,9 +27,9 @@ router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    let userPerm = localStorage.getItem('userPerm')
-    let awardeeWritePerm = localStorage.getItem('awardeePerm')
-    let chapterPerm = localStorage.getItem('chapterPerm')
+    let userPerm = localStorage.getItem('userPerm') === 'true'
+    let awardeeWritePerm = localStorage.getItem('awardeePerm') === 'true'
+    let chapterPerm = localStorage.getItem('chapterPerm') === 'true'
 
     if (to.matched.some(record => record.meta.requiresWriteChapter)) {
       if (chapterPerm) {
