@@ -90,10 +90,10 @@ export default {
           }).then(() => {
             this.$router.push({ name: 'view-awardees' })
           }).catch((err) => {
-            console.log(err)
+            alert(err)
           })
         }).catch((err) => {
-          console.log(err)
+          alert(err)
         })
     }
   },

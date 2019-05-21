@@ -12,7 +12,10 @@ import router from './router'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
 import BootstrapVue from 'bootstrap-vue'
+import JsonCSV from 'vue-json-csv'
 
+Vue.component('downloadCsv', JsonCSV)
+Vue.use(JsonCSV)
 Vue.use(router)
 Vue.use(VuesticPlugin)
 Vue.use(BootstrapVue)

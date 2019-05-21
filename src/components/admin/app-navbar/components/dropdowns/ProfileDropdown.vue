@@ -8,16 +8,18 @@
       position="bottom"
     >
       <span style="color:white;padding:35px">{{User.email}}</span>
+      <!--
       <div
         v-for="option in options"
         :key="option.name"
         class="dropdown-item plain-link-item"
       >
+
         <router-link :to="{name: option.redirectTo}" style="color:white" class="plain-link"
                      href="#">
           {{ $t(`${option.name}`) }}
         </router-link>
-      </div>
+      </div> -->
       <a class="dropdown-item plain-link-item" @click="logout">Logout</a>
     </vuestic-dropdown>
   </div>

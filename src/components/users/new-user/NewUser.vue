@@ -89,7 +89,6 @@ export default {
       user: {
         email: '',
         password: '',
-        chapter: ''
       },
       writeUserPermission: false,
       writeAwardeePermission: false,
@@ -98,25 +97,13 @@ export default {
   },
   computed: {
     awardeePerm () {
-      if (this.writeAwardeePermission) {
-        return 'true'
-      } else {
-        return 'false'
-      }
+      return this.writeAwardeePermission ? 'true' : 'false'
     },
     userPerm () {
-      if (this.writeUserPermission) {
-        return 'true'
-      } else {
-        return 'false'
-      }
+      return this.writeUserPermission ? 'true' : 'false'
     },
     chapterPerm () {
-      if (this.writeChapterPermission) {
-        return 'true'
-      } else {
-        return 'false'
-      }
+      return this.writeChapterPermission ? 'true' : 'false'
     }
   },
   methods: {
@@ -127,16 +114,14 @@ export default {
         'attributes': {
           'custom:writeUserPerm2': this.awardeePerm,
           'custom:writeAwardeePerm2': this.userPerm,
-          'custom:writeChapterPerm2': this.chapterPerm
+          'custom:writeChapterPerm2': this.chapterPerm,
         },
       }).then(() => {
         swal('Added', 'The User has been added.', 'success')
         this.$store.commit('setLoading', true)
+      }).then(() => {
         setTimeout(() => this.$router.push({ name: 'view-users' }), 2500)
       })
-        .catch((err) => {
-          swal('Error', err.message, 'error')
-        })
     },
     cancelUser () {
       swal({

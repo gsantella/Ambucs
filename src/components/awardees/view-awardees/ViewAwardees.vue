@@ -3,7 +3,12 @@
 
     <div class="row">
       <div class="col-md-4">
-        <button class="btn btn-primary btn-micro" @click="csvExport">Export</button>
+        <download-csv
+            class = "btn btn-default btn-micro"
+            :data = "itemList"
+            name  = "AmbucsDatabaseExport.csv">
+            Export Database CSV
+        </download-csv>
       </div>
       <div v-if="User.writeAwardeePermission" class="col-md-8">
           <div style="margin-bottom:15px;float:right">
@@ -21,13 +26,13 @@
     </b-input-group>
 
     <b-table striped hover
-    :items="filteredItems"
-    :fields="fields"
-    @filtered="onFiltered"
-    :filter="filter"
-    :current-page="currentPage"
-    :per-page="perPage"
-    @row-clicked="clickList"
+      :items="filteredItems"
+      :fields="fields"
+      @filtered="onFiltered"
+      :filter="filter"
+      :current-page="currentPage"
+      :per-page="perPage"
+      @row-clicked="clickList"
     />
 
     <b-row>

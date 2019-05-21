@@ -147,15 +147,18 @@ export default {
       e.preventDefault()
       e.returnValue = ''
     })
-    this.passedUser = this.$route.params.user
-    this.sessionUser.email = this.$route.params.user.email
-    this.user.email = this.$route.params.user.Attributes[5].Value
-    this.user.writeUserPermission = this.$route.params.user.Attributes[4].Value === 'true'
-    this.user.writeAwardeePermission = this.$route.params.user.Attributes[1].Value === 'true'
-    this.user.writeChapterPermission = this.$route.params.user.Attributes[3].Value === 'true'
-    this.user.userStatus = this.$route.params.user.UserStatus === 'CONFIRMED'
-    this.user.enabled = this.$route.params.user.Enabled
-    this.user.uuid = this.$route.params.user.Username
+    let user = localStorage.getItem('user')
+    user = JSON.parse(user)
+    console.log(user)
+    this.passedUser = user
+    this.sessionUser.email = user.email
+    this.user.email = user.Attributes[5].Value
+    this.user.writeUserPermission = user.Attributes[4].Value === 'true'
+    this.user.writeAwardeePermission = user.Attributes[1].Value === 'true'
+    this.user.writeChapterPermission = user.Attributes[3].Value === 'true'
+    this.user.userStatus = user.UserStatus === 'CONFIRMED'
+    this.user.enabled = user.Enabled
+    this.user.uuid = user.Username
   }
 }
 </script>
