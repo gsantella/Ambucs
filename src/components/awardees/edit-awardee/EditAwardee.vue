@@ -1004,9 +1004,11 @@ export default {
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           method: 'PATCH',
           body: JSON.stringify(this.awardee)
-        }).then(swal('Updated', 'The Awardee has been updated.', 'success'))
-
-        setTimeout(() => this.$router.push({ name: 'view-awardees' }), 2500)
+        }).then(() => {
+          this.$router.push({ name: 'view-awardees' })
+        }).then(() => {
+          swal('Updated', 'The Awardee has been updated.', 'success')
+        })
       } catch (e) {
         swal('Error', 'There was an issue trying to update this record,please try again later.', 'error')
       }
@@ -1309,7 +1311,7 @@ export default {
       this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
       this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
       this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
-      if (this.User.writeAwardeePermission !== 'true') {
+      if (!this.User.writeAwardeePermission) {
         this.showCheckBox = false
       }
       try {
