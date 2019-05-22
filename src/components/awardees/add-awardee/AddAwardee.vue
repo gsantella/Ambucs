@@ -1,19 +1,5 @@
 <template>
-  <div class="form-elements">
-    <div v-if="!submitted" class="va-row">
-      <div
-        class="flex md2">
-        <button class="btn btn-primary btn-micro" @click="addRecord()" >
-          {{'Save' | translate}}
-        </button>
-      </div>
-      <div
-        class="flex md2">
-        <button class="btn btn-danger btn-micro" @click="cancelRecord()">
-          {{'Delete' | translate}}
-        </button>
-      </div>
-    </div>
+  <div id="container" class="form-elements">
     <div class="va-row">
 
       <div class="flex md6">
@@ -35,7 +21,20 @@
       </div>
 
     </div>
-
+    <div v-if="!submitted" class="va-row">
+      <div
+        class="flex md3">
+        <button class="btn btn-primary" @click="addRecord()" >
+          {{'Save' | translate}}
+        </button>
+      </div>
+      <div
+        class="flex md3">
+        <button class="btn btn-danger" @click="cancelRecord()">
+          {{'Cancel' | translate}}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -138,3 +137,9 @@ export default {
 }
 
 </script>
+
+<style>
+html {
+  overflow-y: scroll;
+}
+</style>
