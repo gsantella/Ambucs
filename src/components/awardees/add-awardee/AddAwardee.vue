@@ -1,22 +1,15 @@
 <template>
   <div id="container" class="form-elements">
     <div class="va-row">
-
       <div class="flex md6">
-
         <AwardeeInput @updateAwardeObject="updateAwardee"/>
-
       </div>
 
       <div class="flex md6">
         <AddContactTable @addContactsToAwardee="addContactsToAwardee"/>
-
         <br style="margin:10%"/>
-
         <AddTrykeTable @addTrykesToAwardee="addTrykesToAwardee"/>
-
         <br style="margin:10%"/>
-
         <AddUploadTable @addDocumentsToAwardee="addDocumentsToAwardee"/>
       </div>
 

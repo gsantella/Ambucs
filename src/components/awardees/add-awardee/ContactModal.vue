@@ -2,8 +2,8 @@
     <div>
       <b-modal
       @hide="handleCloseModal()"
-      ok-title="Add/Save"
-      cancel-title="Cancel/Delete"
+      ok-title="Save"
+      cancel-title="Delete"
       @ok="addUpdate()"
       @cancel="cancelRemove()"
       v-model="showModal"

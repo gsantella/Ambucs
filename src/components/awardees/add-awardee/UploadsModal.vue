@@ -2,8 +2,8 @@
     <div>
         <b-modal
         @hide="handleCloseModal()"
-        ok-title="Add/Save"
-        cancel-title="Cancel/Delete"
+        ok-title="Save"
+        cancel-title="Delete"
         @ok="addUpdate()"
         @cancel="cancelRemove()"
         v-model="showModal"
@@ -88,12 +88,10 @@ export default {
     handleCloseModal () {
       this.$emit('handleCloseModal', true)
     },
-    // Add a new this.contact object into this.awardee.contacts array
     addDocumentToArray () {
       this.showModal = false
       this.$emit('sendDocumentData', this.document)
     },
-    // Add a new this.contact object into this.awardee.contacts array
     updateDocumentItem () {
       fetch(`${URL}/Test/document/${this.document.documentId}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -103,7 +101,6 @@ export default {
       this.showModal = false
       this.$emit('updateDocumentItem', this.document)
     },
-    // Delete Contact by Edit Id
     deleteDocumentRow () {
       fetch(`${URL}/Test/document/${this.document.documentId}`, {
         method: 'DELETE',
