@@ -45,7 +45,7 @@ export default {
   props: ['awardeeId', 'IsDisabled'],
   data () {
     return {
-      URL: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com',
+      URL: '',
       showModal: false,
       displayMode: '',
       contactModalTitle: '',
@@ -58,6 +58,13 @@ export default {
   computed: {
     IsContactPrimary () {
       return this.contact.IsPrimary ? 'true' : 'false'
+    },
+    orderedByPrimaryContacts: function () {
+      // return this.contacts
+      /*eslint-disable */
+      //suppress all warnings between comments
+      return this.contacts.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0)) // eslint-disable-line no-use-before-define
+      /* eslint-enable */
     },
   },
   methods: {
@@ -76,6 +83,7 @@ export default {
           .then(json => {
             this.contacts.push(Object.assign({}, json.Attributes))
             this.showModal = false
+            this.$emit('updateContactsInAwardee', this.contacts)
             swal('Added', 'The contact has been added.', 'success')
           })
       } catch (e) {
@@ -93,6 +101,7 @@ export default {
           .then(json => {
             this.$set(this.contacts, this.editId, Object.assign({}, json.Attributes))
             this.showModal = false
+            this.$emit('updateContactsInAwardee', this.contacts)
           }).then(swal('Updated', 'The contact has been updated.', 'success'))
       } catch (e) {
         swal('Error', 'An error occurred please try again.', 'error')
@@ -115,6 +124,7 @@ export default {
               }).then(() => {
                 this.contacts.splice(editId, 1)
                 this.showModal = false
+                this.$emit('updateContactsInAwardee', this.contacts)
               }).then(swal('Deleted', 'The contact has been deleted.', 'success'))
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that contact,please try again later.", 'error')
@@ -142,6 +152,7 @@ export default {
     }
   },
   created () {
+    this.URL = this.API_URL
     fetch(`${this.URL}/Test/awardee/${this.awardeeId}/contacts`)
       .then(response => response.json())
       .then(json => {

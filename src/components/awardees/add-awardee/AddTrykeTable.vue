@@ -45,6 +45,7 @@ export default {
   name: 'AddTrykeTable',
   data () {
     return {
+      URL: '',
       showModal: false,
       displayMode: '',
       editId: 0,
@@ -98,6 +99,9 @@ export default {
       this.modalTitle = 'Edit Tryke'
       this.showModal = true
     },
+  },
+  mounted () {
+    this.URL = this.API_URL
   },
   components: {
     TrykeModal

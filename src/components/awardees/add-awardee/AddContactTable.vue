@@ -42,6 +42,7 @@ export default {
   name: 'AddContactTable',
   data () {
     return {
+      URL: '',
       showModal: false,
       displayMode: '',
       contactModalTitle: '',
@@ -53,11 +54,7 @@ export default {
   },
   computed: {
     IsContactPrimary () {
-      if (this.contact.IsPrimary) {
-        return 'true'
-      } else {
-        return 'false'
-      }
+      return this.contact.IsPrimary ? 'true' : 'false'
     },
   },
   methods: {
@@ -99,6 +96,9 @@ export default {
       this.modalTitle = 'Edit Contact'
       this.showModal = true
     }
+  },
+  mounted () {
+    this.URL = this.API_URL
   },
   components: {
     ContactModal

@@ -191,7 +191,7 @@ export default {
   },
   data () {
     return {
-      URL: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com',
+      URL: '',
       awardee: {
         firstName: '',
         lastName: '',
@@ -208,7 +208,8 @@ export default {
     }
   },
   created () {
-    fetch(`${this.URL}/Test/awardee/` + this.awardeeId)
+    this.URL = this.API_URL
+    fetch(`${this.URL}/Test/awardee/${this.awardeeId}`)
       .then(response => response.json())
       .then(json => {
         this.awardee = json.Item

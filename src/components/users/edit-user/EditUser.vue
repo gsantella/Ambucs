@@ -89,7 +89,9 @@ export default {
   },
   data () {
     return {
+      URL: '',
       user: {
+        URL: '',
         uuid: '',
         email: '',
         password: '',
@@ -112,7 +114,7 @@ export default {
         'writeAwardeePerm2': this.user.writeAwardeePermission.toString(),
         'writeUserPerm2': this.user.writeUserPermission.toString()
       }
-      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user/${this.passedUser.Username}`, {
+      fetch(`${this.URL}/Test/user/${this.passedUser.Username}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         method: 'PATCH',
         body: JSON.stringify(attrObject)
@@ -134,7 +136,7 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user/${this.user.uuid}`, {
+              fetch(`${this.URL}/Test/user/${this.user.uuid}`, {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The User has been deleted.', 'success'))
               this.$store.commit('setLoading', true)
@@ -149,6 +151,7 @@ export default {
     }
   },
   created () {
+    this.URL = this.API_URL
     window.addEventListener('beforeunload', function (e) {
       e.preventDefault()
       e.returnValue = ''

@@ -69,6 +69,7 @@ export default {
   },
   data () {
     return {
+      URL: '',
       User: {
         email: '',
         password: '',
@@ -149,13 +150,14 @@ export default {
     }
   },
   created () {
+    this.URL = this.API_URL
     this.User.email = localStorage.getItem('email')
     this.User.password = localStorage.getItem('pass')
     this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
     this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
     this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
     try {
-      fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test')
+      fetch(`${this.URL}/Test`)
         .then(response => response.json())
         .then(json => {
           this.itemList = json

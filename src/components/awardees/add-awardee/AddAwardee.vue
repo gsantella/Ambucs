@@ -42,6 +42,7 @@ export default {
   name: 'AddAwardee',
   data () {
     return {
+      URL: '',
       contact: {},
       contacts: [],
       tryke: {},
@@ -69,21 +70,21 @@ export default {
     addRecord () {
       this.submitted = true
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test', {
+        fetch(`${this.URL}/Test`, {
           method: 'POST',
           body: JSON.stringify(this.awardee)
         }).then(response => response.json())
           .then(json => {
             this.contacts.forEach(element => {
               element.awardeeId = json.Attributes.id
-              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact`, {
+              fetch(`${this.URL}/Test/contact`, {
                 method: 'POST',
                 body: JSON.stringify(element)
               })
             })
             this.trykes.forEach(element => {
               element.awardeeId = json.Attributes.id
-              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/tryke`, {
+              fetch(`${this.URL}/Test/tryke`, {
                 method: 'POST',
                 body: JSON.stringify(element)
               })
@@ -120,6 +121,9 @@ export default {
           }
         })
     }
+  },
+  mounted () {
+    this.URL = this.API_URL
   },
   components: {
     AwardeeInput,

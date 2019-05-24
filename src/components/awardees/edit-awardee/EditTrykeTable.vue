@@ -48,7 +48,7 @@ export default {
   props: ['awardeeId', 'IsDisabled'],
   data () {
     return {
-      URL: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com',
+      URL: '',
       showModal: false,
       displayMode: '',
       editId: 0,
@@ -62,6 +62,13 @@ export default {
     IsTrykePrimary () {
       return this.tryke.IsPrimary ? 'true' : 'false'
     },
+    orderedByPrimaryTrykes: function () {
+      // return this.trykes
+      /*eslint-disable */
+      //suppress all warnings between comments
+      return this.trykes.sort((a, b) => (a.IsPrimary < b.IsPrimary) ? 1 : ((b.IsPrimary < a.IsPrimary) ? -1 : 0)) // eslint-disable-line no-use-before-define
+       /* eslint-enable */
+    }
   },
   methods: {
     // Emitter - On TrykeModal Close Hide Modal
@@ -79,6 +86,7 @@ export default {
           .then(json => {
             this.trykes.push(Object.assign({}, json.Attributes))
             this.showModal = false
+            this.$emit('updateTrykesInAwardee', this.trykes)
             swal('Added', 'The Tryke has been added.', 'success')
           })
       } catch (e) {
@@ -96,6 +104,7 @@ export default {
           .then(json => {
             this.$set(this.trykes, this.editId, Object.assign({}, json.Attributes))
             this.showModal = false
+            this.$emit('updateTrykesInAwardee', this.trykes)
           }).then(swal('Updated', 'The Tryke has been updated.', 'success'))
       } catch (e) {
         swal('Error', 'An error occurred please try again.', 'error')
@@ -118,6 +127,7 @@ export default {
               }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
               this.trykes.splice(editId, 1)
               this.showModal = false
+              this.$emit('updateTrykesInAwardee', this.trykes)
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that tryke,please try again later.", 'error')
             }
@@ -144,6 +154,7 @@ export default {
     },
   },
   created () {
+    this.URL = this.API_URL
     fetch(`${this.URL}/Test/awardee/${this.awardeeId}/trykes`)
       .then(response => response.json())
       .then(json => {

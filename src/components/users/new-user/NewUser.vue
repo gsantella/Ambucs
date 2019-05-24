@@ -86,6 +86,7 @@ export default {
   },
   data () {
     return {
+      URL: '',
       user: {
         email: '',
         password: '',
@@ -140,7 +141,10 @@ export default {
           }
         })
     }
-  }
+  },
+  mounted () {
+    this.URL = this.API_URL
+  },
 }
 </script>
 

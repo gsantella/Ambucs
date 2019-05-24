@@ -112,6 +112,7 @@ export default {
   },
   data () {
     return {
+      URL: '',
       awardee: {
         firstName: '',
         lastName: '',
@@ -126,6 +127,9 @@ export default {
         notes: ''
       },
     }
-  }
+  },
+  mounted () {
+    this.URL = this.API_URL
+  },
 }
 </script>

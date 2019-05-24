@@ -211,30 +211,31 @@ export default {
 
   data () {
     return {
+      URL: '',
       awardee: {},
       contacts: [],
       trykes: []
     }
   },
-
   created () {
+    this.URL = this.API_URL
     let awardeeId = localStorage.getItem('awardee-id')
     if (awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
     } else {
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
+        fetch(`${this.URL}/Test/awardee/${awardeeId}`)
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
+        fetch(`${this.URL}/Test/awardee/${awardeeId}/contacts`)
           .then(response => response.json())
           .then(json => {
             this.contacts = json.Items
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
+        fetch(`${this.URL}/Test/awardee/${awardeeId}/trykes`)
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items

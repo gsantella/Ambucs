@@ -35,7 +35,7 @@ export default {
   name: 'AddUploadTable',
   data () {
     return {
-      URL: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com',
+      URL: '',
       showModal: false,
       displayMode: '',
       documentModalTitle: '',
@@ -84,6 +84,9 @@ export default {
       this.modalTitle = 'Edit Document'
       this.showModal = true
     },
+  },
+  mounted () {
+    this.URL = this.API_URL
   },
   components: {
     UploadsModal

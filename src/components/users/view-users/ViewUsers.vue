@@ -54,6 +54,7 @@ export default {
   name: 'ViewUsers',
   data () {
     return {
+      URL: '',
       users: [],
       email: '',
       count: 0,
@@ -93,7 +94,8 @@ export default {
     }
   },
   created () {
-    fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user')
+    this.URL = this.API_URL
+    fetch(`${this.URL}/Test/user`)
       .then(response => response.json())
       .then(json => {
         this.users = json.Users

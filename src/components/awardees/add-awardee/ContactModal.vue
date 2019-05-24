@@ -116,6 +116,7 @@ export default {
   props: ['modalTitle', 'displayMode', 'editContact', 'editId'],
   data () {
     return {
+      URL: '',
       show: true,
       showModal: false,
       contactModalTitle: '',
@@ -164,6 +165,7 @@ export default {
     }
   },
   created () {
+    this.URL = this.API_URL
     setTimeout(() => {
       this.showModal = true
 

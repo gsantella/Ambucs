@@ -65,6 +65,7 @@ export default {
   props: ['modalTitle', 'displayMode', 'editDocument', 'editId'],
   data () {
     return {
+      URL: '',
       show: true,
       showModal: false,
       documentModalTitle: '',
@@ -93,7 +94,7 @@ export default {
       this.$emit('sendDocumentData', this.document)
     },
     updateDocumentItem () {
-      fetch(`${URL}/Test/document/${this.document.documentId}`, {
+      fetch(`${this.URL}/Test/document/${this.document.documentId}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         method: 'PATCH',
         body: JSON.stringify(this.document.notes)
@@ -102,7 +103,7 @@ export default {
       this.$emit('updateDocumentItem', this.document)
     },
     deleteDocumentRow () {
-      fetch(`${URL}/Test/document/${this.document.documentId}`, {
+      fetch(`${this.URL}/Test/document/${this.document.documentId}`, {
         method: 'DELETE',
       })
       this.showModal = false
@@ -134,7 +135,7 @@ export default {
       // Get the presigned URL
       const response = await axios({
         method: 'GET',
-        url: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id + '/upload'
+        url: `${this.URL}/Test/awardee/${this.$route.params.id}/upload`
       })
       let binary = atob(this.image.split(',')[1])
       let array = []
@@ -153,7 +154,7 @@ export default {
       this.document.url = this.uploadURL
 
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document', {
+        fetch(`${this.URL}/Test/document`, {
           method: 'POST',
           body: JSON.stringify(this.document)
         }).then(swal('Added', 'The document has been added.', 'success'))
@@ -171,6 +172,7 @@ export default {
     },
   },
   created () {
+    this.URL = this.API_URL
     setTimeout(() => {
       this.showModal = true
 
