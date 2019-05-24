@@ -75,10 +75,6 @@
 </template>
 
 <script>
-import { Auth } from 'aws-amplify'
-
-import VuesticWidget
-  from '../../../vuestic-theme/vuestic-components/vuestic-widget/VuesticWidget'
 import FilterBar
   from '../../../vuestic-theme/vuestic-components/vuestic-datatable/datatable-components/FilterBar.vue'
 import VuesticSimpleSelect
@@ -89,7 +85,7 @@ import swal from 'sweetalert'
 export default {
   name: 'EditUser',
   components: {
-    VuesticWidget, FilterBar, SpringSpinner, VuesticSimpleSelect
+    FilterBar, SpringSpinner, VuesticSimpleSelect
   },
   data () {
     return {
@@ -112,9 +108,19 @@ export default {
   },
   methods: {
     updateUser () {
-      Auth.updateUserAttributes(this.passedUser, {
-        'custom:writeUserPerm2': this.user.writeUserPermission.toString(),
-        'custom:writeAwardeePerm2': this.user.writeAwardeePermission.toString()
+      let attrObject = {
+        'writeAwardeePerm2': this.user.writeAwardeePermission.toString(),
+        'writeUserPerm2': this.user.writeUserPermission.toString()
+      }
+      fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/user/${this.passedUser.Username}`, {
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        method: 'PATCH',
+        body: JSON.stringify(attrObject)
+      }).then(() => {
+        this.$store.commit('setLoading', true)
+        this.$router.push({ name: 'view-users' })
+      }).then(() => {
+        swal('Updated', 'The User has been updated.', 'success')
       })
     },
     deleteUser () {
@@ -147,21 +153,22 @@ export default {
       e.preventDefault()
       e.returnValue = ''
     })
-    let user = sessionStorage.getItem('user')
-    user = JSON.parse(user)
-    if (user === null) {
+
+    this.passedUser = sessionStorage.getItem('user')
+    this.passedUser = JSON.parse(this.passedUser)
+
+    if (this.passedUser === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-users' })
     } else {
-      this.passedUser = user
-      this.sessionUser.email = user.email
-      this.user.email = user.Attributes[5].Value
-      this.user.writeUserPermission = user.Attributes[4].Value === 'true'
-      this.user.writeAwardeePermission = user.Attributes[1].Value === 'true'
-      this.user.writeChapterPermission = user.Attributes[3].Value === 'true'
-      this.user.userStatus = user.UserStatus === 'CONFIRMED'
-      this.user.enabled = user.Enabled
-      this.user.uuid = user.Username
+      this.sessionUser.email = this.passedUser.email
+      this.user.email = this.passedUser.Attributes[5].Value
+      this.user.writeUserPermission = this.passedUser.Attributes[4].Value === 'true'
+      this.user.writeAwardeePermission = this.passedUser.Attributes[1].Value === 'true'
+      this.user.writeChapterPermission = this.passedUser.Attributes[3].Value === 'true'
+      this.user.userStatus = this.passedUser.UserStatus === 'CONFIRMED'
+      this.user.enabled = this.passedUser.Enabled
+      this.user.uuid = this.passedUser.Username
     }
   }
 }

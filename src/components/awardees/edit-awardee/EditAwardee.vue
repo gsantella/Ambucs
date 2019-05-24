@@ -15,254 +15,28 @@
       </div>
     </div>
     <div class="va-row">
-
-<!-- START OF MAIN FORM -->
-
       <div class="flex md6">
-        <vuestic-widget :headerText=" HeaderText | translate">
-
-          <form>
-                <fieldset>
-                  <div class="form-group">
-
-                    <!-- First Name View Mode-->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.firstName" readonly required/>
-                      <label style="" class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
-
-                    <!-- First Name -->
-                    <div v-if="isDisabled" class="input-group">
-                     <input id="simple-input" v-model="awardee.firstName" required/>
-                     <label abel class="control-label" for="simple-input">First Name</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Last Name View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.lastName" readonly/>
-                      <label style="" class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Last Name -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.lastName"/>
-                      <label class="control-label" for="simple-input">Last Name</label><i class="bar"></i>
-                    </div>
-
-                  </div>
-
-                  <div class="form-group">
-
-                    <!-- Phone Number View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Phone Number</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.phone" type="text" required/>
-                      <label class="control-label" for="simple-textarea">Phone Number</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Birth Date View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.dateOfBirth" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Age at Application</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Birth Date -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.dateOfBirth" required />
-                      <!--<vuestic-date-picker
-                        id="date-picker-custom-date-format"
-                        :config="{altInput: true, altFormat: 'F j, Y'}"
-                        v-model="awardee.dateOfBirth"
-                      />-->
-                      <label class="control-label" for="simple-input">
-                        Age at Application
-                      </label>
-                      <i class="bar"></i>
-                    </div>
-
-                    <!-- Last Contacted Date View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.lastContacted" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Last Contacted</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Last Contacted -->
-                    <div v-if="isDisabled" class="input-group">
-                      <vuestic-date-picker
-                        id="date-picker-custom-date-format"
-                        :config="{altInput: true, altFormat: 'F j, Y'}"
-                        v-model="awardee.lastContacted"
-                      />
-                      <label class="control-label" for="date-picker-custom-date-format">
-                        Last Contacted
-                      </label>
-                      <i class="bar"></i>
-
-                    </div>
-
-                  </div>
-
-                  <div class="form-group with-icon-left">
-
-                    <!-- Street 1 View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address1" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Street 1 -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address1" required/>
-                      <label class="control-label" for="simple-input">Address 1</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group with-icon-left">
-
-                    <!-- Street 2 View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address2" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Street 2 -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.address2" required/>
-                      <label class="control-label" for="simple-input">Address 2</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                  <div class="form-group with-icon-right">
-
-                    <!-- City View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressCity" readonly required/>
-                      <label style="" class="control-label" for="simple-input">City</label><i class="bar"></i>
-                    </div>
-
-                    <!-- City -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressCity" required/>
-                      <label class="control-label" for="simple-input">City</label><i class="bar"></i>
-                    </div>
-
-                    <!-- State View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressState" readonly required/>
-                      <label style="" class="control-label" for="simple-input">State</label><i class="bar"></i>
-                    </div>
-
-                    <!-- State -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressState" required/>
-                      <label class="control-label" for="simple-input">State</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Zip View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressZip" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Zip</label><i class="bar"></i>
-                    </div>
-
-                    <!-- Zip -->
-                    <div v-if="isDisabled" class="input-group">
-                      <input id="simple-input" v-model="awardee.addressZip" required/>
-                      <label class="control-label" for="simple-input">Zip</label><i class="bar"></i>
-                    </div>
-
-                  </div>
-
-                  <div class="form-group">
-
-                    <!-- Notes View Mode -->
-                    <div v-if="!isDisabled" class="input-group">
-                      <textarea id="simple-input" v-model="awardee.notes" readonly required/>
-                      <label style="" class="control-label" for="simple-input">Notes</label><i class="bar"></i>
-                    </div>
-
-                     <!-- Notes -->
-                    <div v-if="isDisabled" class="input-group">
-                      <textarea type="text" id="simple-textarea" v-model="awardee.notes"
-                                required></textarea>
-                      <label class="control-label" for="simple-textarea">Notes</label><i class="bar"></i>
-                    </div>
-                  </div>
-
-                </fieldset>
-
-          </form>
-        </vuestic-widget>
-
-<!-- END OF MAIN FORM -->
-
+        <AwardeeInput
+        :awardeeId="awardeeId"
+        :IsDisabled="IsDisabled"
+        :HeaderText="HeaderText"
+        @updateAwardeObject="updateAwardeeObject"
+        />
       </div>
-
-<!-- START OF TABLES RIGHT SIDE -->
 
     <div class="flex md6">
 
-<!-- CONTACTS TABLE -->
-
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewContactRecord()">
-        {{'Add' | translate}}
-      </button>
-      <vuestic-widget headerText="Contacts" style="margin-bottom:5px" />
-      <table class="table table-striped first-td-padding">
-          <thead>
-            <tr>
-              <td>Type</td>
-              <td>First</td>
-              <td>Last</td>
-              <td>Phone Number</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item,index) in orderedByPrimaryContacts" :key="item.id" @click="displayModal(item,index,1)">
-                <td>{{ item.contactType }}</td>
-                <td>{{ item.firstName }}</td>
-                <td>{{ item.lastName }}</td>
-                <td>{{ item.phone1 }}</td>
-            </tr>
-          </tbody>
-      </table>
-
-<!-- END OF CONTACTS TABLE -->
+      <EditContactTable
+      :awardeeId="awardeeId"
+      :IsDisabled="IsDisabled"
+      />
 
       <br style="margin-bottom:2%"/>
 
-<!-- START OF TRYKES TABLE -->
-
-      <button v-if="isDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewTrykeRecord()">
-        {{'Add' | translate}}
-      </button>
-      <vuestic-widget headerText="Trykes" style="margin-bottom:5px" />
-      <table class="table table-striped first-td-padding">
-          <thead>
-            <tr>
-              <td>Order Num</td>
-              <td>Model</td>
-              <td>Date of Application</td>
-              <td>Date Awarded</td>
-              <td>Funded By</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item,index) in orderedByPrimaryTrykes" :key="item.id" @click="displayModal(item,index,2)">
-              <td>{{ item.orderNumber }}</td>
-              <td>{{ item.model }}</td>
-              <td>{{ item.dateReceived }}</td>
-              <td>{{ item.dateAwarded }}</td>
-              <td>{{ item.fundedBy }}</td>
-            </tr>
-          </tbody>
-      </table>
-
-<!-- END OF TRYKES TABLE -->
+      <EditTrykeTable
+      :awardeeId="awardeeId"
+      :IsDisabled="IsDisabled"
+      />
 
       <br style="margin-bottom:2%"/>
 
@@ -451,10 +225,10 @@
 
               <div class="form-group">
 
-                <!-- State View Mode-->
+                 <!-- City View Mode-->
                 <div v-if="!isDisabled" class="input-group">
-                  <input id="simple-input" v-model="contact.addressState" readonly required/>
-                  <label style="" class="control-label" for="simple-input">State</label><i class="bar"></i>
+                  <input id="simple-input" v-model="contact.addressCity" readonly required/>
+                  <label style="" class="control-label" for="simple-input">City</label><i class="bar"></i>
                 </div>
 
                 <!-- State -->
@@ -759,6 +533,10 @@
 import swal from 'sweetalert'
 // import _ from 'lodash'
 import axios from 'axios'
+import AwardeeInput from './AwardeeInput'
+import EditContactTable from './EditContactTable'
+import EditTrykeTable from './EditTrykeTable'
+import EditUploadTable from './EditUploadTable'
 
 const MAX_IMAGE_SIZE = 5000000
 
@@ -769,6 +547,7 @@ export default {
 
   data () {
     return {
+      awardeeId: '',
       isDisabled: false,
       editId: '',
       displayMode: '',
@@ -852,27 +631,18 @@ export default {
     },
 
     HeaderText () {
-      if (this.isDisabled) {
-        return 'Edit Recipient'
-      } else {
-        return 'View Recipient'
-      }
+      return this.isDisabled ? 'Edit Recipient' : 'View Recipient'
+    },
+    IsDisabled () {
+      return !!this.isDisabled
     },
 
     IsTrykePrimary () {
-      if (this.tryke.IsPrimary) {
-        return 'true'
-      } else {
-        return 'false'
-      }
+      return this.tryke.IsPrimary ? 'true' : 'false'
     },
 
     IsContactPrimary () {
-      if (this.contact.IsPrimary) {
-        return 'true'
-      } else {
-        return 'false'
-      }
+      return this.contact.IsPrimary ? 'true' : 'false'
     },
 
     orderedByPrimaryContacts: function () {
@@ -895,6 +665,10 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   methods: {
+    // Emitter Returning updated awardee object.
+    updateAwardeeObject (awardee) {
+      this.awardee = awardee
+    },
     deleteUpload () {
       fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document/${this.document.documentId}`, {
         method: 'DELETE',
@@ -1077,78 +851,6 @@ export default {
       this.$refs.largeModal.open()
     },
 
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Add a new this.contact object into this.awardee.contacts array
-    addContactToAwardeeObject () {
-      this.contact.awardeeId = this.awardee.id
-
-      try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact', {
-          method: 'POST',
-          body: JSON.stringify(this.contact)
-        }).then(swal('Added', 'The contact has been added.', 'success'))
-          .then(response => response.json())
-          .then(json => {
-            this.contacts.push(Object.assign({}, json.Attributes))
-          })
-        this.$refs.largeModal.cancel()
-      } catch (e) {
-        swal('Error', 'There was an error adding that contact, please try again.', 'error')
-      }
-    },
-
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Find the item in this.awardee.contacts array by index and replace it with this.contact object
-    updateContactRecord () {
-      try {
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/${this.contact.id}`, {
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          method: 'PATCH',
-          body: JSON.stringify(this.contact)
-        }).then(swal('Updated', 'The contact has been updated.', 'success'))
-          .then(response => response.json())
-          .then(json => {
-            this.$set(this.contacts, this.editId, Object.assign({}, json.Attributes))
-          }) // fix this.editid to contactid
-        this.$refs.largeModal.cancel()
-      } catch (e) {
-        alert('')
-        swal('Error', 'An error occurred please try again.', 'error')
-      }
-    },
-
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Find the object in this.awardees.contacts array by index and delete it
-    deleteContactRecord () {
-      swal({
-        title: 'Are you sure you want to delete this contact?',
-        text: 'Once deleted, you will not be able to recover this file.',
-        icon: 'warning',
-        buttons: true,
-        dangerMode: true,
-      })
-        .then((willDelete) => {
-          if (willDelete) {
-            try {
-              fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/contact/${this.contact.id}`, {
-                method: 'DELETE',
-              }).then(swal('Deleted', 'The contact has been deleted.', 'success'))
-              this.contacts.splice(this.editId, 1)
-              this.$refs.largeModal.cancel()
-            } catch (e) {
-              swal('Error', "I'm sorry there was an issue trying to delete that contact,please try again later.", 'error')
-            }
-          } else {
-            swal('Cancelled', 'You have chosen not to delete the contact.', 'warning')
-          }
-        })
-    },
-
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     // Loop through this.tryke object and reset all items to null string
     addNewTrykeRecord () {
       for (var key in this.tryke) {
@@ -1301,8 +1003,8 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    let awardeeId = sessionStorage.getItem('awardee-id')
-    if (awardeeId === null) {
+    this.awardeeId = sessionStorage.getItem('awardee-id')
+    if (this.awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
     } else {
@@ -1315,22 +1017,12 @@ export default {
         this.showCheckBox = false
       }
       try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + awardeeId)
-          .then(response => response.json())
-          .then(json => {
-            this.awardee = json.Item
-          })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/contacts`)
-          .then(response => response.json())
-          .then(json => {
-            this.contacts = json.Items
-          })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/trykes`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.awardeeId}/trykes`)
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items
           })
-        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${awardeeId}/documents`)
+        fetch(`https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/${this.awardeeId}/documents`)
           .then(response => response.json())
           .then(json => {
             this.documents = json.Items
@@ -1345,8 +1037,18 @@ export default {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   components: {
+    AwardeeInput,
+    EditContactTable,
+    EditTrykeTable,
+    EditUploadTable
   }
 
 }
 
 </script>
+
+<style>
+html {
+  overflow-y: scroll;
+}
+</style>

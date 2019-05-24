@@ -65,7 +65,6 @@ export default {
     // Emitter - Delete Contact From Contacts Array
     deleteDocumentRow (editId) {
       this.documents.splice(this.editId, 1)
-      this.$emit('addDocumentsToAwardee', this.documents)
       this.showModal = false
     },
     // Pop Modal Open And Set Props {For Add Contact}

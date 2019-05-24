@@ -79,6 +79,7 @@ export default {
     // Emitter - Delete Contact From Contacts Array
     deleteTrykeRow (editId) {
       this.trykes.splice(editId, 1)
+      this.$emit('addTrykesToAwardee', this.trykes)
       this.showModal = false
     },
     // Pop Modal Open And Set Props {For Add Contact}

@@ -102,7 +102,7 @@ export default {
   },
   created () {
     if (localStorage.getItem('email') !== null) {
-      this.$router.push({ name: 'view-awardees' })
+      this.$router.push({ name: 'view-awardees' }) // Check if authenticated then redirect
     }
   }
 }

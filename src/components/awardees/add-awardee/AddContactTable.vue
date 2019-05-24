@@ -80,6 +80,7 @@ export default {
     // Emitter - Delete Contact From Contacts Array
     deleteContactRow (editId) {
       this.contacts.splice(editId, 1)
+      this.$emit('addContactsToAwardee', this.contacts)
       this.showModal = false
     },
     // Pop Modal Open And Set Props {For Add Contact}
