@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal
+        <b-modal v-if="IsDisabled"
         @hide="handleCloseModal()"
         ok-title="Save"
         cancel-title="Delete"
@@ -10,16 +10,18 @@
         size="xl"
         title="Add/Edit Document"
         >
-        <div class="form-group">
 
+        <div class="form-group">
           <!-- Notes -->
-          <div  class="input-group">
+          <div class="input-group">
             <input id="simple-input" v-model="document.notes" required/>
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
         </div>
-
-        <div class="hello" id="imageDiv">
+        <div v-if="document.url !== null">
+          <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
+        </div>
+        <div class="hello" id="imageDiv" v-if="document.url === null">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
@@ -33,23 +35,27 @@
           <a :href="uploadURL">{{ uploadURL }}</a>
         </div>
 
+      </b-modal>
+
+      <b-modal v-if="!IsDisabled"
+      @hide="handleCloseModal()"
+      ok-title="Close"
+      ok-only
+      v-model="showModal"
+      size="xl"
+      title="View Document"
+      >
         <div class="form-group">
 
-          <div class="input-group">
-            <a id="imageLink" v-bind:href="document.url" target="_blank" style="display:none;color:black">{{document.url}}</a>
-            <label class="control-label" for="imageLink">Link</label><i class="bar"></i>
+          <!-- Notes -->
+          <div  class="input-group">
+            <input readonly   id="simple-input" v-model="document.notes" required/>
+            <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
-
         </div>
-
-          <div class="row"  style="margin-top:10px">
-            <div class="col-md-3">
-              <button id="btnUpdate" style="display:none" class="btn btn-primary btn-micro" @click="updateDocumentItem">Update</button>
-            </div>
-            <div class="col-md-3">
-              <button id="btnDelete" style="display:none" class="btn btn-danger btn-micro" @click="deleteDocumentRow">Delete</button>
-            </div>
-          </div>
+        <div>
+          <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
+        </div>
 
       </b-modal>
     </div>
@@ -57,14 +63,13 @@
 
 <script>
 import axios from 'axios'
-import swal from 'sweetalert'
-const MAX_IMAGE_SIZE = 5000000
 
 export default {
   name: 'DocumentModal',
-  props: ['modalTitle', 'displayMode', 'editDocument', 'editId'],
+  props: ['modalTitle', 'displayMode', 'editDocument', 'editId', 'IsDisabled', 'awardeeId'],
   data () {
     return {
+      URL: '',
       show: true,
       showModal: false,
       documentModalTitle: '',
@@ -93,20 +98,12 @@ export default {
       this.$emit('sendDocumentData', this.document)
     },
     updateDocumentItem () {
-      fetch(`${URL}/Test/document/${this.document.documentId}`, {
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        method: 'PATCH',
-        body: JSON.stringify(this.document.notes)
-      })
       this.showModal = false
       this.$emit('updateDocumentItem', this.document)
     },
     deleteDocumentRow () {
-      fetch(`${URL}/Test/document/${this.document.documentId}`, {
-        method: 'DELETE',
-      })
       this.showModal = false
-      this.$emit('deleteContactRow', this.editId)
+      this.$emit('deleteDocumentRow', this.editId)
     },
     onFileChange (e) {
       let files = e.target.files || e.dataTransfer.files
@@ -117,12 +114,13 @@ export default {
       // var image = new Image()
       let reader = new FileReader()
       reader.onload = (e) => {
+        /*
         if (!e.target.result.includes('data:image/jpeg') && !e.target.result.includes('application/pdf')) {
           return alert('Wrong file type - JPG or PDF only.')
         }
         if (e.target.result.length > MAX_IMAGE_SIZE) {
           return alert('Image is loo large - 5MB maximum')
-        }
+        } */
         this.image = e.target.result
       }
       reader.readAsDataURL(file)
@@ -134,7 +132,7 @@ export default {
       // Get the presigned URL
       const response = await axios({
         method: 'GET',
-        url: 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/awardee/' + this.$route.params.id + '/upload'
+        url: `${this.URL}/Test/awardee/${this.awardeeId}/upload`
       })
       let binary = atob(this.image.split(',')[1])
       let array = []
@@ -149,36 +147,23 @@ export default {
       })
       // Final URL for the user doesn't need the query string params
       this.uploadURL = data.uploadURL.split('?')[0]
-      this.document.awardeeId = this.awardee.id
+      this.document.awardeeId = this.awardeeId
       this.document.url = this.uploadURL
-
-      try {
-        fetch('https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test/document', {
-          method: 'POST',
-          body: JSON.stringify(this.document)
-        }).then(swal('Added', 'The document has been added.', 'success'))
-          .then(response => response.json())
-          .then(json => {
-            this.documents.push(Object.assign({}, json.Attributes))
-          })
-        this.$refs.largeModal.cancel()
-      } catch (e) {
-        swal('Error', 'There was an error adding that document, please try again.', 'error')
-      }
     },
     clear (field) {
       this[field] = ''
     },
   },
   created () {
+    this.URL = this.API_URL
     setTimeout(() => {
       this.showModal = true
 
       if (this.displayMode === 'EDIT') {
-        this.document.awardeeId = this.editContact.awardeeId
-        this.document.documentId = this.editdocument.documentId
-        this.document.url = this.editdocument.url
-        this.document.notes = this.editdocument.notes
+        this.document.awardeeId = this.editDocument.awardeeId
+        this.document.documentId = this.editDocument.documentId
+        this.document.url = this.editDocument.url
+        this.document.notes = this.editDocument.notes
       }
     }, 100)
   }
