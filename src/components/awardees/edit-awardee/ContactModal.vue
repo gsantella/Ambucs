@@ -93,7 +93,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" v-show="false">
                 <!-- Make Is Primary -->
                 <div class="flex md6">
                     <vuestic-checkbox
@@ -199,7 +199,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" v-show="false">
                 <div class="flex md6">
                     <vuestic-checkbox
                       :label="'Set Primary Contact'"

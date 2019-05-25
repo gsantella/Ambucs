@@ -99,8 +99,6 @@ export default {
     },
     // Pop Modal Open And Set Props {For Add Document}
     addNewDocumentRow () {
-      for (var key in this.document) { this.document[key] = '' }
-
       this.displayMode = 'ADD'
       this.modalTitle = 'Add Document'
       this.showModal = true

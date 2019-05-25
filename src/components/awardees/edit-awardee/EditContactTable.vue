@@ -136,8 +136,6 @@ export default {
     },
     // Pop Modal Open And Set Props {For Add Contact}
     addNewContactRow () {
-      for (var key in this.contact) { this.contact[key] = '' }
-
       this.displayMode = 'ADD'
       this.modalTitle = 'Add Contact'
       this.showModal = true

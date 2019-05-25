@@ -138,8 +138,6 @@ export default {
     },
     // Pop Modal Open And Set Props {For Add Contact}
     addNewTrykeRow () {
-      for (var key in this.tryke) { this.tryke[key] = '' }
-
       this.displayMode = 'ADD'
       this.modalTitle = 'Add Tryke'
       this.showModal = true
