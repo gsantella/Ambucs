@@ -10,7 +10,7 @@
         <br style="margin:10%"/>
         <AddTrykeTable @addTrykesToAwardee="addTrykesToAwardee"/>
         <br style="margin:10%"/>
-        <AddUploadTable @addDocumentsToAwardee="addDocumentsToAwardee"/>
+        <!--<AddUploadTable @addDocumentsToAwardee="addDocumentsToAwardee"/>-->
       </div>
 
     </div>

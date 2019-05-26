@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-if="IsDisabled"
+        <b-modal
         @hide="handleCloseModal()"
         ok-title="Save"
         cancel-title="Delete"
@@ -18,10 +18,10 @@
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
         </div>
-        <div v-if="document.url !== null">
+        <div v-if="document !== ''">
           <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
         </div>
-        <div class="hello" id="imageDiv" v-if="document.url === null">
+        <div class="hello" id="imageDiv" v-if="document.url === ''">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
@@ -37,27 +37,6 @@
 
       </b-modal>
 
-      <b-modal v-if="!IsDisabled"
-      @hide="handleCloseModal()"
-      ok-title="Close"
-      ok-only
-      v-model="showModal"
-      size="xl"
-      title="View Document"
-      >
-        <div class="form-group">
-
-          <!-- Notes -->
-          <div  class="input-group">
-            <input readonly   id="simple-input" v-model="document.notes" required/>
-            <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
-          </div>
-        </div>
-        <div>
-          <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
-        </div>
-
-      </b-modal>
     </div>
 </template>
 
@@ -164,6 +143,11 @@ export default {
         this.document.documentId = this.editDocument.documentId
         this.document.url = this.editDocument.url
         this.document.notes = this.editDocument.notes
+      } else {
+        this.document.awardeeId = ''
+        this.document.documentId = ''
+        this.document.url = ''
+        this.document.notes = ''
       }
     }, 100)
   }

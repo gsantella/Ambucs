@@ -12,7 +12,7 @@
         :IsDisabled="IsDisabled"
         :awardeeId="awardeeId"/>
 
-        <button v-if="IsDisabled" style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewDocumentRow()">
+        <button style="float:right;margin:10px;width:30%" class="btn btn-primary btn-micro" @click="addNewDocumentRow()">
             {{'Add' | translate}}
         </button>
         <vuestic-widget headerText="Documents" style="margin-bottom:5px" />
