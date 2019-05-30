@@ -18,10 +18,10 @@
             <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
           </div>
         </div>
-        <div v-if="document.url !== null">
+        <div v-if="document.url !== ''">
           <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
         </div>
-        <div class="hello" id="imageDiv" v-if="document.url === null">
+        <div class="hello" id="imageDiv" v-if="document.url === ''">
           <div v-if="!image">
             <h2>Select an image</h2>
             <input type="file" @change="onFileChange">
@@ -158,7 +158,6 @@ export default {
     this.URL = this.API_URL
     setTimeout(() => {
       this.showModal = true
-
       if (this.displayMode === 'EDIT') {
         this.document.awardeeId = this.editDocument.awardeeId
         this.document.documentId = this.editDocument.documentId

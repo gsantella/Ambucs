@@ -196,7 +196,7 @@ export default {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    this.awardeeId = sessionStorage.getItem('awardee-id')
+    this.awardeeId = localStorage.getItem('awardee-id')
     if (this.awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })

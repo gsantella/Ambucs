@@ -4,7 +4,7 @@
       <div class="col-md-12">
           <div style="margin-bottom:15px;float:right"
           class="flex sm6 lg6 xl3 justify--center">
-            <button class="btn btn-primary" @click="addUser()" >
+            <button class="btn btn-primary btn-micro" @click="addUser()" >
               {{'New User' | translate}}
             </button>
           </div>

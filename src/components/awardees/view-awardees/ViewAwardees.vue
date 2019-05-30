@@ -86,7 +86,17 @@ export default {
       fields: [
         { key: 'firstName', label: 'First Name', sortable: true },
         { key: 'lastName', label: 'Last Name', sortable: true },
-        { key: 'addressCity', label: 'City', sortable: true }
+        { key: 'addressCity', label: 'City', sortable: true },
+        { key: 'address1', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'address2', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'addressState', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'addressZip', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'dateCreated', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'dateOfBirth', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'id', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'lastContacted', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'phone', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
+        { key: 'timestampCreated', label: '', thClass: 'd-none', tdClass: 'd-none', sortable: true },
       ],
       currentPage: 1,
       perPage: 20,
@@ -119,7 +129,7 @@ export default {
       this.city = ''
     },
     clickList (item) {
-      sessionStorage.setItem('awardee-id', item.id)
+      localStorage.setItem('awardee-id', item.id)
       this.$router.push({ name: 'edit-awardee', params: { id: item.id } })
     },
     newAwardee () {

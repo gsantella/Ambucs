@@ -134,7 +134,7 @@ export default {
       })
         .then((willDelete) => {
           if (willDelete) {
-            swal('Deleted', 'The user has been deleted.', 'success')
+            swal('Cancelled', 'The user has been cancelled.', 'success')
             this.$router.push({ name: 'view-users' })
           } else {
             swal('Cancelled', 'You have chosen not to delete the user.', 'warning')

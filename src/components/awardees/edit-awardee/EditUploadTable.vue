@@ -78,7 +78,7 @@ export default {
       fetch(`${this.URL}/Test/document/${document.documentId}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         method: 'PATCH',
-        body: JSON.stringify(document.notes)
+        body: JSON.stringify({ notes: document.notes })
       }).then(swal('Update', 'The document has been updated.', 'success'))
         .then(() => {
           this.$set(this.documents, this.editId, Object.assign({}, document))

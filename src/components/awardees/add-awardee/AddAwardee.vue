@@ -112,7 +112,7 @@ export default {
           if (willDelete) {
             try {
               swal('Deleted', 'The record has been deleted.', 'success')
-              // this.$router.push({ name: 'view-awardees' })
+              this.$router.push({ name: 'view-awardees' })
             } catch (e) {
               swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
             }
