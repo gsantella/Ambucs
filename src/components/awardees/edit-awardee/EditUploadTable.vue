@@ -59,7 +59,7 @@ export default {
     // Emitter - Add Document To Documents Array
     addDataToDocumentsArray (document) {
       try {
-        fetch(`${this.URL}/Test/document`, {
+        fetch(`${this.URL}/document`, {
           method: 'POST',
           body: JSON.stringify(document)
         }).then(swal('Added', 'The document has been added.', 'success'))
@@ -75,7 +75,7 @@ export default {
     },
     // Emitter - Update Document In Documents Array
     updateDocumentItem (document) {
-      fetch(`${this.URL}/Test/document/${document.documentId}`, {
+      fetch(`${this.URL}/document/${document.documentId}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         method: 'PATCH',
         body: JSON.stringify({ notes: document.notes })
@@ -88,7 +88,7 @@ export default {
     },
     // Emitter - Delete Document From Documents Array
     deleteDocumentRow (editId) {
-      fetch(`${this.URL}/Test/document/${this.document.documentId}`, {
+      fetch(`${this.URL}/document/${this.document.documentId}`, {
         method: 'DELETE',
       }).then(swal('Deleted', 'The document has been deleted.', 'success'))
         .then(() => {
@@ -115,7 +115,7 @@ export default {
   created () {
     this.URL = this.API_URL
     this.awardeeId = localStorage.getItem('awardee-id')
-    fetch(`${this.URL}/Test/awardee/${this.awardeeId}/documents`)
+    fetch(`${this.URL}/awardee/${this.awardeeId}/documents`)
       .then(response => response.json())
       .then(json => {
         this.documents = json.Items

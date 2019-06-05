@@ -167,7 +167,7 @@ export default {
     this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
     this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
     try {
-      fetch(`${this.URL}/Test`)
+      fetch(`${this.URL}`)
         .then(response => response.json())
         .then(json => {
           this.itemList = json

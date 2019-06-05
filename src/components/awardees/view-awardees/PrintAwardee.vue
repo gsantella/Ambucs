@@ -225,17 +225,17 @@ export default {
       this.$router.push({ name: 'view-awardees' })
     } else {
       try {
-        fetch(`${this.URL}/Test/awardee/${awardeeId}`)
+        fetch(`${this.URL}/awardee/${awardeeId}`)
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
           })
-        fetch(`${this.URL}/Test/awardee/${awardeeId}/contacts`)
+        fetch(`${this.URL}/awardee/${awardeeId}/contacts`)
           .then(response => response.json())
           .then(json => {
             this.contacts = json.Items
           })
-        fetch(`${this.URL}/Test/awardee/${awardeeId}/trykes`)
+        fetch(`${this.URL}/awardee/${awardeeId}/trykes`)
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items

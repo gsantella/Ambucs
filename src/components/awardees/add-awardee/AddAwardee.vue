@@ -70,21 +70,21 @@ export default {
     addRecord () {
       this.submitted = true
       try {
-        fetch(`${this.URL}/Test`, {
+        fetch(`${this.URL}`, {
           method: 'POST',
           body: JSON.stringify(this.awardee)
         }).then(response => response.json())
           .then(json => {
             this.contacts.forEach(element => {
               element.awardeeId = json.Attributes.id
-              fetch(`${this.URL}/Test/contact`, {
+              fetch(`${this.URL}/contact`, {
                 method: 'POST',
                 body: JSON.stringify(element)
               })
             })
             this.trykes.forEach(element => {
               element.awardeeId = json.Attributes.id
-              fetch(`${this.URL}/Test/tryke`, {
+              fetch(`${this.URL}/tryke`, {
                 method: 'POST',
                 body: JSON.stringify(element)
               })

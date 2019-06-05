@@ -95,7 +95,7 @@ export default {
   },
   created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/Test/user`)
+    fetch(`${this.URL}/user`)
       .then(response => response.json())
       .then(json => {
         this.users = json.Users

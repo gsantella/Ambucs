@@ -111,7 +111,7 @@ export default {
       // Get the presigned URL
       const response = await axios({
         method: 'GET',
-        url: `${this.URL}/Test/awardee/${this.awardeeId}/upload`
+        url: `${this.URL}/awardee/${this.awardeeId}/upload`
       })
       let binary = atob(this.image.split(',')[1])
       let array = []

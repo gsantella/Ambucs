@@ -114,7 +114,7 @@ export default {
         'writeAwardeePerm2': this.user.writeAwardeePermission.toString(),
         'writeUserPerm2': this.user.writeUserPermission.toString()
       }
-      fetch(`${this.URL}/Test/user/${this.passedUser.Username}`, {
+      fetch(`${this.URL}/user/${this.passedUser.Username}`, {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         method: 'PATCH',
         body: JSON.stringify(attrObject)
@@ -136,7 +136,7 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch(`${this.URL}/Test/user/${this.user.uuid}`, {
+              fetch(`${this.URL}/user/${this.user.uuid}`, {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The User has been deleted.', 'success'))
               this.$store.commit('setLoading', true)

@@ -79,7 +79,7 @@ export default {
     addDataToTrykesArray (tryke) {
       try {
         tryke.awardeeId = this.awardeeId
-        fetch(`${this.URL}/Test/tryke`, {
+        fetch(`${this.URL}/tryke`, {
           method: 'POST',
           body: JSON.stringify(tryke)
         }).then(response => response.json())
@@ -96,7 +96,7 @@ export default {
     // Emitter - Update Contact In Contacts Array
     updateTrykeItem (tryke) {
       try {
-        fetch(`${this.URL}/Test/tryke/${tryke.trykeId}`, {
+        fetch(`${this.URL}/tryke/${tryke.trykeId}`, {
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           method: 'PATCH',
           body: JSON.stringify(tryke)
@@ -122,7 +122,7 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch(`${this.URL}/Test/tryke/${this.tryke.trykeId}`, {
+              fetch(`${this.URL}/tryke/${this.tryke.trykeId}`, {
                 method: 'DELETE',
               }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
               this.trykes.splice(editId, 1)
@@ -153,7 +153,7 @@ export default {
   },
   created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/Test/awardee/${this.awardeeId}/trykes`)
+    fetch(`${this.URL}/awardee/${this.awardeeId}/trykes`)
       .then(response => response.json())
       .then(json => {
         this.trykes = json.Items

@@ -209,7 +209,7 @@ export default {
   },
   created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/Test/awardee/${this.awardeeId}`)
+    fetch(`${this.URL}/awardee/${this.awardeeId}`)
       .then(response => response.json())
       .then(json => {
         this.awardee = json.Item

@@ -131,7 +131,7 @@ export default {
     // Attemps to make a PATCH request to AWS sending up this.awardee to get updated
     updateRecord () {
       try {
-        fetch(`${this.URL}/Test/awardee/${this.$route.params.id}`, {
+        fetch(`${this.URL}/awardee/${this.$route.params.id}`, {
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           method: 'PATCH',
           body: JSON.stringify(this.awardee)
@@ -157,24 +157,24 @@ export default {
           if (willDelete) {
             try {
               this.contacts.forEach(element => {
-                fetch(`${this.URL}/Test/contact/${element.id}`, {
+                fetch(`${this.URL}/contact/${element.id}`, {
                   method: 'DELETE',
                 })
               })
 
               this.trykes.forEach(element => {
-                fetch(`${this.URL}/Test/tryke/${element.id}`, {
+                fetch(`${this.URL}/tryke/${element.id}`, {
                   method: 'DELETE',
                 })
               })
 
               this.documents.forEach(element => {
-                fetch(`${this.URL}/Test/document/${element.documentId}`, {
+                fetch(`${this.URL}/document/${element.documentId}`, {
                   method: 'DELETE',
                 })
               })
 
-              fetch(`${this.URL}/Test/awardee/${this.$route.params.id}`, {
+              fetch(`${this.URL}/awardee/${this.$route.params.id}`, {
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 

@@ -76,7 +76,7 @@ export default {
     addDataToContactsArray (contact) {
       try {
         contact.awardeeId = this.awardeeId
-        fetch(`${this.URL}/Test/contact`, {
+        fetch(`${this.URL}/contact`, {
           method: 'POST',
           body: JSON.stringify(contact)
         }).then(response => response.json())
@@ -93,7 +93,7 @@ export default {
     // Emitter - Update Contact In Contacts Array
     updateContactItem (contact) {
       try {
-        fetch(`${this.URL}/Test/contact/${contact.contactId}`, {
+        fetch(`${this.URL}/contact/${contact.contactId}`, {
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           method: 'PATCH',
           body: JSON.stringify(contact)
@@ -119,7 +119,7 @@ export default {
         .then((willDelete) => {
           if (willDelete) {
             try {
-              fetch(`${this.URL}/Test/contact/${this.contact.contactId}`, {
+              fetch(`${this.URL}/contact/${this.contact.contactId}`, {
                 method: 'DELETE',
               }).then(() => {
                 this.contacts.splice(editId, 1)
@@ -151,7 +151,7 @@ export default {
   },
   created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/Test/awardee/${this.awardeeId}/contacts`)
+    fetch(`${this.URL}/awardee/${this.awardeeId}/contacts`)
       .then(response => response.json())
       .then(json => {
         this.contacts = json.Items
