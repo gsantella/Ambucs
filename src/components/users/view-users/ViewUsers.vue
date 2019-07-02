@@ -50,6 +50,8 @@ import FilterBar
 import VuesticSimpleSelect
   from '@/vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 
+import { Auth } from 'aws-amplify'
+
 export default {
   name: 'ViewUsers',
   data () {
@@ -93,9 +95,13 @@ export default {
       this.$router.push({ name: 'new-user' })
     }
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/user`)
+    fetch(`${this.URL}/user`, {
+      headers: new Headers({
+        'Authorization': `Bearer ${(await Auth.currentSession()).idToken.jwtToken}`
+      })
+    })
       .then(response => response.json())
       .then(json => {
         this.users = json.Users

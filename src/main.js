@@ -21,7 +21,7 @@ Vue.use(VuesticPlugin)
 Vue.use(BootstrapVue)
 
 // Global Variable for API URL
-Vue.prototype.API_URL = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/test'
+Vue.prototype.API_URL = 'https://4ezbmsi1wg.execute-api.us-east-1.amazonaws.com/Test'
 
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
