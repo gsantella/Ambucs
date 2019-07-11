@@ -32,11 +32,14 @@
         <div class="form-group">
            <!-- Date of Application -->
           <div class="input-group">
-            <vuestic-date-picker
+            <input type="date"
+                v-model="tryke.dateReceived"
+            />
+            <!--<vuestic-date-picker
               id="date-picker-custom-date-format"
               :config="{altInput: true, altFormat: 'F j, Y'}"
               v-model="tryke.dateReceived"
-            />
+            />-->
             <label class="control-label" for="date-picker-custom-date-format">
               Date of Application
             </label>
@@ -45,11 +48,14 @@
 
           <!-- Date Awarded -->
           <div class="input-group">
-            <vuestic-date-picker
+            <input type="date"
+                v-model="tryke.dateAwarded"
+            />
+            <!--<vuestic-date-picker
               id="date-picker-custom-date-format"
               :config="{altInput: true, altFormat: 'F j, Y'}"
               v-model="tryke.dateAwarded"
-            />
+            />-->
             <label class="control-label" for="date-picker-custom-date-format">
               Date Awarded
             </label>

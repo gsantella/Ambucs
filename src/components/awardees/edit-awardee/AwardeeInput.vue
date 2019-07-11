@@ -72,12 +72,16 @@
 
             <!-- Last Contacted -->
             <div v-if="IsDisabled" class="input-group">
-              <vuestic-date-picker
+              <input type="date"
+                v-model="awardee.lastContacted"
+                @change="awardeeObject"
+              />
+              <!--<vuestic-date-picker
                 id="date-picker-custom-date-format"
                 :config="{altInput: true, altFormat: 'F j, Y'}"
                 v-model="awardee.lastContacted"
                 @change="awardeeObject"
-              />
+              />-->
               <label class="control-label" for="date-picker-custom-date-format">
                 Last Contacted
               </label>
