@@ -170,6 +170,7 @@ export default {
       .then(response => response.json())
       .then(json => {
         this.contacts = json.Items
+        this.$parent.contacts = json.Items
       })
   },
   components: {

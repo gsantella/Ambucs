@@ -161,7 +161,7 @@ export default {
           if (willDelete) {
             try {
               this.contacts.forEach(element => {
-                fetch(`${this.URL}/contact/${element.id}`, {
+                fetch(`${this.URL}/contact/${element.contactId}`, {
                   headers: new Headers({
                     'Authorization': `Bearer ${this.TOKEN}`
                   }),
@@ -170,7 +170,7 @@ export default {
               })
 
               this.trykes.forEach(element => {
-                fetch(`${this.URL}/tryke/${element.id}`, {
+                fetch(`${this.URL}/tryke/${element.trykeId}`, {
                   headers: new Headers({
                     'Authorization': `Bearer ${this.TOKEN}`
                   }),

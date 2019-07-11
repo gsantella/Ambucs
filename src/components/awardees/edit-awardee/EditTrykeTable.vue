@@ -173,6 +173,7 @@ export default {
       .then(response => response.json())
       .then(json => {
         this.trykes = json.Items
+        this.$parent.trykes = json.Items
       })
   },
   components: {

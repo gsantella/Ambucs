@@ -15,7 +15,7 @@
           <!-- Notes -->
           <div class="input-group">
             <input id="simple-input" v-model="document.notes" required/>
-            <label class="control-label" for="simple-input">Notes</label><i class="bar"></i>
+            <label class="control-label" for="simple-input">Description</label><i class="bar"></i>
           </div>
         </div>
         <div v-if="document.url !== ''">
