@@ -217,7 +217,7 @@ export default {
   async created () {
     this.URL = this.API_URL
     this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
-    console.log(this.awardeeId)
+
     fetch(`${this.URL}/awardee/${this.awardeeId}`, {
       headers: new Headers({
         'Authorization': `Bearer ${this.TOKEN}`
