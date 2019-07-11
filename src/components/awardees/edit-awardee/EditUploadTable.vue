@@ -19,14 +19,12 @@
         <table class="table table-striped first-td-padding">
             <thead>
                 <tr>
-                  <td>Notes</td>
-                  <td>Url</td>
+                  <td>Description</td>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item,index) in documents" :key="item.documentId" @click="displayModal(item,index,3)">
                 <td>{{ item.notes }}</td>
-                <td>{{ item.url }}</td>
                 </tr>
             </tbody>
         </table>
@@ -36,7 +34,7 @@
 <script>
 import UploadsModal from './UploadsModal'
 import swal from 'sweetalert'
-import { Auth } from 'aws-amplify'
+import { Auth, Storage } from 'aws-amplify'
 
 export default {
   name: 'AddUploadTable',
@@ -97,16 +95,40 @@ export default {
     },
     // Emitter - Delete Document From Documents Array
     deleteDocumentRow (editId) {
-      fetch(`${this.URL}/document/${this.document.documentId}`, {
-        headers: new Headers({
-          'Authorization': `Bearer ${this.TOKEN}`
-        }),
-        method: 'DELETE',
-      }).then(swal('Deleted', 'The document has been deleted.', 'success'))
-        .then(() => {
-          this.documents.splice(this.editId, 1)
-          this.showModal = false
-          this.$emit('updateDocumentsInAwardee', this.documents)
+      swal({
+        title: 'Are you sure you want to delete this document?',
+        text: 'Once deleted, you will not be able to recover this file.',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            try {
+              swal('Deleted', 'The record has been deleted.', 'success')
+
+              fetch(`${this.URL}/document/${this.document.documentId}`, {
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`
+                }),
+                method: 'DELETE',
+              })
+                .then(() => {
+                  Storage.remove(this.document.url)
+                    .then(result => console.log(result))
+                })
+                .then(swal('Deleted', 'The document has been deleted.', 'success'))
+                .then(() => {
+                  this.documents.splice(this.editId, 1)
+                  this.showModal = false
+                  this.$emit('updateDocumentsInAwardee', this.documents)
+                })
+            } catch (e) {
+              swal('Error', "I'm sorry there was an issue trying to delete that record,please try again later.", 'error')
+            }
+          } else {
+            swal('Cancelled', 'You have chosen not to delete the record.', 'warning')
+          }
         })
     },
     // Pop Modal Open And Set Props {For Add Document}

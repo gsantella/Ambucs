@@ -162,8 +162,14 @@ export default {
     }
   },
   async created () {
+    // console.log(Auth.currentSession())
+
+    await Auth.currentSession()
+      .then(data => { this.TOKEN = data.idToken.jwtToken })
+      .catch(err => console.log(err))
+
     this.URL = this.API_URL
-    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
+    // this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     this.User.email = localStorage.getItem('email')
     this.User.password = localStorage.getItem('pass')
     this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'

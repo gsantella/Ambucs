@@ -19,7 +19,7 @@
           </div>
         </div>
         <div v-if="document.url !== ''">
-          <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
+          <button @click="download(document)">download</button>
         </div>
         <div class="hello" id="imageDiv" v-if="document.url === ''">
           <div v-if="!image">
@@ -54,8 +54,7 @@
           </div>
         </div>
         <div>
-          <button @click="download">download</button>
-          <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
+          <button @click="download(document)">download {{ document.url }}</button>
         </div>
 
       </b-modal>
@@ -86,9 +85,8 @@ export default {
     }
   },
   methods: {
-    download () {
-      console.log('downloading')
-      Storage.get('LaptopPhoto1.jpg')
+    download (document) {
+      Storage.get(document.url)
         // .then(result => console.log(result))
         .then(result => window.open(result, '_blank'))
         .catch(err => console.log(err))
@@ -121,13 +119,18 @@ export default {
 
       const file = e.target.files[0]
       console.log(file)
-      Storage.put(file.name, file, {
+      let objectName = Math.random() * 999999999
+
+      this.document.url = objectName
+      this.document.awardeeId = this.awardeeId
+
+      Storage.put(objectName, file, {
         contentType: file.type,
         progressCallback (progress) {
           console.log(`Uploaded: ${progress.loaded}/${progress.total}`)
         }
       })
-        .then(result => console.log(result))
+        .then(result => console.log(result.key))
         .catch(err => console.log(err))
     },
     createImage (file) {
