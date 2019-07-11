@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'DocumentModal',
@@ -49,6 +49,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       show: true,
       showModal: false,
       documentModalTitle: '',
@@ -109,7 +110,7 @@ export default {
     },
     uploadImage: async function (e) {
       // Get the presigned URL
-      const response = await axios({
+      /* const response = await axios({
         method: 'GET',
         url: `${this.URL}/awardee/${this.awardeeId}/upload`
       })
@@ -121,20 +122,24 @@ export default {
       let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
       let data = JSON.parse(response.data.body)
       await fetch(data.uploadURL, {
+        headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`,
+        }),
         method: 'PUT',
         body: blobData
       })
       // Final URL for the user doesn't need the query string params
       this.uploadURL = data.uploadURL.split('?')[0]
       this.document.awardeeId = this.awardeeId
-      this.document.url = this.uploadURL
+      this.document.url = this.uploadURL */
     },
     clear (field) {
       this[field] = ''
     },
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     setTimeout(() => {
       this.showModal = true
 

@@ -37,12 +37,14 @@ import AwardeeInput from './AwardeeInput'
 import AddContactTable from './AddContactTable'
 import AddTrykeTable from './AddTrykeTable'
 import AddUploadTable from './AddUploadTable'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'AddAwardee',
   data () {
     return {
       URL: '',
+      TOKEN: '',
       contact: {},
       contacts: [],
       tryke: {},
@@ -72,21 +74,30 @@ export default {
       try {
         fetch(`${this.URL}`, {
           method: 'POST',
-          body: JSON.stringify(this.awardee)
+          body: JSON.stringify(this.awardee),
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          })
         }).then(response => response.json())
           .then(json => {
             this.contacts.forEach(element => {
               element.awardeeId = json.Attributes.id
               fetch(`${this.URL}/contact`, {
                 method: 'POST',
-                body: JSON.stringify(element)
+                body: JSON.stringify(element),
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`
+                })
               })
             })
             this.trykes.forEach(element => {
               element.awardeeId = json.Attributes.id
               fetch(`${this.URL}/tryke`, {
                 method: 'POST',
-                body: JSON.stringify(element)
+                body: JSON.stringify(element),
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`
+                })
               })
             })
           }).then(() => {
@@ -122,8 +133,9 @@ export default {
         })
     }
   },
-  mounted () {
+  async mounted () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
   },
   components: {
     AwardeeInput,

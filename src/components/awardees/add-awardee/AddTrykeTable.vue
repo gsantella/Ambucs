@@ -46,6 +46,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       showModal: false,
       displayMode: '',
       editId: 0,

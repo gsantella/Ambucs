@@ -43,6 +43,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       showModal: false,
       displayMode: '',
       contactModalTitle: '',

@@ -57,6 +57,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       users: [],
       email: '',
       count: 0,
@@ -97,9 +98,10 @@ export default {
   },
   async created () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     fetch(`${this.URL}/user`, {
       headers: new Headers({
-        'Authorization': `Bearer ${(await Auth.currentSession()).idToken.jwtToken}`
+        'Authorization': `Bearer ${this.TOKEN}`
       })
     })
       .then(response => response.json())

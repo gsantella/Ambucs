@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item,index) in trykes" :key="item.id" @click="displayModal(item,index,2)">
+                <tr v-for="(item,index) in orderedByPrimaryTrykes" :key="item.id" @click="displayModal(item,index,2)">
                     <td>{{item.orderNumber}}</td>
                     <td>{{item.model}}</td>
                     <td>{{item.dateReceived}}</td>
@@ -42,6 +42,7 @@
 <script>
 import TrykeModal from './TrykeModal'
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'EditTrykeTable',
@@ -49,6 +50,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       showModal: false,
       displayMode: '',
       editId: 0,
@@ -80,6 +82,9 @@ export default {
       try {
         tryke.awardeeId = this.awardeeId
         fetch(`${this.URL}/tryke`, {
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          }),
           method: 'POST',
           body: JSON.stringify(tryke)
         }).then(response => response.json())
@@ -97,7 +102,10 @@ export default {
     updateTrykeItem (tryke) {
       try {
         fetch(`${this.URL}/tryke/${tryke.trykeId}`, {
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`,
+            'Content-Type': 'application/json; charset=utf-8'
+          }),
           method: 'PATCH',
           body: JSON.stringify(tryke)
         }).then(response => response.json())
@@ -123,6 +131,9 @@ export default {
           if (willDelete) {
             try {
               fetch(`${this.URL}/tryke/${this.tryke.trykeId}`, {
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`
+                }),
                 method: 'DELETE',
               }).then(swal('Deleted', 'The tryke has been deleted.', 'success'))
               this.trykes.splice(editId, 1)
@@ -151,9 +162,14 @@ export default {
       this.showModal = true
     },
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/awardee/${this.awardeeId}/trykes`)
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
+    fetch(`${this.URL}/awardee/${this.awardeeId}/trykes`, {
+      headers: new Headers({
+        'Authorization': `Bearer ${this.TOKEN}`
+      })
+    })
       .then(response => response.json())
       .then(json => {
         this.trykes = json.Items

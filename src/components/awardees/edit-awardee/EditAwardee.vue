@@ -72,11 +72,11 @@
 
 <script>
 import swal from 'sweetalert'
-// import _ from 'lodash'
 import AwardeeInput from './AwardeeInput'
 import EditContactTable from './EditContactTable'
 import EditTrykeTable from './EditTrykeTable'
 import EditUploadTable from './EditUploadTable'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'EditAwardee',
@@ -85,8 +85,9 @@ export default {
 
   data () {
     return {
-      URL: '',
       awardeeId: '',
+      URL: '',
+      TOKEN: '',
       isDisabled: false,
       show: false,
       contact: {},
@@ -132,7 +133,10 @@ export default {
     updateRecord () {
       try {
         fetch(`${this.URL}/awardee/${this.$route.params.id}`, {
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`,
+            'Content-Type': 'application/json; charset=utf-8'
+          }),
           method: 'PATCH',
           body: JSON.stringify(this.awardee)
         }).then(() => {
@@ -158,23 +162,35 @@ export default {
             try {
               this.contacts.forEach(element => {
                 fetch(`${this.URL}/contact/${element.id}`, {
+                  headers: new Headers({
+                    'Authorization': `Bearer ${this.TOKEN}`
+                  }),
                   method: 'DELETE',
                 })
               })
 
               this.trykes.forEach(element => {
                 fetch(`${this.URL}/tryke/${element.id}`, {
+                  headers: new Headers({
+                    'Authorization': `Bearer ${this.TOKEN}`
+                  }),
                   method: 'DELETE',
                 })
               })
 
               this.documents.forEach(element => {
                 fetch(`${this.URL}/document/${element.documentId}`, {
+                  headers: new Headers({
+                    'Authorization': `Bearer ${this.TOKEN}`
+                  }),
                   method: 'DELETE',
                 })
               })
 
               fetch(`${this.URL}/awardee/${this.$route.params.id}`, {
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`
+                }),
                 method: 'DELETE'
               }).then(swal('Deleted', 'The Awardee has been deleted.', 'success'))
 
@@ -191,12 +207,15 @@ export default {
       this.$router.push({ name: 'print-awardee', params: { id: this.$route.params.id } })
     }
   },
-  created () {
+  async created () {
+    this.awardeeId = localStorage.getItem('awardee-id')
+
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
-    this.awardeeId = localStorage.getItem('awardee-id')
+
     if (this.awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
@@ -204,6 +223,15 @@ export default {
       this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
       if (!this.User.writeAwardeePermission) { this.showCheckBox = false }
     }
+
+    /* Storage.get('img.jpg')
+      .then(result => console.log(result))
+      .catch(err => console.log(err));
+
+    Storage.remove('img.jpg')
+      .then(result => console.log(result))
+      .catch(err => console.log(err));
+      */
   },
   components: {
     AwardeeInput,

@@ -25,7 +25,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="(item,index) in contacts" :key="item.id" style="cursor: pointer;" @click="displayModal(item,index)">
+                  <tr v-for="(item,index) in orderedByPrimaryContacts" :key="item.id" style="cursor: pointer;" @click="displayModal(item,index)">
                       <td>{{item.contactType}}</td>
                       <td>{{item.firstName}}</td>
                       <td>{{item.lastName}}</td>
@@ -39,6 +39,7 @@
 <script>
 import ContactModal from './ContactModal'
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'AddContactTable',
@@ -46,6 +47,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       showModal: false,
       displayMode: '',
       contactModalTitle: '',
@@ -77,6 +79,9 @@ export default {
       try {
         contact.awardeeId = this.awardeeId
         fetch(`${this.URL}/contact`, {
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          }),
           method: 'POST',
           body: JSON.stringify(contact)
         }).then(response => response.json())
@@ -94,7 +99,10 @@ export default {
     updateContactItem (contact) {
       try {
         fetch(`${this.URL}/contact/${contact.contactId}`, {
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`,
+            'Content-Type': 'application/json; charset=utf-8'
+          }),
           method: 'PATCH',
           body: JSON.stringify(contact)
         }).then(response => response.json())
@@ -120,6 +128,9 @@ export default {
           if (willDelete) {
             try {
               fetch(`${this.URL}/contact/${this.contact.contactId}`, {
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`
+                }),
                 method: 'DELETE',
               }).then(() => {
                 this.contacts.splice(editId, 1)
@@ -149,9 +160,13 @@ export default {
       this.showModal = true
     }
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/awardee/${this.awardeeId}/contacts`)
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
+    fetch(`${this.URL}/awardee/${this.awardeeId}/contacts`, {
+      headers: new Headers({
+        'Authorization': `Bearer ${this.TOKEN}`
+      }) })
       .then(response => response.json())
       .then(json => {
         this.contacts = json.Items

@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <div class="form-group" v-show="false">
+        <div class="form-group" v-show="true">
           <!-- Make Is Primary -->
           <div class="flex md6">
               <vuestic-checkbox
@@ -94,12 +94,14 @@
 </template>
 
 <script>
+
 export default {
   name: 'TrykeModal',
   props: ['modalTitle', 'displayMode', 'editTryke', 'editId'],
   data () {
     return {
       URL: '',
+      TOKEN: '',
       show: true,
       showModal: false,
       trykeModalTitle: '',
@@ -149,6 +151,7 @@ export default {
 
       if (this.displayMode === 'EDIT') {
         this.tryke.awardeeId = this.editTryke.awardeeId
+        this.tryke.trykeId = this.editTryke.trykeId
         this.tryke.orderNumber = this.editTryke.orderNumber
         this.tryke.model = this.editTryke.model
         this.tryke.dateAwarded = this.editTryke.dateAwarded

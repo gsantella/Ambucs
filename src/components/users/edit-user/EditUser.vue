@@ -81,6 +81,7 @@ import VuesticSimpleSelect
   from '../../../vuestic-theme/vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import { SpringSpinner } from 'epic-spinners'
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'EditUser',
@@ -90,6 +91,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       user: {
         URL: '',
         uuid: '',
@@ -115,7 +117,10 @@ export default {
         'writeUserPerm2': this.user.writeUserPermission.toString()
       }
       fetch(`${this.URL}/user/${this.passedUser.Username}`, {
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`,
+          'Content-Type': 'application/json; charset=utf-8'
+        }),
         method: 'PATCH',
         body: JSON.stringify(attrObject)
       }).then(() => {
@@ -137,6 +142,9 @@ export default {
           if (willDelete) {
             try {
               fetch(`${this.URL}/user/${this.user.uuid}`, {
+                headers: new Headers({
+                  'Authorization': `Bearer ${this.TOKEN}`,
+                }),
                 method: 'DELETE'
               }).then(swal('Deleted', 'The User has been deleted.', 'success'))
               this.$store.commit('setLoading', true)
@@ -150,8 +158,9 @@ export default {
         })
     }
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     window.addEventListener('beforeunload', function (e) {
       e.preventDefault()
       e.returnValue = ''

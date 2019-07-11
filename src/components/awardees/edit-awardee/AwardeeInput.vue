@@ -181,6 +181,8 @@
 </template>
 
 <script>
+import { Auth } from 'aws-amplify'
+
 export default {
   name: 'AwardeeInput',
   props: ['awardeeId', 'IsDisabled', 'HeaderText'],
@@ -192,6 +194,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       awardee: {
         firstName: '',
         lastName: '',
@@ -207,9 +210,15 @@ export default {
       },
     }
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
-    fetch(`${this.URL}/awardee/${this.awardeeId}`)
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
+    console.log(this.awardeeId)
+    fetch(`${this.URL}/awardee/${this.awardeeId}`, {
+      headers: new Headers({
+        'Authorization': `Bearer ${this.TOKEN}`
+      })
+    })
       .then(response => response.json())
       .then(json => {
         this.awardee = json.Item

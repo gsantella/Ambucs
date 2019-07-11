@@ -103,6 +103,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'AwardeeInput',
   methods: {
@@ -113,6 +114,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       awardee: {
         firstName: '',
         lastName: '',

@@ -36,6 +36,8 @@
 <script>
 import UploadsModal from './UploadsModal'
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
+
 export default {
   name: 'AddUploadTable',
   props: ['IsDisabled'],
@@ -43,6 +45,7 @@ export default {
     return {
       awardeeId: '',
       URL: '',
+      TOKEN: '',
       showModal: false,
       displayMode: '',
       modalTitle: '',
@@ -60,6 +63,9 @@ export default {
     addDataToDocumentsArray (document) {
       try {
         fetch(`${this.URL}/document`, {
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          }),
           method: 'POST',
           body: JSON.stringify(document)
         }).then(swal('Added', 'The document has been added.', 'success'))
@@ -76,7 +82,10 @@ export default {
     // Emitter - Update Document In Documents Array
     updateDocumentItem (document) {
       fetch(`${this.URL}/document/${document.documentId}`, {
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`,
+          'Content-Type': 'application/json; charset=utf-8'
+        }),
         method: 'PATCH',
         body: JSON.stringify({ notes: document.notes })
       }).then(swal('Update', 'The document has been updated.', 'success'))
@@ -89,6 +98,9 @@ export default {
     // Emitter - Delete Document From Documents Array
     deleteDocumentRow (editId) {
       fetch(`${this.URL}/document/${this.document.documentId}`, {
+        headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`
+        }),
         method: 'DELETE',
       }).then(swal('Deleted', 'The document has been deleted.', 'success'))
         .then(() => {
@@ -112,10 +124,15 @@ export default {
       this.showModal = true
     },
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     this.awardeeId = localStorage.getItem('awardee-id')
-    fetch(`${this.URL}/awardee/${this.awardeeId}/documents`)
+    fetch(`${this.URL}/awardee/${this.awardeeId}/documents`, {
+      headers: new Headers({
+        'Authorization': `Bearer ${(await Auth.currentSession()).idToken.jwtToken}`
+      })
+    })
       .then(response => response.json())
       .then(json => {
         this.documents = json.Items

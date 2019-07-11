@@ -93,7 +93,7 @@
                 </div>
               </div>
 
-              <div class="form-group" v-show="false">
+              <div class="form-group" v-show="true">
                 <!-- Make Is Primary -->
                 <div class="flex md6">
                     <vuestic-checkbox
@@ -111,12 +111,14 @@
 </template>
 
 <script>
+
 export default {
   name: 'ContactModal',
   props: ['modalTitle', 'displayMode', 'editContact', 'editId'],
   data () {
     return {
       URL: '',
+      TOKEN: '',
       show: true,
       showModal: false,
       contactModalTitle: '',
@@ -170,6 +172,8 @@ export default {
       this.showModal = true
 
       if (this.displayMode === 'EDIT') {
+        this.contact.awardeeId = this.editContact.awardeeId
+        this.contact.contactId = this.editContact.contactId
         this.contact.firstName = this.editContact.firstName
         this.contact.lastName = this.editContact.lastName
         this.contact.email = this.editContact.email

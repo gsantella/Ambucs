@@ -54,6 +54,7 @@
           </div>
         </div>
         <div>
+          <button @click="download">download</button>
           <a target="blank" :href="document.url" style="color:black">{{document.url}}</a>
         </div>
 
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { Auth, Storage } from 'aws-amplify'
 
 export default {
   name: 'DocumentModal',
@@ -70,6 +71,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       show: true,
       showModal: false,
       documentModalTitle: '',
@@ -84,6 +86,13 @@ export default {
     }
   },
   methods: {
+    download () {
+      console.log('downloading')
+      Storage.get('LaptopPhoto1.jpg')
+        // .then(result => console.log(result))
+        .then(result => window.open(result, '_blank'))
+        .catch(err => console.log(err))
+    },
     addUpdate () {
       this.displayMode === 'ADD' ? this.addDocumentToArray() : this.updateDocumentItem()
     },
@@ -106,33 +115,50 @@ export default {
       this.$emit('deleteDocumentRow', this.editId)
     },
     onFileChange (e) {
-      let files = e.target.files || e.dataTransfer.files
+      /* let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
-      this.createImage(files[0])
+      this.createImage(files[0]) */
+
+      const file = e.target.files[0]
+      console.log(file)
+      Storage.put(file.name, file, {
+        contentType: file.type,
+        progressCallback (progress) {
+          console.log(`Uploaded: ${progress.loaded}/${progress.total}`)
+        }
+      })
+        .then(result => console.log(result))
+        .catch(err => console.log(err))
     },
     createImage (file) {
       // var image = new Image()
-      let reader = new FileReader()
-      reader.onload = (e) => {
-        /*
+      // let reader = new FileReader()
+      /* reader.onload = (e) => {
         if (!e.target.result.includes('data:image/jpeg') && !e.target.result.includes('application/pdf')) {
           return alert('Wrong file type - JPG or PDF only.')
         }
         if (e.target.result.length > MAX_IMAGE_SIZE) {
           return alert('Image is loo large - 5MB maximum')
-        } */
+        }
         this.image = e.target.result
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(file) */
     },
     removeImage: function (e) {
       this.image = ''
     },
     uploadImage: async function (e) {
+      console.log(e)
       // Get the presigned URL
-      const response = await axios({
-        method: 'GET',
-        url: `${this.URL}/awardee/${this.awardeeId}/upload`
+      /* let data = '';
+      await fetch(`${this.URL}/awardee/${this.awardeeId}/upload`, {
+        headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`
+        }),
+        method: 'GET'
+      }).then(response => response.json())
+      .then(json => {
+        data = JSON.parse(json.body);
       })
       let binary = atob(this.image.split(',')[1])
       let array = []
@@ -140,22 +166,45 @@ export default {
         array.push(binary.charCodeAt(i))
       }
       let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
-      let data = JSON.parse(response.data.body)
       await fetch(data.uploadURL, {
-        method: 'PUT',
+        /*headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`
+        }), */
+      /* method: 'PUT',
         body: blobData
       })
+      */
+
+      /* let binary = atob(this.image.split(',')[1])
+      let array = []
+      for (var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i))
+      }
+      let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
+
+      Storage.put(`public/${files[0].name}`,
+        files[0],
+        { contentType: files[0].type })
+        .then(result => {
+          this.upload = null
+          console.log('upload successfull')
+        })
+        .catch(err => {
+          console.log('upload failed')
+        })
+
       // Final URL for the user doesn't need the query string params
       this.uploadURL = data.uploadURL.split('?')[0]
       this.document.awardeeId = this.awardeeId
-      this.document.url = this.uploadURL
+      this.document.url = this.uploadURL */
     },
     clear (field) {
       this[field] = ''
     },
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     setTimeout(() => {
       this.showModal = true
       if (this.displayMode === 'EDIT') {

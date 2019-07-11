@@ -204,6 +204,7 @@
 
 <script>
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
 
@@ -212,30 +213,44 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       awardee: {},
       contacts: [],
       trykes: []
     }
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
+    this.TOKEN = this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     let awardeeId = localStorage.getItem('awardee-id')
     if (awardeeId === null) {
       swal('Error', 'That is not a valid user.', 'error')
       this.$router.push({ name: 'view-awardees' })
     } else {
       try {
-        fetch(`${this.URL}/awardee/${awardeeId}`)
+        fetch(`${this.URL}/awardee/${awardeeId}`, {
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          })
+        })
           .then(response => response.json())
           .then(json => {
             this.awardee = json.Item
           })
-        fetch(`${this.URL}/awardee/${awardeeId}/contacts`)
+        fetch(`${this.URL}/awardee/${awardeeId}/contacts`, {
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          })
+        })
           .then(response => response.json())
           .then(json => {
             this.contacts = json.Items
           })
-        fetch(`${this.URL}/awardee/${awardeeId}/trykes`)
+        fetch(`${this.URL}/awardee/${awardeeId}/trykes`, {
+          headers: new Headers({
+            'Authorization': `Bearer ${this.TOKEN}`
+          })
+        })
           .then(response => response.json())
           .then(json => {
             this.trykes = json.Items

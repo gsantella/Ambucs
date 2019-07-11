@@ -61,6 +61,7 @@ import { SpringSpinner } from 'epic-spinners'
 import { cityList, itemList } from './filtersData'
 import _ from 'lodash'
 import swal from 'sweetalert'
+import { Auth } from 'aws-amplify'
 
 export default {
   name: 'ViewAwardees',
@@ -70,6 +71,7 @@ export default {
   data () {
     return {
       URL: '',
+      TOKEN: '',
       User: {
         email: '',
         password: '',
@@ -159,15 +161,20 @@ export default {
       return _.orderBy(this.itemList, 'timestampCreated', ['desc'])
     }
   },
-  created () {
+  async created () {
     this.URL = this.API_URL
+    this.TOKEN = (await Auth.currentSession()).idToken.jwtToken
     this.User.email = localStorage.getItem('email')
     this.User.password = localStorage.getItem('pass')
     this.User.writeAwardeePermission = localStorage.getItem('awardeePerm') === 'true'
     this.User.writeUserPermission = localStorage.getItem('userPerm') === 'true'
     this.User.writeChapterPermission = localStorage.getItem('chapterPerm') === 'true'
     try {
-      fetch(`${this.URL}`)
+      fetch(`${this.URL}`, {
+        headers: new Headers({
+          'Authorization': `Bearer ${this.TOKEN}`
+        })
+      })
         .then(response => response.json())
         .then(json => {
           this.itemList = json
